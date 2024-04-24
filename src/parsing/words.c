@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 13:10:08 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:39:37 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,18 +113,8 @@ static t_list	*input_into_words(char *str)
 	return (words_list);
 }
 
-void	break_into_words(t_list **inputs, char **inputs_array)
+void	break_into_words(t_list **inputs, char *inputs_array)
 {
-	//size_t	i;
-	t_list	*new;
-
-	//i = 0;
-	//while (i < input_nb)
-	//{
-		new = ft_lstnew(input_into_words(inputs_array[0]));
-		ft_lstadd_back(inputs, new);
-		free(inputs_array[0]);
-	//	i++;
-	//}
+	*inputs = input_into_words(inputs_array);
 	free(inputs_array);
 }
