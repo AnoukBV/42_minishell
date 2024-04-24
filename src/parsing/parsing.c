@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 17:14:30 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:05:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,26 @@ static void	check_quote_bis(t_esc *esc_status, char *str)
 		str[i] = '\n';
 		return ;
 	}
+	else if (esc_status->is_quoted == false)
+		return ;
 	else if ((esc_status->is_simplequote == true && str[i] == '\"') || \
 		(esc_status->is_simplequote == false && str[i] == '\''))
-		return ;
-	else if (esc_status->is_quoted == false)
 		return ;
 	esc_status->is_quoted = false ;	
 	str[i] = '\n';
 }
-/*
+
 static char	*trim_quotes(char *str)
 {
 	char	*new;
+	char	**array;
+
+	array = ft_split(str, '\n');
+	new = ft_superjoin(array, NULL);
+	free_array_2d(array);
 	free(str);
 	return (new);
-}*/
+}
 
 static void	*quotes_removal(void *content)
 {
@@ -61,29 +66,38 @@ static void	*quotes_removal(void *content)
 	esc_status.is_quoted = false;
 	while (str[i])
 	{
+		check_quote_bis(&esc_status, &str[i]);
 		if (esc_status.is_quoted == true && esc_status.is_simplequote \
 			== false && str[i] == '$')
 			token->flags += 500;
-		check_quote_bis(&esc_status, &str[i]);
 		i++;
 	}
-	//token->word = trim_quotes(str);
+	token->word = trim_quotes(str);
 	return (token);
 }
 
 void	parsing(char *str, t_list **inputs)
 {
 //	lexer
-	t_list	*tmp;
+	t_list	*head;
+	t_list	*map;
 
 	if (!str)
 		return ;
 	break_into_words(inputs, str); 
 	word_or_operator(inputs);
 	print_unidentified_tokens(*inputs); //DELETE
-	tmp = ft_lstmap(*inputs, &quotes_removal, \
+	head = *inputs;
+	map = ft_lstmap(head, &quotes_removal, \
 		&del_wddesc);
-	print_unidentified_tokens(tmp); //DELETE
+	printf("inputs\n");
+	print_unidentified_tokens(*inputs); //DELETE
+	printf("map\n");
+	print_unidentified_tokens(map); //DELETE
+	ft_lstclear(&map, &del_wddesc);
+	*inputs = head;
+	printf("inputs after free\n");
+	print_unidentified_tokens(*inputs); //DELETE
 
 //	identification;
 
