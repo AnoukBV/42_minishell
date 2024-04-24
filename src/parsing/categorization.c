@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   categorization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 13:10:34 by aboulore         ###   ########.fr       */
+/*   Created: 2024/04/24 10:20:33 by aboulore          #+#    #+#             */
+/*   Updated: 2024/04/24 13:12:09 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	parsing(char *str, t_list **inputs)
+void	word_or_operator(t_list **inputs)
 {
-	size_t		input_nb;
-	char		**inputs_arr;
+	t_list	*tmp;
+	t_list	*tmp2;
+	size_t	tk_nb;
+	size_t	i;
 
-//lexer
-	inputs_arr = newlines(str, &input_nb);
-	print_2d_array(inputs_arr);
-	if (input_nb > 1)
+	tk_nb = ft_lstsize(*inputs);
+	i = 0;
+	tmp = *inputs;
+	while (i < tk_nb)
 	{
-		return (-1);
+		tmp2 = tmp->content;
+		if (ft_strchr("|&<>()", tmp2->word))
+			tmp2->flag = 1;
+		else
+			tmp2->flag = 0;
+		tmp = tmp->next;
+		i++;
 	}
-	ft_putstr("\n\n"); //DELETE
-	break_into_words(inputs, inputs_arr); 
-	word_or_operator(inputs);
-	print_unidentified_tokens(input_nb, *inputs); //DELETE
-
-//	identification;
-
-//	parser
-
-	return (input_nb);
 }
