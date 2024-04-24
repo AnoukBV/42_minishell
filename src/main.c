@@ -6,19 +6,19 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/24 14:08:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:18:30 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char *get_prompt(void)
+static char	*get_prompt(void)
 {
 	char	*cwd;
 	char	*prompt;
 
 	cwd = getcwd(NULL, 0);
-	if(!cwd)
+	if (!cwd)
 	{
 		strerror(errno);
 		exit(errno);
@@ -28,28 +28,25 @@ static char *get_prompt(void)
 	return (prompt);
 }
 
-static void	shell_prompt(char **envp, int ac)
+static char	*select_prompt(void)
 {
-	t_list			*tokens;
+	static size_t	count = 0;
+	static char		**inputs = NULL;
+	size_t			size;
 	char			*prompt;
 	char			*line;
-	static char			**inputs = NULL;
-	static size_t		count	= 0;
-	size_t			size;
 
-	set_rl_signals();
 	line = NULL;
 	if (inputs == NULL)
 	{
 		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);
+		if (ft_strlen(line) == 0)
+			return (NULL);
 		inputs = newlines(line, &size);
 	}
-	printf("string: %s\n", line); // TO BE DELETED
-	tokens = NULL;
-	parsing(inputs[count], &tokens);
-	free_before_id(tokens, 1);
+	line = inputs[count];
 	count += 1;
 	if (!inputs[count])
 	{
@@ -57,11 +54,25 @@ static void	shell_prompt(char **envp, int ac)
 		count = 0;
 		inputs = NULL;
 	}
+	return (line);
+}
+
+static void	shell_prompt(char **envp, int ac)
+{
+	t_list			*tokens;
+	char			*line;
+
+	set_rl_signals();
+	tokens = NULL;
+	line = select_prompt();
+	if (!line)
+		shell_prompt(envp, ac);
+	printf("string: %s\n", line); // TO BE DELETED
+	parsing(line, &tokens);
+	free_before_id(tokens, 1);
 	/*
 	*	Execution
 	*/
-	tokens = NULL;
-
 	if (line)
 	{
 		add_history(line);
@@ -70,10 +81,9 @@ static void	shell_prompt(char **envp, int ac)
 	}
 }
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	(void)av;
-
 	shell_prompt(envp, ac);
 	return (0);
 }
