@@ -6,13 +6,24 @@ LIBS_TGT := lib/libft/libft.a
 HEAD := headers lib/libft/headers
 
 SRC_DIR := src
-SRC_FILES := totrash.c main.c errors.c clean.c parsing/newlines.c parsing/parsing.c parsing/words.c
+SRC_FILES := totrash.c \
+			main.c \
+			errors.c \
+			clean.c \
+			parsing/newlines.c \
+			parsing/parsing.c \
+			parsing/words.c \
+			signals.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 
 BUILD_DIR := .build
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS := $(OBJ:.o=.d)
+
+INCLUDES_DIR = headers
+INCLUDES = -I$(INCLUDES_DIR) \
+			-Ilibft
 
 CC := clang
 CFLAGS := -Wall -Wextra -Werror -g -gdwarf-4 -O -O0
@@ -26,11 +37,11 @@ all: $(NAME)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(DIR_DUP)
-	@$(CC) $(CFLAGS) $(PREPFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) $(PREPFLAGS) $(INCLUDES) -c -o $@ $<
 
 $(NAME): $(OBJ)
 	@make -C lib/libft -s
-	@$(CC) $(LDFLAGS) $(OBJ) $(LIBS_TGT) $(LDLIBS) -o $(NAME)
+	@$(CC) $(LDFLAGS) $(OBJ) $(LIBS_TGT) $(LDLIBS) $(INCLUDES) -o $(NAME)
 	@echo "\033[1;32m[mandatory compiled]\033[1;00m"
 
 -include $(DEPS)

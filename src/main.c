@@ -3,77 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 15:55:08 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 09:52:46 by aboulore         ###   ########.fr       */
+/*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
+/*   Updated: 2024/04/24 11:41:10 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <minishell.h>
 
-volatile int	sigflag = 0;
-
-void	sigint_handler(int signum)
+static char *get_prompt(void)
 {
-	if (signum != SIGINT)
-		return ;
-	sigflag = signum;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+	char	*cwd;
+	char	*prompt;
 
-void	sigquit_handler(int signum)
-{
-	if (signum != SIGQUIT)
-		return ;
-	sigflag = signum;
-}
-
-int	init_signal(void)
-{
-	struct sigaction	sigint;
-	struct sigaction	sigquit;
-
-	ft_bzero(&sigint, sizeof(sigint));
-	ft_bzero(&sigquit, sizeof(sigquit));
-	sigint.sa_handler = &sigint_handler;
-	sigquit.sa_handler = &sigquit_handler;
-	sigaction(SIGINT, &sigint, NULL);
-	sigaction(SIGQUIT, &sigquit, NULL);
-	return (1);
-}
-
-int	main(int argc, char **argv)
-{
-	t_list	*inputs;
-	size_t	in_nb;
-
-	char *cle;
-	(void)argv;
-	if (argc != 1)
-		exit(0);
-	init_signal();
-	inputs = NULL;
-	while (1)
+	cwd = getcwd(NULL, 0);
+	if(!cwd)
 	{
-		cle = readline("$ ");
-		if (!cle)
-		{
-			free(cle);
-			break ;
-		}
-		if (ft_strlen(cle) > 0 && sigflag != SIGINT)
-		{
-			add_history(cle);
-		}
-		if (ft_strlen(cle) > 0)
-			in_nb = parsing(cle, &inputs);
-		free(cle);
-		free_before_id(inputs, in_nb);
-		inputs = NULL;
+		strerror(errno);
+		exit(errno);
 	}
+	prompt = ft_strjoin(cwd, "$ ");
+	free(cwd);
+	return (prompt);
+}
+
+static void	shell_prompt(char **envp, int ac)
+{
+	t_list			*tokens;
+	char			*prompt;
+	char			*line;
+	size_t			size;
+
+	set_rl_signals();
+	prompt = get_prompt();
+	line = readline(prompt);
+	free(prompt);
+	printf("string: %s\n", line); // TO BE DELETED
+	tokens = NULL;
+	size = parsing(line, &tokens);
+	free_before_id(tokens, size);
+	/*
+	*	Execution
+	*/
+	tokens = NULL;
+
+	if (line)
+	{
+		add_history(line);
+		free(line);
+		shell_prompt(envp, ac);
+	}
+}
+
+int main(int ac, char **av, char **envp)
+{
+	(void)av;
+
+	shell_prompt(envp, ac);
 	return (0);
 }

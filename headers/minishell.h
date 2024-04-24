@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 10:49:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:41:19 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include <dirent.h>
 # include <termios.h>
+# include <errno.h>
 # include "libft.h"
 # include "keys.h"
 
@@ -60,5 +61,8 @@ void	del_wddesc(void *word);
 
 void	print_2d_array(char **str);
 void	print_unidentified_tokens(size_t input_nb, t_list *inputs);
+
+// signals.c
+void	set_rl_signals(void);
 
 #endif
