@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:20:33 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 13:12:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:42:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	word_or_operator(t_list **inputs)
 {
 	t_list	*tmp;
-	t_list	*tmp2;
+	t_wd_desc	*word;
 	size_t	tk_nb;
 	size_t	i;
 
@@ -24,11 +24,11 @@ void	word_or_operator(t_list **inputs)
 	tmp = *inputs;
 	while (i < tk_nb)
 	{
-		tmp2 = tmp->content;
-		if (ft_strchr("|&<>()", tmp2->word))
-			tmp2->flag = 1;
+		word = (t_wd_desc *)tmp->content;
+		if (ft_strchr("|&<>()", word->word[0]))
+			word->flags = 1;
 		else
-			tmp2->flag = 0;
+			word->flags = 0;
 		tmp = tmp->next;
 		i++;
 	}

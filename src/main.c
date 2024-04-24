@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/24 12:57:01 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:08:22 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,30 @@ static void	shell_prompt(char **envp, int ac)
 	t_list			*tokens;
 	char			*prompt;
 	char			*line;
+	static char			**inputs = NULL;
+	static size_t		count	= 0;
 	size_t			size;
 
 	set_rl_signals();
-	prompt = get_prompt();
-	line = readline(prompt);
-	free(prompt);
+	line = NULL;
+	if (inputs == NULL)
+	{
+		prompt = get_prompt();
+		line = readline(prompt);
+		free(prompt);
+		inputs = newlines(line, &size);
+	}
 	printf("string: %s\n", line); // TO BE DELETED
 	tokens = NULL;
-	size = parsing(line, &tokens);
-	free_before_id(tokens, size);
+	parsing(inputs[count], &tokens);
+	free_before_id(tokens, 1);
+	count += 1;
+	if (!inputs[count])
+	{
+		free(inputs);
+		count = 0;
+		inputs = NULL;
+	}
 	/*
 	*	Execution
 	*/

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:56:53 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/13 01:30:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:51:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,19 @@ void	free_before_id(t_list *inputs, size_t in_nb)
 {
 	size_t	i;
 	t_list	*del;
-	t_list	*tmp;
-	t_list	*tmp2;
+	//t_list	*tmp;
+	//t_list	*tmp2;
 
 	i = 0;
-	tmp = inputs;
-	if (!tmp)
+	del = inputs;
+	if (!del)
 		return ;
 	while (i < in_nb)
 	{
-		del = (t_list *)tmp->content;
 		ft_lstclear(&del, &del_wddesc);
-		tmp2 = tmp;
-		tmp = tmp->next;
-		free(tmp2);
+	//	tmp2 = tmp;
+	//	tmp = tmp->next;
+	//	free(tmp2);
 		i++;
 	}
 }
