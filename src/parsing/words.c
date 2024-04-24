@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 14:58:42 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:05:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,6 @@ static t_bool	is_escaped(char *meta, t_esc *esc_status)
 	a = *meta;
 	
 }*/
-
-static void	check_quote(t_esc *esc_status, char *str)
-{
-	size_t	i;
-	
-	i = 0;
-	if (!ft_strchr("\'\"", str[i]))
-		return ;
-	if (esc_status->is_quoted == false && ft_strchr("\'\"", str[i]) \
-		&& ft_strchr(&str[i + 1], str[i]))
-	{
-		esc_status->is_quoted = true;
-		if (str[i] == '\'')
-			esc_status->is_simplequote = true;
-		else
-			esc_status->is_simplequote = false;
-		return ;
-	}
-	else if ((esc_status->is_simplequote == true && str[i] == '\"') || \
-		(esc_status->is_simplequote == false && str[i] == '\''))
-		return ;
-	esc_status->is_quoted = false ;
-}
 
 static t_wd_desc	*new_wd_desc(int flags, char *word)
 {
@@ -61,7 +38,6 @@ static t_list	*input_into_words(char *str)
 {
 	t_list		*words_list;
 	t_esc		esc_status;
-	//t_wd_desc	*tmp;
 	t_wd_desc	*tmp_w;
 	size_t		i;
 	size_t		j;
@@ -79,13 +55,7 @@ static t_list	*input_into_words(char *str)
 			if (j != i)
 			{
 				tmp_w = new_wd_desc(0, ft_substr(str, j, i - j));
-				//printf("%s\n", tmp_w->word);
 				ft_lstadd_back(&words_list, ft_lstnew((void *)tmp_w));
-
-				//tmp = (t_wd_desc*)words_list->content;
-				//printf("\ninputintowrds = %s\n", tmp->word);
-				//printf("\nwl addr = %p\n", words_list);
-				//printf("\nwl.cnt addr = %p\n", words_list->content);
 			}
 			if (!ft_isspace(str[i]))
 			{
@@ -111,6 +81,31 @@ static t_list	*input_into_words(char *str)
 		}
 	}
 	return (words_list);
+}
+
+void	check_quote(t_esc *esc_status, char *str)
+{
+	size_t	i;
+	
+	i = 0;
+	if (!ft_strchr("\'\"", str[i]))
+		return ;
+	if (esc_status->is_quoted == false && ft_strchr("\'\"", str[i]) \
+		&& ft_strchr(&str[i + 1], str[i]))
+	{
+		esc_status->is_quoted = true;
+		if (str[i] == '\'')
+			esc_status->is_simplequote = true;
+		else
+			esc_status->is_simplequote = false;
+		return ;
+	}
+	else if ((esc_status->is_simplequote == true && str[i] == '\"') || \
+		(esc_status->is_simplequote == false && str[i] == '\''))
+		return ;
+	else if (esc_status->is_quoted == false)
+		return ;
+	esc_status->is_quoted = false ;
 }
 
 void	break_into_words(t_list **inputs, char *inputs_array)
