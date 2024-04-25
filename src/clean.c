@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:56:53 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/13 01:30:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:04:25 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,33 @@ void	free_before_id(t_list *inputs, size_t in_nb)
 		tmp = tmp->next;
 		free(tmp2);
 		i++;
+	}
+}
+
+void	free_cmd_list(t_command *cmd)
+{
+	t_command	*tmp;
+	int			i;
+	
+	while (cmd)
+	{
+		free(cmd->command);
+		if (cmd->infile_name)
+			free(cmd->infile_name);
+		if (cmd->outfile_name)
+			free(cmd->outfile_name);
+		if (cmd->argv)
+		{
+			i = 0;
+			while (cmd->argv[i])
+			{
+				free(cmd->argv[i]);
+				i++;
+			}
+			free(cmd->argv);
+		}
+		tmp = cmd;
+		cmd = cmd->pipe_right;
+		free(tmp);
 	}
 }

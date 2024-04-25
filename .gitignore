@@ -1,1 +1,8 @@
 .vscode
+dummydata.c
+**.a
+**.build
+minishell
+intest
+outtest
+intest2

@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 15:47:43 by abernade         ###   ########.fr       */
+/*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
+/*   Updated: 2024/04/25 17:06:12 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_error(void)
+void	execute_pipeline(t_command *cmd_lst, char **envp)
 {
-	printf("tkt error\n");
-}
+	int			pid;
+	t_pipeline	*pipeline;
 
-void	redirection_error(t_command *cmd_lst)
-{
-	perror(errno);
-	close_pipeline(cmd_lst);
-}
-
-void	pipe_error(t_pipeline *pipeline)
-{
-	perror(errno);
-	free_cmd_list(pipeline->cmd_list);
-	exit(errno);
-}
-
-void	malloc_error()
-{
-	perror(errno);
-	exit(errno);
+	pipeline = init_pipeline(cmd_lst, envp);
+	if (is_builtin(cmd_lst->command) && cmd_lst->next == NULL)
+	{
+		/*
+		*	todo
+		*/
+	}
 }

@@ -13,7 +13,9 @@ SRC_FILES := totrash.c \
 			parsing/newlines.c \
 			parsing/parsing.c \
 			parsing/words.c \
-			signals.c
+			signals.c \
+			dummydata.c \
+			execution/execute.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 

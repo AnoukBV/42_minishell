@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 15:47:43 by abernade         ###   ########.fr       */
+/*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
+/*   Updated: 2024/04/24 14:04:59 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_error(void)
+t_bool	is_builtin(char *cmd_name)
 {
-	printf("tkt error\n");
-}
-
-void	redirection_error(t_command *cmd_lst)
-{
-	perror(errno);
-	close_pipeline(cmd_lst);
-}
-
-void	pipe_error(t_pipeline *pipeline)
-{
-	perror(errno);
-	free_cmd_list(pipeline->cmd_list);
-	exit(errno);
-}
-
-void	malloc_error()
-{
-	perror(errno);
-	exit(errno);
+	return (!ft_strncmp(cmd_name, "echo", 5) \
+		|| !ft_strncmp(cmd_name, "cd", 3) \
+		|| !ft_strncmp(cmd_name, "pwd", 4) \
+		|| !ft_strncmp(cmd_name, "export", 7) \
+		|| !ft_strncmp(cmd_name, "unset", 6) \
+		|| !ft_strncmp(cmd_name, "env", 4) \
+		|| !ft_strncmp(cmd_name, "exit", 5));
 }
