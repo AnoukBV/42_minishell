@@ -6,11 +6,58 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/25 17:05:41 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:20:36 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	destroy_redir_list(t_redir_list **redir_list)
+{
+	t_redir_list	*node;
+	t_redir_list	*next;
+
+	node = *redir_list;
+	while (node)
+	{
+		next = node->next;
+		free(node->target_filename);
+		free(node);
+		node = next;
+	}
+	*redir_list = NULL;
+}
+
+void	destroy_cmd_list(t_command *cmd)
+{
+	t_command	*tmp;
+	int			i;
+	
+	while (cmd)
+	{
+		free(cmd->command);
+		if (cmd->argv)
+		{
+			i = 0;
+			while (cmd->argv[i])
+			{
+				free(cmd->argv[i]);
+				i++;
+			}
+			free(cmd->argv);
+		}
+		destroy_redir_list(&cmd->redir_list);
+		tmp = cmd;
+		cmd = cmd->next;
+		free(tmp);
+	}
+}
+
+void	destroy_pipeline(t_pipeline *pipeline)
+{
+	close_fd_list(&pipeline->fd_list);
+	destroy_cmd_list(pipeline->cmd_list);
+}
 
 static void	prepare_pipeline(t_pipeline *pipeline)
 {

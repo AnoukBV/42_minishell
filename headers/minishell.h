@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 16:50:29 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:21:21 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <errno.h>
 # include "libft.h"
 # include "keys.h"
+
+int	g_status;
 
 typedef enum e_bool { false, true }	t_bool;
 
@@ -124,7 +126,7 @@ void	free_cmd_list(t_command *cmd);
 /*
 *	Executor functions
 */
-void	execute_pipeline(t_command *cmd_lst, char **envp);
+void	execute_pipeline(t_pipeline *pipeline);
 
 
 	/*
@@ -137,6 +139,8 @@ void	execute_pipeline(t_command *cmd_lst, char **envp);
 *	No redirection is done at this time
 */
 t_pipeline	*init_pipeline(t_command *cmd_lst, char **envp);
+void		destroy_pipeline(t_pipeline *pipeline);
+void		destroy_cmd_list(t_command *cmd)
 
 
 	/*
@@ -149,7 +153,7 @@ t_pipeline	*init_pipeline(t_command *cmd_lst, char **envp);
 */
 int		remove_fd(int fd, t_fd_list **fds);
 
-void	destroy_fd_list(t_fd_list **fds);
+void	close_fd_list(t_fd_list **fds);
 void	add_fd(int fd, t_fd_list **fds);
 
 #endif

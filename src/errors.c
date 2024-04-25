@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 15:47:43 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:19:29 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,17 @@ void	pipe_error(t_pipeline *pipeline)
 void	malloc_error()
 {
 	perror(errno);
+	exit(errno);
+}
+void	dup2_error()
+{
+	perror(errno);
+	exit(errno);
+}
+
+void	open_error(t_pipeline *pipeline)
+{
+	perror(errno);
+	destroy_pipeline(pipeline);
 	exit(errno);
 }
