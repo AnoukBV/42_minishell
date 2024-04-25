@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:02:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 17:38:17 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:52:36 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
+
+typedef struct	s_btree
+{
+	struct s_btree	*left;
+	struct s_btree	*right;
+	void			*item;
+}	t_btree;
 
 typedef struct s_list
 {
@@ -83,6 +90,7 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size);
 t_list		*ft_lstnew(void *content);
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_btree		*btree_create_node(void *item);
 double		ft_atod(char *str);
 void	    free_array_3d(char ***array);
 void	    free_array_2d(char **array);

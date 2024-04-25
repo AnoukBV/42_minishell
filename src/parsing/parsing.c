@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 15:31:50 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:32:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	parsing(char *str, t_list **inputs)
 
 	if (!str)
 		return ;
-	new = NULL;
 	break_into_words(inputs, str); 
 	word_or_operator(inputs);
 	//print_unidentified_tokens(*inputs); //DELETE
@@ -96,10 +95,9 @@ void	parsing(char *str, t_list **inputs)
 	*inputs = map;
 	//printf("\nAfter quote removal\n");	//DELETE
 	//print_unidentified_tokens(*inputs); //DELETE
-	new = divide(inputs, &new);
-	ft_lstclear(inputs, del_wddesc);
-	*inputs = new;
-	print_divided_cmds(*inputs);
+	divide(inputs, &new);
+	//print_divided_cmds(*inputs);
+	print_unidentified_tokens(*inputs); //DELETE
 
 //	identification;
 

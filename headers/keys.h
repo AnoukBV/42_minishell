@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:50:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 13:35:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:21:00 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define KEYS_H
 
 # define MALLOC_ERR	9
-# define F_AND	70
-# define F_OPEN	20
-# define F_OR	40
-# define F_PIPE	60
+
+# define OPEN	2
+# define CLOSE	3
+# define PIPE	4
+# define OR		5
+# define AND	6
 
 #endif

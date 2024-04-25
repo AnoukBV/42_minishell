@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 13:49:37 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:45:22 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <errno.h>
 # include "libft.h"
 # include "keys.h"
+# include "environment.h"
 
 typedef enum e_bool { false, true }	t_bool;
 
@@ -52,7 +53,7 @@ void		break_into_words(t_list **inputs, char *inputs_array);
 void		word_or_operator(t_list **inputs);
 void		check_quote(t_esc *esc_status, char *str);
 t_wd_desc	*new_wd_desc(int flags, char *word);
-t_list	*divide(t_list **inputs, t_list **new);
+void		divide(t_list **inputs, t_list **new);
 
 //utils
 
