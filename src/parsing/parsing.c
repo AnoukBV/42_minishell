@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 13:24:21 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:31:50 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	parsing(char *str, t_list **inputs)
 	new = divide(inputs, &new);
 	ft_lstclear(inputs, del_wddesc);
 	*inputs = new;
+	print_divided_cmds(*inputs);
 
 //	identification;
 
