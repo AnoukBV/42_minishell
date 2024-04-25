@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:56:53 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 13:51:14 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:05:28 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	del_wddesc(void *word)
 		return ;
 	del = (t_wd_desc *)word;
 	free(del->word);
+	del->word = NULL;
 	free(del);
+	del = NULL;
 }
 
 void	free_before_id(t_list *inputs, size_t in_nb)

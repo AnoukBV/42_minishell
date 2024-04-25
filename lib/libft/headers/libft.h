@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:02:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/12 17:21:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:38:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char		*ft_strtrim(const char *s1, const char *set);
 char		*get_next_line(int fd);
 char		**ft_split(char const *s, char c);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char		*ft_superjoin(char **strs, char *sep);
 void		*ft_memset(void *s, int c, size_t n);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
