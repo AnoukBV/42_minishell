@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 20:05:27 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 09:37:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ static char	*trim_quotes(char *str)
 static void	*quotes_removal(void *content)
 {
 	t_wd_desc	*token;
+	t_wd_desc	*old;
 	t_esc		esc_status;
 	char		*str;
 	size_t		i;
 	
 	i = 0;
-	token = (t_wd_desc *)content;
+	old = (t_wd_desc *)content;
+	token = new_wd_desc(old->flags, ft_strdup(old->word));
 	str = token->word;
 	if (ft_strchr("()|&<>", str[0]))
 		return (token);
@@ -79,7 +81,6 @@ static void	*quotes_removal(void *content)
 void	parsing(char *str, t_list **inputs)
 {
 //	lexer
-	t_list	*head;
 	t_list	*map;
 
 	if (!str)
@@ -87,16 +88,11 @@ void	parsing(char *str, t_list **inputs)
 	break_into_words(inputs, str); 
 	word_or_operator(inputs);
 	print_unidentified_tokens(*inputs); //DELETE
-	head = *inputs;
-	map = ft_lstmap(head, &quotes_removal, \
+	map = ft_lstmap(*inputs, &quotes_removal, \
 		&del_wddesc);
-	printf("inputs\n");
-	print_unidentified_tokens(*inputs); //DELETE
-	printf("map\n");
-	print_unidentified_tokens(map); //DELETE
-	ft_lstclear(&map, &del_wddesc);
-	*inputs = head;
-	printf("inputs after free\n");
+	ft_lstclear(inputs, del_wddesc);
+	*inputs = map;
+	printf("\nAfter quote removal\n");	//DELETE
 	print_unidentified_tokens(*inputs); //DELETE
 
 //	identification;

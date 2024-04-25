@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 19:51:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 09:27:32 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,6 @@ static t_bool	is_escaped(char *meta, t_esc *esc_status)
 	a = *meta;
 	
 }*/
-
-static t_wd_desc	*new_wd_desc(int flags, char *word)
-{
-	t_wd_desc	*new;
-
-
-	new = malloc(sizeof(t_wd_desc));
-	if (!new)
-		ft_error();
-	new->flags = flags;
-	new->word = word;
-	return (new);
-}
 
 static t_list	*input_into_words(char *str)
 {

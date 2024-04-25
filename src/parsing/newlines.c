@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:53:28 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 14:22:39 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 09:26:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,17 @@ char	**newlines(char *str, size_t *input_nb)
 		ft_error();
 	return (inputs);
 }
+
+t_wd_desc	*new_wd_desc(int flags, char *word)
+{
+	t_wd_desc	*new;
+
+
+	new = malloc(sizeof(t_wd_desc));
+	if (!new)
+		ft_error();
+	new->flags = flags;
+	new->word = word;
+	return (new);
+}
+
