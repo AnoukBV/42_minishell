@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:20:33 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 13:42:42 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 09:56:47 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	word_or_operator(t_list **inputs)
 	while (i < tk_nb)
 	{
 		word = (t_wd_desc *)tmp->content;
-		if (ft_strchr("|&<>()", word->word[0]))
+		if (ft_strchr("|<>()", word->word[0]))
+			word->flags = 1;
+		else if (!ft_strncmp("&&", word->word, 2))
 			word->flags = 1;
 		else
 			word->flags = 0;
