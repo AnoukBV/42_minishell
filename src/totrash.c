@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 14:15:28 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:59:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,19 @@ void	print_unidentified_tokens(t_list *inputs)
 		j++;
 	}
 	printf("\n");
+}
+
+void	print_divided_cmds(t_list *cmds)
+{
+	t_list	*tmp;
+
+	if (!cmds)
+		return ;
+	tmp = cmds;
+	printf("\nPRINTING COMMANDS\n\n");
+	while (tmp)
+	{
+		print_unidentified_tokens(tmp->content);
+		tmp = tmp->next;
+	}
 }

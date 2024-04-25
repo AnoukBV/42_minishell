@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 09:27:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:49:37 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		break_into_words(t_list **inputs, char *inputs_array);
 void		word_or_operator(t_list **inputs);
 void		check_quote(t_esc *esc_status, char *str);
 t_wd_desc	*new_wd_desc(int flags, char *word);
+t_list	*divide(t_list **inputs, t_list **new);
 
 //utils
 
@@ -63,6 +64,7 @@ void	del_wddesc(void *word);
 
 void	print_2d_array(char **str);
 void	print_unidentified_tokens(t_list *inputs);
+void	print_divided_cmds(t_list *cmds);
 
 // signals.c
 void	set_rl_signals(void);
