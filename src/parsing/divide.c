@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 10:23:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:32:57 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,28 +93,6 @@ static t_bool	between_brackets(t_list	**inputs, t_list **new)
 
 */
 /*
-static void control_operator(t_list **list)
-{
-	t_list		*tmp;
-	t_wd_desc	*tok;
-
-	tmp = *list;
-	while (tmp)
-	{
-		tok = (t_wd_desc *)tmp->content;
-		if (!ft_strncmp(tok->word, "&&", 2))
-			tok->flags = AND;
-		else if (!ft_strncmp(tok->word, "||", 2))
-			tok->flags = OR;
-		else if (!ft_strncmp(tok->word, "|", 1))
-			tok->flags = PIPE;
-		else if (!ft_strncmp(tok->word, "(", 1))
-			tok->flags = OPEN;
-		else if (!ft_strncmp(tok->word, ")", 1))
-			tok->flags = CLOSE;
-		tmp = tmp->next;
-	}
-}
 
 static void	create_tree(t_btree **tree, t_list **inputs)
 {

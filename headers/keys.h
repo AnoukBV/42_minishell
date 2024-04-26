@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:50:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 10:38:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 13:54:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,21 @@
 
 # define MALLOC_ERR	9
 
-# define OPEN	2
-# define CLOSE	3
-# define PIPE	4
-# define OR		5
-# define AND	6
-
 # define EXPORT 1
 # define ENV	0
+
+typedef enum	e_type
+{
+	T_WORD = 0,
+	T_OPEN,
+	T_CLOSE,
+	T_PIPE,
+	T_OR,
+	T_AND,
+	T_RED_OUT,
+	T_APP_OUT,
+	T_RED_IN,
+	T_APP_IN
+}	t_type;
 
 #endif
