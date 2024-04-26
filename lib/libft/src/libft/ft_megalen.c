@@ -1,15 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   ft_megalen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 19:02:46 by aboulore         ###   ########.fr       */
+/*   Created: 2024/04/26 07:12:11 by aboulore          #+#    #+#             */
+/*   Updated: 2024/04/26 07:12:48 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	set_hashtable(char **envp, t_hashtable **env)
+size_t	ft_megalen(char **strs)
+{
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	i = 0;
+	k = 0;
+	while (strs[i])
+	{
+		j = 0;
+		while (strs[i][j])
+			j++;
+		k += j;
+		i++;
+	}
+	return (k);
+}

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/25 19:01:52 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 06:40:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ static char	*select_prompt(void)
 static void	shell_prompt(char **envp, int ac)
 {
 	t_list			*tokens;
-	t_hashtable		*env;
 	char			*line;
 
 	set_rl_signals();
-	set_hashtable(envp, &env);
 	tokens = NULL;
 	line = select_prompt();
 	if (!line)
@@ -85,7 +83,10 @@ static void	shell_prompt(char **envp, int ac)
 
 int	main(int ac, char **av, char **envp)
 {
+	t_hashtable		*env;
+
 	(void)av;
+	set_hashtable(envp, &env);
 	shell_prompt(envp, ac);
 	return (0);
 }

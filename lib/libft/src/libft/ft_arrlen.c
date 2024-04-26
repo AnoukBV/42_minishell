@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_array_3d.c                                    :+:      :+:    :+:   */
+/*   ft_arrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/12 17:17:41 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 07:18:17 by aboulore         ###   ########.fr       */
+/*   Created: 2024/04/26 07:08:08 by aboulore          #+#    #+#             */
+/*   Updated: 2024/04/26 07:11:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	free_array_3d(char ***array)
+size_t	ft_arrlen(char **strs)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (array[i])
+	while (strs[i])
 	{
-		free_array_2d(array[i]);
 		i++;
 	}
-	free(array);
-	array = NULL;
+	return (i);
 }

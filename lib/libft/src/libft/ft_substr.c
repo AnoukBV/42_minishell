@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:51:12 by aboulore          #+#    #+#             */
-/*   Updated: 2023/11/15 15:02:29 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 07:18:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		if (ft_strlen(s) - start >= len)
 			str = malloc(sizeof(char) * len + 1);
 		else
-			str = malloc(sizeof(char) * (ft_strlen(s) - start) + 1);
+			str = malloc(sizeof(char) * \
+				(ft_strlen(s) - start) + 1);
 		if (str == NULL)
 			return (NULL);
 		ft_strlcpy(str, &s[start], len + 1);
