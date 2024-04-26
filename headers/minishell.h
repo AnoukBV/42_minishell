@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 18:45:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:45:06 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ void		word_or_operator(t_list **inputs);
 void		check_quote(t_esc *esc_status, char *str);
 t_wd_desc	*new_wd_desc(int flags, char *word);
 void		divide(t_list **inputs, t_list **new);
+
+//environment
+
+void	print_env(t_hashtable *env, int key);
+void	set_hashtable(char **envp, t_hashtable **env);
 
 //utils
 

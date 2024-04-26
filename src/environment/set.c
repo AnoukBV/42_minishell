@@ -6,11 +6,11 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 08:06:25 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:50:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 static void	create_table_member(t_hashtable **env, \
 	char *key, char *value, size_t index)
@@ -19,18 +19,19 @@ static void	create_table_member(t_hashtable **env, \
 
 	new = malloc(sizeof(t_member));
 	if (!new)
-		return (NULL);
+		return ;
 	new->key = key;
 	new->value = value;
-	*env[index] = new;
+	(*env)->member[index] = new;
 }
 
-static void	fill_table(char **envp, t_hashtable *env, size_t size)
+static void	fill_table(char **envp, t_hashtable **env, size_t size)
 {
   	size_t	i;
   	size_t	index;
 
 	index = 0;
+	(void)size;
 	while (*envp)
 	{
 		i = 0;
@@ -50,14 +51,11 @@ static void	create_table(t_hashtable **env, size_t size)
 {
 	*env = malloc(sizeof(t_hashtable));
 	if (*env == NULL)
-		return (NULL);
+		return ;
 	(*env)->size = size;
 	(*env)->member = ft_calloc(sizeof(t_member), size);
 	if ((*env)->member == NULL)
-	{
 		free(*env);
-		return (NULL);
-	}
 }
 
 void	set_hashtable(char **envp, t_hashtable **env)

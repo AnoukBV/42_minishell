@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:02:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 17:52:36 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:51:51 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 void		ft_dlclprint(t_dlcl *lst);
 size_t		ft_strlen(const char *str);
+size_t		ft_arrlen(char **strs);
+size_t		ft_megalen(char **strs);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 t_list		*ft_lstnew(void *content);

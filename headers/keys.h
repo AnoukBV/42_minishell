@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:50:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 17:21:00 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:38:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@
 # define PIPE	4
 # define OR		5
 # define AND	6
+
+# define EXPORT 1
+# define ENV	0
 
 #endif
