@@ -16,6 +16,7 @@ SRC_FILES := totrash.c \
 			parsing/categorization.c \
 			parsing/divide.c \
 			environment/set.c \
+			environment/print_env.c \
 			signals.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)

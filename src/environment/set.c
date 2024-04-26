@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 10:50:13 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:31:06 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static void	fill_table(char **envp, t_hashtable **env, size_t size)
 	while (*envp)
 	{
 		i = 0;
-		while (*envp[i] != '=')
+		while ((*envp)[i] != '=')
 			i++;
-		if (*envp[i] == '=')
+		if ((*envp)[i] == '=')
 		{
 			create_table_member(env, ft_substr(*envp, 0, i), \
 				ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1), index);
@@ -70,12 +70,13 @@ void	set_hashtable(char **envp, t_hashtable **env)
 	}
 	create_table(env, size * 2);
 	fill_table(envp, env, size * 2);
+	print_env(*env, ENV);
 }
 
-//print
+//print env done
 //free
-//delone
+//delone --> BUILTIN UNSET
 //find value
-//add
-//gt value
+//add --> BUILTIN EXPORT
+//get value
 //print hash =/= print env
