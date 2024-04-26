@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/26 06:40:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:44:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	set_hashtable(envp, &env);
 	shell_prompt(envp, ac);
+	free_env(env);	
 	return (0);
 }

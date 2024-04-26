@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:45:42 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 19:05:06 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:45:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ typedef struct	s_hashtable
 }	t_hashtable;
 
 void	set_hashtable(char **envp, t_hashtable **env);
+void	delmemb_env(t_member *member);
+void	free_env(t_hashtable *env);
 
 #endif

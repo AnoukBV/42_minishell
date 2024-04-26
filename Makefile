@@ -16,6 +16,7 @@ SRC_FILES := totrash.c \
 			parsing/categorization.c \
 			parsing/divide.c \
 			environment/set.c \
+			environment/free_env.c \
 			environment/print_env.c \
 			signals.c
 

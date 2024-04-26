@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:33:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 12:19:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:46:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	delmemb_env(t_member *member)
 {
 	if (!member)
 		return ;
-	
+	free(member->key);	
+	free(member->value);	
 	free(member);
 }
 
@@ -32,5 +33,6 @@ void	free_env(t_hashtable *env)
 		delmemb_env(env->member[i]);
 		i++;
 	}
-	free(*env);
+	free(env->member);
+	free(env);
 }

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 10:29:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 12:37:36 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:43:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static void	ft_env_p(t_hashtable *env)
 	size_t	i;
 
 	i = 0;
-	while (i < env->size && env->member[i])
+	while (i < env->size)
 	{
+	  	if (!env->member[i])
+			break ;
 		ft_putstr_fd(env->member[i]->key, 1);
 		ft_putstr_fd("=", 1);
 		ft_putstr_fd(env->member[i]->value, 1);
