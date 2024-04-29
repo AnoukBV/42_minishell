@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/29 15:21:27 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:26:53 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	do_redir_list(t_redir_list **r_list)
 			return (-1);
 		if(dup2(fd, node->fd_to_redirect) == -1)
 			dup2_error();
+		close(fd);
 		free(node->target_filename);
 		free(node);
 		node = next;
