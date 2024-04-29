@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 19:21:21 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/29 02:25:54 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@
 # include <dirent.h>
 # include <termios.h>
 # include <errno.h>
+# include <sys/wait.h>
 # include "libft.h"
 # include "keys.h"
-
-int	g_status;
 
 typedef enum e_bool { false, true }	t_bool;
 
@@ -52,7 +51,7 @@ typedef struct	s_redir_list
 	int						fd_to_redirect;
 	char					*target_filename;
 	int						open_flags; // open() flags used for target file
-	struct s_redirection	*next;
+	struct s_redir_list		*next;
 }	t_redir_list;
 
 typedef struct	s_command
@@ -64,21 +63,31 @@ typedef struct	s_command
 	int					pipe_right[2];
 	struct s_command	*next;
 	struct s_command	*prev;
-} t_command;
+}	t_command;
 
 /*
 *	A list of file descriptors to close before calling execve()
 */
 typedef	struct	s_fd_list
 {
-	int			fd;
-	t_fd_list	*next;
+	int					fd;
+	struct s_fd_list	*next;
 }	t_fd_list;
+
+/*
+*	A list of child processes pid
+*/
+typedef struct	s_pid_list
+{
+	int					pid;
+	struct s_pid_list	*next;
+}	t_pid_list;
 
 typedef struct	s_pipeline
 {
 	t_command	*cmd_list;
 	t_fd_list	*fd_list;
+	t_pid_list	*pid_list;
 	char		**envp;
 }	t_pipeline;
 
@@ -96,6 +105,10 @@ void	ft_error(void);
 void	pipe_error(t_pipeline *pipeline);
 void	redirection_error(t_command *cmd_lst);
 void	malloc_error(void);
+void	fork_error(t_pipeline *pipeline);
+void	dup2_error(void);
+void	open_error(t_pipeline *pipeline);
+void	execve_error(void);
 
 //utils
 void	free_before_id(t_list *inputs, size_t in_nb);
@@ -106,17 +119,22 @@ void	del_wddesc(void *word);
 void	print_2d_array(char **str);
 void	print_unidentified_tokens(size_t input_nb, t_list *inputs);
 
-/*
-*	Signal control functions, switching between readline and command execution states
-*/
+	/*
+	*	Signal control functions, switching between readline and command execution states
+	*/
 
 // Sets signal handlers to behave like bash when readline() is being executed
 void	set_rl_signals(void);
+// Restores default signal behavior
+void	signals_default(void);
+
+//	Signal handlers
+void	rl_signals_handler(int sig);
 
 /*
 *	Test functions /!\ TO BE DELETED /!\
 */
-t_command	*create_dummy();
+t_pipeline	*dummydata(char **envp);
 
 /*
 *	Memory utils
@@ -135,12 +153,14 @@ void	execute_pipeline(t_pipeline *pipeline);
 
 /*
 *	Creates and initialize t_pipeline structure
-*	Creates all pipes in its command list `cmd_lst`
+*	Creates all pipes in its command list
 *	No redirection is done at this time
 */
 t_pipeline	*init_pipeline(t_command *cmd_lst, char **envp);
+void		prepare_pipeline(t_pipeline *pipeline);
+
 void		destroy_pipeline(t_pipeline *pipeline);
-void		destroy_cmd_list(t_command *cmd)
+void		destroy_cmd_list(t_command *cmd);
 
 
 	/*
@@ -155,5 +175,18 @@ int		remove_fd(int fd, t_fd_list **fds);
 
 void	close_fd_list(t_fd_list **fds);
 void	add_fd(int fd, t_fd_list **fds);
+
+	/*
+	*	Manage t_pid_list structures
+	*/
+void	add_pid(int pid, t_pid_list **pid_list);
+void	remove_pid(int pid, t_pid_list **pid_list);
+
+void	wait_all_pid(t_pid_list **pid_list);
+
+/*
+*	Execution utils
+*/
+t_bool	is_builtin(char *cmd_name);
 
 #endif

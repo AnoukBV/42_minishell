@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:46:39 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/25 18:06:52 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/29 02:42:14 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	remove_fd(int fd, t_fd_list **fds)
 	t_fd_list	*prev;
 
 	if (fds == NULL || *fds == NULL)
-		return ;
+		return (-1);
 	node = *fds;
 	prev = NULL;
 	while (node != NULL && node->fd != fd)
@@ -46,8 +46,6 @@ int	remove_fd(int fd, t_fd_list **fds)
 		prev = node;
 		node = node->next;
 	}
-	if (node == NULL)
-		return (-1);
 	if (prev == NULL)
 		*fds = node->next;
 	else

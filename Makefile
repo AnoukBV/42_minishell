@@ -6,16 +6,22 @@ LIBS_TGT := lib/libft/libft.a
 HEAD := headers lib/libft/headers
 
 SRC_DIR := src
-SRC_FILES := totrash.c \
-			main.c \
+SRC_FILES := main.c \
 			errors.c \
 			clean.c \
 			parsing/newlines.c \
 			parsing/parsing.c \
 			parsing/words.c \
-			signals.c \
+			execution/exec_utils.c \
+			execution/pipeline.c \
+			execution/redirections.c \
+			execution/execute.c \
+			lists_utils/fd_list_utils.c \
+			lists_utils/pid_list_utils.c \
+			signals/set_signal.c \
+			signals/signal_handlers.c \
 			dummydata.c \
-			execution/execute.c
+			totrash.c \
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 
@@ -27,7 +33,7 @@ INCLUDES_DIR = headers
 INCLUDES = -I$(INCLUDES_DIR) \
 			-Ilibft
 
-CC := clang
+CC := cc
 CFLAGS := -Wall -Wextra -Werror -g -gdwarf-4 -O -O0
 PREPFLAGS := $(addprefix -I, $(HEAD)) -MMD -MP
 LDFLAGS := -Llib/libft -Lheaders -lreadline -lhistory
