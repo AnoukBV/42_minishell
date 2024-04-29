@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/29 02:15:03 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:20:27 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	new_shell_line(char **envp, int ac)
 	*/
 	pipeline = dummydata(envp);
 	execute_pipeline(pipeline);
+	destroy_pipeline(pipeline);
 	new_shell_line(envp, ac);
 }
 

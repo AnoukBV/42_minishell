@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/29 01:55:18 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:19:58 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	destroy_cmd_list(t_command *cmd)
 			free(cmd->argv);
 		}
 		destroy_redir_list(&cmd->redir_list);
-		tmp = cmd;
-		cmd = cmd->next;
-		free(tmp);
+		tmp = cmd->next;
+		free(cmd);
+		cmd = tmp;
 	}
 }
 
@@ -57,6 +57,7 @@ void	destroy_pipeline(t_pipeline *pipeline)
 {
 	close_fd_list(&pipeline->fd_list);
 	destroy_cmd_list(pipeline->cmd_list);
+	free(pipeline);
 }
 
 void	prepare_pipeline(t_pipeline *pipeline)
