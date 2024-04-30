@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 13:32:57 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:27:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,14 @@ static void	create_tree(t_btree **tree, t_list **inputs)
 	}
 	*tree = node->left;
 }
-
-void	divide(t_list **inputs, t_list **new)
+*/
+void	divide(t_list **inputs, t_btree *tree)
 {
-		t_list	*tmp;
-		t_btree	*tree;
+		t_btree	*node;
+		size_t	size;
 
-		(void)new;
-		tree = NULL;
-		tmp = *inputs;
-		control_operator(&tmp);
+		node = NULL;
+		size = ft_lstsize(inputs);
+
 		create_tree(&tree, inputs);
-}*/
+}

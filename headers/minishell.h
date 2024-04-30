@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 10:45:06 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:08:09 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		break_into_words(t_list **inputs, char *inputs_array);
 void		word_or_operator(t_list **inputs);
 void		check_quote(t_esc *esc_status, char *str);
 t_wd_desc	*new_wd_desc(int flags, char *word);
-void		divide(t_list **inputs, t_list **new);
+void		divide(t_list **inputs, t_btree **tree);
 
 //environment
 
