@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/29 02:56:41 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:12:05 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ void	dup2_error(void)
 	exit(errno);
 }
 
-void	open_error(t_pipeline *pipeline)
+void	open_error(char *filename)
 {
-	perror("open error: ");
-	(void)pipeline;
-	//destroy_pipeline(pipeline);
-	exit(errno);
+	char	*errstr;
+
+	errstr = ft_strjoin("minishell: ", filename);
+	perror(errstr);
+	free(errstr);
+	exit(1);
 }
 
 void	fork_error(t_pipeline *pipeline)

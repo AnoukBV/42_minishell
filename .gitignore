@@ -8,3 +8,5 @@ outtest
 intest2
 outfile
 infile
+test
+test**
