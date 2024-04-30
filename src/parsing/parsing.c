@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 10:24:16 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:33:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	check_quote_bis(t_esc *esc_status, char *str)
 	else if ((esc_status->is_simplequote == true && str[i] == '\"') || \
 		(esc_status->is_simplequote == false && str[i] == '\''))
 		return ;
-	esc_status->is_quoted = false ;	
+	esc_status->is_quoted = false;
 	str[i] = '\n';
 }
 
@@ -58,7 +58,7 @@ static void	*quotes_removal(void *content)
 	t_esc		esc_status;
 	char		*str;
 	size_t		i;
-	
+
 	i = 0;
 	old = (t_wd_desc *)content;
 	token = new_wd_desc(old->flags, ft_strdup(old->word));
@@ -80,12 +80,13 @@ static void	*quotes_removal(void *content)
 
 void	parsing(char *str, t_list **inputs)
 {
-//	lexer
 	t_list	*map;
+	t_btree	*tree;
 
 	if (!str)
 		return ;
-	break_into_words(inputs, str); 
+	tree = NULL;
+	break_into_words(inputs, str);
 	word_or_operator(inputs);
 	//print_unidentified_tokens(*inputs); //DELETE
 	map = ft_lstmap(*inputs, &quotes_removal, \
@@ -94,11 +95,6 @@ void	parsing(char *str, t_list **inputs)
 	*inputs = map;
 	//printf("\nAfter quote removal\n");	//DELETE
 	//print_unidentified_tokens(*inputs); //DELETE
-	//divide(inputs, &new);
-	//print_divided_cmds(*inputs);
-	print_unidentified_tokens(*inputs); //DELETE
-
-//	identification;
-
-//	parser
+	divide(inputs, &tree);
+	print_divided_cmds(tree, 0);
 }

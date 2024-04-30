@@ -6,124 +6,116 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 14:27:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:37:08 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static t_list	*ft_sublst(t_list *start, t_list *end)
-{
-	t_list *tmp;
-	t_list *new;
 
-	tmp = start;
-	new = NULL;
-	if (!start)
-		return (NULL);
-	while (tmp && tmp != end)
-	{
-		ft_lstadd_back(&new, ft_lstnew(tmp->content));
-		tmp = tmp->next;
-	}
-	return (new);
-} */
-/*
-static t_list	*seek_closing(t_list	**inputs, t_list **new)
+static size_t	until_next(t_list **inputs, int next)
 {
-	t_list	*tmp;
-	t_list	*head;
+	size_t		size;
 	t_wd_desc	*tok;
+	t_list		*tmp;
 
 	tmp = *inputs;
-	(void)new;
-	while (tmp)
+	size = 0;
+	tok = (t_wd_desc *)tmp->content;
+	if (tok->flags == next)
+		return (1);
+	while (tmp && tok->flags != next && tok->flags != T_PIPE)
 	{
-		tok = (t_wd_desc *)tmp->content;
-		if (tok->word[0] == ')' && tok->flags != 0)
-		{
-			tok->flags = 3;
-			head = ft_lstnew(ft_sublst(*inputs, tmp->next));
-			//printf("helloe\n\n");
-			//print_unidentified_tokens((t_listhead); //DELETE
-			//ft_lstadd_back(new, head);
-			*inputs = tmp;
-			return ((t_list *)head->content);
-		}
+		size++;
 		tmp = tmp->next;
+		if (tmp)
+			tok = (t_wd_desc *)tmp->content;
 	}
-	return (NULL);
-}*/
-/*
-static t_bool	between_brackets(t_list	**inputs, t_list **new)
+	if (size == 0 && tmp == NULL)
+		size = ft_lstsize(*inputs);
+	return (size);
+}
+
+static void	isolate_cmd(t_pcmd **cmd, t_list **inputs, size_t size)
 {
+	t_wd_desc	*tok;
+
+	(void)size;
+	tok = (t_wd_desc *)(*inputs)->content;
+	if (tok->word != NULL)
+		ft_lstadd_back(&(*cmd)->cmd, ft_lstnew(tok));
+}
+
+static void	isolate_redir(t_pcmd **cmd, t_list **inputs)
+{
+	t_redir_list	*new;
+	t_wd_desc		*tok;
+
+	tok = (t_wd_desc *)(*inputs)->content;
+	new = malloc(sizeof(t_redir_list));
+	if (!new)
+		return ;
+	new->type = tok->flags;
+	tok = (t_wd_desc *)(*inputs)->next->content;
+	new->target_filename = ft_strdup(tok->word);
+	new->next = NULL;
+	addback_redir(&(*cmd)->redir_list, new);
+	if ((*inputs)->next)
+		(*inputs) = (*inputs)->next;
+}
+
+static void	create_tree(t_list **inputs, \
+	t_btree **holder, size_t size)
+{
+	t_btree		*node;
 	t_list		*tmp;
 	t_wd_desc	*tok;
-	t_wd_desc	*tok2;
+	t_pcmd		*cmd;
 
+	node = malloc_bst();
+	tok = (t_wd_desc *)(*inputs)->content;
 	tmp = *inputs;
-	while (tmp)
+	cmd = (t_pcmd *)node->item;
+	if (tok->flags == T_PIPE)
+		cmd->flags = T_PIPE;
+	else
+		cmd->flags = T_WORD;
+	while (size > 0 && cmd->flags != T_PIPE && tmp)
 	{
-		tok = (t_wd_desc *)tmp->content;
-		tok2 = (t_wd_desc *)tmp->next->content;
-		if ((tok->word[0] == '(' || (ft_strchr("|&", tok->word[0]) \
-			&& tok2->word[0] == '(')) && tok->flags != 0)
-		{
-			if (seek_closing(&tmp, new) == false)
-			{
-				printf("syntaxerr\n");
-				return (false);
-			}
-			else
-			{
-				if (tok->word[0] == '(') 
-					tok->flags = 2;
-				else
-					tok2->flags = 2;
-				*inputs = tmp->next;
-				printf("in between brackets\n");
-				print_unidentified_tokens(*inputs); //DELETE
-				return (true);
-			}
-		}
+		if (is_redir(tmp) == true)
+			isolate_redir(&cmd, &tmp);
+		else
+			isolate_cmd(&cmd, &tmp, size);
+		size--;
 		tmp = tmp->next;
 	}
-	return (false);
+	*holder = node;
 }
 
-*/
-/*
-
-static void	create_tree(t_btree **tree, t_list **inputs)
+void	divide(t_list **inputs, t_btree **tree)
 {
-	t_btree	*node;
-	t_list	*tmp;
-	t_list	*head;
-	t_wd_desc	*tok;
+	t_btree		*holder;
+	size_t		size;
 
-	tmp = *inputs;
-	head = tmp;
-	while (tmp)
+	holder = NULL;
+	size = 0;
+	while (*inputs)
 	{
-		tok = (t_wd_desc *)tmp->content;
-		if (tok->flags == PIPE)
+		size = until_next(inputs, T_PIPE);
+		create_tree(inputs, &holder, size);
+		if (!(*tree))
+			(*tree) = holder;
+		else if (((t_wd_desc *)(*inputs)->content)->flags == T_PIPE)
 		{
-			node = btree_create_node(tmp);
-			node->left = btree_create_node(head);
-			node->right = bree_create_node
+			holder->left = (*tree);
+			(*tree) = holder;
 		}
-		tmp = tmp->next;
+		else
+			(*tree)->right = holder;
+		while (size > 0)
+		{
+			(*inputs) = (*inputs)->next;
+			size--;
+		}
+		holder = NULL;
 	}
-	*tree = node->left;
-}
-*/
-void	divide(t_list **inputs, t_btree *tree)
-{
-		t_btree	*node;
-		size_t	size;
-
-		node = NULL;
-		size = ft_lstsize(inputs);
-
-		create_tree(&tree, inputs);
 }

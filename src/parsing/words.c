@@ -6,20 +6,11 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 09:27:32 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:32:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-static t_bool	is_escaped(char *meta, t_esc *esc_status)
-{
-	char	a;
-
-	a = *meta;
-	
-}*/
 
 static t_list	*input_into_words(char *str)
 {
@@ -73,7 +64,7 @@ static t_list	*input_into_words(char *str)
 void	check_quote(t_esc *esc_status, char *str)
 {
 	size_t	i;
-	
+
 	i = 0;
 	if (!ft_strchr("\'\"", str[i]))
 		return ;

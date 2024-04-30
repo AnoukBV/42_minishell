@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:50:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 13:54:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:49:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ typedef enum	e_type
 	T_RED_OUT,
 	T_APP_OUT,
 	T_RED_IN,
-	T_APP_IN
+	T_APP_IN,
+	REDIRS
 }	t_type;
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 14:08:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:27:30 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ typedef struct s_esc
 {
 	t_bool	is_quoted;
 	t_bool	is_simplequote;
-	//t_bool	is_aquote;
-	//t_bool	is_closing;
 }	t_esc;
 
 typedef struct s_wd_desc
@@ -44,6 +42,27 @@ typedef struct s_wd_desc
 	char	*word;
 	int		flags;
 }	t_wd_desc;
+
+typedef struct	s_redir_list
+{
+	int						fd_to_redirect;
+	char					*target_filename;
+	int						open_flags; // open() flags used for target file
+	int						type;	//ARTHUR : MODIF ICI
+	struct s_redir_list		*next;
+}	t_redir_list;
+
+typedef struct	s_pcmd
+{
+	int					flags;
+	t_list				*cmd; //ARTHUR : MODIF ICI
+	//char				*command; // name (+ path) of the command
+	t_redir_list		*redir_list;
+	int					pipe_left[2];
+	int					pipe_right[2];
+	struct s_pcmd		*next;
+	struct s_pcmd		*prev;
+}	t_pcmd;
 
 // parsing
 
@@ -54,6 +73,10 @@ void		word_or_operator(t_list **inputs);
 void		check_quote(t_esc *esc_status, char *str);
 t_wd_desc	*new_wd_desc(int flags, char *word);
 void		divide(t_list **inputs, t_btree **tree);
+void		addback_redir(t_redir_list **redir, t_redir_list *new);
+t_bool		is_redir(t_list *inputs);
+t_btree		*malloc_bst(void);
+t_pcmd		*init_cmd(void);
 
 //environment
 
@@ -70,7 +93,8 @@ void	del_wddesc(void *word);
 
 void	print_2d_array(char **str);
 void	print_unidentified_tokens(t_list *inputs);
-void	print_divided_cmds(t_list *cmds);
+void	print_divided_cmds(t_btree *cmds, size_t levels);
+int		Size(t_btree *root);
 
 // signals.c
 void	set_rl_signals(void);
