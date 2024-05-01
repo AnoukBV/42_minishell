@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 13:03:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:55:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ static void	create_table(t_hashtable **env, size_t size)
 {
 	*env = malloc(sizeof(t_hashtable));
 	if (*env == NULL)
-		return ;
+		return ;					//SECURISER
 	(*env)->size = size;
 	(*env)->member = ft_calloc(sizeof(t_member), size);
-	if ((*env)->member == NULL)
+	if ((*env)->member == NULL)		//SECURISER
 		free(*env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/30 19:37:08 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 10:09:46 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static size_t	until_next(t_list **inputs, int next)
 	return (size);
 }
 
-static void	isolate_cmd(t_pcmd **cmd, t_list **inputs, size_t size)
+static void	isolate_cmd(t_command **cmd, t_list **inputs, size_t size)
 {
 	t_wd_desc	*tok;
 
@@ -45,10 +45,11 @@ static void	isolate_cmd(t_pcmd **cmd, t_list **inputs, size_t size)
 		ft_lstadd_back(&(*cmd)->cmd, ft_lstnew(tok));
 }
 
-static void	isolate_redir(t_pcmd **cmd, t_list **inputs)
+static void	isolate_redir(t_command **cmd, t_list **inputs)
 {
 	t_redir_list	*new;
 	t_wd_desc		*tok;
+	t_list			*tmp;
 
 	tok = (t_wd_desc *)(*inputs)->content;
 	new = malloc(sizeof(t_redir_list));
@@ -56,6 +57,7 @@ static void	isolate_redir(t_pcmd **cmd, t_list **inputs)
 		return ;
 	new->type = tok->flags;
 	tok = (t_wd_desc *)(*inputs)->next->content;
+	tmp = *inputs;
 	new->target_filename = ft_strdup(tok->word);
 	new->next = NULL;
 	addback_redir(&(*cmd)->redir_list, new);
@@ -66,15 +68,15 @@ static void	isolate_redir(t_pcmd **cmd, t_list **inputs)
 static void	create_tree(t_list **inputs, \
 	t_btree **holder, size_t size)
 {
-	t_btree		*node;
-	t_list		*tmp;
-	t_wd_desc	*tok;
-	t_pcmd		*cmd;
+	t_btree			*node;
+	t_list			*tmp;
+	t_wd_desc		*tok;
+	t_command		*cmd;
 
 	node = malloc_bst();
 	tok = (t_wd_desc *)(*inputs)->content;
 	tmp = *inputs;
-	cmd = (t_pcmd *)node->item;
+	cmd = (t_command *)node->item;
 	if (tok->flags == T_PIPE)
 		cmd->flags = T_PIPE;
 	else

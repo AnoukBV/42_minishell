@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 08:25:14 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 09:44:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,4 @@ void	break_into_words(t_list **inputs, char *inputs_array)
 {
 	*inputs = NULL;
 	input_into_words(inputs_array, inputs);
-	//free(inputs_array);
 }

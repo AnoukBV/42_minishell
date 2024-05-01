@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:56:53 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 19:05:28 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 09:26:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,61 @@ void	del_wddesc(void *word)
 void	free_before_id(t_list *inputs, size_t in_nb)
 {
 	size_t	i;
-	t_list	*del;
 	//t_list	*tmp;
 	//t_list	*tmp2;
 
 	i = 0;
-	del = inputs;
-	if (!del)
+	if (!inputs)
 		return ;
 	while (i < in_nb)
 	{
-		ft_lstclear(&del, &del_wddesc);
+		ft_lstclear(&inputs, &del_wddesc);
 	//	tmp2 = tmp;
 	//	tmp = tmp->next;
 	//	free(tmp2);
 		i++;
 	}
+}
+
+void	free_redirections(t_redir_list *list)
+{
+	if (!list)
+		return ;
+	while (list)
+	{
+		if (list->target_filename)
+			free(list->target_filename);
+		list = list->next;
+	}
+	free(list);
+}
+
+void	free_binary_tree(t_btree *del)
+{
+	t_btree		*left;
+	t_btree		*right;
+	t_command	*tree;
+
+	if (!del)
+		return ;
+	tree = (t_command *)del->item;
+	if (tree == NULL)
+	{
+		free(del);
+		return ;
+	}
+	if (tree->cmd)
+		ft_lstclear(&tree->cmd, &del_wddesc);
+	if (tree->argv)
+		free_array_2d(tree->argv);
+	if (tree->command)
+		free(tree->command);
+	if (tree->redir_list)
+		free_redirections(tree->redir_list);
+	left = del->left;
+	right = del->right;
+	free(tree);
+	free(del);
+	free_binary_tree(right);
+	free_binary_tree(left);
 }

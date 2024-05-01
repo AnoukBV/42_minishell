@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/30 19:21:27 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 09:22:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ void	print_redirections(t_redir_list *tmp)
 void	print_divided_cmds(t_btree *cmds, size_t levels)
 {
 	size_t	i;
-	t_pcmd	*cmd;
+	t_command	*cmd;
 
 	i = 0;
 	if (!cmds)
 		return ;
-	cmd = (t_pcmd *)cmds->item;
+	cmd = (t_command *)cmds->item;
 	while (i < levels)
 	{
 		if (i == levels - 1)

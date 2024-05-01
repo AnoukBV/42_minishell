@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:23:11 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/30 19:37:42 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 09:22:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,26 @@ t_bool	is_redir(t_list *inputs)
 
 t_btree	*malloc_bst(void)
 {
-	t_btree	*node;
-	t_pcmd	*cmd;
+	t_btree		*node;
+	t_command	*cmd;
 
 	cmd = init_cmd();
 	node = btree_create_node(cmd);
 	return (node);
 }
 
-t_pcmd	*init_cmd(void)
+t_command	*init_cmd(void)
 {
-	t_pcmd	*cmd;
+	t_command	*cmd;
 
-	cmd = malloc(sizeof(t_pcmd));
+	cmd = malloc(sizeof(t_command));
 	if (!cmd)
 		return (NULL);
 	cmd->next = NULL;
 	cmd->prev = NULL;
 	cmd->cmd = NULL;
+	cmd->command = NULL;
+	cmd->argv = NULL;
 	cmd->redir_list = NULL;
 	return (cmd);
 }

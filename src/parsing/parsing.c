@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/30 19:33:24 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 10:21:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ static void	*quotes_removal(void *content)
 	i = 0;
 	old = (t_wd_desc *)content;
 	token = new_wd_desc(old->flags, ft_strdup(old->word));
-	str = token->word;
-	if (ft_strchr("()|&<>", str[0]))
+	if (ft_strchr("()|&<>", token->word[0]) || !ft_strchr(token->word, \
+		'\'') || !ft_strchr(token->word, '"'))
 		return (token);
+	str = token->word;
 	esc_status.is_quoted = false;
 	while (str[i])
 	{
@@ -95,6 +96,9 @@ void	parsing(char *str, t_list **inputs)
 	*inputs = map;
 	//printf("\nAfter quote removal\n");	//DELETE
 	//print_unidentified_tokens(*inputs); //DELETE
+	map = *inputs;
 	divide(inputs, &tree);
+	ft_lstclear(&map, del_wddesc);
 	print_divided_cmds(tree, 0);
+	free_binary_tree(tree); //idee = pas de doube free/fct prec
 }
