@@ -48,3 +48,10 @@ a"no"'||u'k" : fonctionne, ne donne qu'un seul token
 ```
 "r'tt)"
 ```
+
+
+
+
+
+(((command1 && command2) || command3) && (command4 || (command5 && command6)))
+

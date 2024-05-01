@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 10:21:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:25:08 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,12 @@ void	parsing(char *str, t_list **inputs)
 	//printf("\nAfter quote removal\n");	//DELETE
 	//print_unidentified_tokens(*inputs); //DELETE
 	map = *inputs;
+	if (check_validity_parenthesis(*inputs) == false)
+	{
+		ft_putstr_fd("ERROR PARENTHESIS\n", 2);
+		return ;
+	}
+		// gestion d'erreur temp
 	divide(inputs, &tree);
 	ft_lstclear(&map, del_wddesc);
 	print_divided_cmds(tree, 0);

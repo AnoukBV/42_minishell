@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 14:20:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:21:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,10 @@ static void	create_tree(t_list **inputs, \
 	while (size > 0 && cmd->flags == T_WORD && tmp)
 	{
 		if (is_redir(tmp) == true)
+		{
 			isolate_redir(&cmd, &tmp);
+			size--;
+		}
 		else
 			isolate_cmd(&cmd, &tmp, size);
 		size--;
@@ -148,12 +151,11 @@ void	divide(t_list **inputs, t_btree **tree)
 
 	holder = NULL;
 	size = 0;
-	if (check_validity_parenthesis(*inputs) == false)
-		ft_putstr_fd("ERROR PARENTHESIS", 2);
-		// gestion d'erreur temp
 	while (*inputs)
 	{
 		is_between_p(inputs, tree);
+		if (!(*inputs))
+			break ;
 		size = until_next_op(inputs);
 		create_tree(inputs, &holder, size);
 		new_branch((t_wd_desc *)(*inputs)->content, holder, tree);

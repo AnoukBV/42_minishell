@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 09:22:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:31:52 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,26 @@ void	print_redirections(t_redir_list *tmp)
 	}
 }
 
+void	print_tokens(t_list *inputs)
+{
+	size_t	j;
+	size_t	size_input;
+	t_list	*tmp;
+	t_wd_desc	*word;
+
+	tmp = inputs;
+	j = 0;
+	size_input = ft_lstsize(tmp);
+	while (j < size_input)
+	{
+		word = (t_wd_desc*)tmp->content;
+		printf("%s ", word->word);
+		tmp = tmp->next;
+		j++;
+	}
+	printf("STOP");
+}
+
 void	print_divided_cmds(t_btree *cmds, size_t levels)
 {
 	size_t	i;
@@ -81,27 +101,19 @@ void	print_divided_cmds(t_btree *cmds, size_t levels)
 	i = 0;
 	if (!cmds)
 		return ;
+	print_divided_cmds(cmds->right, levels + 1);
+	for (size_t i = 0; i < levels; ++i)
+		printf("     ");
 	cmd = (t_command *)cmds->item;
-	while (i < levels)
-	{
-		if (i == levels - 1)
-			printf("|-");
-		else
-			printf(" ");
-		i++;
-	}
-	printf("\nNODE NB %zu\n", levels);
-	printf("\ntype = %i", cmd->flags);
 	if (cmd->cmd)
-	{
-		printf("\ncmd + arg = \n");
-		print_unidentified_tokens(cmd->cmd);
-	}
+		print_tokens(cmd->cmd);
+	else
+		printf(" %i ", cmd->flags);
 	if (cmd->redir_list)
 	{
 		printf("\nRedirections\n");
 		print_redirections((t_redir_list *)cmd->redir_list);
 	}
+	printf("\n");
 	print_divided_cmds(cmds->left, levels + 1);
-	print_divided_cmds(cmds->right, levels + 1);
 }

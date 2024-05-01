@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:43:20 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 14:07:50 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 18:21:52 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_list	*seek_new_end(t_list *list)
 	t_wd_desc	*tok;
 
 	end = list;
-	while (1)
+	while (end && list)
 	{
 		tok = (t_wd_desc *)end->content;
 		if (tok->flags == T_CLOSE && next_open_null(end->next) == true)
@@ -78,7 +78,10 @@ void	is_between_p(t_list **inputs, t_btree **tree)
 	new = isolate_new(tmp, tmp2);
 	divide(&new, tree);
 	ft_lstclear(&new, &del_wddesc);
-	*inputs = tmp2->next;
+	if (tmp2 && tmp2->next)
+		*inputs = tmp2->next;
+	else
+		*inputs = NULL;
 }
 
 void	new_branch(t_wd_desc *tok, t_btree *holder, t_btree **tree)
