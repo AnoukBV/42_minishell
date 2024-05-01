@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 10:09:46 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 10:27:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ static size_t	until_next(t_list **inputs, int next)
 static void	isolate_cmd(t_command **cmd, t_list **inputs, size_t size)
 {
 	t_wd_desc	*tok;
+	t_wd_desc	*new;
 
 	(void)size;
 	tok = (t_wd_desc *)(*inputs)->content;
-	if (tok->word != NULL)
-		ft_lstadd_back(&(*cmd)->cmd, ft_lstnew(tok));
+	new = new_wd_desc(tok->flags, ft_strdup(tok->word));
+	if (new->word != NULL)
+		ft_lstadd_back(&(*cmd)->cmd, ft_lstnew(new));
 }
 
 static void	isolate_redir(t_command **cmd, t_list **inputs)
