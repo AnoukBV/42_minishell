@@ -1,0 +1,38 @@
+cat << test > out
+jdslak
+jasdlj
+sjldaj
+'$USER'
+test
+
+cat << "test" > out
+jdslak
+jasdlj
+sjldaj
+$USER
+test
+
+cat << test > out
+jdslak
+jasdlj
+sjldaj
+$USER
+test
+
+cat << 'test' > out
+jdslak
+jasdlj
+sjldaj
+$USER
+test
+
+cat < out > $USER
+
+cat << $USER > out
+sajd;
+jdla
+slda
+aboulore
+$USER
+
+
