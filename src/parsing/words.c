@@ -6,11 +6,22 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/30 19:32:33 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:13:06 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	new_word(t_list **list, char *str, size_t end, size_t start)
+{
+	t_wd_desc	*tok;
+
+	if (start != end)
+	{
+		tok = new_wd_desc(0, ft_substr(str, start, end - start));
+		ft_lstadd_back(list, ft_lstnew(tok));
+	}
+}
 
 static t_list	*input_into_words(char *str)
 {
@@ -30,11 +41,7 @@ static t_list	*input_into_words(char *str)
 		if (ft_strchr("|&<>() \t", str[i]) \
 			&& esc_status.is_quoted == false)
 		{
-			if (j != i)
-			{
-				tmp_w = new_wd_desc(0, ft_substr(str, j, i - j));
-				ft_lstadd_back(&words_list, ft_lstnew((void *)tmp_w));
-			}
+			new_word(&words_list, str, i, j);
 			if (!ft_isspace(str[i]))
 			{
 				if (!ft_strchr("()", str[i]) && str[i + 1] == str[i])
@@ -51,13 +58,7 @@ static t_list	*input_into_words(char *str)
 		i++;
 	}
 	if (!ft_isspace(str[i - 1]))
-	{
-		if (j != i)
-		{
-			tmp_w = new_wd_desc(0, ft_substr(str, j, i - j));
-			ft_lstadd_back(&words_list, ft_lstnew((void *)tmp_w));
-		}
-	}
+		new_word(&words_list, str, i, j);
 	return (words_list);
 }
 
