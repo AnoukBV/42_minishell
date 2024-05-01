@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 09:23:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 13:51:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ void			addback_redir(t_redir_list **redir, t_redir_list *new);
 t_bool			is_redir(t_list *inputs);
 t_btree			*malloc_bst(void);
 t_command		*init_cmd(void);
+t_bool			check_validity_parenthesis(t_list *list);
+void			new_branch(t_wd_desc *tok, t_btree \
+				*holder, t_btree **tree);
+void			is_between_p(t_list **inputs, t_btree **tree);
 
 //environment
 

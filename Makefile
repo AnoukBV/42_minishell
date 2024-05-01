@@ -16,6 +16,8 @@ SRC_FILES := totrash.c \
 			parsing/categorization.c \
 			parsing/divide.c \
 			parsing/binary_tree_utils.c \
+			parsing/check_parenthesis.c \
+			parsing/manage_parenthesis.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \
