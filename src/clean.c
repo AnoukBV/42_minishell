@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:56:53 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/24 19:05:28 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:50:51 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,5 @@ void	free_before_id(t_list *inputs, size_t in_nb)
 		i++;
 	}
 }
+
+

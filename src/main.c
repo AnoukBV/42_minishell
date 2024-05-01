@@ -6,13 +6,15 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/26 12:44:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:50:46 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*get_prompt(void)
+int	g_status;
+
+static char *get_prompt(void)
 {
 	char	*cwd;
 	char	*prompt;
@@ -91,3 +93,4 @@ int	main(int ac, char **av, char **envp)
 	free_env(env);	
 	return (0);
 }
+
