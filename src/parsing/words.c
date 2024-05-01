@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 08:13:06 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/01 08:25:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,34 @@ static void	new_word(t_list **list, char *str, size_t end, size_t start)
 	}
 }
 
-static t_list	*input_into_words(char *str)
+static size_t	new_metacharacter(t_list **list, char *str)
 {
-	t_list		*words_list;
+	size_t		i;
+	t_wd_desc	*tok;
+
+	i = 0;
+	if (!ft_isspace(str[i]))
+	{
+		if (!ft_strchr("()", str[i]) && str[i + 1] == str[i])
+		{
+			tok = new_wd_desc(0, ft_substr(&str[i], 0, 2));
+			i++;
+		}
+		else
+			tok = new_wd_desc(0, ft_substr(&str[i], 0, 1));
+		ft_lstadd_back(list, ft_lstnew(tok));
+	}
+	return (i);
+}
+
+static void	input_into_words(char *str, t_list **words_list)
+{
 	t_esc		esc_status;
-	t_wd_desc	*tmp_w;
 	size_t		i;
 	size_t		j;
 
 	i = 0;
 	j = 0;
-	words_list = NULL;
 	esc_status.is_quoted = false;
 	while (str[i])
 	{
@@ -41,25 +58,14 @@ static t_list	*input_into_words(char *str)
 		if (ft_strchr("|&<>() \t", str[i]) \
 			&& esc_status.is_quoted == false)
 		{
-			new_word(&words_list, str, i, j);
-			if (!ft_isspace(str[i]))
-			{
-				if (!ft_strchr("()", str[i]) && str[i + 1] == str[i])
-				{
-					tmp_w = new_wd_desc(0, ft_substr(&str[i], 0, 2));
-					i++;
-				}
-				else
-					tmp_w = new_wd_desc(0, ft_substr(&str[i], 0, 1));
-				ft_lstadd_back(&words_list, ft_lstnew((void *)tmp_w));
-			}
+			new_word(words_list, str, i, j);
+			i += new_metacharacter(words_list, &str[i]);
 			j = i + 1;
 		}
 		i++;
 	}
 	if (!ft_isspace(str[i - 1]))
-		new_word(&words_list, str, i, j);
-	return (words_list);
+		new_word(words_list, str, i, j);
 }
 
 void	check_quote(t_esc *esc_status, char *str)
@@ -89,6 +95,7 @@ void	check_quote(t_esc *esc_status, char *str)
 
 void	break_into_words(t_list **inputs, char *inputs_array)
 {
-	*inputs = input_into_words(inputs_array);
+	*inputs = NULL;
+	input_into_words(inputs_array, inputs);
 	//free(inputs_array);
 }
