@@ -6,11 +6,29 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/24 14:04:59 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:40:31 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+extern int	g_status;
+
+int	get_status(void)
+{
+	if (WIFSIGNALED(g_status))
+	{
+		printf("WIFSIGNALED\n");
+		return (WTERMSIG(g_status));
+	}
+	else if (WIFEXITED(g_status))
+	{
+		printf("WIFEXITED\n");
+		return (WEXITSTATUS(g_status));
+	}
+	fprintf(stderr, "get_status error\n");
+	return (-1);
+}
 
 t_bool	is_builtin(char *cmd_name)
 {

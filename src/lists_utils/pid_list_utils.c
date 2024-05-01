@@ -6,11 +6,13 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 00:46:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/29 02:57:55 by abernade         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:50:35 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+extern int	g_status;
 
 void	wait_all_pid(t_pid_list **pid_list)
 {
@@ -24,7 +26,8 @@ void	wait_all_pid(t_pid_list **pid_list)
 	node = *pid_list;
 	while (node)
 	{
-		waitpid(node->pid, NULL, 0);
+		waitpid(node->pid, &g_status, 0);
+		printf("pid: %d \t exit status:%d\n", node->pid, get_status());
 		if (prev == NULL)
 			*pid_list = node->next;
 		else

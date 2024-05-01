@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/30 17:16:12 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:24:44 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,9 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 		execve_error();
 }
 
-static void	end_pipeline(t_pipeline *pipeline, int pid)
+static void	end_pipeline(t_pipeline *pipeline)
 {
 	close_fd_list(&pipeline->fd_list);
-	waitpid(pid, &g_status, 0);
 	wait_all_pid(&pipeline->pid_list);
 }
 
@@ -79,6 +78,7 @@ void	execute_pipeline(t_pipeline *pipeline)
 {
 	int			pid;
 	t_command	*cmd;
+
 
 	cmd = pipeline->cmd_list;
 	prepare_pipeline(pipeline);
@@ -92,10 +92,10 @@ void	execute_pipeline(t_pipeline *pipeline)
 			child_exec(pipeline, cmd);
 			break;
 		}
+		printf("spawned process with pid %d for command %s\n", pid, cmd->command);
+		add_pid(pid, &pipeline->pid_list);
 		if (cmd->next == NULL)
-			end_pipeline(pipeline, pid);
-		else
-			add_pid(pid, &pipeline->pid_list);
+			end_pipeline(pipeline);
 		cmd = cmd->next;
 	}
 }
