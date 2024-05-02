@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 17:31:52 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 08:14:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	print_redirections(t_redir_list *tmp)
 	while (redir)
 	{
 		printf("%s\n", redir->target_filename);
-		printf("type = %i\n", redir->type);
+		printf("flags = %i\n", redir->open_flags);
+		printf("fd = %i\n", redir->fd_to_redirect);
 		redir = redir->next;
 	}
 }

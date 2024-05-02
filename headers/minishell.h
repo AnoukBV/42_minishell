@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 18:21:21 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 08:50:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct	s_redir_list
 	int						fd_to_redirect;
 	char					*target_filename;
 	int						open_flags; // open() flags used for target file
-	int						type;	//ARTHUR : MODIF ICI
+	//int						type;	//ARTHUR : MODIF ICI
 	struct s_redir_list		*next;
 }	t_redir_list;
 
@@ -82,6 +82,9 @@ t_bool			check_validity_parenthesis(t_list *list);
 void			new_branch(t_wd_desc *tok, t_btree \
 				*holder, t_btree **tree);
 void			is_between_p(t_list **inputs, t_btree **tree);
+void			assignate_flags_dir(int tok_flags, \
+				int *open_flags, int *fd);
+void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
 
 //environment
 

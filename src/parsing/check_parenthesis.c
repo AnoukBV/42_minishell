@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:08:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 12:36:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 10:01:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ static void	redo_flags(t_list **list)
 	while (tmp)
 	{
 		tok = (t_wd_desc *)tmp->content;
-		if (tok->flags > 700)
+		if (tok->flags % 1000 > 700)
 			tok->flags -= 700;
+		if (tok->flags % 1000 > 300)
+			tok->flags -= 300;
 		tmp = tmp->next;
 	}
 }

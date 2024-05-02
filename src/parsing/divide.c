@@ -6,58 +6,12 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 18:21:33 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 09:34:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static void		is_between_p(t_bool **esc, t_list *list)
-{
-	t_list		*tmp;
-	t_wd_desc	*tok;
 
-	tmp = list;
-	tok = (t_wd_desc *)tmp->content;
-	if (*esc == false && tok->flags == T_OPEN)
-	{
-		*esc = true;
-		return ;
-	}
-	else if (*esc == false)
-		return ;
-	else if (tok->flags == T_CLOSE && seek_other_)
-	{
-		*esc = false;
-		return ;
-	}
-	
-}
-
-static size_t	until_next_red(t_list **inputs)
-{
-	size_t		size;
-	t_wd_desc	*tok;
-	t_list		*tmp;
-
-	tmp = *inputs;
-	size = 0;
-	tok = (t_wd_desc *)tmp->content;
-	if (tok->flags == next)
-		return (1);
-	while (tmp && tok->flags != REDIRRR && tok->flags != T_PIPE)
-	{
-		size++;
-		tmp = tmp->next;
-		if (tmp)
-			tok = (t_wd_desc *)tmp->content;
-	}
-	if (size == 0 && tmp == NULL)
-		size = ft_lstsize(*inputs);
-	return (size);
-
-}
-*/
 static size_t	until_next_op(t_list **inputs)
 {
 	size_t		size;
@@ -103,7 +57,8 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 	new = malloc(sizeof(t_redir_list));
 	if (!new)
 		return ;
-	new->type = tok->flags;
+	assignate_flags_dir(tok->flags, &new->open_flags, &new->fd_to_redirect);
+	//new->type = tok->flags;
 	tok = (t_wd_desc *)(*inputs)->next->content;
 	tmp = *inputs;
 	new->target_filename = ft_strdup(tok->word);

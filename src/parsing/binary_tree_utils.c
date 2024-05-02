@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:23:11 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 09:22:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 09:07:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_bool	is_redir(t_list *inputs)
 	tok = (t_wd_desc *)inputs->content;
 	if (tok->flags == T_RED_OUT || tok->flags == T_APP_OUT \
 		|| tok->flags == T_RED_IN || tok->flags == T_APP_IN)
+		return (true);
+	else if (tok->flags % 1000 == T_RED_OUT || tok->flags % 1000 == T_APP_OUT \
+		|| tok->flags % 1000 == T_RED_IN || tok->flags % 1000 == T_APP_IN)
 		return (true);
 	return (false);
 }
