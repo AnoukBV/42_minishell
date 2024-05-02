@@ -6,11 +6,13 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:25:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/29 01:33:31 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:03:31 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+extern int	g_status;
 
 void	rl_signals_handler(int sig)
 {
@@ -27,5 +29,6 @@ void	rl_signals_handler(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 17:51:16 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:36:10 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,6 @@ void	wait_all_pid(t_pid_list **pid_list);
 *	Execution utils
 */
 t_bool	is_builtin(char *cmd_name);
-int		get_status(void);
+int		get_status(int status);
 
 #endif

@@ -6,25 +6,23 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/30 17:40:31 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:37:26 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-extern int	g_status;
-
-int	get_status(void)
+int	get_status(int status)
 {
-	if (WIFSIGNALED(g_status))
+	if (WIFSIGNALED(status))
 	{
 		printf("WIFSIGNALED\n");
-		return (WTERMSIG(g_status));
+		return (WTERMSIG(status));
 	}
-	else if (WIFEXITED(g_status))
+	else if (WIFEXITED(status))
 	{
 		printf("WIFEXITED\n");
-		return (WEXITSTATUS(g_status));
+		return (WEXITSTATUS(status));
 	}
 	fprintf(stderr, "get_status error\n");
 	return (-1);

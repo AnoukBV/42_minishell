@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 00:46:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/30 17:50:35 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:36:45 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	wait_all_pid(t_pid_list **pid_list)
 	t_pid_list	*node;
 	t_pid_list	*next;
 	t_pid_list	*prev;
+	int			status;
 
 	if (pid_list == NULL || *pid_list == NULL)
 		return ;
@@ -26,8 +27,8 @@ void	wait_all_pid(t_pid_list **pid_list)
 	node = *pid_list;
 	while (node)
 	{
-		waitpid(node->pid, &g_status, 0);
-		printf("pid: %d \t exit status:%d\n", node->pid, get_status());
+		waitpid(node->pid, &status, 0);
+		g_status = get_status(status);
 		if (prev == NULL)
 			*pid_list = node->next;
 		else
