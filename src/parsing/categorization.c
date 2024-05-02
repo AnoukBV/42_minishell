@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:20:33 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 08:52:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 10:38:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static void	token_type(t_wd_desc **word)
 		(*word)->flags = T_CLOSE;
 	else if (!ft_strncmp(tmp, "<<", 2) \
 		&& ft_strlen(tmp) == 2)
-		(*word)->flags += T_APP_OUT;
+		(*word)->flags += T_APP_IN;
 	else if (!ft_strncmp(tmp, "<", 1))
-		(*word)->flags += T_RED_OUT;
+		(*word)->flags += T_RED_IN;
 	else if (!ft_strncmp(tmp, ">>", 2) && \
 		ft_strlen(tmp) == 2)
-		(*word)->flags += T_APP_IN;
+		(*word)->flags += T_APP_OUT;
 	else if (!ft_strncmp(tmp, ">", 1))
-		(*word)->flags += T_RED_IN;
+		(*word)->flags += T_RED_OUT;
 	else
 		(*word)->flags = T_WORD;
 }

@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 07:59:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 10:08:20 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 10:49:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static void	undefault_fd_tree(int tok_flags, int *open_flags, int *fd)
 {
 	*fd = tok_flags / 1000;
-	if (tok_flags % 1000 == T_APP_IN || tok_flags % 1000 == T_APP_OUT)
+	if (tok_flags % 1000 == T_APP_OUT)
 		*open_flags = O_APPEND;
-	if (tok_flags % 1000 == T_RED_OUT || tok_flags % 1000 == T_RED_IN)
+	else if (tok_flags % 1000 == T_RED_OUT || tok_flags % 1000 == T_RED_IN)
 		*open_flags = O_TRUNCATE;
+	else if (tok_flags % 1000 == T_APP_IN)
+		*open_flags = O_HEREDOC;
 }
 
 void	assignate_flags_dir(int tok_flags, int *open_flags, int *fd)
 {
-	//if (tok_flags == T_RED_OUT || tok_flags == T_RED_IN \
-	//	|| tok_flags == T_APP_IN || tok_flags == T_APP_OUT)
 	if (tok_flags < 1000)
 	{
 		if (tok_flags == T_RED_OUT)
@@ -39,7 +39,7 @@ void	assignate_flags_dir(int tok_flags, int *open_flags, int *fd)
 		}
 		else if (tok_flags == T_APP_IN)
 		{
-			*open_flags = O_APPEND;
+			*open_flags = O_HEREDOC;
 			*fd = 0;
 		}
 		else if (tok_flags == T_APP_OUT)
@@ -77,7 +77,7 @@ void	undefault_fd_tok(t_list **list, t_wd_desc **redir)
 	t_wd_desc	*fd;
 
 	curr = *list;
-	while (curr)
+	while (curr && curr->next)
 	{
 		tok = (t_wd_desc *)curr->next->content;
 		if (tok == (*redir))
@@ -94,7 +94,9 @@ void	undefault_fd_tok(t_list **list, t_wd_desc **redir)
 		return ;
 	}
 	(*redir)->flags = ft_atoi(fd->word) * 1000;
-	if (next)
+	if (curr == *list)
+		*list = curr->next;
+	else if (next && prev)
 		prev->next = next;
 	ft_lstdelone(curr, &del_wddesc);
 }
