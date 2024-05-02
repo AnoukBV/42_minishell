@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 16:42:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:35:58 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	parsing(char *str, t_list **inputs, t_hashtable *env)
 	}
 	divide(inputs, &tree, &env);
 	ft_lstclear(inputs, &del_wddesc);
+	//expansion((t_command *)tree->item);
 	btree_apply_prefix(tree, &expansion);
 	//print_divided_cmds(tree, 0);	//DELETE
 	free_binary_tree(tree);
