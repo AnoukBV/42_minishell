@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 09:57:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 10:58:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ void	parsing(char *str, t_list **inputs)
 	tree = NULL;
 	break_into_words(inputs, str);
 	word_or_operator(inputs);
-	print_unidentified_tokens(*inputs); //DELETE
+	//print_unidentified_tokens(*inputs); //DELETE
 	map = ft_lstmap(*inputs, &quotes_removal, \
 		&del_wddesc);
 	ft_lstclear(inputs, del_wddesc);
 	*inputs = map;
 	//printf("\nAfter quote removal\n");	//DELETE
-	print_unidentified_tokens(*inputs); //DELETE
+	//print_unidentified_tokens(*inputs); //DELETE
 	map = *inputs;
 	if (check_validity_parenthesis(*inputs) == false)
 	{
@@ -103,7 +103,7 @@ void	parsing(char *str, t_list **inputs)
 		return ;
 	}
 		// gestion d'erreur temp
-	print_unidentified_tokens(*inputs); //DELETE
+	//print_unidentified_tokens(*inputs); //DELETE
 	divide(inputs, &tree);
 	ft_lstclear(&map, del_wddesc);
 	print_divided_cmds(tree, 0);

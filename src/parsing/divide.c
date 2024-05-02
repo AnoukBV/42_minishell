@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 09:34:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 11:03:39 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ static void	create_tree(t_list **inputs, \
 		size--;
 		tmp = tmp->next;
 	}
+	if (cmd->flags == T_WORD && !cmd->cmd)
+		cmd->flags = EMPTY;
 	*holder = node;
 }
 

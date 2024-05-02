@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 07:59:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 10:49:14 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 11:04:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	undefault_fd_tok(t_list **list, t_wd_desc **redir)
 {
 	t_list		*curr;
 	t_list		*prev;
-	t_list		*next;
 	t_wd_desc	*tok;
 	t_wd_desc	*fd;
 
@@ -84,8 +83,6 @@ void	undefault_fd_tok(t_list **list, t_wd_desc **redir)
 			break ;
 		prev = curr;
 		curr = curr->next;
-		if (curr->next)
-			next = curr->next;
 	}
 	fd = (t_wd_desc *)curr->content;
 	if (!ft_isanumber(fd->word) || fd->flags != 0)
@@ -96,7 +93,7 @@ void	undefault_fd_tok(t_list **list, t_wd_desc **redir)
 	(*redir)->flags = ft_atoi(fd->word) * 1000;
 	if (curr == *list)
 		*list = curr->next;
-	else if (next && prev)
-		prev->next = next;
+	else if (curr->next && prev)
+		prev->next = curr->next;
 	ft_lstdelone(curr, &del_wddesc);
 }
