@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/01 09:04:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:10:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	shell_prompt(t_hashtable *env, int ac)
 	if (!line)
 		shell_prompt(env, ac);
 	printf("string: %s\n", line); // TO BE DELETED
-	parsing(line, &tokens);
+	parsing(line, &tokens, env);
 	/*
 	*	Execution
 	*/

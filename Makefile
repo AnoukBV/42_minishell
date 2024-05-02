@@ -19,6 +19,7 @@ SRC_FILES := totrash.c \
 			parsing/check_parenthesis.c \
 			parsing/manage_parenthesis.c \
 			parsing/redirections.c \
+			parsing/expansion.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \

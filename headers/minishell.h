@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 08:50:49 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:49:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,33 @@ typedef struct	s_command
 	t_redir_list		*redir_list;
 	int					pipe_left[2];
 	int					pipe_right[2];
+	t_hashtable			**env;
 	struct s_command		*next;
 	struct s_command		*prev;
 }	t_command;
 
 // parsing
 
-void			parsing(char *str, t_list **inputs);
+void			parsing(char *str, t_list **inputs, t_hashtable *env);
 char			**newlines(char *str, size_t *input_nb);
 void			break_into_words(t_list **inputs, char *inputs_array);
 void			word_or_operator(t_list **inputs);
 void			check_quote(t_esc *esc_status, char *str);
 t_wd_desc		*new_wd_desc(int flags, char *word);
-void			divide(t_list **inputs, t_btree **tree);
+void			divide(t_list **inputs, t_btree **tree, t_hashtable **env);
 void			addback_redir(t_redir_list **redir, t_redir_list *new);
 t_bool			is_redir(t_list *inputs);
-t_btree			*malloc_bst(void);
-t_command		*init_cmd(void);
+t_btree			*init_bst(t_hashtable **env);
+t_command		*init_cmd(t_hashtable **env);
 t_bool			check_validity_parenthesis(t_list *list);
 void			new_branch(t_wd_desc *tok, t_btree \
 				*holder, t_btree **tree);
-void			is_between_p(t_list **inputs, t_btree **tree);
+void			is_between_p(t_list **inputs, t_btree **tree, t_hashtable **env);
 void			assignate_flags_dir(int tok_flags, \
 				int *open_flags, int *fd);
 void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
+void			check_quote_bis(t_esc *esc_status, char *str);
+void			expansion(void *item);
 
 //environment
 

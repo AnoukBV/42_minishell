@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:43:20 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/01 18:21:52 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:49:28 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static t_list	*seek_new_end(t_list *list)
 	return (end);
 }
 
-void	is_between_p(t_list **inputs, t_btree **tree)
+void	is_between_p(t_list **inputs, t_btree **tree, t_hashtable **env)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
@@ -76,7 +76,7 @@ void	is_between_p(t_list **inputs, t_btree **tree)
 	tmp = (*inputs)->next;
 	tmp2 = seek_new_end(tmp);
 	new = isolate_new(tmp, tmp2);
-	divide(&new, tree);
+	divide(&new, tree, env);
 	ft_lstclear(&new, &del_wddesc);
 	if (tmp2 && tmp2->next)
 		*inputs = tmp2->next;

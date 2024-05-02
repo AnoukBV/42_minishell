@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 11:03:39 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 16:50:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 }
 
 static void	create_tree(t_list **inputs, \
-	t_btree **holder, size_t size)
+	t_btree **holder, size_t size, t_hashtable **env)
 {
 	t_btree			*node;
 	t_list			*tmp;
 	t_wd_desc		*tok;
 	t_command		*cmd;
 
-	node = malloc_bst();
+	node = init_bst(env);
 	tok = (t_wd_desc *)(*inputs)->content;
 	tmp = *inputs;
 	cmd = (t_command *)node->item;
@@ -101,7 +101,7 @@ static void	create_tree(t_list **inputs, \
 	*holder = node;
 }
 
-void	divide(t_list **inputs, t_btree **tree)
+void	divide(t_list **inputs, t_btree **tree, t_hashtable **env)
 {
 	t_btree		*holder;
 	size_t		size;
@@ -110,11 +110,11 @@ void	divide(t_list **inputs, t_btree **tree)
 	size = 0;
 	while (*inputs)
 	{
-		is_between_p(inputs, tree);
+		is_between_p(inputs, tree, env);
 		if (!(*inputs))
 			break ;
 		size = until_next_op(inputs);
-		create_tree(inputs, &holder, size);
+		create_tree(inputs, &holder, size, env);
 		new_branch((t_wd_desc *)(*inputs)->content, holder, tree);
 		while (size > 0)
 		{
