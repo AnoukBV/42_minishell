@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/01 17:50:46 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:53:57 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char *get_prompt(void)
 	return (prompt);
 }
 
-static char	*select_prompt(void)
+char	*select_prompt(void)
 {
 	static size_t	count = 0;
 	static char		**inputs = NULL;
@@ -61,20 +61,22 @@ static char	*select_prompt(void)
 
 static void	shell_prompt(char **envp, int ac)
 {
-	t_list			*tokens;
-	char			*line;
+	char		*line;
+	char		*prompt;
+	t_pipeline	*pipeline;	
 
 	set_rl_signals();
-	tokens = NULL;
-	line = select_prompt();
+	prompt = get_prompt();
+	line = readline(prompt);
+	free(prompt);
 	if (!line)
-		shell_prompt(envp, ac);
-	printf("string: %s\n", line); // TO BE DELETED
-	parsing(line, &tokens);
-	free_before_id(tokens, 1);
+		return ;
 	/*
 	*	Execution
 	*/
+	pipeline = dummydata(envp);
+	execute_pipeline(pipeline);
+	printf("\nexit code: %d\n", g_status);
 	if (line)
 	{
 		add_history(line);

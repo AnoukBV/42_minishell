@@ -17,7 +17,6 @@ SRC_FILES := main.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \
-			signals.c
 			execution/exec_utils.c \
 			execution/pipeline.c \
 			execution/redirections.c \
@@ -26,7 +25,8 @@ SRC_FILES := main.c \
 			lists_utils/pid_list_utils.c \
 			signals/set_signal.c \
 			signals/signal_handlers.c \
-			totrash.c
+			totrash.c \
+			dummydata.c # TO BE DELETED
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 

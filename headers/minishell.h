@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 15:36:10 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:52:50 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	malloc_error(void);
 void	fork_error(t_pipeline *pipeline);
 void	dup2_error(void);
 void	open_error(char *filename);
-void	execve_error(void);
+void	execve_error(char *filename);
 
 //utils
 void	free_before_id(t_list *inputs, size_t in_nb);

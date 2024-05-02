@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/02 15:38:45 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:00:53 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	do_redir_list(t_redir_list **r_list)
 	while (node != NULL)
 	{
 		next = node->next;
-		fd = open(node->target_filename, node->open_flags, 0666);
+		fd = open(node->target_filename, node->open_flags, 0644);
 		if (fd == -1)
 			open_error(node->target_filename);
 		if(dup2(fd, node->fd_to_redirect) == -1)
@@ -65,7 +65,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	do_redirections(cmd, &pipeline->fd_list);
 	close_fd_list(&pipeline->fd_list);
 	if (execve(cmd->command, cmd->argv, pipeline->envp) == -1)
-		execve_error();
+		execve_error(cmd->command);
 }
 
 static void	end_pipeline(t_pipeline *pipeline)
@@ -97,4 +97,5 @@ void	execute_pipeline(t_pipeline *pipeline)
 			end_pipeline(pipeline);
 		cmd = cmd->next;
 	}
+	destroy_pipeline(pipeline);
 }

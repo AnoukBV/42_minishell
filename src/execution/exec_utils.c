@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/02 15:37:26 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:38:34 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,9 @@
 int	get_status(int status)
 {
 	if (WIFSIGNALED(status))
-	{
-		printf("WIFSIGNALED\n");
-		return (WTERMSIG(status));
-	}
+		return (WTERMSIG(status) + 128);
 	else if (WIFEXITED(status))
-	{
-		printf("WIFEXITED\n");
 		return (WEXITSTATUS(status));
-	}
 	fprintf(stderr, "get_status error\n");
 	return (-1);
 }
