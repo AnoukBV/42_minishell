@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 16:50:13 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/03 07:26:36 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 {
 	t_redir_list	*new;
 	t_wd_desc		*tok;
-	t_list			*tmp;
+	//t_list			*tmp;
 
 	tok = (t_wd_desc *)(*inputs)->content;
 	new = malloc(sizeof(t_redir_list));
@@ -60,7 +60,7 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 	assignate_flags_dir(tok->flags, &new->open_flags, &new->fd_to_redirect);
 	//new->type = tok->flags;
 	tok = (t_wd_desc *)(*inputs)->next->content;
-	tmp = *inputs;
+	//tmp = *inputs;
 	new->target_filename = ft_strdup(tok->word);
 	new->next = NULL;
 	addback_redir(&(*cmd)->redir_list, new);

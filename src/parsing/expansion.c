@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 18:34:43 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/03 07:24:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ static void	*inspect_token(void *item, t_hashtable **env)
 /*
 static void	inspect_redir(t_redir_list **redir_list)
 {
+	filename et limiter
 }
 */
 void	inspect_cmd(t_list **cmd, t_hashtable **env)
@@ -124,4 +125,5 @@ void	expansion(void *item)
 		inspect_cmd(&cmd->cmd, cmd->env);
 //	if (cmd->redir_list)
 //		inspect_redir(&cmd->redir_list);
+//	MAINTENANT REMOVE QUOTES QUI RESTENT
 }
