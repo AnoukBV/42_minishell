@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/03 07:37:44 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/03 07:58:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,14 @@ static char *expand(char *str, t_hashtable **env)
 static void	*inspect_token(void *item, t_hashtable **env)
 {
 	size_t	i;
+	size_t	j;
 	t_list	*splitted_token;
 	t_list	*new;
 	t_wd_desc	*tok;
 	t_esc	esc_status;
 
 	i = 0;
+	j = 0;
 	splitted_token = NULL;
 	tok = (t_wd_desc *)item;
 	if (!ft_strchr(tok->word, '$'))
@@ -89,11 +91,21 @@ static void	*inspect_token(void *item, t_hashtable **env)
 	esc_status.is_quoted = false;
 	while (tok->word[i])
 	{
-		check_quote_bis(&esc_status, &tok->word[i]);
+		check_quote(&esc_status, &tok->word[i]);
 		if ((esc_status.is_quoted == true && esc_status.is_simplequote \
 			== false && tok->word[i] == '$') || (esc_status.is_quoted == false \
 			&& tok->word[i] == '$'))
 		{
+			if (tok->word[i - 1] && (tok->word[i - 1] == '\'' || tok->word[i - 1] == '"'))
+			{
+				new = ft_lstnew(ft_substr(tok->word, j, i - 2));
+				ft_lstadd_back(&splitted_token, new);
+			}
+			else
+			{
+				new = ft_lstnew(ft_substr(tok->word, j, i - 1));
+				ft_lstadd_back(&splitted_token, new);
+			}
 			new = ft_lstnew(expand(&tok->word[i], env));
 			ft_lstadd_back(&splitted_token, new);
 		}
