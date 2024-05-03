@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/03 07:25:24 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/03 07:41:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,11 @@ void	print_tokens(t_list *inputs)
 	}
 	printf("STOP");
 }
-/*
+
 void	print_divided_cmds(t_btree *cmds, size_t levels)
 {
-	size_t	i;
 	t_command	*cmd;
 
-	i = 0;
 	if (!cmds)
 		return ;
 	print_divided_cmds(cmds->right, levels + 1);
@@ -117,4 +115,4 @@ void	print_divided_cmds(t_btree *cmds, size_t levels)
 	}
 	printf("\n");
 	print_divided_cmds(cmds->left, levels + 1);
-}*/
+}

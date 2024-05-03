@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 16:49:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/03 07:36:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void			assignate_flags_dir(int tok_flags, \
 				int *open_flags, int *fd);
 void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
 void			check_quote_bis(t_esc *esc_status, char *str);
+void			check_quote(t_esc *esc_status, char *str);
 void			expansion(void *item);
 
 //environment

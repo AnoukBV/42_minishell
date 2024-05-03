@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/03 07:24:21 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/03 07:37:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,18 @@ static char *expand(char *str, t_hashtable **env)
 {
 	char	*exp;
 	char	*key;
+	t_esc	esc_status;
 	size_t	i;
 
 	i = 1;
-	while (str[i] != '\'' && str[i] != '"' && str[i] != '$' && str[i])
+	while (str[i] != '$' && str[i])
+	{
+	  	if (str[i + 1])
+			check_quote(&esc_status, &str[i + 1]);
+		if (str[i] != '\'' && str[i] != '"' && esc_status.is_quoted == true)
+			break ;
 		i++;
+	}
 	if (i == 1)
 		return ("$");
 	key = ft_substr(str, 1, i - 1);
