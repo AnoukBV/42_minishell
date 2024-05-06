@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/03 07:58:49 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/03 08:03:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static void	*inspect_token(void *item, t_hashtable **env)
 			}
 			new = ft_lstnew(expand(&tok->word[i], env));
 			ft_lstadd_back(&splitted_token, new);
+			j = i;
 		}
 		i++;
 	}
