@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 13:46:11 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:05:20 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ static void	inspect_token(char **str, t_hashtable **env)
 		if (tmp == NULL)
 			break ;
 		check_quote(&esc_status, &str[0][i]);
-		j = i;
 		while (tmp && &str[0][i] != tmp)
 		{
 			i++;
 			check_quote(&esc_status, &str[0][i]);
 		}
+		j = i;
 		if (&str[0][j] != tmp)
 		{
 			if (str[0][i - 1] && (str[0][i - 1] == '\'' || str[0][i - 1] == '"'))
