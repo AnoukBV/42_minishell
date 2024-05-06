@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 13:46:11 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/06 12:34:59 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,23 @@ static char *seek_env(char *key, t_hashtable **env)
 	return ("\0");
 }
 
-static char *expand(char *str, t_hashtable **env, t_esc esc_status)
+static char *expand(char *str, t_hashtable **env)
 {
 	char	*exp;
 	char	*key;
-	t_esc	save;
+	t_esc	esc_status;
 	size_t	i;
 
 	i = 1;
 	while (str[i] != '$' && str[i])
 	{
-		save = esc_status;
 	  	if (str[i + 1])
 			check_quote(&esc_status, &str[i + 1]);
-		if (save.is_quoted == true && esc_status.is_quoted == false)
+		if (str[i] != '\'' && str[i] != '"' && esc_status.is_quoted == true)
 			break ;
-		//if (str[i] != '\'' && str[i] != '"' && esc_status.is_quoted == true)
-		//	break ;
 		i++;
 	}
-	if (str[i] == '$' && str[i + 1] && str[i + 1] == '$')
+	if (i == 1)
 		return ("$");
 	key = ft_substr(str, 1, i - 1);
 	exp = ft_strdup(seek_env(key, env));
@@ -95,13 +92,20 @@ static void	inspect_token(char **str, t_hashtable **env)
 		if (tmp == NULL)
 			break ;
 		check_quote(&esc_status, &str[0][i]);
-		j = i;
-		while (tmp && &str[0][i] != tmp)
+		while (&str[0][i] != tmp)
 		{
 			i++;
 			check_quote(&esc_status, &str[0][i]);
 		}
-		if (&str[0][j] != tmp)
+		j = i;
+		if ((esc_status.is_quoted == true && esc_status.is_simplequote \
+			== false && str[0][i] == '$') || (esc_status.is_quoted == false \
+			&& str[0][i] == '$'))
+		{
+			new = ft_lstnew(expand(&str[0][i], env));
+			ft_lstadd_back(&splitted_token, new);
+		}
+		if (j != i)
 		{
 			if (str[0][i - 1] && (str[0][i - 1] == '\'' || str[0][i - 1] == '"'))
 			{
@@ -114,15 +118,6 @@ static void	inspect_token(char **str, t_hashtable **env)
 				ft_lstadd_back(&splitted_token, new);
 			}
 		}
-		//if (tmp && str[0][i - 1] && (str[0][i - 1] == '\'' || str[0][i - 1] == '\"'))
-		//	i -= 1;
-		if ((esc_status.is_quoted == true && esc_status.is_simplequote \
-			== false && tmp) || (esc_status.is_quoted == false \
-			&& tmp))
-		{
-			new = ft_lstnew(expand(&str[0][i], env, esc_status));
-			ft_lstadd_back(&splitted_token, new);
-		}	
 		i++;
 	}
 	if (splitted_token)
