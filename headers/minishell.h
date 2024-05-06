@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 16:08:06 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:28:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_esc
 typedef struct s_exp
 {
 	t_esc	*esc_status;
-	t_bool	is_exp;
+	t_bool	is_exp_sim;
+	t_bool	is_exp_quo;
 }	t_exp;
 
 typedef struct s_wd_desc

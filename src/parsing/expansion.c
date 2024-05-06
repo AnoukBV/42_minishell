@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 17:55:33 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/06 19:48:51 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,43 @@ static char *expand(char *str, t_hashtable **env, t_esc *esc_status)
 
 static t_bool	check_expansion(t_exp **expansion, char *str)
 {
+	static t_bool	save_q;
+	//static t_bool	save_e;
 	t_exp	*exp_status;
 
 	exp_status = *expansion;
+	save_q = exp_status->esc_status->is_quoted;
 	check_quote(exp_status->esc_status, str);
-	if ((exp_status->esc_status->is_quoted == true && exp_status->esc_status->is_simplequote \
-			== false && str[0] == '$') || (exp_status->esc_status->is_quoted == false \
-			&& str[0] == '$'))
-		exp_status->is_exp = true;
-	if (exp_status->is_exp == true && str[0] == '\"' && exp_status->esc_status->is_quoted == true)
+
+	if (exp_status->is_exp_sim == false && exp_status->is_exp_quo == false)
+	{
+		if (str[0] == '\"' && exp_status->esc_status->is_quoted == true && save_q == false)
+			exp_status->is_exp_quo = true;
+		else if (str[0] == '$')
+			exp_status->is_exp_sim = true;
+	//	return (true);
+	}
+	else if (exp_status->is_exp_sim == true)
+	{
+		if (ft_strchr("\'\"", str[1]) && str[2] && ft_strchr(&str[2], str[1]) \
+			|| str[1] == '$')
+			exp_status->is_exp_sim == false;
+	}
+	else if (exp_status->is_exp_quo == true)
+	{
+		
+	}
+
+
+
+
+	else if (exp_status->is_exp == true && str[0] == '\"' && \
+		((save == true && exp_status->esc_status->is_quoted == false) \
+		 || (save == false && exp_status->esc_status->is_quoted == true)))
+		exp_status->is_exp = false;
+	else if (exp_status->is_exp == true && str[0] != '$')
+		return (true);
+	else if (exp_status->is_exp == true && str[0] == '$' && save == false)
 		exp_status->is_exp = false;
 	return (exp_status->is_exp);
 }
@@ -101,7 +129,8 @@ static void	init_tracker(t_exp **exp_status)
 	if (!(*exp_status)->esc_status)
 		return ;
 	(*exp_status)->esc_status->is_quoted = false;
-	(*exp_status)->is_exp = false;
+	(*exp_status)->is_exp_sim = false;
+	(*exp_status)->is_exp_quo = false;
 }
 
 static void	inspect_token(char **str, t_hashtable **env)
@@ -127,11 +156,12 @@ static void	inspect_token(char **str, t_hashtable **env)
 			ft_lstadd_back(&splitted_token, new);
 		}
 		j = i;
+		i++;
 		while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == true)
 		{
 			i++;
-			if (str[0][i] == '$' /*&& check_expansion(&exp_status, &str[0][i]) == false*/)
-				break ;
+			//if (str[0][i] == '$' && check_expansion(&exp_status, &str[0][i]) == false)
+			//	break ;
 		}
 		if (j != i)
 		{
@@ -142,7 +172,6 @@ static void	inspect_token(char **str, t_hashtable **env)
 	}
 	if (splitted_token)
 		join_after_expansion(&str[0], &splitted_token); //free tok_word la dedans
-	//print_unidentified_tokens(splitted_token);
 	printf("%s\n", *str);
 }
 
