@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 11:51:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/06 12:34:59 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,51 +73,57 @@ static char *expand(char *str, t_hashtable **env)
 	return (exp);
 }
 
-static void	*inspect_token(void *item, t_hashtable **env)
+static void	inspect_token(char **str, t_hashtable **env)
 {
 	size_t	i;
 	size_t	j;
 	t_list	*splitted_token;
 	t_list	*new;
-	t_wd_desc	*tok;
+	char *tmp;
 	t_esc	esc_status;
 
 	i = 0;
 	j = 0;
 	splitted_token = NULL;
-	tok = (t_wd_desc *)item;
-	if (!ft_strchr(tok->word, '$'))
-		return (tok);
 	esc_status.is_quoted = false;
-	while (tok->word[i])
+	while (str[0][i])
 	{
-		check_quote(&esc_status, &tok->word[i]);
-		if ((esc_status.is_quoted == true && esc_status.is_simplequote \
-			== false && tok->word[i] == '$') || (esc_status.is_quoted == false \
-			&& tok->word[i] == '$'))
+		tmp = ft_strchr(&str[0][i], '$');
+		if (tmp == NULL)
+			break ;
+		check_quote(&esc_status, &str[0][i]);
+		while (&str[0][i] != tmp)
 		{
-			if (tok->word[i - 1] && (tok->word[i - 1] == '\'' || tok->word[i - 1] == '"'))
-			{
-				new = ft_lstnew(ft_substr(tok->word, j, i - 2));
-				ft_lstadd_back(&splitted_token, new);
-			}
-			else if (tok->word[i - 1])
-			{
-				new = ft_lstnew(ft_substr(tok->word, j, i - 1));
-				ft_lstadd_back(&splitted_token, new);
-			}
-			new = ft_lstnew(expand(&tok->word[i], env));
+			i++;
+			check_quote(&esc_status, &str[0][i]);
+		}
+		j = i;
+		if ((esc_status.is_quoted == true && esc_status.is_simplequote \
+			== false && str[0][i] == '$') || (esc_status.is_quoted == false \
+			&& str[0][i] == '$'))
+		{
+			new = ft_lstnew(expand(&str[0][i], env));
 			ft_lstadd_back(&splitted_token, new);
-			tok->word += i - j;
-			j = i;
+		}
+		if (j != i)
+		{
+			if (str[0][i - 1] && (str[0][i - 1] == '\'' || str[0][i - 1] == '"'))
+			{
+				new = ft_lstnew(ft_substr(str[0], j, i - 2));
+				ft_lstadd_back(&splitted_token, new);
+			}
+			else if (str[0][i - 1])
+			{
+				new = ft_lstnew(ft_substr(str[0], j, i - 1));
+				ft_lstadd_back(&splitted_token, new);
+			}
 		}
 		i++;
 	}
 	if (splitted_token)
-		join_after_expansion(&tok->word, &splitted_token); //free tok_word la dedans
+		join_after_expansion(&str[0], &splitted_token); //free tok_word la dedans
 	//print_unidentified_tokens(splitted_token);
-	printf("%s\n", tok->word);
-	return (tok);
+	printf("%s\n", *str);
 }
 
 /*
@@ -128,12 +134,15 @@ static void	inspect_redir(t_redir_list **redir_list)
 */
 void	inspect_cmd(t_list **cmd, t_hashtable **env)
 {
-	t_list	*tmp;
+	t_list		*tmp;
+	t_wd_desc	*tok;
 
 	tmp = *cmd;
 	while (tmp)
 	{
-		tmp->content = inspect_token(tmp->content, env);
+		tok = (t_wd_desc *)tmp->content;
+		if (ft_strchr(tok->word, '$'))
+			inspect_token(&tok->word, env);
 		tmp = tmp->next;
 	}
 }
