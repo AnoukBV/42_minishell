@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 12:34:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:55:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,23 @@ static char *seek_env(char *key, t_hashtable **env)
 	return ("\0");
 }
 
-static char *expand(char *str, t_hashtable **env)
+static char *expand(char *str, t_hashtable **env, t_esc *esc_status)
 {
 	char	*exp;
 	char	*key;
-	t_esc	esc_status;
+	t_esc	save;
 	size_t	i;
 
 	i = 1;
+	if (ft_strchr(str, '\"') && str[-1])
+		check_quote(esc_status, &str[-1]);
 	while (str[i] != '$' && str[i])
 	{
+		save = *esc_status;
 	  	if (str[i + 1])
-			check_quote(&esc_status, &str[i + 1]);
-		if (str[i] != '\'' && str[i] != '"' && esc_status.is_quoted == true)
+			check_quote(esc_status, &str[i + 1]);
+		//if (str[i] != '\'' && str[i] != '"' && esc_status.is_quoted == true)
+		if (save.is_quoted == true && esc_status->is_quoted == false)
 			break ;
 		i++;
 	}
@@ -73,52 +77,68 @@ static char *expand(char *str, t_hashtable **env)
 	return (exp);
 }
 
+static t_bool	check_expansion(t_exp **expansion, char *str)
+{
+	t_exp	*exp_status;
+
+	exp_status = *expansion;
+	check_quote(exp_status->esc_status, str);
+	if ((exp_status->esc_status->is_quoted == true && exp_status->esc_status->is_simplequote \
+			== false && str[0] == '$') || (exp_status->esc_status->is_quoted == false \
+			&& str[0] == '$'))
+		exp_status->is_exp = true;
+	if (exp_status->is_exp == true && str[0] == '\"' && exp_status->esc_status->is_quoted == true)
+		exp_status->is_exp = false;
+	return (exp_status->is_exp);
+}
+
+static void	init_tracker(t_exp **exp_status)
+{
+	*exp_status = malloc(sizeof(t_exp));
+	if (!(*exp_status))
+		return ;
+	(*exp_status)->esc_status = malloc(sizeof(t_esc));
+	if (!(*exp_status)->esc_status)
+		return ;
+	(*exp_status)->esc_status->is_quoted = false;
+	(*exp_status)->is_exp = false;
+}
+
 static void	inspect_token(char **str, t_hashtable **env)
 {
 	size_t	i;
 	size_t	j;
 	t_list	*splitted_token;
 	t_list	*new;
-	char *tmp;
-	t_esc	esc_status;
+	//char *tmp;
+	t_exp	*exp_status;
 
 	i = 0;
-	j = 0;
 	splitted_token = NULL;
-	esc_status.is_quoted = false;
+	init_tracker(&exp_status);
 	while (str[0][i])
 	{
-		tmp = ft_strchr(&str[0][i], '$');
-		if (tmp == NULL)
-			break ;
-		check_quote(&esc_status, &str[0][i]);
-		while (&str[0][i] != tmp)
-		{
+		j = i;
+		while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == false)
 			i++;
-			check_quote(&esc_status, &str[0][i]);
+		if (j != i)
+		{
+			new = ft_lstnew(ft_substr(str[0], j, i));
+			ft_lstadd_back(&splitted_token, new);
 		}
 		j = i;
-		if ((esc_status.is_quoted == true && esc_status.is_simplequote \
-			== false && str[0][i] == '$') || (esc_status.is_quoted == false \
-			&& str[0][i] == '$'))
+		while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == true)
 		{
-			new = ft_lstnew(expand(&str[0][i], env));
-			ft_lstadd_back(&splitted_token, new);
+			i++;
+			if (str[0][i] == '$' /*&& check_expansion(&exp_status, &str[0][i]) == false*/)
+				break ;
 		}
 		if (j != i)
 		{
-			if (str[0][i - 1] && (str[0][i - 1] == '\'' || str[0][i - 1] == '"'))
-			{
-				new = ft_lstnew(ft_substr(str[0], j, i - 2));
-				ft_lstadd_back(&splitted_token, new);
-			}
-			else if (str[0][i - 1])
-			{
-				new = ft_lstnew(ft_substr(str[0], j, i - 1));
-				ft_lstadd_back(&splitted_token, new);
-			}
+			new = ft_lstnew(expand(&str[0][j], env, exp_status->esc_status));
+			ft_lstadd_back(&splitted_token, new);
 		}
-		i++;
+		//i++;
 	}
 	if (splitted_token)
 		join_after_expansion(&str[0], &splitted_token); //free tok_word la dedans
