@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 19:48:51 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:59:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,6 @@ static void	inspect_token(char **str, t_hashtable **env)
 		join_after_expansion(&str[0], &splitted_token); //free tok_word la dedans
 	printf("%s\n", *str);
 }
-
 /*
 static void	inspect_redir(t_redir_list **redir_list)
 {
