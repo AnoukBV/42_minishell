@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 11:35:00 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:46:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ static void	inspect_token(char **str, t_hashtable **env)
 	size_t	j;
 	t_list	*splitted_token;
 	t_list	*new;
+	t_bool	exp;
 	//char *tmp;
 	t_exp	*exp_status;
 
@@ -157,22 +158,29 @@ static void	inspect_token(char **str, t_hashtable **env)
 	init_tracker(&exp_status);
 	while (str[0][i])
 	{
+		exp = check_expansion(&exp_status, &str[0][i]); 
 		j = i;
-		while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == false)
-			i++;
-		if (j != i)
+		if (exp == false)
 		{
-			new = ft_lstnew(ft_substr(str[0], j, i));
-			ft_lstadd_back(&splitted_token, new);
+			while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == false)
+				i++;
+			if (j != i)
+			{
+				new = ft_lstnew(ft_substr(str[0], j, i));
+				ft_lstadd_back(&splitted_token, new);
+			}
+		//	j = i;
+		//	i++;
 		}
-		j = i;
-		i++;
-		while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == true)
-			i++;
-		if (j != i)
+		else
 		{
-			new = ft_lstnew(expand(&str[0][j], env, i - j));
-			ft_lstadd_back(&splitted_token, new);
+			while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == true)
+				i++;
+			if (j != i)
+			{
+				new = ft_lstnew(expand(&str[0][j], env, i - j));
+				ft_lstadd_back(&splitted_token, new);
+			}
 		}
 		i++;
 	}
