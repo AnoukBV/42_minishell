@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:27:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:33:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	expansion(void *item)
 	t_command	*cmd;
 
 	cmd = (t_command *)item;
-	if (cmd->cmmd)
-		inspect_cmd((t_list **)&cmd->cmmd, cmd->env);
+	if (cmd->argv)
+		inspect_cmd((t_list **)&cmd->argv, cmd->env);
 	if (cmd->redir_list)
 		inspect_redir(&cmd->redir_list, cmd->env);
 }

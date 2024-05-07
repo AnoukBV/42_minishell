@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 18:46:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:34:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	isolate_cmd(t_command **cmd, t_list **inputs, size_t size)
 	tok = (t_wd_desc *)(*inputs)->content;
 	new = new_wd_desc(tok->flags, ft_strdup(tok->word));
 	if (new->word != NULL)
-		ft_lstadd_back((t_list **)&(*cmd)->cmmd, ft_lstnew(new));
+		ft_lstadd_back((t_list **)&(*cmd)->argv, ft_lstnew(new));
 }
 
 static void	isolate_redir(t_command **cmd, t_list **inputs)
@@ -96,7 +96,7 @@ static void	create_tree(t_list **inputs, \
 		size--;
 		tmp = tmp->next;
 	}
-	if (cmd->flags == T_WORD && !cmd->cmd)
+	if (cmd->flags == T_WORD && !cmd->argv)
 		cmd->flags = EMPTY;
 	*holder = node;
 }

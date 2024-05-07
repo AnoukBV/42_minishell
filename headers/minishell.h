@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:05:07 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:32:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ typedef struct	s_command
 typedef struct	s_command
 {
 	int					flags;
-	void				*cmmd;
-	t_list				*cmd; //ARTHUR : MODIF ICI
-	char				**argv; // name (+ path) of the command
+	void				*argv;
+	//t_list				*cmd; //ARTHUR : MODIF ICI
+	//char				**argv; // name (+ path) of the command
 	char				*command; // name (+ path) of the command
 	t_redir_list		*redir_list;
 	int					pipe_left[2];
