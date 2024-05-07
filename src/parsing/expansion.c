@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 11:46:13 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:53:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,22 @@ static char *expand(char *str, t_hashtable **env, size_t size)
 	return (key);
 }
 
+static t_bool	exp_between_quotes(char *str)
+{
+	size_t	i;
+	char	*block;
+
+	i = 1;
+	block = ft_strchr(&str[i], '\"');
+	while (&str[i] != block && str[i])
+	{
+		if (str[i] == '$')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 static t_bool	check_expansion(t_exp **expansion, char *str)
 {
 	static t_bool	save_q;
@@ -104,7 +120,8 @@ static t_bool	check_expansion(t_exp **expansion, char *str)
 
 	if (exp_status->is_exp_sim == false && exp_status->is_exp_quo == false)
 	{
-		if (str[0] == '\"' && exp_status->esc_status->is_quoted == true && save_q == false)
+		if (str[0] == '\"' && exp_status->esc_status->is_quoted == true && save_q == false \
+			&& exp_between_quotes(str) == true)
 		{
 			exp_status->is_exp_quo = true;
 			return (true);
@@ -154,19 +171,23 @@ static void	inspect_token(char **str, t_hashtable **env)
 	t_exp	*exp_status;
 
 	i = 0;
+	j = i;
 	splitted_token = NULL;
 	init_tracker(&exp_status);
 	while (str[0][i])
 	{
 		exp = check_expansion(&exp_status, &str[0][i]); 
-		j = i;
 		if (exp == false)
 		{
-			while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == false)
+			j = i;
+			while (str[0][i] && exp == false && str[0][i] != '$')
+			{
 				i++;
+				exp = check_expansion(&exp_status, &str[0][i]); 
+			}
 			if (j != i)
 			{
-				new = ft_lstnew(ft_substr(str[0], j, i));
+				new = ft_lstnew(ft_substr(str[0], j, i - j));
 				ft_lstadd_back(&splitted_token, new);
 			}
 		//	j = i;
@@ -174,14 +195,19 @@ static void	inspect_token(char **str, t_hashtable **env)
 		}
 		else
 		{
-			while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == true)
+			//j = i;
+			while (str[0][i] && exp == true)
+			{
 				i++;
+				exp = check_expansion(&exp_status, &str[0][i]); 
+			}
 			if (j != i)
 			{
-				new = ft_lstnew(expand(&str[0][j], env, i - j));
+				new = ft_lstnew(expand(&str[0][j], env, i - j + 2));
 				ft_lstadd_back(&splitted_token, new);
 			}
 		}
+		j = i;
 		i++;
 	}
 	if (splitted_token)
