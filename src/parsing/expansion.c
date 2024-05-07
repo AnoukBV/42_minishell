@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 14:07:37 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:26:19 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,11 @@ void	expansion(void *item)
 //		inspect_redir(&cmd->redir_list);
 //	MAINTENANT REMOVE QUOTES QUI RESTENT
 }
+/*
+void	remove_quotes(void *item)
+{
+	t_command	*cmd;
+
+	cmd = (t_command *)item;
+
+}*/
