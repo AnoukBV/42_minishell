@@ -6,12 +6,12 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 20:57:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 10:14:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static char	*trim_quotes(char *str)
 {
 	char	*new;
@@ -78,11 +78,11 @@ void	check_quote_bis(t_esc *esc_status, char *str)
 	esc_status->is_quoted = false;
 	str[i] = '\n';
 }
-
+*/
 void	parsing(char *str, t_list **inputs, t_hashtable *env)
 {
-	t_list	*map;
-	t_list	*save;
+	//t_list	*map;
+	//t_list	*save;
 	t_btree	*tree;
 
 	if (!str)
@@ -90,12 +90,11 @@ void	parsing(char *str, t_list **inputs, t_hashtable *env)
 	tree = NULL;
 	break_into_words(inputs, str);
 	word_or_operator(inputs);
-	save = *inputs;
-	map = quotes_removal(
+	//save = *inputs;
 	//map = ft_lstmap(*inputs, &quotes_removal, \
-		&del_wddesc);
-	ft_lstclear(&save, del_wddesc);
-	*inputs = map;
+	//	&del_wddesc);
+	//ft_lstclear(&save, del_wddesc);
+	//*inputs = map;
 	if (check_validity_parenthesis(*inputs) == false)
 	{
 		ft_putstr_fd("ERROR PARENTHESIS\n", 2);
@@ -103,7 +102,7 @@ void	parsing(char *str, t_list **inputs, t_hashtable *env)
 	}
 	divide(inputs, &tree, &env);
 	ft_lstclear(inputs, &del_wddesc);
-	//expansion((t_command *)tree->item);
+	expansion((t_command *)tree->item);
 	//btree_apply_prefix(tree, &expansion);
 	print_divided_cmds(tree, 0);	//DELETE
 	free_binary_tree(tree);

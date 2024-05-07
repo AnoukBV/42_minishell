@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 20:59:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:35:00 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,39 +48,54 @@ static char *seek_env(char *key, t_hashtable **env)
 	return ("\0");
 }
 
-static char *expand(char *str, t_hashtable **env, t_esc *esc_status)
+static char *expand(char *str, t_hashtable **env, size_t size)
 {
-	char	*exp;
+	char	**exp;
+	char	**to_exp;
 	char	*key;
-	t_esc	save;
+	char	*new;
 	size_t	i;
+	//size_t	j;
 
-	i = 1;
-	if (ft_strchr(str, '\"') && str[-1])
-		check_quote(esc_status, &str[-1]);
-	while (str[i] != '$' && str[i])
+	i = 0;
+	key = NULL;
+	new = ft_substr(str, 0, size - 1);
+	if (str[0] == '\"')
+	{	
+		to_exp = ft_split(new, '\"');
+		free(new);
+		new = NULL;
+		//key = ft_superjoin(to_exp, NULL);
+		key = ft_strdup(to_exp[0]);
+		free_array_2d(to_exp);
+		to_exp = NULL;
+		new = key;
+	}
+	//key = ft_substr(str, i, j - 1);
+	to_exp = ft_split(new, '$');
+	if (key)
 	{
-		save = *esc_status;
-	  	if (str[i + 1])
-			check_quote(esc_status, &str[i + 1]);
-		//if (str[i] != '\'' && str[i] != '"' && esc_status.is_quoted == true)
-		if (save.is_quoted == true && esc_status->is_quoted == false)
-			break ;
+		free(key);
+		key = NULL;
+	}
+	i = 0;
+	exp = ft_calloc(sizeof(char *), ft_arrlen(to_exp) + 1);
+	if (!exp)
+		return (NULL);
+	while (to_exp[i])
+	{
+		exp[i] = ft_strdup(seek_env(to_exp[i], env));
 		i++;
 	}
-	if (i == 1)
-		return ("$");
-	key = ft_substr(str, 1, i - 1);
-	exp = ft_strdup(seek_env(key, env));
-	free(key);
-	key = NULL;
-	return (exp);
+	free_array_2d(to_exp);
+	key = ft_superjoin(exp, NULL);
+	free_array_2d(exp);
+	return (key);
 }
 
 static t_bool	check_expansion(t_exp **expansion, char *str)
 {
 	static t_bool	save_q;
-	//static t_bool	save_e;
 	t_exp	*exp_status;
 
 	exp_status = *expansion;
@@ -90,34 +105,29 @@ static t_bool	check_expansion(t_exp **expansion, char *str)
 	if (exp_status->is_exp_sim == false && exp_status->is_exp_quo == false)
 	{
 		if (str[0] == '\"' && exp_status->esc_status->is_quoted == true && save_q == false)
+		{
 			exp_status->is_exp_quo = true;
+			return (true);
+		}
 		else if (str[0] == '$')
+		{
 			exp_status->is_exp_sim = true;
-	//	return (true);
+			return (true);
+		}
 	}
 	else if (exp_status->is_exp_sim == true)
 	{
-		if (ft_strchr("\'\"", str[1]) && str[2] && ft_strchr(&str[2], str[1]) \
-			|| str[1] == '$')
-			exp_status->is_exp_sim == false;
+		if (ft_strchr("\'\"", str[1]) && str[2] && ft_strchr(&str[2], str[1]))
+			exp_status->is_exp_sim = false;
+		return (exp_status->is_exp_sim);
 	}
 	else if (exp_status->is_exp_quo == true)
 	{
-		
+		if (str[0] == '\"' && exp_status->esc_status->is_quoted == false)	
+			exp_status->is_exp_quo = false;
+		return (exp_status->is_exp_quo);
 	}
-
-
-
-
-	else if (exp_status->is_exp == true && str[0] == '\"' && \
-		((save == true && exp_status->esc_status->is_quoted == false) \
-		 || (save == false && exp_status->esc_status->is_quoted == true)))
-		exp_status->is_exp = false;
-	else if (exp_status->is_exp == true && str[0] != '$')
-		return (true);
-	else if (exp_status->is_exp == true && str[0] == '$' && save == false)
-		exp_status->is_exp = false;
-	return (exp_status->is_exp);
+	return (false);
 }
 
 static void	init_tracker(t_exp **exp_status)
@@ -158,17 +168,13 @@ static void	inspect_token(char **str, t_hashtable **env)
 		j = i;
 		i++;
 		while (str[0][i] && check_expansion(&exp_status, &str[0][i]) == true)
-		{
 			i++;
-			//if (str[0][i] == '$' && check_expansion(&exp_status, &str[0][i]) == false)
-			//	break ;
-		}
 		if (j != i)
 		{
-			new = ft_lstnew(expand(&str[0][j], env, exp_status->esc_status));
+			new = ft_lstnew(expand(&str[0][j], env, i - j));
 			ft_lstadd_back(&splitted_token, new);
 		}
-		//i++;
+		i++;
 	}
 	if (splitted_token)
 		join_after_expansion(&str[0], &splitted_token); //free tok_word la dedans
