@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/06 19:28:26 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:07:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,16 @@ void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
 void			check_quote_bis(t_esc *esc_status, char *str);
 void			check_quote(t_esc *esc_status, char *str);
 void			expansion(void *item);
+t_bool			check_expansion(t_exp **expansion, char *str);
+char			*expand(char *str, t_hashtable **env, size_t size);
+void			inspect_token(char **str, t_hashtable **env);
+void			join_after_expansion(char **tok, t_list **splitted_token);
 
 //environment
 
 void	print_env(t_hashtable *env, int key);
 void	set_hashtable(char **envp, t_hashtable **env);
+void	init_tracker(t_exp **exp_status);
 
 //utils
 
