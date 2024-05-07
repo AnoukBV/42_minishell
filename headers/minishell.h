@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:32:11 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:11:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ typedef struct	s_command
 typedef struct	s_command
 {
 	int					flags;
+	t_bool				is_argv;
 	void				*argv;
-	//t_list				*cmd; //ARTHUR : MODIF ICI
-	//char				**argv; // name (+ path) of the command
 	char				*command; // name (+ path) of the command
 	t_redir_list		*redir_list;
 	int					pipe_left[2];
@@ -142,6 +141,7 @@ t_bool			check_expansion(t_exp **expansion, char *str);
 char			*expand(char *str, t_hashtable **env, size_t size);
 void			inspect_token(char **str, t_hashtable **env);
 void			join_after_expansion(char **tok, t_list **splitted_token);
+void			create_argv(void *item);
 
 //environment
 
@@ -184,6 +184,7 @@ void	print_2d_array(char **str);
 void	print_unidentified_tokens(t_list *inputs);
 void	print_divided_cmds(t_btree *cmds, size_t levels);
 int		Size(t_btree *root);
+void	print_divided_cmds_array(t_btree *cmds, size_t levels);
 
 	/*
 	*	Signal control functions, switching between readline and command execution states

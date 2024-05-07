@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:56:53 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:31:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:21:09 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,9 @@ void	free_binary_tree(t_btree *del)
 		free(del);
 		return ;
 	}
-	//ici : cmt savoir quel ype on a cast pr savoir cmt free ????
-	if (tree->argv)
-		ft_lstclear((t_list **)&tree->argv, &del_wddesc);
-//	if (tree->argv)
-//		free_array_2d(tree->argv);
+	if (tree->argv && tree->is_argv == true)
+		free_array_2d((char **)tree->argv);
+	//else rec ?
 	if (tree->command)
 		free(tree->command);
 	if (tree->redir_list)

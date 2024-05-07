@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:22:49 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:15:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	ft_lstclear(inputs, &del_wddesc);
 	//expansion((t_command *)tree->item);
 	btree_apply_prefix(tree, &expansion);
-	//btree_apply_prefix(tree, &create_argv);
-	print_divided_cmds(tree, 0);	//DELETE
-	//free_binary_tree(tree);
+	btree_apply_prefix(tree, &create_argv);
+	print_divided_cmds_array(tree, 0);	//DELETE
+	free_binary_tree(tree);
 	return (pipeline);
 }

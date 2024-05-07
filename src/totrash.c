@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:34:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:13:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,27 @@ void	print_divided_cmds(t_btree *cmds, size_t levels)
 	}
 	printf("\n");
 	print_divided_cmds(cmds->left, levels + 1);
+}
+
+void	print_divided_cmds_array(t_btree *cmds, size_t levels)
+{
+	t_command	*cmd;
+
+	if (!cmds)
+		return ;
+	print_divided_cmds_array(cmds->right, levels + 1);
+	for (size_t i = 0; i < levels; ++i)
+		printf("     ");
+	cmd = (t_command *)cmds->item;
+	if (cmd->argv)
+		print_2d_array((char **)cmd->argv);
+	else
+		printf(" %i ", cmd->flags);
+	if (cmd->redir_list)
+	{
+		printf("\nRedirections\n");
+		print_redirections((t_redir_list *)cmd->redir_list);
+	}
+	printf("\n");
+	print_divided_cmds_array(cmds->left, levels + 1);
 }
