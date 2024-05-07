@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:23:11 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 16:48:00 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:05:00 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_command	*init_cmd(t_hashtable **env)
 	cmd->env = env;
 	cmd->next = NULL;
 	cmd->prev = NULL;
-	cmd->cmd = NULL;
+	cmd->cmmd = NULL;
 	cmd->command = NULL;
 	cmd->argv = NULL;
 	cmd->redir_list = NULL;

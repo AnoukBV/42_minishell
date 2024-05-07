@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/02 18:00:53 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:43:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static void	do_redirections(t_command *cmd, t_fd_list **fd_list)
 	}
 	do_redir_list(&cmd->redir_list);
 }
+	cmd->env = env;
 
 static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 {

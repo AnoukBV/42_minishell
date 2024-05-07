@@ -6,12 +6,12 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/29 15:19:58 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:15:39 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
+/*
 static void	destroy_redir_list(t_redir_list **redir_list)
 {
 	t_redir_list	*node;
@@ -79,11 +79,8 @@ void	prepare_pipeline(t_pipeline *pipeline)
 		add_fd(pfd[1], &pipeline->fd_list);
 	}
 }
-
-/*
-*	/!\ Currently unused /!\
 */
-t_pipeline	*init_pipeline(t_command *cmd_lst, char **envp)
+t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env)
 {
 	t_pipeline	*pipeline;
 
@@ -91,8 +88,8 @@ t_pipeline	*init_pipeline(t_command *cmd_lst, char **envp)
 	if (!pipeline)
 		malloc_error();
 	pipeline->cmd_list = cmd_lst;
-	pipeline->envp = envp;
+	pipeline->envp = env;
 	pipeline->fd_list = NULL;
-	prepare_pipeline(pipeline);
+	//prepare_pipeline(pipeline);
 	return (pipeline);
 }

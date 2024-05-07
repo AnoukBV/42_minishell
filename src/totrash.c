@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 16:07:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:25:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	print_divided_cmds(t_btree *cmds, size_t levels)
 	for (size_t i = 0; i < levels; ++i)
 		printf("     ");
 	cmd = (t_command *)cmds->item;
-	if (cmd->cmd)
-		print_tokens(cmd->cmd);
+	if (cmd->cmmd)
+		print_tokens((t_list *)cmd->cmmd);
 	else
 		printf(" %i ", cmd->flags);
 	if (cmd->redir_list)

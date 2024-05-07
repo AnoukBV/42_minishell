@@ -6,11 +6,12 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 17:35:16 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:22:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
 static char	*trim_quotes(char *str)
 {
@@ -79,31 +80,29 @@ void	check_quote_bis(t_esc *esc_status, char *str)
 	str[i] = '\n';
 }
 */
-void	parsing(char *str, t_list **inputs, t_hashtable *env)
+
+t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 {
-	//t_list	*map;
-	//t_list	*save;
-	t_btree	*tree;
+	t_pipeline	*pipeline;
+	t_btree		*tree;
 
 	if (!str)
-		return ;
+		return (NULL);
 	tree = NULL;
+	pipeline = init_pipeline(NULL, env);
 	break_into_words(inputs, str);
 	word_or_operator(inputs);
-	//save = *inputs;
-	//map = ft_lstmap(*inputs, &quotes_removal, \
-	//	&del_wddesc);
-	//ft_lstclear(&save, del_wddesc);
-	//*inputs = map;
 	if (check_validity_parenthesis(*inputs) == false)
 	{
 		ft_putstr_fd("ERROR PARENTHESIS\n", 2);
-		return ;
+		return (NULL);
 	}
 	divide(inputs, &tree, &env);
 	ft_lstclear(inputs, &del_wddesc);
 	//expansion((t_command *)tree->item);
 	btree_apply_prefix(tree, &expansion);
+	//btree_apply_prefix(tree, &create_argv);
 	print_divided_cmds(tree, 0);	//DELETE
-	free_binary_tree(tree);
+	//free_binary_tree(tree);
+	return (pipeline);
 }

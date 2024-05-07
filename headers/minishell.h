@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 17:33:17 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 19:05:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct	s_command
 typedef struct	s_command
 {
 	int					flags;
+	void				*cmmd;
 	t_list				*cmd; //ARTHUR : MODIF ICI
 	char				**argv; // name (+ path) of the command
 	char				*command; // name (+ path) of the command
@@ -110,12 +111,13 @@ typedef struct	s_pipeline
 	t_command	*cmd_list;
 	t_fd_list	*fd_list;
 	t_pid_list	*pid_list;
-	char		**envp;
+	//char		**envp;
+	t_hashtable	*envp;
 }	t_pipeline;
 
 // parsing
 
-void			parsing(char *str, t_list **inputs, t_hashtable *env);
+t_pipeline		*parsing(char *str, t_list **inputs, t_hashtable *env);
 char			**newlines(char *str, size_t *input_nb);
 void			break_into_words(t_list **inputs, char *inputs_array);
 void			word_or_operator(t_list **inputs);
@@ -220,7 +222,7 @@ void	execute_pipeline(t_pipeline *pipeline);
 *	Creates all pipes in its command list
 *	No redirection is done at this time
 */
-t_pipeline	*init_pipeline(t_command *cmd_lst, char **envp);
+t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env);
 void		prepare_pipeline(t_pipeline *pipeline);
 
 void		destroy_pipeline(t_pipeline *pipeline);
