@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/02 17:53:57 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:34:59 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ char	*select_prompt(void)
 		count = 0;
 		inputs = NULL;
 	}
-	return (line);
+	return (line);;
 }
 
-static void	shell_prompt(char **envp, int ac)
+static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 {
+	t_list		*tokens;
 	char		*line;
-	char		*prompt;
 	t_pipeline	*pipeline;	
 
 	set_rl_signals();
@@ -71,9 +71,7 @@ static void	shell_prompt(char **envp, int ac)
 	free(prompt);
 	if (!line)
 		return ;
-	/*
-	*	Execution
-	*/
+	parsing(line, &tokens, env);
 	pipeline = dummydata(envp);
 	execute_pipeline(pipeline);
 	printf("\nexit code: %d\n", g_status);
@@ -81,7 +79,7 @@ static void	shell_prompt(char **envp, int ac)
 	{
 		add_history(line);
 		free(line);
-		shell_prompt(envp, ac);
+		shell_prompt(env, ac, envp);
 	}
 }
 
@@ -90,8 +88,9 @@ int	main(int ac, char **av, char **envp)
 	t_hashtable		*env;
 
 	(void)av;
+	env = NULL;
 	set_hashtable(envp, &env);
-	shell_prompt(envp, ac);
+	shell_prompt(env, ac, envp);
 	free_env(env);	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:53:28 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 09:26:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:37:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_wd_desc	*new_wd_desc(int flags, char *word)
 {
 	t_wd_desc	*new;
 
-
 	new = malloc(sizeof(t_wd_desc));
 	if (!new)
 		ft_error();
@@ -53,4 +52,3 @@ t_wd_desc	*new_wd_desc(int flags, char *word)
 	new->word = word;
 	return (new);
 }
-

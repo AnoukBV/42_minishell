@@ -14,12 +14,20 @@ SRC_FILES := main.c \
 			parsing/words.c \
 			parsing/categorization.c \
 			parsing/divide.c \
+			parsing/binary_tree_utils.c \
+			parsing/check_parenthesis.c \
+			parsing/manage_parenthesis.c \
+			parsing/redirections.c \
+			parsing/expansion.c \
+			parsing/check_expansion.c \
+			parsing/expand.c \
+			parsing/expansion_utils.c \
+			parsing/inspect_token.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \
 			execution/exec_utils.c \
 			execution/pipeline.c \
-			execution/redirections.c \
 			execution/execute.c \
 			lists_utils/fd_list_utils.c \
 			lists_utils/pid_list_utils.c \

@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 11:59:26 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:07:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ void	print_2d_array(char **str)
 	}
 }
 
+int Size(t_btree *root)
+{
+        if (root == NULL)
+        {
+            return 0;
+        }
+
+        return Size(root->left) + Size(root->right) + 1;
+}
+
 void	print_unidentified_tokens(t_list *inputs)
 {
 	size_t	j;
@@ -33,7 +43,7 @@ void	print_unidentified_tokens(t_list *inputs)
 	t_wd_desc	*word;
 
 	tmp = inputs;
-	printf("\nDATA BEFORE IDENTIFICATION\n");
+	printf("\nDATA\n");
 	j = 0;
 	size_input = ft_lstsize(tmp);
 	while (j < size_input)
@@ -48,17 +58,61 @@ void	print_unidentified_tokens(t_list *inputs)
 	printf("\n");
 }
 
-void	print_divided_cmds(t_list *cmds)
+void	print_redirections(t_redir_list *tmp)
 {
+	t_redir_list	*redir;
+
+	redir = tmp;
+	if (!redir)
+		return ;
+	while (redir)
+	{
+		printf("%s\n", redir->target_filename);
+		printf("flags = %i\n", redir->open_flags);
+		printf("fd = %i\n", redir->fd_to_redirect);
+		redir = redir->next;
+	}
+}
+
+void	print_tokens(t_list *inputs)
+{
+	size_t	j;
+	size_t	size_input;
 	t_list	*tmp;
+	t_wd_desc	*word;
+
+	tmp = inputs;
+	j = 0;
+	size_input = ft_lstsize(tmp);
+	while (j < size_input)
+	{
+		word = (t_wd_desc*)tmp->content;
+		printf("%s ", word->word);
+		tmp = tmp->next;
+		j++;
+	}
+	printf("STOP");
+}
+
+void	print_divided_cmds(t_btree *cmds, size_t levels)
+{
+	t_command	*cmd;
 
 	if (!cmds)
 		return ;
-	tmp = cmds;
-	printf("\nPRINTING COMMANDS\n\n");
-	while (tmp)
+	print_divided_cmds(cmds->right, levels + 1);
+	for (size_t i = 0; i < levels; ++i)
+		printf("     ");
+	cmd = (t_command *)cmds->item;
+	if (cmd->cmd)
+		print_tokens(cmd->cmd);
+	else
+		printf(" %i ", cmd->flags);
+	if (cmd->redir_list)
 	{
-		print_unidentified_tokens(tmp->content);
-		tmp = tmp->next;
+		printf("\nRedirections\n");
+		print_redirections((t_redir_list *)cmd->redir_list);
 	}
+	printf("\n");
+	print_divided_cmds(cmds->left, levels + 1);
 }

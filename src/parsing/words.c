@@ -6,32 +6,56 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/25 09:27:32 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/02 09:43:06 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-static t_bool	is_escaped(char *meta, t_esc *esc_status)
+static void	new_word(t_list **list, char *str, size_t end, size_t start)
 {
-	char	a;
+	t_wd_desc	*tok;
 
-	a = *meta;
-	
-}*/
+	if (start != end)
+	{
+		tok = new_wd_desc(0, ft_substr(str, start, end - start));
+		ft_lstadd_back(list, ft_lstnew(tok));
+	}
+}
 
-static t_list	*input_into_words(char *str)
+static size_t	new_metacharacter(t_list **list, char *str)
 {
-	t_list		*words_list;
+	size_t		i;
+	t_wd_desc	*tok;
+
+	i = 0;
+	if (!ft_isspace(str[i]))
+	{
+		if (!ft_strchr("()", str[i]) && str[i + 1] == str[i])
+		{
+			tok = new_wd_desc(0, ft_substr(&str[i], 0, 2));
+			i++;
+		}
+		else
+			tok = new_wd_desc(0, ft_substr(&str[i], 0, 1));
+		if (ft_strchr("<>", tok->word[0]) && !ft_isspace(str[i - 1]))
+			tok->flags += 3000;
+		ft_lstadd_back(list, ft_lstnew(tok));
+		if (tok->flags == 3000)
+			undefault_fd_tok(list, &tok);
+		printf("flag = %i\n", tok->flags);
+	}
+	return (i);
+}
+
+static void	input_into_words(char *str, t_list **words_list)
+{
 	t_esc		esc_status;
-	t_wd_desc	*tmp_w;
 	size_t		i;
 	size_t		j;
 
 	i = 0;
 	j = 0;
-	words_list = NULL;
 	esc_status.is_quoted = false;
 	while (str[i])
 	{
@@ -39,41 +63,20 @@ static t_list	*input_into_words(char *str)
 		if (ft_strchr("|&<>() \t", str[i]) \
 			&& esc_status.is_quoted == false)
 		{
-			if (j != i)
-			{
-				tmp_w = new_wd_desc(0, ft_substr(str, j, i - j));
-				ft_lstadd_back(&words_list, ft_lstnew((void *)tmp_w));
-			}
-			if (!ft_isspace(str[i]))
-			{
-				if (!ft_strchr("()", str[i]) && str[i + 1] == str[i])
-				{
-					tmp_w = new_wd_desc(0, ft_substr(&str[i], 0, 2));
-					i++;
-				}
-				else
-					tmp_w = new_wd_desc(0, ft_substr(&str[i], 0, 1));
-				ft_lstadd_back(&words_list, ft_lstnew((void *)tmp_w));
-			}
+			new_word(words_list, str, i, j);
+			i += new_metacharacter(words_list, &str[i]);
 			j = i + 1;
 		}
 		i++;
 	}
 	if (!ft_isspace(str[i - 1]))
-	{
-		if (j != i)
-		{
-			tmp_w = new_wd_desc(0, ft_substr(str, j, i - j));
-			ft_lstadd_back(&words_list, ft_lstnew((void *)tmp_w));
-		}
-	}
-	return (words_list);
+		new_word(words_list, str, i, j);
 }
 
 void	check_quote(t_esc *esc_status, char *str)
 {
 	size_t	i;
-	
+
 	i = 0;
 	if (!ft_strchr("\'\"", str[i]))
 		return ;
@@ -97,6 +100,6 @@ void	check_quote(t_esc *esc_status, char *str)
 
 void	break_into_words(t_list **inputs, char *inputs_array)
 {
-	*inputs = input_into_words(inputs_array);
-	//free(inputs_array);
+	*inputs = NULL;
+	input_into_words(inputs_array, inputs);
 }
