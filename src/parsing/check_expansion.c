@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:56:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 15:06:36 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:17:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,25 @@ static t_bool	exp_between_quotes(char *str)
 	return (false);
 }
 
+static t_bool	activate_exp(char *c, t_exp **expansion, t_bool save_q)
+{
+	t_exp	*exp_status;
+
+	exp_status = *expansion;
+	if (*c == '\"' && exp_status->esc_status->is_quoted == true \
+		&& save_q == false && exp_between_quotes(c) == true)
+	{
+		exp_status->is_exp_quo = true;
+		return (true);
+	}
+	else if (*c == '$')
+	{
+		exp_status->is_exp_sim = true;
+		return (true);
+	}
+	return (false);
+}
+
 t_bool	check_expansion(t_exp **expansion, char *str)
 {
 	static t_bool	save_q;
@@ -37,19 +56,7 @@ t_bool	check_expansion(t_exp **expansion, char *str)
 	save_q = exp_status->esc_status->is_quoted;
 	check_quote(exp_status->esc_status, str);
 	if (exp_status->is_exp_sim == false && exp_status->is_exp_quo == false)
-	{
-		if (str[0] == '\"' && exp_status->esc_status->is_quoted == true \
-			&& save_q == false && exp_between_quotes(str) == true)
-		{
-			exp_status->is_exp_quo = true;
-			return (true);
-		}
-		else if (str[0] == '$')
-		{
-			exp_status->is_exp_sim = true;
-			return (true);
-		}
-	}
+		return (activate_exp(str, expansion, save_q));
 	else if (exp_status->is_exp_sim == true)
 	{
 		if (ft_strchr("\'\"", str[1]) && str[2] && ft_strchr(&str[2], str[1]))
