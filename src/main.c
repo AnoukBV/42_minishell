@@ -6,13 +6,15 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/02 15:10:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:23:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*get_prompt(void)
+int	g_status;
+
+static char *get_prompt(void)
 {
 	char	*cwd;
 	char	*prompt;
@@ -28,7 +30,7 @@ static char	*get_prompt(void)
 	return (prompt);
 }
 
-static char	*select_prompt(void)
+char	*select_prompt(void)
 {
 	static size_t	count = 0;
 	static char		**inputs = NULL;
@@ -54,29 +56,29 @@ static char	*select_prompt(void)
 		count = 0;
 		inputs = NULL;
 	}
-	return (line);
+	return (line);;
 }
 
-static void	shell_prompt(t_hashtable *env, int ac)
+static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 {
-	t_list			*tokens;
-	char			*line;
+	t_list		*tokens;
+	char		*line;
+	t_pipeline	*pipeline;	
 
-	set_rl_signals();		//demander a Arthur pour free l'env
+	set_rl_signals();
 	tokens = NULL;
 	line = select_prompt();
 	if (!line)
-		shell_prompt(env, ac);
-	printf("string: %s\n", line); // TO BE DELETED
+		return ;
 	parsing(line, &tokens, env);
-	/*
-	*	Execution
-	*/
+	pipeline = dummydata(envp);
+	execute_pipeline(pipeline);
+	printf("\nexit code: %d\n", g_status);
 	if (line)
 	{
 		add_history(line);
 		free(line);
-		shell_prompt(env, ac);
+		shell_prompt(env, ac, envp);
 	}
 }
 
@@ -87,6 +89,8 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	env = NULL;
 	set_hashtable(envp, &env);
-	shell_prompt(env, ac);
+	shell_prompt(env, ac, envp);
+	free_env(env);	
 	return (0);
 }
+

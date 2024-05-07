@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 07:59:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 11:04:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:32:28 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	undefault_fd_tree(int tok_flags, int *open_flags, int *fd)
 	if (tok_flags % 1000 == T_APP_OUT)
 		*open_flags = O_APPEND;
 	else if (tok_flags % 1000 == T_RED_OUT || tok_flags % 1000 == T_RED_IN)
-		*open_flags = O_TRUNCATE;
+		*open_flags = O_TRUNC;
 	else if (tok_flags % 1000 == T_APP_IN)
 		*open_flags = O_HEREDOC;
 }
@@ -29,12 +29,12 @@ void	assignate_flags_dir(int tok_flags, int *open_flags, int *fd)
 	{
 		if (tok_flags == T_RED_OUT)
 		{
-			*open_flags = O_TRUNCATE;
+			*open_flags = O_TRUNC;
 			*fd = 1;
 		}
 		else if (tok_flags == T_RED_IN)
 		{
-			*open_flags = O_TRUNCATE;
+			*open_flags = O_TRUNC;
 			*fd = 0;
 		}
 		else if (tok_flags == T_APP_IN)

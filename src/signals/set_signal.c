@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   set_signal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:31:05 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/01 08:51:00 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/04/29 01:38:43 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	shell_signals_handler(int sig)
-{
-	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		ft_putstr_fd("  \b\b", 1);
-		return ;
-	}
-	if (sig == SIGINT)
-	{
-		ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
 
 void	set_rl_signals(void)
 {
@@ -39,14 +21,28 @@ void	set_rl_signals(void)
 	if (sigaddset(&sa.sa_mask, SIGQUIT) == -1 \
 		|| sigaddset(&sa.sa_mask, SIGINT) == -1)
 	{
-		strerror(errno);
+		perror(NULL);
 		exit(errno);
 	}
-	sa.sa_handler = &shell_signals_handler;
+	sa.sa_handler = &rl_signals_handler;
 	if(sigaction(SIGQUIT, &sa, NULL) == -1 \
 		|| sigaction(SIGINT, &sa, NULL) == -1)
 	{
-		strerror(errno);
+		perror(NULL);
+		exit(errno);
+	}
+}
+
+void	signals_default(void)
+{
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(sa));
+	sa.sa_handler = SIG_DFL;
+	if(sigaction(SIGQUIT, &sa, NULL) == -1 \
+		|| sigaction(SIGINT, &sa, NULL) == -1)
+	{
+		perror(NULL);
 		exit(errno);
 	}
 }

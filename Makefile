@@ -6,8 +6,7 @@ LIBS_TGT := lib/libft/libft.a
 HEAD := headers lib/libft/headers
 
 SRC_DIR := src
-SRC_FILES := totrash.c \
-			main.c \
+SRC_FILES := main.c \
 			errors.c \
 			clean.c \
 			parsing/newlines.c \
@@ -27,7 +26,15 @@ SRC_FILES := totrash.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \
-			signals.c
+			execution/exec_utils.c \
+			execution/pipeline.c \
+			execution/execute.c \
+			lists_utils/fd_list_utils.c \
+			lists_utils/pid_list_utils.c \
+			signals/set_signal.c \
+			signals/signal_handlers.c \
+			totrash.c \
+			dummydata.c # TO BE DELETED
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 
