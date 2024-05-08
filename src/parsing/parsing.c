@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 11:26:43 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:36:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,15 @@ static void	quotes_removal(void *content)
 	t_list		*argv;
 	t_list		*save;
 	t_list		*map;
-	//t_wd_desc	*tmp;
 
 	cmd = (t_command *)content;
 	if (cmd->is_argv == true)
 	{
 		argv = (t_list *)cmd->argv;
 		save = argv;
-		//(void)save;
+		(void)save;
 		map = ft_lstmap(argv, &exec_removal, &del_wddesc);
-		map = exec_removal(argv->content);
-		//tmp = (t_wd_desc *)map->content;
-		//ft_printf("quotes removed: %s\n", (tmp->word));
-		ft_lstclear(&save, &del_wddesc);
+		print_unidentified_tokens(map);
 		cmd->argv = map;
 	}
 	//else
@@ -125,7 +121,7 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	//expansion((t_command *)tree->item);
 	btree_apply_prefix(tree, &expansion);
 	btree_apply_prefix(tree, &quotes_removal);
-	//quotes_removal((t_command *)tree->item);
+	//quotes_removal((t_command **)tree->item);
 	btree_apply_prefix(tree, &create_argv);
 	print_divided_cmds_array(tree, 0);	//DELETE
 	free_binary_tree(tree);
