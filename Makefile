@@ -27,6 +27,7 @@ SRC_FILES := main.c \
 			parsing/fill_pipeline.c \
 			environment/set.c \
 			environment/free_env.c \
+			environment/ft_export.c \
 			environment/print_env.c \
 			environment/transform_envp.c \
 			lists_utils/command_utils.c \

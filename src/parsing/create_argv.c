@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:37:56 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 00:28:53 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 00:50:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,6 @@ static char	**from_list_to_array(t_list *list, size_t size)
 	return (final);
 }
 
-char	*env_find_key(t_member **member, char *key, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (member[i]->key && !ft_strncmp(member[i]->key, key, ft_strlen(key)))
-			return (member[i]->value);
-		i++;
-	}
-	return (NULL);
-}
-
 char	*find_path(char *cmd_name, t_hashtable **env)
 {
 	size_t	i;
@@ -71,7 +57,10 @@ char	*find_path(char *cmd_name, t_hashtable **env)
 		path_cmd = ft_strjoin(tmp, cmd_name);
 		free(tmp);
 		if (access(path_cmd, F_OK) == 0 || access(path_cmd, X_OK) == 0)
+		{	
+		  	free_2d_array(all_paths);
 			return (path_cmd);
+		}
 		free(path_cmd);
 		path_cmd = NULL;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 23:52:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 00:45:05 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,6 @@ void			join_after_expansion(char **tok, t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_hashtable *env);
 
-//environment
-
-void	print_env(t_hashtable *env, int key);
-void	set_hashtable(char **envp, t_hashtable **env);
-void	init_tracker(t_exp **exp_status);
-char	**transform_envp(t_hashtable *env);
-
 /*
 *	Error functions
 */
@@ -264,4 +257,14 @@ void		destroy_cmd_list(t_command **cmd);
 void		destroy_cmd_one(t_command *cmd);
 
 void	destroy_redir_list(t_redir_list **redir_list);
+
+//NV A REMETTRE Dasn autre .h  apres mise en ordre du point h
+//
+void	set_hashtable(char **envp, t_hashtable **env);
+void	delmemb_env(t_member *member);
+char	*env_find_key(t_member **member, char *key, int size);
+void	free_env(t_hashtable *env);
+void	init_tracker(t_exp **exp_status);
+char	**transform_envp(t_hashtable *env);
+void	print_env(t_hashtable *env, int key);
 #endif
