@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 20:11:44 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:37:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ char			*expand(char *str, t_hashtable **env, size_t size);
 void			inspect_token(char **str, t_hashtable **env);
 void			join_after_expansion(char **tok, t_list **splitted_token);
 void			create_argv(void *item);
+void			fill_pipeline(t_pipeline **pipeline, t_btree *tree);
 
 //environment
 
@@ -185,6 +186,7 @@ void	print_unidentified_tokens(t_list *inputs);
 void	print_divided_cmds(t_btree *cmds, size_t levels);
 int		Size(t_btree *root);
 void	print_divided_cmds_array(t_btree *cmds, size_t levels);
+void	print_pipeline(t_pipeline *pipeline);
 
 	/*
 	*	Signal control functions, switching between readline and command execution states

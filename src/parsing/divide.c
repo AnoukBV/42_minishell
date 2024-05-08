@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:34:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:14:19 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	isolate_cmd(t_command **cmd, t_list **inputs, size_t size)
 	new = new_wd_desc(tok->flags, ft_strdup(tok->word));
 	if (new->word != NULL)
 		ft_lstadd_back((t_list **)&(*cmd)->argv, ft_lstnew(new));
+	(*cmd)->next = NULL;
 }
 
 static void	isolate_redir(t_command **cmd, t_list **inputs)
@@ -66,6 +67,7 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 	addback_redir(&(*cmd)->redir_list, new);
 	if ((*inputs)->next)
 		(*inputs) = (*inputs)->next;
+	(*cmd)->next = NULL;
 }
 
 static void	create_tree(t_list **inputs, \

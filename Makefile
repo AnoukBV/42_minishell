@@ -24,6 +24,7 @@ SRC_FILES := main.c \
 			parsing/expansion_utils.c \
 			parsing/inspect_token.c \
 			parsing/create_argv.c \
+			parsing/fill_pipeline.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \

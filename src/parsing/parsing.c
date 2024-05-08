@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 15:36:49 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:42:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ static void	*exec_removal(void *item)
 	while (str[i])
 	{
 		check_quote_bis(&esc_status, &str[i]);
-		//if (esc_status.is_quoted == true && esc_status.is_simplequote \
-		//	== false && str[i] == '$')
-		//	token->flags += 500;
 		i++;
 	}
 	token->word = trim_quotes(str);
@@ -64,9 +61,8 @@ static void	quotes_removal(void *content)
 	{
 		argv = (t_list *)cmd->argv;
 		save = argv;
-		(void)save;
 		map = ft_lstmap(argv, &exec_removal, &del_wddesc);
-		print_unidentified_tokens(map);
+		ft_lstclear(&save, &del_wddesc);
 		cmd->argv = map;
 	}
 	//else
@@ -113,17 +109,16 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	word_or_operator(inputs);
 	if (check_validity_parenthesis(*inputs) == false)
 	{
-		ft_putstr_fd("ERROR PARENTHESIS\n", 2);
+		//ft_putstr_fd("ERROR PARENTHESIS\n", 2);
 		return (NULL);
 	}
 	divide(inputs, &tree, &env);
 	ft_lstclear(inputs, &del_wddesc);
-	//expansion((t_command *)tree->item);
 	btree_apply_prefix(tree, &expansion);
 	btree_apply_prefix(tree, &quotes_removal);
-	//quotes_removal((t_command **)tree->item);
 	btree_apply_prefix(tree, &create_argv);
-	print_divided_cmds_array(tree, 0);	//DELETE
-	free_binary_tree(tree);
+	//print_divided_cmds_array(tree, 0);	//DELETE
+	fill_pipeline(&pipeline, tree);
+	//free_binary_tree(tree); //ça ca dgage a la fin?
 	return (pipeline);
 }

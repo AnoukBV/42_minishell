@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:08:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 10:01:07 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:41:36 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ t_bool	check_validity_parenthesis(t_list *list)
 		printf("because of pairing\n");
 		return (false);
 	}
-	printf("valid parenth\n");
+	//printf("valid parenth\n");
 	return (true);
 }
