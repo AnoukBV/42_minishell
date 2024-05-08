@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 17:42:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 23:22:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	if (!str)
 		return (NULL);
 	tree = NULL;
-	pipeline = init_pipeline(NULL, env);
 	break_into_words(inputs, str);
 	word_or_operator(inputs);
 	if (check_validity_parenthesis(*inputs) == false)
@@ -118,7 +117,7 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	btree_apply_prefix(tree, &quotes_removal);
 	btree_apply_prefix(tree, &create_argv);
 	//print_divided_cmds_array(tree, 0);	//DELETE
-	fill_pipeline(&pipeline, tree);
+	fill_pipeline(&pipeline, tree, env);
 	//free_binary_tree(tree); //ça ca dgage a la fin?
 	return (pipeline);
 }

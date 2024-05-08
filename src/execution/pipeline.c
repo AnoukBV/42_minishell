@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/08 18:36:11 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 23:18:47 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void	destroy_redir_list(t_redir_list **redir_list)
 }
 
 
-/*
 void	destroy_pipeline(t_pipeline *pipeline)
 {
 	close_fd_list(&pipeline->fd_list);
-	destroy_cmd_list(pipeline->cmd_list);
+	destroy_cmd_list(&pipeline->cmd_list);
 	free(pipeline);
 }
 
@@ -42,7 +41,7 @@ void	prepare_pipeline(t_pipeline *pipeline)
 	t_command	*cmd;
 	int			pfd[2];
 
-	cmd = pipeline->cmd_list;
+	cmd = (t_command *)pipeline->cmd_list;
 	while (cmd->next)
 	{
 		if (pipe(pfd) == -1)
@@ -56,7 +55,7 @@ void	prepare_pipeline(t_pipeline *pipeline)
 		add_fd(pfd[1], &pipeline->fd_list);
 	}
 }
-*/
+
 t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env)
 {
 	t_pipeline	*pipeline;

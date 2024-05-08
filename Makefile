@@ -29,7 +29,11 @@ SRC_FILES := main.c \
 			environment/free_env.c \
 			environment/print_env.c \
 			lists_utils/command_utils.c \
+			lists_utils/fd_list_utils.c \
+			lists_utils/pid_list_utils.c \
 			execution/pipeline.c \
+			execution/exec_utils.c \
+			execution/execute.c \
 			signals/set_signal.c \
 			signals/signal_handlers.c \
 			totrash.c \
