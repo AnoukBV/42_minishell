@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 15:05:00 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 10:40:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ static size_t	isolate_exp(char *str, t_hashtable **env, \
 void	inspect_token(char **str, t_hashtable **env)
 {
 	size_t	i;
-	size_t	j;
+	//size_t	j;
 	t_list	*splitted_token;
 	t_bool	exp;
 	t_exp	*exp_status;
 
 	i = 0;
-	j = i;
+	//j = i;
 	splitted_token = NULL;
 	init_tracker(&exp_status);
 	while (str[0][i])
@@ -79,7 +79,7 @@ void	inspect_token(char **str, t_hashtable **env)
 			i += isolate_not_exp(&str[0][i], exp, &exp_status, &splitted_token);
 		else
 			i += isolate_exp(&str[0][i], env, &exp_status, &splitted_token);
-		j = i;
+		//j = i;
 		i++;
 	}
 	if (splitted_token)
