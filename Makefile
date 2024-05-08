@@ -28,6 +28,7 @@ SRC_FILES := main.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \
+			environment/transform_envp.c \
 			lists_utils/command_utils.c \
 			lists_utils/fd_list_utils.c \
 			lists_utils/pid_list_utils.c \

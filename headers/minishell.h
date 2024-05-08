@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 23:23:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 23:52:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ typedef struct	s_pipeline
 	t_command	*cmd_list;
 	t_fd_list	*fd_list;
 	t_pid_list	*pid_list;
-	//char		**envp;
-	t_hashtable	*envp;
+	char		**envp;
+	//t_hashtable	*envp;
 }	t_pipeline;
 
 // parsing
@@ -149,6 +149,7 @@ void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_hashtable *env);
 void	print_env(t_hashtable *env, int key);
 void	set_hashtable(char **envp, t_hashtable **env);
 void	init_tracker(t_exp **exp_status);
+char	**transform_envp(t_hashtable *env);
 
 /*
 *	Error functions
@@ -223,7 +224,7 @@ void	execute_pipeline(t_pipeline *pipeline);
 *	Creates all pipes in its command list
 *	No redirection is done at this time
 */
-t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env);
+t_pipeline	*init_pipeline(t_command *cmd_lst, char **env);
 void		prepare_pipeline(t_pipeline *pipeline);
 
 void		destroy_pipeline(t_pipeline *pipeline);

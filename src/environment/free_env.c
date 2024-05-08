@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:33:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 12:46:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 23:52:16 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,5 @@ void	free_env(t_hashtable *env)
 	free(env->member);
 	free(env);
 }
+
+//free char ** env A LA FIN DE CHAQUE EXEC
