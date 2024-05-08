@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 09:43:06 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:54:32 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static size_t	new_metacharacter(t_list **list, char *str)
 		ft_lstadd_back(list, ft_lstnew(tok));
 		if (tok->flags == 3000)
 			undefault_fd_tok(list, &tok);
-		printf("flag = %i\n", tok->flags);
 	}
 	return (i);
 }

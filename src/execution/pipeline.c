@@ -6,13 +6,13 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/07 19:15:39 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:36:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-/*
-static void	destroy_redir_list(t_redir_list **redir_list)
+
+void	destroy_redir_list(t_redir_list **redir_list)
 {
 	t_redir_list	*node;
 	t_redir_list	*next;
@@ -28,31 +28,8 @@ static void	destroy_redir_list(t_redir_list **redir_list)
 	*redir_list = NULL;
 }
 
-void	destroy_cmd_list(t_command *cmd)
-{
-	t_command	*tmp;
-	int			i;
-	
-	while (cmd)
-	{
-		free(cmd->command);
-		if (cmd->argv)
-		{
-			i = 0;
-			while (cmd->argv[i])
-			{
-				free(cmd->argv[i]);
-				i++;
-			}
-			free(cmd->argv);
-		}
-		destroy_redir_list(&cmd->redir_list);
-		tmp = cmd->next;
-		free(cmd);
-		cmd = tmp;
-	}
-}
 
+/*
 void	destroy_pipeline(t_pipeline *pipeline)
 {
 	close_fd_list(&pipeline->fd_list);

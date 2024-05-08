@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 17:37:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 18:36:53 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,11 +174,6 @@ void	dup2_error(void);
 void	open_error(char *filename);
 void	execve_error(char *filename);
 
-//utils
-void	free_before_id(t_list *inputs, size_t in_nb);
-void	free_binary_tree(t_btree *tree);
-void	del_wddesc(void *word);
-
 //side
 
 void	print_2d_array(char **str);
@@ -208,7 +203,10 @@ t_pipeline	*dummydata(char **envp);
 /*
 *	Memory utils
 */
-void	free_cmd_list(t_command *cmd);
+//void	free_cmd_list(t_command *cmd); //JE COMPRENDS PAS QD EST C QU'ON UTILISE CA
+void	free_before_id(t_list *inputs, size_t in_nb);
+void	free_binary_tree(t_btree *tree);
+void	del_wddesc(void *word);
 
 /*
 *	Executor functions
@@ -229,8 +227,6 @@ t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env);
 void		prepare_pipeline(t_pipeline *pipeline);
 
 void		destroy_pipeline(t_pipeline *pipeline);
-void		destroy_cmd_list(t_command *cmd);
-
 
 	/*
 	*	Manage t_fd_list structures
@@ -259,4 +255,12 @@ void	wait_all_pid(t_pid_list **pid_list);
 t_bool	is_builtin(char *cmd_name);
 int		get_status(int status);
 
+//t_command utils
+
+t_command	*command_last(t_command *command);
+void		command_addback(t_command **list, t_command *new);
+void		destroy_cmd_list(t_command **cmd);
+void		destroy_cmd_one(t_command *cmd);
+
+void	destroy_redir_list(t_redir_list **redir_list);
 #endif

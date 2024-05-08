@@ -28,6 +28,7 @@ SRC_FILES := main.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/print_env.c \
+			lists_utils/command_utils.c \
 			execution/pipeline.c \
 			signals/set_signal.c \
 			signals/signal_handlers.c \

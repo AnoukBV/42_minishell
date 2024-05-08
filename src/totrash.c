@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 17:48:14 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:10:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,6 @@ void	print_pipeline(t_pipeline *pipeline)
 	printf("\nno fd or pid list for now\n");
 	printf("\n\nEnv for this pipeline (in a t_hashtable):\n\n");
 	print_env(pipeline->envp, ENV),
-	printf("\n\nList of ordered commands:\n-flags: to know which fd to redirect, or if you should check the exit code etc\n-is_arg: to know if argv points to another command (false) or a char ** (true)\n\n");
+	printf("\n\nList of ordered commands:\n-flags: to know which fd to redirect, or if you should check the exit code etc, the flag matches the control operator AFTER the cmd. ex: ls -l | wc -l --> flag for ls -l is T_PIPE(3), for wc -l is EMPTY(0)\n-is_arg: to know if argv points to another command (false) or a char ** (true)\n\n");
 	print_commands(pipeline->cmd_list);
 }
