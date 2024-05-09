@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:50:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 14:43:25 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:32:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	**transform_envp(t_hashtable *env)
 			free(tmp);
 			tmp = NULL;
 		}
+		else
+			final[i] = NULL;
 		i++;
 	}
-	final[i] = "\0";
 	return (final);
 }

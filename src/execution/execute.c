@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/09 13:32:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:21:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	do_redir_list(t_redir_list **r_list)
 		fd = open(node->target_filename, node->open_flags, 0644);
 		if (fd == -1)
 			open_error(node->target_filename);
-		if(dup2(fd, node->fd_to_redirect) == -1)
+		if (dup2(fd, node->fd_to_redirect) == -1)
 			dup2_error();
 		close(fd);
 		free(node->target_filename);
@@ -47,13 +47,13 @@ static void	do_redirections(t_command *cmd, t_fd_list **fd_list)
 {
 	if (cmd->prev) // left pipe
 	{
-		if(dup2(cmd->pipe_left[0], 0) == -1)
+		if (dup2(cmd->pipe_left[0], 0) == -1)
 			dup2_error();
 		remove_fd(cmd->pipe_left[0], fd_list);
 	}
 	if (cmd->next) // right pipe
 	{
-		if(dup2(cmd->pipe_right[1], 1) == -1)
+		if (dup2(cmd->pipe_right[1], 1) == -1)
 			dup2_error();
 		remove_fd(cmd->pipe_right[1], fd_list);
 	}

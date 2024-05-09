@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 12:30:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:10:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,6 @@ typedef struct	s_redir_list
 	struct s_redir_list		*next;
 }	t_redir_list;
 
-/*
-typedef struct	s_command
-{
-	char				**argv; // list of command argument
-	char				*command; // name (+ path) of the command
-	t_redir_list		*redir_list;
-	int					pipe_left[2];
-	int					pipe_right[2];
-	struct s_command	*next;
-	struct s_command	*prev;
-}	t_command;
-*/
-// Pour anouk pour plus tard
 typedef struct	s_command
 {
 	int					flags;
@@ -83,8 +70,8 @@ typedef struct	s_command
 	int					pipe_left[2];
 	int					pipe_right[2];
 	t_hashtable			**env;
-	struct s_command		*next;
-	struct s_command		*prev;
+	struct s_command	*next;
+	struct s_command	*prev;
 }	t_command;
 
 /*
@@ -111,7 +98,6 @@ typedef struct	s_pipeline
 	t_fd_list	*fd_list;
 	t_pid_list	*pid_list;
 	char		**envp;
-	//t_hashtable	*envp;
 }	t_pipeline;
 
 // parsing
