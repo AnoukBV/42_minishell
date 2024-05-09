@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/09 15:21:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:39:29 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	do_redirections(cmd, &pipeline->fd_list);
 	close_fd_list(&pipeline->fd_list);
 	if (execve(cmd->command, cmd->argv, pipeline->envp) == -1)
+	{
+		//destroy_pipeline(pipeline);
+		//free_env(*pipeline->cmd_list->env);		
 		execve_error(cmd->command);
+	}
 }
 
 static void	end_pipeline(t_pipeline *pipeline)

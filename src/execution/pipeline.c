@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/09 15:24:25 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:36:46 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ifree_array_2d(char **array)
 	free(array);
 	array = NULL;
 }
+
 void	destroy_pipeline(t_pipeline *pipeline)
 {
 	close_fd_list(&pipeline->fd_list);
