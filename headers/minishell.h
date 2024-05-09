@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 00:45:05 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:30:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ t_pipeline	*dummydata(char **envp);
 */
 //void	free_cmd_list(t_command *cmd); //JE COMPRENDS PAS QD EST C QU'ON UTILISE CA
 void	free_before_id(t_list *inputs, size_t in_nb);
-void	free_binary_tree(t_btree *tree);
 void	del_wddesc(void *word);
 
 /*

@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   btree_delone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 14:16:04 by aboulore         ###   ########.fr       */
+/*   Created: 2024/05/09 12:37:34 by aboulore          #+#    #+#             */
+/*   Updated: 2024/05/09 12:38:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-static void	export_print(t_hashtable *env)
+#include "libft.h"
 
-void	ft_export(t_hashtable *env, char *str)
+void	btree_delone(t_btree *tree, void (*del)(void *))
 {
-	if (str == NULL)
-		export_print(env);
-	else
+	if (tree)
 		return ;
-}*/
-
-char	*env_find_key(t_member **member, char *key, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (member[i]->key && !ft_strncmp(member[i]->key, key, ft_strlen(key)))
-			return (member[i]->value);
-		i++;
-	}
-	return ("\0");
+	if (del)
+	  	del(tree->item);
+	free(tree);
 }

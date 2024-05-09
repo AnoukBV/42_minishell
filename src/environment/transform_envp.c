@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:50:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 23:52:29 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:43:25 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**transform_envp(t_hashtable *env)
 	i = 1;
 	if (!env)
 		return (NULL);
-	final = malloc(sizeof(char *) * env->size + 1);
+	final = ft_calloc(sizeof(char *), env->size + 1);
 	if (!final)
 		return (NULL);
 	final[0] = ft_itoa(env->size);
@@ -36,5 +36,6 @@ char	**transform_envp(t_hashtable *env)
 		}
 		i++;
 	}
+	final[i] = "\0";
 	return (final);
 }

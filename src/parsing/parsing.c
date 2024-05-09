@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 23:22:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:49:04 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	check_quote_bis(t_esc *esc_status, char *str)
 	str[i] = '\n';
 }
 
-
 t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 {
 	t_pipeline	*pipeline;
@@ -116,8 +115,7 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	btree_apply_prefix(tree, &expansion);
 	btree_apply_prefix(tree, &quotes_removal);
 	btree_apply_prefix(tree, &create_argv);
-	//print_divided_cmds_array(tree, 0);	//DELETE
 	fill_pipeline(&pipeline, tree, env);
-	//free_binary_tree(tree); //ça ca dgage a la fin?
+	btree_clear_infix(tree, NULL);
 	return (pipeline);
 }

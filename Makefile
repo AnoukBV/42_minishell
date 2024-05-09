@@ -8,7 +8,6 @@ HEAD := headers lib/libft/headers
 SRC_DIR := src
 SRC_FILES := main.c \
 			errors.c \
-			clean.c \
 			parsing/newlines.c \
 			parsing/parsing.c \
 			parsing/words.c \
@@ -25,6 +24,7 @@ SRC_FILES := main.c \
 			parsing/inspect_token.c \
 			parsing/create_argv.c \
 			parsing/fill_pipeline.c \
+			parsing/clean_parsing.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/ft_export.c \

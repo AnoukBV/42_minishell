@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:02:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 14:37:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 12:59:36 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ t_list		*ft_lstnew(void *content);
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_btree		*btree_create_node(void *item);
+void		btree_delone(t_btree *tree, void (*del)(void *));
 void		btree_apply_prefix(t_btree *root, void (*applyf)(void *));
+void		btree_apply_infix(t_btree *root, void (*applyf)(void *));
+void		btree_clear_infix(t_btree *root, void (*del)(void *));
 double		ft_atod(char *str);
 void	    free_array_3d(char ***array);
 void	    free_array_2d(char **array);

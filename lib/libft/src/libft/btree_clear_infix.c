@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   btree_clear_infix.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 14:16:04 by aboulore         ###   ########.fr       */
+/*   Created: 2024/05/09 12:36:31 by aboulore          #+#    #+#             */
+/*   Updated: 2024/05/09 14:47:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-static void	export_print(t_hashtable *env)
+#include "libft.h"
 
-void	ft_export(t_hashtable *env, char *str)
+void	btree_clear_infix(t_btree *root, void (*del)(void *))
 {
-	if (str == NULL)
-		export_print(env);
-	else
+	t_btree	*right;
+
+	right = NULL;
+	if (!root)
 		return ;
-}*/
-
-char	*env_find_key(t_member **member, char *key, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (member[i]->key && !ft_strncmp(member[i]->key, key, ft_strlen(key)))
-			return (member[i]->value);
-		i++;
-	}
-	return ("\0");
+	if (root->left)
+		btree_clear_infix(root->left, del);
+	if (root->right)
+		right = root->right;
+	btree_delone(root, del);
+	if (right)
+		btree_clear_infix(right, del);
 }

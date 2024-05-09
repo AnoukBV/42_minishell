@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/08 23:54:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:32:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	execute_pipeline(t_pipeline *pipeline)
 
 
 	cmd = pipeline->cmd_list;
-	prepare_pipeline(pipeline);
+	//prepare_pipeline(pipeline);
 	while (cmd)
 	{
 		pid = fork();

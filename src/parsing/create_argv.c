@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:37:56 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 00:50:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:32:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ char	*find_path(char *cmd_name, t_hashtable **env)
 	if (!str_path)
 		return (NULL);
 	all_paths = ft_split(str_path, ':');
-	free(str_path);
 	while (all_paths[i] != NULL)
 	{
 		tmp = ft_strjoin(all_paths[i], "/");
@@ -58,7 +57,7 @@ char	*find_path(char *cmd_name, t_hashtable **env)
 		free(tmp);
 		if (access(path_cmd, F_OK) == 0 || access(path_cmd, X_OK) == 0)
 		{	
-		  	free_2d_array(all_paths);
+		  	free_array_2d(all_paths);
 			return (path_cmd);
 		}
 		free(path_cmd);
@@ -75,7 +74,7 @@ void	create_argv(void *item)
 	char		**argv;
 
 	cmd = (t_command *)item;
-	if (cmd->is_argv == true)
+	if (cmd->is_argv == true && cmd->flags == 0)
 	{
 		argv = from_list_to_array((t_list *)cmd->argv, \
 			ft_lstsize((t_list *)cmd->argv));
