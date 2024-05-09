@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 12:37:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 12:38:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:48:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	btree_delone(t_btree *tree, void (*del)(void *))
 {
-	if (tree)
+	if (!tree)
 		return ;
 	if (del)
 	  	del(tree->item);
