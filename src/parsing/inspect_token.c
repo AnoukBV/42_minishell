@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:42:52 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:04:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ void	inspect_token(char **str, t_hashtable **env)
 	i = 0;
 	splitted_token = NULL;
 	init_tracker(&exp_status);
-	while (str[0][i])
+//	if (!str && !(*str) && !(**str))
+//		return ;
+	while (str[0][i] != 0)
 	{
 		exp = check_expansion(&exp_status, &str[0][i]);
 		if (exp == false)
 			i += isolate_not_exp(&str[0][i], exp, &exp_status, &splitted_token);
-		else
+		else if (str[0][i])
 			i += isolate_exp(&str[0][i], env, &exp_status, &splitted_token);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:44:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:47:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,3 @@ void	expansion(void *item)
 	if (cmd->redir_list)
 		inspect_redir(&cmd->redir_list, cmd->env);
 }
-/*
-void	remove_quotes(void *item)
-{
-	t_command	*cmd;
-
-	cmd = (t_command *)item;
-
-}*/

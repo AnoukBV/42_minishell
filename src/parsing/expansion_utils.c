@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:37:25 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:50:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	join_after_expansion(char **tok, t_list **splitted_token)
 		save = ft_strdup(new);
 		new = ft_strjoin(save, (char *)tmp->content);
 		free(save);
-		free(tmp->content);
 		tmp = tmp->next;
 	}
-	free(tmp);
 	*tok = new;
 }
 
