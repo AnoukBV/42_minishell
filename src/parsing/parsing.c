@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:03:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:15:20 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	}
 	divide(inputs, &tree, &env);
 	btree_apply_prefix(tree, &expansion);
-	btree_apply_prefix(tree, &quotes_removal);
+	//btree_apply_prefix(tree, &quotes_removal);
+	quotes_removal(tree->item);
 	btree_apply_prefix(tree, &create_argv);
 	fill_pipeline(&pipeline, tree, env);
 	btree_clear_infix(tree, NULL);

@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:33:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:44:19 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	inspect_redir(t_redir_list **redir_list, t_hashtable **env)
 void	inspect_cmd(t_list **cmd, t_hashtable **env)
 {
 	t_list		*tmp;
+	char		*save;
 	t_wd_desc	*tok;
 
 	tmp = *cmd;
@@ -39,7 +40,11 @@ void	inspect_cmd(t_list **cmd, t_hashtable **env)
 	{
 		tok = (t_wd_desc *)tmp->content;
 		if (ft_strchr(tok->word, '$'))
+		{
+		  	save = tok->word;
 			inspect_token(&tok->word, env);
+			free(save);
+		}
 		tmp = tmp->next;
 	}
 }

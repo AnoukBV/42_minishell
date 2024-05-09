@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:56:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 15:17:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:09:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_bool	check_expansion(t_exp **expansion, char *str)
 	static t_bool	save_q;
 	t_exp			*exp_status;
 
+	if (!str)
+		return (false);
 	exp_status = *expansion;
 	save_q = exp_status->esc_status->is_quoted;
 	check_quote(exp_status->esc_status, str);
@@ -59,7 +61,7 @@ t_bool	check_expansion(t_exp **expansion, char *str)
 		return (activate_exp(str, expansion, save_q));
 	else if (exp_status->is_exp_sim == true)
 	{
-		if (ft_strchr("\'\"", str[1]) && str[2] && ft_strchr(&str[2], str[1]))
+		if (str[1] && ft_strchr("\'\"", str[1]) && str[2] && ft_strchr(&str[2], str[1]))
 			exp_status->is_exp_sim = false;
 		return (exp_status->is_exp_sim);
 	}
