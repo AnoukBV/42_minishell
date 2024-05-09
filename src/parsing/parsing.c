@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:15:20 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:27:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	quotes_removal(void *content)
 	t_command	*cmd;
 	t_list		*argv;
 	t_list		*save;
-	t_list		*map;
+	t_list		*map = NULL;
 
 	cmd = (t_command *)content;
 	if (cmd->is_argv == true)
@@ -111,7 +111,8 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 		return (NULL);
 	}
 	divide(inputs, &tree, &env);
-	btree_apply_prefix(tree, &expansion);
+	//btree_apply_prefix(tree, &expansion);
+	expansion(tree->item);
 	//btree_apply_prefix(tree, &quotes_removal);
 	quotes_removal(tree->item);
 	btree_apply_prefix(tree, &create_argv);

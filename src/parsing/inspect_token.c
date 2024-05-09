@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 17:04:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:40:00 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static size_t	isolate_not_exp(char *str, t_bool exp, t_exp **exp_status, \
 	while (str[i] && exp == false && str[i] != '$')
 	{
 		i++;
-		exp = check_expansion(exp_status, &str[i]);
+		if (str[i])
+			exp = check_expansion(exp_status, &str[i]);
 	}
 	if (i != 0)
 	{
@@ -70,9 +71,7 @@ void	inspect_token(char **str, t_hashtable **env)
 	i = 0;
 	splitted_token = NULL;
 	init_tracker(&exp_status);
-//	if (!str && !(*str) && !(**str))
-//		return ;
-	while (str[0][i] != 0)
+	while (i < ft_strlen(str[0]) && str[0][i] != 0)
 	{
 		exp = check_expansion(&exp_status, &str[0][i]);
 		if (exp == false)
