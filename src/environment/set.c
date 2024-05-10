@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 13:03:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:13:16 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	fill_table(char **envp, t_hashtable **env, size_t size)
   	size_t	i;
   	size_t	index;
 
-	index = 0;
 	(void)size;
+	index = 0;
 	while (*envp)
 	{
 		i = 0;
@@ -41,10 +41,15 @@ static void	fill_table(char **envp, t_hashtable **env, size_t size)
 		{
 			create_table_member(env, ft_substr(*envp, 0, i), \
 				ft_substr(*envp, i + 1, ft_strlen(*envp) - i - 1), index);
-			index++;
 		}
+		index++;
 		envp++;
 	}
+	/*while (index < size)
+	{
+		(*env)->member[index]->key = NULL;
+		(*env)->member[index]->value = NULL;
+	}*/
 }
 
 static void	create_table(t_hashtable **env, size_t size)

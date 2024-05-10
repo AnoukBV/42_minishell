@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/09 18:36:46 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:07:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_pipeline	*init_pipeline(t_command *cmd_lst, char **env)
 		malloc_error();
 	pipeline->cmd_list = cmd_lst;
 	pipeline->envp = env;
+	pipeline->hash_env = cmd_lst->env;
 	pipeline->fd_list = NULL;
 	pipeline->pid_list = NULL;
 	prepare_pipeline(pipeline);

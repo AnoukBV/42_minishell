@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 15:10:44 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:36:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct	s_pipeline
 	t_fd_list	*fd_list;
 	t_pid_list	*pid_list;
 	char		**envp;
+	t_hashtable	**hash_env;
 }	t_pipeline;
 
 // parsing
@@ -242,6 +243,12 @@ void		destroy_cmd_list(t_command **cmd);
 void		destroy_cmd_one(t_command *cmd);
 
 void	destroy_redir_list(t_redir_list **redir_list);
+
+
+
+void	ft_export(t_pipeline *pipeline, t_command *cmd);
+
+
 
 //NV A REMETTRE Dasn autre .h  apres mise en ordre du point h
 //
