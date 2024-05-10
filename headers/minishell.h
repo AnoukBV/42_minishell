@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 12:30:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/10 03:41:17 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ void	wait_all_pid(t_pid_list **pid_list);
 */
 t_bool	is_builtin(char *cmd_name);
 int		get_status(int status);
+char	*get_bin_path(t_hashtable *env, char *name);
 
 //t_command utils
 
