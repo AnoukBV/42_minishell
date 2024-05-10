@@ -30,6 +30,7 @@ SRC_FILES := main.c \
 			environment/ft_export.c \
 			environment/print_env.c \
 			environment/transform_envp.c \
+			environment/env_find_key.c \
 			lists_utils/command_utils.c \
 			lists_utils/fd_list_utils.c \
 			lists_utils/pid_list_utils.c \

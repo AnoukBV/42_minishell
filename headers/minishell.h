@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/10 15:36:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:41:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ void	destroy_redir_list(t_redir_list **redir_list);
 
 
 
-void	ft_export(t_pipeline *pipeline, t_command *cmd);
+void	ft_export(t_pipeline *p, t_command *cmd);
 
 
 
