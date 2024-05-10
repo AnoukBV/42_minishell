@@ -6,11 +6,13 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:47:49 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/10 09:17:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_status;
 
 static void	inspect_redir(t_redir_list **redir_list, t_hashtable **env)
 {
@@ -42,7 +44,10 @@ void	inspect_cmd(t_list **cmd, t_hashtable **env)
 		if (ft_strchr(tok->word, '$'))
 		{
 		  	save = tok->word;
-			inspect_token(&tok->word, env);
+			if (ft_strlen(tok->word) == 2 && tok->word[1] == '?')
+				tok->word = ft_itoa(g_status);
+			else
+				inspect_token(&tok->word, env);
 			free(save);
 		}
 		tmp = tmp->next;
