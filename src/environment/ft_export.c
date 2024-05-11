@@ -6,74 +6,19 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/11 22:43:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/11 23:15:51 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	split_point(char *str)
-{
-	int	eq;
-
-	eq = 0;
-	while (str[eq] != '=')
-		eq++;
-	return (eq);
-}
-
-int	*split_key_value(char **argv)
-{
-	size_t	i;
-	int		*eq;
-
-	i = 1;
-	eq = malloc(sizeof(int) * ft_arrlen(&argv[i]));
-	if (!eq)
-		return (NULL);
-	while (argv[i])
-	{
-		//if (argv[i][0] == '=')
-			//-bash: export: `=blabla': not a valid identifier, mais pas quitter, si des args sont valides on s'n occupe
-		eq[i - 1] = split_point(argv[i]);
-		i++;
-	}
-	return (eq);
-}
-
-t_member	*env_fetch_member(t_member **member, size_t size)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (!member[i])
-		{
-			member[i] = ft_calloc(sizeof(t_member), 1);
-			return (member[i]);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-void	add_member(char *argv, t_member **member, size_t size, int eq)
+void	make_key(t_member **m, char *argv, int eq)
 {
 	t_member	*room;
-	char		*save;
-	char		*search;
 
-	if (argv[eq - 1] == '+')
-		search = ft_substr(argv, 0, eq - 1);
-	else
-		search = ft_substr(argv, 0, eq);
-	room = env_find_tmemb(member, search, size);
-	if (!room)
+	room = *m;
+	if (!room->key)
 	{
-		room = env_fetch_member(member, size);
-		//if (!room)
- 			//ici secu si PLUS DE PLACE
 		if (argv[eq - 1] == '+')
 			room->key = ft_substr(argv, 0, eq - 1);
 		else
@@ -84,7 +29,15 @@ void	add_member(char *argv, t_member **member, size_t size, int eq)
 		free(room->value);
 		room->value = NULL;
 	}
-	free(search);
+}
+
+void	make_value(t_member **m, char *argv, int eq)
+{
+	char		*search;
+	char		*save;
+	t_member	*room;
+
+	room = *m;
 	if (eq + 1 < (int)ft_strlen(argv))
 	{
 	  	if (argv[eq - 1] == '+')
@@ -100,6 +53,25 @@ void	add_member(char *argv, t_member **member, size_t size, int eq)
 			room->value = ft_substr(&argv[eq + 1], 0, \
 				ft_strlen((&argv[eq]) - 1));
 	}
+}
+
+void	add_member(char *argv, t_member **member, size_t size, int eq)
+{
+	t_member	*room;
+	char		*search;
+
+	if (argv[eq - 1] == '+')
+		search = ft_substr(argv, 0, eq - 1);
+	else
+		search = ft_substr(argv, 0, eq);
+	room = env_find_tmemb(member, search, size);
+	if (!room)
+		room = env_fetch_member(member, size);
+	//if (!room)
+ 		//ici secu si PLUS DE PLACE
+	free(search);
+	make_key(&room, argv, eq);
+	make_value(&room, argv, eq);
 }
 
 void	ft_export(t_pipeline *p, t_command *cmd)

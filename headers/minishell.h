@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/11 21:23:24 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/11 23:18:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,18 +246,21 @@ void	destroy_redir_list(t_redir_list **redir_list);
 
 
 
-void	ft_export(t_pipeline *p, t_command *cmd);
 
 
 
 //NV A REMETTRE Dasn autre .h  apres mise en ordre du point h
 //
-void	set_hashtable(char **envp, t_hashtable **env);
-void	delmemb_env(t_member *member);
-char	*env_find_key(t_member **member, char *key, int size);
+void		set_hashtable(char **envp, t_hashtable **env);
+void		delmemb_env(t_member *member);
+char		*env_find_key(t_member **member, char *key, int size);
 t_member	*env_find_tmemb(t_member **member, char *key, int size);
-void	free_env(t_hashtable *env);
-void	init_tracker(t_exp **exp_status);
-char	**transform_envp(t_hashtable *env);
-void	print_env(t_hashtable *env, int key);
+void		free_env(t_hashtable *env);
+void		init_tracker(t_exp **exp_status);
+char		**transform_envp(t_hashtable *env);
+void		print_env(t_hashtable *env, int key);
+void		ft_export(t_pipeline *p, t_command *cmd);
+int			split_point(char *str);
+int			*split_key_value(char **argv);
+t_member	*env_fetch_member(t_member **member, size_t size);
 #endif
