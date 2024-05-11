@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/10 17:00:26 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:23:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,19 @@ char	*env_find_key(t_member **member, char *key, int size)
 		i++;
 	}
 	return ("\0");
+}
+
+t_member	*env_find_tmemb(t_member **member, char *key, int size)
+{
+	int	i;
+
+	i = 0;
+	(void)size;
+	while (member[i])
+	{
+		if (member[i]->key && !ft_strncmp(member[i]->key, key, ft_strlen(key)))
+			return (member[i]);
+		i++;
+	}
+	return (NULL);
 }
