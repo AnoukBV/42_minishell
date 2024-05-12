@@ -6,11 +6,13 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/11 22:23:21 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:58:32 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_status;
 
 char	*env_find_key(t_member **member, char *key, int size)
 {
@@ -39,4 +41,19 @@ t_member	*env_find_tmemb(t_member **member, char *key, int size)
 		i++;
 	}
 	return (NULL);
+}
+
+void	export_expansion(char *str, t_hashtable *env)
+{
+	char	*save;
+
+	if (ft_strchr(str, '$'))
+	{
+	  	save = str;
+		if (ft_strlen(str) == 2 && str[1] == '?')
+			str = ft_itoa(g_status);
+		else
+			inspect_token(&save, &env);
+		free(save);
+	}
 }

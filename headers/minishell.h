@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/11 23:18:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:53:32 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,4 +263,6 @@ void		ft_export(t_pipeline *p, t_command *cmd);
 int			split_point(char *str);
 int			*split_key_value(char **argv);
 t_member	*env_fetch_member(t_member **member, size_t size);
+void		export_expansion(char *str, t_hashtable *env);
+void		exp_check_err(char *key);
 #endif

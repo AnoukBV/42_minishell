@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/11 23:15:51 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:54:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	make_key(t_member **m, char *argv, int eq)
 	}
 }
 
-void	make_value(t_member **m, char *argv, int eq)
+void	make_value(t_member **m, char *argv, int eq, t_hashtable *env)
 {
 	char		*search;
 	char		*save;
@@ -53,9 +53,10 @@ void	make_value(t_member **m, char *argv, int eq)
 			room->value = ft_substr(&argv[eq + 1], 0, \
 				ft_strlen((&argv[eq]) - 1));
 	}
+	export_expansion(room->value, env);
 }
 
-void	add_member(char *argv, t_member **member, size_t size, int eq)
+void	add_member(char *argv, t_hashtable *env, size_t size, int eq)
 {
 	t_member	*room;
 	char		*search;
@@ -64,14 +65,15 @@ void	add_member(char *argv, t_member **member, size_t size, int eq)
 		search = ft_substr(argv, 0, eq - 1);
 	else
 		search = ft_substr(argv, 0, eq);
-	room = env_find_tmemb(member, search, size);
+	exp_check_err(search);
+	room = env_find_tmemb(env->member, search, size);
 	if (!room)
-		room = env_fetch_member(member, size);
+		room = env_fetch_member(env->member, size);
 	//if (!room)
  		//ici secu si PLUS DE PLACE
 	free(search);
 	make_key(&room, argv, eq);
-	make_value(&room, argv, eq);
+	make_value(&room, argv, eq, env);
 }
 
 void	ft_export(t_pipeline *p, t_command *cmd)
@@ -91,7 +93,7 @@ void	ft_export(t_pipeline *p, t_command *cmd)
 	eq = split_key_value(argv);
 	while (i < ft_arrlen(&argv[1]))
 	{
-		add_member(argv[i + 1], env->member, env->size, eq[i]);
+		add_member(argv[i + 1], env, env->size, eq[i]);
 		i++;
 	}
 	free(eq);
