@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 18:36:52 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:13:40 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,20 @@ void	fork_error(t_pipeline *pipeline)
 	*/
 }
 
-void	execve_error(char *pathname)
+void	check_execve_error(char *pathname, t_pipeline *pipeline)
 {
 	char	*errstr;
+	int		exit;
 
+	exit = 0;
+	if (access(pathname, F_OK))
+		exit = 127;
+	else if (access(pathname, X_OK))
+		exit = 126;
+	if (!exit)
+		return ;
 	errstr = ft_strjoin("minishell: ", pathname);
 	perror(errstr);
 	free(errstr);
-	if (access(pathname, F_OK))
-		exit(127);
-	else if (access(pathname, X_OK))
-		exit(126);
+	destroy_pipeline(pipeline);
 }

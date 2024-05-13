@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/10 04:14:28 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:02:24 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ static void	do_redirections(t_command *cmd, t_fd_list **fd_list)
 
 static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 {
+	char	**envp;
 	char	*path;
 
-	path = get_bin_path(pipeline->envp);
+	path = get_bin_path(pipeline->envp, cmd->command);
 	if (path != NULL)
 	{
 		free(cmd->command);
@@ -72,8 +73,9 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	}
 	do_redirections(cmd, &pipeline->fd_list);
 	close_fd_list(&pipeline->fd_list);
-	if (execve(cmd->command, cmd->argv, pipeline->envp) == -1)
-		execve_error(cmd->command);
+	check_execve_error(cmd->command, pipeline);
+	envp = transform_envp(pipeline->envp);
+	execve(cmd->command, cmd->argv, envp);
 }
 
 static void	end_pipeline(t_pipeline *pipeline)

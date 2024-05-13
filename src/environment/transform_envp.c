@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transform_envp.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:50:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 14:43:25 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:52:07 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**transform_envp(t_hashtable *env)
 	i = 1;
 	if (!env)
 		return (NULL);
-	final = ft_calloc(sizeof(char *), env->size + 1);
+	final = ft_calloc(sizeof(char *), env->size + 2);
 	if (!final)
 		return (NULL);
 	final[0] = ft_itoa(env->size);

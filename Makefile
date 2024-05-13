@@ -30,6 +30,7 @@ SRC_FILES := main.c \
 			environment/ft_export.c \
 			environment/print_env.c \
 			environment/transform_envp.c \
+			environment/get_env_element.c \
 			lists_utils/command_utils.c \
 			lists_utils/fd_list_utils.c \
 			lists_utils/pid_list_utils.c \
@@ -37,8 +38,8 @@ SRC_FILES := main.c \
 			execution/exec_utils.c \
 			execution/execute.c \
 			signals/set_signal.c \
-			signals/signal_handlers.c \
-			totrash.c \
+			signals/signal_handlers.c
+			# totrash.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 
