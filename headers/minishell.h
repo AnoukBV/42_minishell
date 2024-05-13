@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/12 19:53:32 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:25:59 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,11 +258,12 @@ t_member	*env_find_tmemb(t_member **member, char *key, int size);
 void		free_env(t_hashtable *env);
 void		init_tracker(t_exp **exp_status);
 char		**transform_envp(t_hashtable *env);
-void		print_env(t_hashtable *env, int key);
+void		print_env(t_hashtable **env, int key);
 void		ft_export(t_pipeline *p, t_command *cmd);
 int			split_point(char *str);
 int			*split_key_value(char **argv);
 t_member	*env_fetch_member(t_member **member, size_t size);
 void		export_expansion(char *str, t_hashtable *env);
 void		exp_check_err(char *key);
+void		ft_exp_p(t_hashtable **e);
 #endif

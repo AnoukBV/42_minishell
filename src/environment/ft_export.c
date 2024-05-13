@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/12 19:54:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/13 11:42:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	make_value(t_member **m, char *argv, int eq, t_hashtable *env)
 			room->value = ft_substr(&argv[eq + 1], 0, \
 				ft_strlen((&argv[eq]) - 1));
 	}
-	export_expansion(room->value, env);
+	(void)env;
+	//export_expansion(room->value, env);
 }
 
 void	add_member(char *argv, t_hashtable *env, size_t size, int eq)
@@ -88,8 +89,11 @@ void	ft_export(t_pipeline *p, t_command *cmd)
 	argv = cmd->argv;
 	if (cmd->argv == NULL)
 		return ;
-	//if (cmd->is_argv == true && ft_arrlen(argv) == 1)
-	  //print_env(cmd->env, EXPORT);
+	if (cmd->is_argv == true && ft_arrlen(argv) == 1)
+	{
+		print_env(&env, EXPORT);
+		return ;
+	}
 	eq = split_key_value(argv);
 	while (i < ft_arrlen(&argv[1]))
 	{
