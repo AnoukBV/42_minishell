@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/13 12:25:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:53:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,4 +266,5 @@ t_member	*env_fetch_member(t_member **member, size_t size);
 void		export_expansion(char *str, t_hashtable *env);
 void		exp_check_err(char *key);
 void		ft_exp_p(t_hashtable **e);
+int			ft_iscap(int a);
 #endif
