@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 10:42:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:42:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_export(t_pipeline *p, t_command *cmd)
 	size_t		i;
 
 	i = 0;
-	env = *p->hash_env;
+	env = p->envp;
 	argv = cmd->argv;
 	if (cmd->argv == NULL)
 		return ;

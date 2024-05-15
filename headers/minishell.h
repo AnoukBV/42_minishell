@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 12:33:57 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:05:48 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ typedef struct	s_pipeline
 	t_command	*cmd_list;
 	t_fd_list	*fd_list;
 	t_pid_list	*pid_list;
-	// char		**envp;
 	t_hashtable	*envp;
 }	t_pipeline;
 
@@ -192,7 +191,7 @@ void	execute_pipeline(t_pipeline *pipeline);
 *	Creates all pipes in its command list
 *	No redirection is done at this time
 */
-t_pipeline	*init_pipeline(t_command *cmd_lst, char **env);
+t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env);
 void		prepare_pipeline(t_pipeline *pipeline);
 
 void		destroy_pipeline(t_pipeline *pipeline);
