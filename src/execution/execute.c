@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 13:01:38 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:16:58 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	char	**envp;
 	char	*path;
 
-	printf("cmd->command: %s\n", cmd->command);
-	usleep(100);
 	path = get_bin_path(pipeline->envp, cmd->command);
-	printf("path: %s\n", path);
 	if (path != NULL)
 	{
 		free(cmd->command);
