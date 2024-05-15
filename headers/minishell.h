@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 13:05:48 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:50:20 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void	free_before_id(t_list *inputs, size_t in_nb);
 void	del_wddesc(void *word);
 
 /*
-*	Executor functions
+*	Execution functions
 */
 void	execute_pipeline(t_pipeline *pipeline);
 
@@ -232,11 +232,6 @@ void		destroy_cmd_list(t_command **cmd);
 void		destroy_cmd_one(t_command *cmd);
 
 void	destroy_redir_list(t_redir_list **redir_list);
-
-
-
-
-
 
 //NV A REMETTRE Dasn autre .h  apres mise en ordre du point h
 //
