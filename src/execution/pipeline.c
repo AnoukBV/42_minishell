@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 12:34:54 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:06:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	destroy_pipeline(t_pipeline *pipeline)
 {
 	close_fd_list(&pipeline->fd_list);
 	destroy_cmd_list(&pipeline->cmd_list);
-	ifree_array_2d(pipeline->envp);
+	//ifree_array_2d(pipeline->envp);
 	free(pipeline);
 }
 
@@ -73,7 +73,7 @@ void	prepare_pipeline(t_pipeline *pipeline)
 	}
 }
 
-t_pipeline	*init_pipeline(t_command *cmd_lst, char **env)
+t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env)
 {
 	t_pipeline	*pipeline;
 
@@ -81,7 +81,8 @@ t_pipeline	*init_pipeline(t_command *cmd_lst, char **env)
 	if (!pipeline)
 		malloc_error();
 	pipeline->cmd_list = cmd_lst;
-	set_hashtable(env, &pipeline->envp);
+	//set_hashtable(env, &pipeline->envp);
+	pipeline->envp = env;
 	pipeline->fd_list = NULL;
 	pipeline->pid_list = NULL;
 	prepare_pipeline(pipeline);

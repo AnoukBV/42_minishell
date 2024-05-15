@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:37:56 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 14:32:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:05:06 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	create_argv(void *item)
 			ft_lstsize((t_list *)cmd->argv));
 		ft_lstclear((t_list **)&cmd->argv, &del_wddesc);
 		cmd->argv = argv;
-		cmd->command = find_path(argv[0], cmd->env);
+		cmd->command = ft_strdup(argv[0]);
 	}
 	//else
 	//si pointe vers autre chose (commente pr l'instant) --> recursivite et on applique 

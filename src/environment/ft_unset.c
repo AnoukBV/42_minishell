@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 11:35:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:42:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_unset(t_pipeline	*p, t_command *cmd)
 	char		**argv;
 	size_t		i;
 
-	env = *p->hash_env;
+	env = p->envp;
 	argv = cmd->argv;
 	i = 0;
 	if (cmd->argv == NULL)
