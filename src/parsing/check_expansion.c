@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:56:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 18:00:14 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:48:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static t_bool	activate_exp(char *c, t_exp **expansion, t_bool save_q)
 		exp_status->is_exp_quo = true;
 		return (true);
 	}
-	else if (*c == '$')
+	else if (*c == '$' && (exp_status->esc_status == false \
+		|| exp_status->esc_status->is_simplequote == false))
 	{
 		exp_status->is_exp_sim = true;
 		return (true);

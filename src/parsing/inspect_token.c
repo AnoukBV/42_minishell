@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 17:40:00 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:00:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static size_t	isolate_not_exp(char *str, t_bool exp, t_exp **exp_status, \
 	t_list	*new;
 
 	i = 0;
-	while (str[i] && exp == false && str[i] != '$')
+	while (str[i] && exp == false && (str[i] != '$' || \
+		((*exp_status)->esc_status->is_quoted == true && \
+		(*exp_status)->esc_status->is_simplequote == true)))
 	{
 		i++;
 		if (str[i])
