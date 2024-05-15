@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:01:27 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:42:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	divide(t_list **inputs, t_btree **tree, t_hashtable **env)
 	save = *inputs;
 	while (*inputs)
 	{
-		is_between_p(inputs, tree, env);
 		if (!(*inputs))
 			break ;
 		size = until_next_op(inputs);

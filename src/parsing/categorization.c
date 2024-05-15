@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:20:33 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/02 10:38:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:33:05 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,8 @@ static void	token_type(t_wd_desc **word)
 	char	*tmp;
 
 	tmp = (*word)->word;
-	if (!ft_strncmp(tmp, "&&", 2))
-		(*word)->flags = T_AND;
-	else if (!ft_strncmp(tmp, "||", 2))
-		(*word)->flags = T_OR;
-	else if (!ft_strncmp(tmp, "|", 1))
+	if (!ft_strncmp(tmp, "|", 1))
 		(*word)->flags = T_PIPE;
-	else if (!ft_strncmp(tmp, "(", 1))
-		(*word)->flags = T_OPEN;
-	else if (!ft_strncmp(tmp, ")", 1))
-		(*word)->flags = T_CLOSE;
 	else if (!ft_strncmp(tmp, "<<", 2) \
 		&& ft_strlen(tmp) == 2)
 		(*word)->flags += T_APP_IN;

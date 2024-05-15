@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 17:59:44 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:33:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,7 @@ static size_t	new_metacharacter(t_list **list, char *str)
 	i = 0;
 	if (!ft_isspace(str[i]))
 	{
-		if (!ft_strchr("()", str[i]) && str[i + 1] == str[i])
-		{
-			tok = new_wd_desc(0, ft_substr(&str[i], 0, 2));
-			i++;
-		}
-		else
-			tok = new_wd_desc(0, ft_substr(&str[i], 0, 1));
+		tok = new_wd_desc(0, ft_substr(&str[i], 0, 1));
 		if (ft_strchr("<>", tok->word[0]) && !ft_isspace(str[i - 1]))
 			tok->flags += 3000;
 		ft_lstadd_back(list, ft_lstnew(tok));
@@ -59,7 +53,7 @@ static void	input_into_words(char *str, t_list **words_list)
 	while (str[i])
 	{
 		check_quote(&esc_status, &str[i]);
-		if (ft_strchr("|&<>() \t", str[i]) \
+		if (ft_strchr("|<> \t", str[i]) \
 			&& esc_status.is_quoted == false)
 		{
 			new_word(words_list, str, i, j);
