@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 17:33:27 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:06:29 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ static size_t	new_metacharacter(t_list **list, char *str)
 	i = 0;
 	if (!ft_isspace(str[i]))
 	{
-		tok = new_wd_desc(0, ft_substr(&str[i], 0, 1));
+		if (str[i + 1] && ft_strchr("<>", str[i]) && str[i + 1] == str[i])
+			tok = new_wd_desc(0, ft_substr(&str[i], 0, 2));
+		else
+			tok = new_wd_desc(0, ft_substr(&str[i], 0, 1));
 		if (ft_strchr("<>", tok->word[0]) && !ft_isspace(str[i - 1]))
 			tok->flags += 3000;
 		ft_lstadd_back(list, ft_lstnew(tok));

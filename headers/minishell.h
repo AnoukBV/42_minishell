@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 13:50:20 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:47:43 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void			inspect_token(char **str, t_hashtable **env);
 void			join_after_expansion(char **tok, t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_hashtable *env);
+void	syntax_errors(t_list **inputs);
 
 /*
 *	Error functions

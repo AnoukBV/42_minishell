@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:37:56 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 13:05:06 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:24:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*find_path(char *cmd_name, t_hashtable **env)
 
 void	create_argv(void *item)
 {
-	//si void pointe vers t_list : join, free, return le truc
 	t_command	*cmd;
 	char		**argv;
 
@@ -82,7 +81,4 @@ void	create_argv(void *item)
 		cmd->argv = argv;
 		cmd->command = ft_strdup(argv[0]);
 	}
-	//else
-	//si pointe vers autre chose (commente pr l'instant) --> recursivite et on applique 
-	//meme chose avec une sort de lst map pr t_cmd
 }
