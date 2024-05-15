@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 12:35:00 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:10:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 	if (!line)
 		return ;
 	pipeline = parsing(line, &tokens, env);
-	// print_pipeline(pipeline);
 	execute_pipeline(pipeline);
 	if (line)
 	{

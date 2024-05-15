@@ -42,8 +42,8 @@ SRC_FILES := main.c \
 			execution/exec_utils.c \
 			execution/execute.c \
 			signals/set_signal.c \
-			signals/signal_handlers.c
-			# totrash.c
+			signals/signal_handlers.c \
+		 	totrash.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 

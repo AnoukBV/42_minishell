@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 12:54:38 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 23:48:06 by aboulore         ###   ########.fr       */
+/*   Created: 2024/05/15 14:25:22 by aboulore          #+#    #+#             */
+/*   Updated: 2024/05/15 14:59:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	print_divided_cmds(t_btree *cmds, size_t levels)
 
 	if (!cmds)
 		return ;
-	print_divided_cmds(cmds->right, levels + 1);
+	print_divided_cmds(cmds->left, levels + 1);
 	for (size_t i = 0; i < levels; ++i)
 		printf("     ");
 	cmd = (t_command *)cmds->item;
@@ -122,7 +122,7 @@ void	print_divided_cmds(t_btree *cmds, size_t levels)
 		print_redirections((t_redir_list *)cmd->redir_list);
 	}
 	printf("\n");
-	print_divided_cmds(cmds->left, levels + 1);
+	print_divided_cmds(cmds->right, levels + 1);
 }
 
 void	print_divided_cmds_array(t_btree *cmds, size_t levels)
@@ -131,7 +131,7 @@ void	print_divided_cmds_array(t_btree *cmds, size_t levels)
 
 	if (!cmds)
 		return ;
-	print_divided_cmds_array(cmds->right, levels + 1);
+	print_divided_cmds_array(cmds->left, levels + 1);
 	for (size_t i = 0; i < levels; ++i)
 		printf("     ");
 	cmd = (t_command *)cmds->item;
@@ -145,7 +145,7 @@ void	print_divided_cmds_array(t_btree *cmds, size_t levels)
 		print_redirections((t_redir_list *)cmd->redir_list);
 	}
 	printf("\n");
-	print_divided_cmds_array(cmds->left, levels + 1);
+	print_divided_cmds_array(cmds->right, levels + 1);
 }
 
 void	print_commands(t_command *list)
@@ -176,9 +176,10 @@ void	print_commands(t_command *list)
 void	print_pipeline(t_pipeline *pipeline)
 {
 	printf("\n\n----PIPELINE AFTER PARSING----\n\n");
-	printf("\nno fd or pid list for now\n");
-	printf("\n\nEnv for this pipeline (in a t_hashtable):\n\n");
-	print_2d_array(pipeline->envp),
-	printf("\n\nList of ordered commands:\n-flags: to know which fd to redirect, or if you should check the exit code etc, the flag matches the control operator AFTER the cmd. ex: ls -l | wc -l --> flag for ls -l is T_PIPE(3), for wc -l is EMPTY(0)\n-is_arg: to know if argv points to another command (false) or a char ** (true)\n\n");
+	//printf("\nno fd or pid list for now\n");
+	//printf("\n\nEnv for this pipeline (in a t_hashtable):\n\n");
+	//print_2d_array(pipeline->envp),
+	//print_env(&pipeline->envp, ENV);
+	//printf("\n\nList of ordered commands:\n-flags: to know which fd to redirect, or if you should check the exit code etc, the flag matches the control operator AFTER the cmd. ex: ls -l | wc -l --> flag for ls -l is T_PIPE(3), for wc -l is EMPTY(0)\n-is_arg: to know if argv points to another command (false) or a char ** (true)\n\n");
 	print_commands(pipeline->cmd_list);
 }
