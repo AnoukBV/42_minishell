@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 13:50:20 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:14:42 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	fork_error(t_pipeline *pipeline);
 void	dup2_error(void);
 void	open_error(char *filename);
 void	check_execve_error(char *pathname, t_pipeline *pipeline);
+void	command_not_found_error(char *name);
 
 //side
 
@@ -160,9 +161,12 @@ void	print_pipeline(t_pipeline *pipeline);
 void	set_rl_signals(void);
 // Restores default signal behavior
 void	signals_default(void);
+//	Disable SIGINT and SIGQUIT during execution
+void	disable_signals(void);
 
 //	Signal handlers
 void	rl_signals_handler(int sig);
+void	disable_handler(int sig);
 
 /*
 *	Test functions /!\ TO BE DELETED /!\
@@ -181,6 +185,12 @@ void	del_wddesc(void *word);
 */
 void	execute_pipeline(t_pipeline *pipeline);
 
+/*
+*	Builtins
+*/
+int		builtin_cd(char **av, t_hashtable *env);
+int		builtin_pwd(void);
+int		builtin_echo(char **argv);
 
 	/*
 	*	Manage t_pipeline structures
@@ -195,6 +205,12 @@ t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env);
 void		prepare_pipeline(t_pipeline *pipeline);
 
 void		destroy_pipeline(t_pipeline *pipeline);
+
+
+/*
+*	Redirections
+*/
+void	do_redirections(t_command *cmd, t_fd_list **fd_list);
 
 	/*
 	*	Manage t_fd_list structures

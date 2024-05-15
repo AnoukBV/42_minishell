@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 12:43:30 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 13:48:21 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:29:13 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	builtin_echo(char **argv)
 	while (argv[i])
 	{
 		if (i > 2 || (i == 2 && !flag_n))
-			ft_putchar_fd(" ", 1);
+			ft_putchar_fd(' ', 1);
 		ft_printf("%s", argv[i]);
 		i++;
 	}
-	if (flag_n)
-		ft_putchar_fd("\n", 1);
+	if (!flag_n)
+		ft_putchar_fd('\n', 1);
 	return (0);
 }

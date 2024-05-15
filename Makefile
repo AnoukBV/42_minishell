@@ -41,8 +41,12 @@ SRC_FILES := main.c \
 			execution/pipeline.c \
 			execution/exec_utils.c \
 			execution/execute.c \
+			execution/redirections.c \
 			signals/set_signal.c \
-			signals/signal_handlers.c
+			signals/signal_handlers.c \
+			builtins/cd.c \
+			builtins/pwd.c \
+			builtins/echo.c
 			# totrash.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)

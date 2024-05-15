@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 13:17:19 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:28:39 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,14 @@ void	check_execve_error(char *pathname, t_pipeline *pipeline)
 	perror(errstr);
 	free(errstr);
 	destroy_pipeline(pipeline);
+}
+
+void	command_not_found_error(char *name)
+{
+	char *errstr;
+
+	errstr = ft_strjoin(name, ": command not found\n");
+	ft_putstr_fd(errstr, 2);
+	free(errstr);
+	exit(127);
 }
