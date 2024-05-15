@@ -28,9 +28,13 @@ SRC_FILES := main.c \
 			environment/set.c \
 			environment/free_env.c \
 			environment/ft_export.c \
+			environment/ft_unset.c \
+			environment/ft_export_print.c \
+			environment/ft_export_utils.c \
 			environment/print_env.c \
 			environment/transform_envp.c \
 			environment/get_env_element.c \
+			environment/env_find_key.c \
 			lists_utils/command_utils.c \
 			lists_utils/fd_list_utils.c \
 			lists_utils/pid_list_utils.c \

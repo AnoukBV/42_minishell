@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 17:14:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:01:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,12 @@ static void	create_tree(t_list **inputs, \
 void	divide(t_list **inputs, t_btree **tree, t_hashtable **env)
 {
 	t_btree		*holder;
+	t_list		*save;
 	size_t		size;
 
 	holder = NULL;
 	size = 0;
+	save = *inputs;
 	while (*inputs)
 	{
 		is_between_p(inputs, tree, env);
@@ -125,4 +127,5 @@ void	divide(t_list **inputs, t_btree **tree, t_hashtable **env)
 		}
 		holder = NULL;
 	}
+	ft_lstclear(&save, &del_wddesc);
 }

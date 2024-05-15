@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:50:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/13 12:52:07 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:34:05 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	**transform_envp(t_hashtable *env)
 			free(tmp);
 			tmp = NULL;
 		}
+		else
+			final[i] = NULL;
 		i++;
 	}
-	final[i] = "\0";
 	return (final);
 }

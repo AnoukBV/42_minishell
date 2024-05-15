@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/13 12:29:10 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:34:54 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,28 @@ void	destroy_redir_list(t_redir_list **redir_list)
 	*redir_list = NULL;
 }
 
+void	ifree_array_2d(char **array)
+{
+	int	i;
+	int	size;
+
+	i = 0;
+	size = ft_atoi(array[0]);
+	while (i < size)
+	{
+	  	if (array[i])
+			free(array[i]);
+		i++;
+	}
+	free(array);
+	array = NULL;
+}
 
 void	destroy_pipeline(t_pipeline *pipeline)
 {
 	close_fd_list(&pipeline->fd_list);
 	destroy_cmd_list(&pipeline->cmd_list);
+	ifree_array_2d(pipeline->envp);
 	free(pipeline);
 }
 

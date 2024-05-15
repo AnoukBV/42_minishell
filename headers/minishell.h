@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/13 16:19:29 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:33:57 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,6 @@ typedef struct	s_redir_list
 	struct s_redir_list		*next;
 }	t_redir_list;
 
-/*
-typedef struct	s_command
-{
-	char				**argv; // list of command argument
-	char				*command; // name (+ path) of the command
-	t_redir_list		*redir_list;
-	int					pipe_left[2];
-	int					pipe_right[2];
-	struct s_command	*next;
-	struct s_command	*prev;
-}	t_command;
-*/
-// Pour anouk pour plus tard
 typedef struct	s_command
 {
 	int					flags;
@@ -84,8 +71,8 @@ typedef struct	s_command
 	int					pipe_left[2];
 	int					pipe_right[2];
 	t_hashtable			**env;
-	struct s_command		*next;
-	struct s_command		*prev;
+	struct s_command	*next;
+	struct s_command	*prev;
 }	t_command;
 
 /*
@@ -247,13 +234,28 @@ void		destroy_cmd_one(t_command *cmd);
 
 void	destroy_redir_list(t_redir_list **redir_list);
 
+
+
+
+
+
 //NV A REMETTRE Dasn autre .h  apres mise en ordre du point h
 //
-void	set_hashtable(char **envp, t_hashtable **env);
-void	delmemb_env(t_member *member);
-char	*env_find_key(t_member **member, char *key, int size);
-void	free_env(t_hashtable *env);
-void	init_tracker(t_exp **exp_status);
-char	**transform_envp(t_hashtable *env);
-void	print_env(t_hashtable *env, int key);
+void		set_hashtable(char **envp, t_hashtable **env);
+void		delmemb_env(t_member *member);
+char		*env_find_key(t_member **member, char *key, int size);
+t_member	*env_find_tmemb(t_member **member, char *key, int size);
+void		free_env(t_hashtable *env);
+void		init_tracker(t_exp **exp_status);
+char		**transform_envp(t_hashtable *env);
+void		print_env(t_hashtable **env, int key);
+void		ft_export(t_pipeline *p, t_command *cmd);
+int			split_point(char *str);
+int			*split_key_value(char **argv);
+t_member	*env_fetch_member(t_member **member, size_t size);
+void		export_expansion(char *str, t_hashtable *env);
+void		exp_check_err(char *key);
+void		ft_exp_p(t_hashtable **e);
+int			ft_iscap(int a);
+void		ft_unset(t_pipeline	*p, t_command *cmd);
 #endif

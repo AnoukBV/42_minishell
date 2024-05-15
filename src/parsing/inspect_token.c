@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 10:40:21 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:40:00 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static size_t	isolate_not_exp(char *str, t_bool exp, t_exp **exp_status, \
 	while (str[i] && exp == false && str[i] != '$')
 	{
 		i++;
-		exp = check_expansion(exp_status, &str[i]);
+		if (str[i])
+			exp = check_expansion(exp_status, &str[i]);
 	}
 	if (i != 0)
 	{
@@ -63,27 +64,26 @@ static size_t	isolate_exp(char *str, t_hashtable **env, \
 void	inspect_token(char **str, t_hashtable **env)
 {
 	size_t	i;
-	//size_t	j;
 	t_list	*splitted_token;
 	t_bool	exp;
 	t_exp	*exp_status;
 
 	i = 0;
-	//j = i;
 	splitted_token = NULL;
 	init_tracker(&exp_status);
-	while (str[0][i])
+	while (i < ft_strlen(str[0]) && str[0][i] != 0)
 	{
 		exp = check_expansion(&exp_status, &str[0][i]);
 		if (exp == false)
 			i += isolate_not_exp(&str[0][i], exp, &exp_status, &splitted_token);
-		else
+		else if (str[0][i])
 			i += isolate_exp(&str[0][i], env, &exp_status, &splitted_token);
-		//j = i;
 		i++;
 	}
 	if (splitted_token)
 		join_after_expansion(&str[0], &splitted_token);
-		//free tok_word la dedans
-	printf("%s\n", *str);
+	//printf("%s\n", *str);
+	free(exp_status->esc_status);	
+	free(exp_status);	
+	ft_lstclear(&splitted_token, free);
 }

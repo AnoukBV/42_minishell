@@ -6,11 +6,13 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:33:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/12 19:39:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_status;
 
 static void	inspect_redir(t_redir_list **redir_list, t_hashtable **env)
 {
@@ -32,6 +34,7 @@ static void	inspect_redir(t_redir_list **redir_list, t_hashtable **env)
 void	inspect_cmd(t_list **cmd, t_hashtable **env)
 {
 	t_list		*tmp;
+	char		*save;
 	t_wd_desc	*tok;
 
 	tmp = *cmd;
@@ -39,7 +42,14 @@ void	inspect_cmd(t_list **cmd, t_hashtable **env)
 	{
 		tok = (t_wd_desc *)tmp->content;
 		if (ft_strchr(tok->word, '$'))
-			inspect_token(&tok->word, env);
+		{
+		  	save = tok->word;
+			if (ft_strlen(tok->word) == 2 && tok->word[1] == '?')
+				tok->word = ft_itoa(g_status);
+			else
+				inspect_token(&tok->word, env);
+			free(save);
+		}
 		tmp = tmp->next;
 	}
 }
@@ -53,11 +63,3 @@ void	expansion(void *item)
 	if (cmd->redir_list)
 		inspect_redir(&cmd->redir_list, cmd->env);
 }
-/*
-void	remove_quotes(void *item)
-{
-	t_command	*cmd;
-
-	cmd = (t_command *)item;
-
-}*/
