@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/13 13:13:40 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:56:18 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	check_execve_error(char *pathname, t_pipeline *pipeline)
 	int		exit;
 
 	exit = 0;
+	printf("pathname: %s\n", pathname);
 	if (access(pathname, F_OK))
 		exit = 127;
 	else if (access(pathname, X_OK))

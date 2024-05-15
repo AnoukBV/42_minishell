@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/10 03:38:31 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:06:33 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_bin_path(t_hashtable *env, char *name)
 	int		i;
 
 	if (ft_strchr(name, '/') != NULL)
-		return (name);
+		return (NULL);
 	path_list = get_path_list(env);
 	i = 0;
 	while (path_list[i] != NULL)
