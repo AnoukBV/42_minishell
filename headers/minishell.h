@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/13 12:53:21 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:56:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,4 +267,5 @@ void		export_expansion(char *str, t_hashtable *env);
 void		exp_check_err(char *key);
 void		ft_exp_p(t_hashtable **e);
 int			ft_iscap(int a);
+void		ft_unset(t_pipeline	*p, t_command *cmd);
 #endif

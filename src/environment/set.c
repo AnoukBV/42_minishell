@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/10 16:13:16 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:17:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,3 @@ void	set_hashtable(char **envp, t_hashtable **env)
 	fill_table(envp, env, size * 2);
 	//print_env(*env, ENV);
 }
-
-//print env !!!!done
-//free !!!!done
-//delone !!!!done je crois --> A REUTILISER PR BUILTIN UNSET
-//find value
-//add --> BUILTIN EXPORT
-//get value
-//print hash =/= print env

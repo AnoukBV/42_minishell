@@ -6,11 +6,16 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/13 11:42:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:42:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	packed_env(void)
+{
+	ft_putstr_fd("minishell: environment is full\n", 1);
+}
 
 void	make_key(t_member **m, char *argv, int eq)
 {
@@ -70,8 +75,11 @@ void	add_member(char *argv, t_hashtable *env, size_t size, int eq)
 	room = env_find_tmemb(env->member, search, size);
 	if (!room)
 		room = env_fetch_member(env->member, size);
-	//if (!room)
- 		//ici secu si PLUS DE PLACE
+	if (!room)
+	{
+		packed_env();
+		return ;
+	}
 	free(search);
 	make_key(&room, argv, eq);
 	make_value(&room, argv, eq, env);

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/12 19:58:32 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:30:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*env_find_key(t_member **member, char *key, int size)
 	int	i;
 
 	i = 0;
-	while (i < size)
+	while (i < size && member[i])
 	{
 		if (member[i]->key && !ft_strncmp(member[i]->key, key, ft_strlen(key)))
 			return (member[i]->value);
@@ -43,6 +43,7 @@ t_member	*env_find_tmemb(t_member **member, char *key, int size)
 	return (NULL);
 }
 
+/*
 void	export_expansion(char *str, t_hashtable *env)
 {
 	char	*save;
@@ -56,4 +57,4 @@ void	export_expansion(char *str, t_hashtable *env)
 			inspect_token(&save, &env);
 		free(save);
 	}
-}
+}*/
