@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:37:56 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 18:24:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:26:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static char	**from_list_to_array(t_list *list, size_t size)
 {
-	t_list	*tmp;
+	t_list		*tmp;
 	t_wd_desc	*tok;
-	size_t	i;
-	char	**final;
+	size_t		i;
+	char		**final;
 
 	i = 0;
 	tmp = list;
@@ -33,8 +33,8 @@ static char	**from_list_to_array(t_list *list, size_t size)
 	}
 	return (final);
 }
-
-char	*find_path(char *cmd_name, t_hashtable **env)
+/*
+char	*find_path(char *cmd_name, t_list **env)
 {
 	size_t	i;
 	char	*str_path;
@@ -46,7 +46,7 @@ char	*find_path(char *cmd_name, t_hashtable **env)
 	if (access(cmd_name, F_OK) == 0 || \
 		access(cmd_name, X_OK) == 0)
 		return (ft_strdup(cmd_name));
-	str_path = env_find_key((*env)->member, "PATH", (*env)->size);
+	str_path = env_find_key("PATH", env);
 	if (!str_path)
 		return (NULL);
 	all_paths = ft_split(str_path, ':');
@@ -66,7 +66,7 @@ char	*find_path(char *cmd_name, t_hashtable **env)
 	}
 	return (ft_strdup(cmd_name));
 }
-
+*/
 void	create_argv(void *item)
 {
 	t_command	*cmd;

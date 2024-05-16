@@ -6,12 +6,12 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:00:48 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 14:27:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:21:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 static char	*seek_env(char *key, t_hashtable **env)
 {
 	t_member	**table;
@@ -27,7 +27,7 @@ static char	*seek_env(char *key, t_hashtable **env)
 		i++;
 	}
 	return ("\0");
-}
+}*/
 
 static void	delete_quotes(char **new)
 {
@@ -43,7 +43,7 @@ static void	delete_quotes(char **new)
 	*new = str;
 }
 
-char	*expand(char *str, t_hashtable **env, size_t size)
+char	*expand(char *str, t_list **env, size_t size)
 {
 	char	**exp;
 	char	**to_exp;
@@ -63,7 +63,7 @@ char	*expand(char *str, t_hashtable **env, size_t size)
 		return (NULL);
 	while (to_exp[i])
 	{
-		exp[i] = ft_strdup(seek_env(to_exp[i], env));
+		exp[i] = ft_strdup(env_find_key(to_exp[i], env));
 		i++;
 	}
 	free_array_2d(to_exp);

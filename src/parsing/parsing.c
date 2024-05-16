@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 18:31:36 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:41:05 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	check_quote_bis(t_esc *esc_status, char *str)
 	str[i] = '\n';
 }
 
-t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
+t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 {
 	t_pipeline	*pipeline;
 	t_btree		*tree;

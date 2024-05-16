@@ -6,16 +6,11 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 12:42:17 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:41:43 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	packed_env(void)
-{
-	ft_putstr_fd("minishell: environment is full\n", 1);
-}
 
 void	make_key(t_member **m, char *argv, int eq)
 {
@@ -36,7 +31,7 @@ void	make_key(t_member **m, char *argv, int eq)
 	}
 }
 
-void	make_value(t_member **m, char *argv, int eq, t_hashtable *env)
+void	make_value(t_member **m, char *argv, int eq)
 {
 	char		*search;
 	char		*save;
@@ -58,11 +53,10 @@ void	make_value(t_member **m, char *argv, int eq, t_hashtable *env)
 			room->value = ft_substr(&argv[eq + 1], 0, \
 				ft_strlen((&argv[eq]) - 1));
 	}
-	(void)env;
 	//export_expansion(room->value, env);
 }
 
-void	add_member(char *argv, t_hashtable *env, size_t size, int eq)
+void	add_member(char *argv, t_list *env, int eq)
 {
 	t_member	*room;
 	char		*search;
@@ -72,22 +66,20 @@ void	add_member(char *argv, t_hashtable *env, size_t size, int eq)
 	else
 		search = ft_substr(argv, 0, eq);
 	exp_check_err(search);
-	room = env_find_tmemb(env->member, search, size);
-	if (!room)
-		room = env_fetch_member(env->member, size);
+	room = env_find_tmemb(search, &env);
 	if (!room)
 	{
-		packed_env();
-		return ;
+		room = create_table_member(NULL, NULL, false);
+		ft_lstadd_back(&env, ft_lstnew(room));
 	}
 	free(search);
 	make_key(&room, argv, eq);
-	make_value(&room, argv, eq, env);
+	make_value(&room, argv, eq);
 }
 
 void	ft_export(t_pipeline *p, t_command *cmd)
 {
-	t_hashtable	*env;
+	t_list	*env;
 	char		**argv;
 	int			*eq;
 	size_t		i;
@@ -105,7 +97,7 @@ void	ft_export(t_pipeline *p, t_command *cmd)
 	eq = split_key_value(argv);
 	while (i < ft_arrlen(&argv[1]))
 	{
-		add_member(argv[i + 1], env, env->size, eq[i]);
+		add_member(argv[i + 1], env, eq[i]);
 		i++;
 	}
 	free(eq);

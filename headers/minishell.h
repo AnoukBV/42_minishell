@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 18:47:43 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:23:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 # include <linux/limits.h>
 # include "libft.h"
 # include "keys.h"
-# include "environment.h"
 
 typedef enum e_bool { false, true }	t_bool;
 
+# include "environment.h"
 typedef struct s_esc
 {
 	t_bool	is_quoted;
@@ -70,7 +70,7 @@ typedef struct	s_command
 	t_redir_list		*redir_list;
 	int					pipe_left[2];
 	int					pipe_right[2];
-	t_hashtable			**env;
+	t_list				**env;
 	struct s_command	*next;
 	struct s_command	*prev;
 }	t_command;
@@ -98,26 +98,26 @@ typedef struct	s_pipeline
 	t_command	*cmd_list;
 	t_fd_list	*fd_list;
 	t_pid_list	*pid_list;
-	t_hashtable	*envp;
+	t_list		*envp;
 }	t_pipeline;
 
 // parsing
 
-t_pipeline		*parsing(char *str, t_list **inputs, t_hashtable *env);
+t_pipeline		*parsing(char *str, t_list **inputs, t_list *env);
 char			**newlines(char *str, size_t *input_nb);
 void			break_into_words(t_list **inputs, char *inputs_array);
 void			word_or_operator(t_list **inputs);
 void			check_quote(t_esc *esc_status, char *str);
 t_wd_desc		*new_wd_desc(int flags, char *word);
-void			divide(t_list **inputs, t_btree **tree, t_hashtable **env);
+void			divide(t_list **inputs, t_btree **tree, t_list **env);
 void			addback_redir(t_redir_list **redir, t_redir_list *new);
 t_bool			is_redir(t_list *inputs);
-t_btree			*init_bst(t_hashtable **env);
-t_command		*init_cmd(t_hashtable **env);
+t_btree			*init_bst(t_list **env);
+t_command		*init_cmd(t_list **env);
 t_bool			check_validity_parenthesis(t_list *list);
 void			new_branch(t_wd_desc *tok, t_btree \
 				*holder, t_btree **tree);
-void			is_between_p(t_list **inputs, t_btree **tree, t_hashtable **env);
+void			is_between_p(t_list **inputs, t_btree **tree, t_list **env);
 void			assignate_flags_dir(int tok_flags, \
 				int *open_flags, int *fd);
 void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
@@ -125,12 +125,12 @@ void			check_quote_bis(t_esc *esc_status, char *str);
 void			check_quote(t_esc *esc_status, char *str);
 void			expansion(void *item);
 t_bool			check_expansion(t_exp **expansion, char *str);
-char			*expand(char *str, t_hashtable **env, size_t size);
-void			inspect_token(char **str, t_hashtable **env);
+char			*expand(char *str, t_list **env, size_t size);
+void			inspect_token(char **str, t_list **env);
 void			join_after_expansion(char **tok, t_list **splitted_token);
 void			create_argv(void *item);
-void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_hashtable *env);
-void	syntax_errors(t_list **inputs);
+void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env);
+void			syntax_errors(t_list **inputs);
 
 /*
 *	Error functions
@@ -192,7 +192,7 @@ void	execute_pipeline(t_pipeline *pipeline);
 *	Creates all pipes in its command list
 *	No redirection is done at this time
 */
-t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env);
+t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env);
 void		prepare_pipeline(t_pipeline *pipeline);
 
 void		destroy_pipeline(t_pipeline *pipeline);
@@ -223,7 +223,7 @@ void	wait_all_pid(t_pid_list **pid_list);
 */
 t_bool	is_builtin(char *cmd_name);
 int		get_status(int status);
-char	*get_bin_path(t_hashtable *env, char *name);
+char	*get_bin_path(t_list *env, char *name);
 
 //t_command utils
 
@@ -236,21 +236,16 @@ void	destroy_redir_list(t_redir_list **redir_list);
 
 //NV A REMETTRE Dasn autre .h  apres mise en ordre du point h
 //
-void		set_hashtable(char **envp, t_hashtable **env);
+void		set_hashtable(char **envp, t_list **env);
 void		delmemb_env(t_member *member);
-char		*env_find_key(t_member **member, char *key, int size);
-t_member	*env_find_tmemb(t_member **member, char *key, int size);
 void		free_env(t_hashtable *env);
 void		init_tracker(t_exp **exp_status);
-char		**transform_envp(t_hashtable *env);
-void		print_env(t_hashtable **env, int key);
 void		ft_export(t_pipeline *p, t_command *cmd);
 int			split_point(char *str);
 int			*split_key_value(char **argv);
 t_member	*env_fetch_member(t_member **member, size_t size);
 void		export_expansion(char *str, t_hashtable *env);
 void		exp_check_err(char *key);
-void		ft_exp_p(t_hashtable **e);
 int			ft_iscap(int a);
 void		ft_unset(t_pipeline	*p, t_command *cmd);
 #endif

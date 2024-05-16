@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:23:11 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 17:38:57 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:06:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_bool	is_redir(t_list *inputs)
 	return (false);
 }
 
-t_btree	*init_bst(t_hashtable **env)
+t_btree	*init_bst(t_list **env)
 {
 	t_btree		*node;
 	t_command	*cmd;
@@ -55,7 +55,7 @@ t_btree	*init_bst(t_hashtable **env)
 	return (node);
 }
 
-t_command	*init_cmd(t_hashtable **env)
+t_command	*init_cmd(t_list **env)
 {
 	t_command	*cmd;
 

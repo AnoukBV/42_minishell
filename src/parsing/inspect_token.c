@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 14:00:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:12:01 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static size_t	isolate_not_exp(char *str, t_bool exp, t_exp **exp_status, \
 	return (i);
 }
 
-static size_t	isolate_exp(char *str, t_hashtable **env, \
+static size_t	isolate_exp(char *str, t_list **env, \
 		t_exp **exp_status, t_list **splitted_token)
 {
 	t_list	*new;
@@ -63,7 +63,7 @@ static size_t	isolate_exp(char *str, t_hashtable **env, \
 	return (i);
 }
 
-void	inspect_token(char **str, t_hashtable **env)
+void	inspect_token(char **str, t_list **env)
 {
 	size_t	i;
 	t_list	*splitted_token;

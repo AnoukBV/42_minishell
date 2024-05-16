@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 18:48:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:33:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*select_prompt(void)
 	return (line);
 }
 
-static void	shell_prompt(t_hashtable *env, int ac, char **envp)
+static void	shell_prompt(t_list *env, int ac, char **envp)
 {
 	t_list		*tokens;
 	char		*line;
@@ -71,7 +71,9 @@ static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 	if (!line)
 		return ;
 	pipeline = parsing(line, &tokens, env);
-	//execute_pipeline(pipeline);
+	//print_env(&env, ENV);
+//	print_env(&env, EXPORT);
+	execute_pipeline(pipeline);
 	if (line)
 	{
 		add_history(line);
@@ -82,13 +84,13 @@ static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_hashtable		*env;
+	t_list		*env;
 
 	(void)av;
 	env = NULL;
 	set_hashtable(envp, &env);
 	shell_prompt(env, ac, envp);
-	free_env(env);	
+	ft_lstclear(&env, &del_member);	
 	return (0);
 }
 
