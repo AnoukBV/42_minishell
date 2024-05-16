@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/16 14:33:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:04:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ static void	shell_prompt(t_list *env, int ac, char **envp)
 	if (!line)
 		return ;
 	pipeline = parsing(line, &tokens, env);
-	//print_env(&env, ENV);
-//	print_env(&env, EXPORT);
 	execute_pipeline(pipeline);
 	if (line)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 12:41:05 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:20:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,7 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	syntax_errors(inputs);
 	divide(inputs, &tree, &env);
 	btree_apply_prefix(tree, &expansion);
-	//expansion(tree->item);
 	btree_apply_prefix(tree, &quotes_removal);
-	//quotes_removal(tree->item);
 	btree_apply_prefix(tree, &create_argv);
 	fill_pipeline(&pipeline, tree, env);
 	btree_clear_infix(tree, NULL);

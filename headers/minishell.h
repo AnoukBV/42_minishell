@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 14:23:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:18:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,8 +237,6 @@ void	destroy_redir_list(t_redir_list **redir_list);
 //NV A REMETTRE Dasn autre .h  apres mise en ordre du point h
 //
 void		set_hashtable(char **envp, t_list **env);
-void		delmemb_env(t_member *member);
-void		free_env(t_hashtable *env);
 void		init_tracker(t_exp **exp_status);
 void		ft_export(t_pipeline *p, t_command *cmd);
 int			split_point(char *str);

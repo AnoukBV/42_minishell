@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   newlines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:53:28 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/30 19:37:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:33:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ char	**newlines(char *str, size_t *input_nb)
 		return (NULL);
 	*input_nb = count_inputs(str);
 	inputs = ft_split(str, '\n');
-	if (!inputs)
-		ft_error();
+	//if (!inputs)
+	//	ft_error();
 	return (inputs);
 }
 
@@ -46,8 +46,8 @@ t_wd_desc	*new_wd_desc(int flags, char *word)
 	t_wd_desc	*new;
 
 	new = malloc(sizeof(t_wd_desc));
-	if (!new)
-		ft_error();
+	//if (!new)
+	//	ft_error();
 	new->flags = flags;
 	new->word = word;
 	return (new);

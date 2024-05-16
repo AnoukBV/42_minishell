@@ -25,7 +25,6 @@ SRC_FILES := main.c \
 			parsing/clean_parsing.c \
 			parsing/check_syntax.c \
 			environment/set.c \
-			environment/free_env.c \
 			environment/ft_export.c \
 			environment/ft_unset.c \
 			environment/ft_export_print.c \
