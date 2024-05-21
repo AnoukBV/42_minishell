@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 16:14:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:45:42 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,10 @@ void	execute_pipeline(t_pipeline *pipeline);
 int		builtin_cd(char **av, t_hashtable *env);
 int		builtin_pwd(void);
 int		builtin_echo(char **argv);
+int		builtin_export(char **argv, t_hashtable *envp);
+// Utils
+int		argv_size(char **av);
+void	print_envp(t_hashtable *envp);
 
 	/*
 	*	Manage t_pipeline structures

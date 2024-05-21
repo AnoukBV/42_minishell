@@ -46,7 +46,9 @@ SRC_FILES := main.c \
 			signals/signal_handlers.c \
 			builtins/cd.c \
 			builtins/pwd.c \
-			builtins/echo.c
+			builtins/echo.c \
+			builtins/export.c \
+			builtins/builtin_utils.c
 			# totrash.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)

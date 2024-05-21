@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 16:17:18 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:45:24 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void static	builtin_exec(t_command *cmd, t_hashtable *envp, t_bool will_exit)
 		exit_code = builtin_pwd();
 	else if (!ft_strncmp(cmd->command, "echo", 5))
 		exit_code = builtin_echo(cmd->argv);
+	else if (!ft_strncmp(cmd->command, "export",7))
+		exit_code = builtin_export(cmd->argv, envp);
 	g_status = exit_code;
 	if (will_exit)
 		exit(exit_code);

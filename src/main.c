@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 16:34:04 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:30:24 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char *get_prompt(void)
 	return (prompt);
 }
 
-char	*select_prompt(void)
+static char	*select_prompt(void)
 {
 	static size_t	count = 0;
 	static char		**inputs = NULL;
