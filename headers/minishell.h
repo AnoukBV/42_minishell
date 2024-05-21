@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 18:45:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:25:32 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct	s_pipeline
 	t_fd_list	*fd_list;
 	t_pid_list	*pid_list;
 	t_hashtable	*envp;
+	char		*cmd_line;
 }	t_pipeline;
 
 // parsing
@@ -136,16 +137,15 @@ void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_hashtable *env);
 */
 void	ft_error(void);
 void	pipe_error(t_pipeline *pipeline);
-void	redirection_error(t_command *cmd_lst);
+void	redirection_error(t_pipeline *pipeline);
 void	malloc_error(void);
 void	fork_error(t_pipeline *pipeline);
 void	dup2_error(void);
-void	open_error(char *filename);
+void	open_error(char *filename, t_pipeline *pipeline);
 void	check_execve_error(char *pathname, t_pipeline *pipeline);
-void	command_not_found_error(char *name);
+void	command_not_found_error(char *name, t_pipeline *pipeline);
 
 //side
-
 void	print_2d_array(char **str);
 void	print_unidentified_tokens(t_list *inputs);
 void	print_divided_cmds(t_btree *cmds, size_t levels);
@@ -162,11 +162,11 @@ void	set_rl_signals(void);
 // Restores default signal behavior
 void	signals_default(void);
 //	Disable SIGINT and SIGQUIT during execution
-void	disable_signals(void);
+void	set_exec_signals(void);
 
 //	Signal handlers
 void	rl_signals_handler(int sig);
-void	disable_handler(int sig);
+void	exec_sig_handler(int sig);
 
 /*
 *	Test functions /!\ TO BE DELETED /!\
@@ -214,7 +214,7 @@ void		destroy_pipeline(t_pipeline *pipeline);
 /*
 *	Redirections
 */
-void	do_redirections(t_command *cmd, t_fd_list **fd_list);
+void	do_redirections(t_command *cmd, t_pipeline *pipeline);
 
 	/*
 	*	Manage t_fd_list structures
@@ -234,6 +234,7 @@ void	add_fd(int fd, t_fd_list **fds);
 	*/
 void	add_pid(int pid, t_pid_list **pid_list);
 void	remove_pid(int pid, t_pid_list **pid_list);
+void	destroy_pid_list(t_pid_list **pid);
 
 void	wait_all_pid(t_pid_list **pid_list);
 

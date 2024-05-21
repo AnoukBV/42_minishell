@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 16:28:39 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:39:35 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,22 @@ void	ft_error(void)
 	printf("tkt error\n");
 }
 
-void	redirection_error(t_command *cmd_lst)
+void	redirection_error(t_pipeline *pipeline)
 {
 	perror(NULL);
-	(void)cmd_lst;
-	//close_pipeline(cmd_lst);
+	free(pipeline->cmd_line);
+	free_env(pipeline->envp);
+	destroy_pipeline(pipeline);
+	exit (1);
 }
 
 void	pipe_error(t_pipeline *pipeline)
 {
 	(void)pipeline;
 	perror(NULL);
-	//free_cmd_list(pipeline->cmd_list);
+	free(pipeline->cmd_line);
+	free_env(pipeline->envp);
+	destroy_pipeline(pipeline);
 	exit(errno);
 }
 
@@ -43,13 +47,16 @@ void	dup2_error(void)
 	exit(errno);
 }
 
-void	open_error(char *filename)
+void	open_error(char *filename, t_pipeline *pipeline)
 {
 	char	*errstr;
 
 	errstr = ft_strjoin("minishell: ", filename);
 	perror(errstr);
 	free(errstr);
+	free(pipeline->cmd_line);
+	free_env(pipeline->envp);
+	destroy_pipeline(pipeline);
 	exit(1);
 }
 
@@ -76,15 +83,20 @@ void	check_execve_error(char *pathname, t_pipeline *pipeline)
 	errstr = ft_strjoin("minishell: ", pathname);
 	perror(errstr);
 	free(errstr);
+	free(pipeline->cmd_line);
+	free_env(pipeline->envp);
 	destroy_pipeline(pipeline);
 }
 
-void	command_not_found_error(char *name)
+void	command_not_found_error(char *name, t_pipeline *pipeline)
 {
 	char *errstr;
 
 	errstr = ft_strjoin(name, ": command not found\n");
 	ft_putstr_fd(errstr, 2);
 	free(errstr);
+	free_env(pipeline->envp);
+	free(pipeline->cmd_line);
+	destroy_pipeline(pipeline);
 	exit(127);
 }

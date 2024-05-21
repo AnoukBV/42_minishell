@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 18:30:24 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:26:01 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,12 @@ static char *get_prompt(void)
 
 static char	*select_prompt(void)
 {
-	static size_t	count = 0;
-	static char		**inputs = NULL;
-	size_t			size;
 	char			*prompt;
 	char			*line;
 
-	line = NULL;
-	if (inputs == NULL)
-	{
-		prompt = get_prompt();
-		line = readline(prompt);
-		free(prompt);
-		if (ft_strlen(line) == 0)
-			return (NULL);
-		inputs = newlines(line, &size);
-	}
-	line = inputs[count];
-	count += 1;
-	if (!inputs[count])
-	{
-		free(inputs);
-		count = 0;
-		inputs = NULL;
-	}
+	prompt = get_prompt();
+	line = readline(prompt);
+	free(prompt);
 	return (line);
 }
 
@@ -67,12 +49,13 @@ static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 
 	set_rl_signals();
 	line = select_prompt();
-	disable_signals();
-	if (!line)
-		return ;
-	pipeline = parsing(line, &tokens, env);
-	// print_pipeline(pipeline);
-	execute_pipeline(pipeline);
+	set_exec_signals();
+	if (ft_strlen(line))
+	{
+		pipeline = parsing(line, &tokens, env);
+		pipeline->cmd_line = line;
+		execute_pipeline(pipeline);
+	}
 	if (line)
 	{
 		add_history(line);
@@ -86,6 +69,7 @@ int	main(int ac, char **av, char **envp)
 	t_hashtable		*env;
 
 	(void)av;
+	g_status = 0;
 	env = NULL;
 	set_hashtable(envp, &env);
 	shell_prompt(env, ac, envp);

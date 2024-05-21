@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:31:05 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 16:34:36 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:15:07 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ void	set_rl_signals(void)
 	}
 }
 
-void	disable_signals(void)
+void	set_exec_signals(void)
 {
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sa));
-	sa.sa_handler = &disable_handler;
+	sa.sa_handler = &exec_sig_handler;
+	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGQUIT, &sa, NULL) == -1 \
 		|| sigaction(SIGINT, &sa, NULL) == -1)
 	{
