@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:55:52 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:16:55 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 		exit_code = builtin_pwd();
 	else if (!ft_strncmp(cmd->command, "echo", 5))
 		exit_code = builtin_echo(cmd->argv);
-	else if (!ft_strncmp(cmd->command, "export",7))
-		exit_code = builtin_export(cmd->argv, pipeline->envp);
+	else if (!ft_strncmp(cmd->command, "export", 7))
+		exit_code = builtin_export(cmd->argv, &pipeline->envp);
+	else if (!ft_strncmp(cmd->command, "exit", 5))
+		builtin_exit(pipeline, cmd->argv);
 	g_status = exit_code;
 	if (will_exit)
 	{

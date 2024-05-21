@@ -47,6 +47,7 @@ SRC_FILES := main.c \
 			builtins/pwd.c \
 			builtins/echo.c \
 			builtins/export.c \
+			builtins/exit.c \
 			builtins/builtin_utils.c
 			# totrash.c
 
