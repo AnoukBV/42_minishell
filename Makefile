@@ -33,6 +33,7 @@ SRC_FILES := main.c \
 			environment/transform_envp.c \
 			environment/get_env_element.c \
 			environment/env_find_key.c \
+			environment/free_env_list.c \
 			lists_utils/command_utils.c \
 			lists_utils/fd_list_utils.c \
 			lists_utils/pid_list_utils.c \
@@ -44,7 +45,9 @@ SRC_FILES := main.c \
 			signals/signal_handlers.c \
 			builtins/cd.c \
 			builtins/pwd.c \
-			builtins/echo.c
+			builtins/echo.c \
+			builtins/export.c \
+			builtins/builtin_utils.c
 			# totrash.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)

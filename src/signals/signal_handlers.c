@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:25:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 15:54:01 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:50:30 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	rl_signals_handler(int sig)
 	}
 }
 
-void	disable_handler(int sig)
+void	exec_sig_handler(int sig)
 {
 	if (sig == SIGQUIT)
 		ft_putstr_fd("Quit (core dumped)", 2);

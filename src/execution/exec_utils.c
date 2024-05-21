@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:11:39 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:14:36 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	get_status(int status)
 		return (WTERMSIG(status) + 128);
 	else if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	fprintf(stderr, "get_status error\n");
 	return (-1);
 }
 

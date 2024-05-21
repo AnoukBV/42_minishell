@@ -6,13 +6,28 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 00:46:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/02 15:36:45 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:10:04 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 extern int	g_status;
+
+void	destroy_pid_list(t_pid_list **pid)
+{
+	t_pid_list	*tmp;
+	t_pid_list	*node;
+
+	node = *pid;
+	while (node)
+	{
+		tmp = node->next;
+		free(node);
+		node = tmp;
+	}
+	*pid = NULL;
+}
 
 void	wait_all_pid(t_pid_list **pid_list)
 {

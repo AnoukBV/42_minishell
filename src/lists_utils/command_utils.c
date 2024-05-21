@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:12:51 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/08 18:37:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:27:54 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	destroy_cmd_one(t_command *cmd)
 		free(cmd->command);
 	if (cmd->argv && cmd->is_argv == true)
 		free_array_2d((char **)cmd->argv);
-	//else recursive etc
 	if (cmd->redir_list)
 		destroy_redir_list(&cmd->redir_list);
 	free(cmd);
@@ -29,7 +28,6 @@ void	destroy_cmd_one(t_command *cmd)
 void	destroy_cmd_list(t_command **cmd)
 {
 	t_command	*tmp;
-	//int			i;
 	
 	while (*cmd)
 	{
