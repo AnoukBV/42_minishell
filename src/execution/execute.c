@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 14:49:36 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:05:10 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,27 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	execve(cmd->command, cmd->argv, envp);
 }
 
-void static	builtin_exec(t_command *cmd, t_hashtable *envp, t_bool will_exit)
+void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 {
 	int	exit_code;
 
 	exit_code = 1;
 	if (!ft_strncmp(cmd->command, "cd", 3))
-		exit_code = builtin_cd(cmd->argv, envp);
+		exit_code = builtin_cd(cmd->argv, pipeline->envp);
 	else if (!ft_strncmp(cmd->command, "pwd", 4))
 		exit_code = builtin_pwd();
 	else if (!ft_strncmp(cmd->command, "echo", 5))
 		exit_code = builtin_echo(cmd->argv);
 	else if (!ft_strncmp(cmd->command, "export",7))
-		exit_code = builtin_export(cmd->argv, envp);
+		exit_code = builtin_export(cmd->argv, pipeline->envp);
 	g_status = exit_code;
 	if (will_exit)
+	{
+		free(pipeline->cmd_line);
+		free_env(pipeline->envp);
+		destroy_pipeline(pipeline);
 		exit(exit_code);
+	}
 }
 
 void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
@@ -65,7 +70,7 @@ void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	else if (pid == 0)
 	{
 		if (is_builtin(cmd->command))
-			builtin_exec(cmd, pipeline->envp, true);
+			builtin_exec(cmd, pipeline, true);
 		child_exec(pipeline, cmd);
 		ft_putstr_fd("child_exec() returned :(\n", 2);
 		exit (1) ;
@@ -82,7 +87,7 @@ void	execute_pipeline(t_pipeline *pipeline)
 	while (cmd)
 	{
 		if (!cmd->prev && !cmd->next && is_builtin(cmd->command))
-			builtin_exec(cmd, pipeline->envp, false);
+			builtin_exec(cmd, pipeline, false);
 		else
 			fork_cmd(cmd, pipeline);
 		if (cmd->next == NULL)
