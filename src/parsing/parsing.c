@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 17:27:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:20:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	*exec_removal(void *item)
 	i = 0;
 	old = (t_wd_desc *)item;
 	token = new_wd_desc(old->flags, ft_strdup(old->word));
-	if (ft_strchr("()|&<>", token->word[0]) || (!ft_strchr(token->word, \
+	if (ft_strchr("|<>", token->word[0]) || (!ft_strchr(token->word, \
 		'\'') && !ft_strchr(token->word, '"')))
 		return (token);
 	str = token->word;
@@ -65,7 +65,6 @@ static void	quotes_removal(void *content)
 		ft_lstclear(&save, &del_wddesc);
 		cmd->argv = map;
 	}
-	//else
 }
 
 void	check_quote_bis(t_esc *esc_status, char *str)
@@ -95,7 +94,7 @@ void	check_quote_bis(t_esc *esc_status, char *str)
 	str[i] = '\n';
 }
 
-t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
+t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 {
 	t_pipeline	*pipeline;
 	t_btree		*tree;
@@ -105,16 +104,10 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_hashtable *env)
 	tree = NULL;
 	break_into_words(inputs, str);
 	word_or_operator(inputs);
-	if (check_validity_parenthesis(*inputs) == false)
-	{
-		//ft_putstr_fd("ERROR PARENTHESIS\n", 2);
-		return (NULL);
-	}
+	syntax_errors(inputs);
 	divide(inputs, &tree, &env);
-	//btree_apply_prefix(tree, &expansion);
-	expansion(tree->item);
-	//btree_apply_prefix(tree, &quotes_removal);
-	quotes_removal(tree->item);
+	btree_apply_prefix(tree, &expansion);
+	btree_apply_prefix(tree, &quotes_removal);
 	btree_apply_prefix(tree, &create_argv);
 	fill_pipeline(&pipeline, tree, env);
 	btree_clear_infix(tree, NULL);

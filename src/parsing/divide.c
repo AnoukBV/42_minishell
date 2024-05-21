@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:01:27 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:06:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 }
 
 static void	create_tree(t_list **inputs, \
-	t_btree **holder, size_t size, t_hashtable **env)
+	t_btree **holder, size_t size, t_list **env)
 {
 	t_btree			*node;
 	t_list			*tmp;
@@ -103,7 +103,7 @@ static void	create_tree(t_list **inputs, \
 	*holder = node;
 }
 
-void	divide(t_list **inputs, t_btree **tree, t_hashtable **env)
+void	divide(t_list **inputs, t_btree **tree, t_list **env)
 {
 	t_btree		*holder;
 	t_list		*save;
@@ -114,7 +114,6 @@ void	divide(t_list **inputs, t_btree **tree, t_hashtable **env)
 	save = *inputs;
 	while (*inputs)
 	{
-		is_between_p(inputs, tree, env);
 		if (!(*inputs))
 			break ;
 		size = until_next_op(inputs);

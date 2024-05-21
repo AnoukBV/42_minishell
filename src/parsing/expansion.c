@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/12 19:39:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:23:47 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_status;
 
-static void	inspect_redir(t_redir_list **redir_list, t_hashtable **env)
+static void	inspect_redir(t_redir_list **redir_list, t_list **env)
 {
 	t_redir_list	*tmp;
 
@@ -31,7 +31,7 @@ static void	inspect_redir(t_redir_list **redir_list, t_hashtable **env)
 		tmp = tmp->next;
 	}
 }
-void	inspect_cmd(t_list **cmd, t_hashtable **env)
+void	inspect_cmd(t_list **cmd, t_list **env)
 {
 	t_list		*tmp;
 	char		*save;

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 10:29:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 11:36:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 14:11:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@
  * pour les builtins export sans arg et env sans arg
  *	ATTENTION A SECURIT QUAND ON ARRIV AU MAX DE CLEFS
  */
-static void	env_print_member(t_member *m)
+void	env_print_member(void *mb)
 {
+	t_member	*m;
+
+	m = (t_member *)mb;
   	if (!m)
 		return ;
 	if (!m->key)
@@ -28,7 +31,7 @@ static void	env_print_member(t_member *m)
 	ft_putstr_fd(m->value, 1);
 	ft_putstr_fd("\n", 1);
 }
-
+/*
 static void	ft_env_p(t_hashtable **e)
 {
 	size_t		i;
@@ -42,13 +45,13 @@ static void	ft_env_p(t_hashtable **e)
 		i++;
 	}
 }
-
-void	print_env(t_hashtable **env, int key)
+*/
+void	print_env(t_list **env, int key)
 {
 	if (!(*env))
 		return ;
 	if (key == EXPORT)
 		ft_exp_p(env);
 	else
-		ft_env_p(env);
+		ft_lstiter(*env, &env_print_member);
 }

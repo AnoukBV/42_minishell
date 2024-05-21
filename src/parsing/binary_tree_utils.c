@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:23:11 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/07 19:51:16 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:06:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_bool	is_redir(t_list *inputs)
 	return (false);
 }
 
-t_btree	*init_bst(t_hashtable **env)
+t_btree	*init_bst(t_list **env)
 {
 	t_btree		*node;
 	t_command	*cmd;
@@ -55,7 +55,7 @@ t_btree	*init_bst(t_hashtable **env)
 	return (node);
 }
 
-t_command	*init_cmd(t_hashtable **env)
+t_command	*init_cmd(t_list **env)
 {
 	t_command	*cmd;
 
@@ -70,4 +70,18 @@ t_command	*init_cmd(t_hashtable **env)
 	cmd->command = NULL;
 	cmd->redir_list = NULL;
 	return (cmd);
+}
+
+void	new_branch(t_wd_desc *tok, t_btree *holder, t_btree **tree)
+{
+	if (!(*tree))
+		(*tree) = holder;
+	else if (tok->flags == T_PIPE || tok->flags == T_OR || \
+		tok->flags == T_AND)
+	{
+		holder->left = (*tree);
+		(*tree) = holder;
+	}
+	else
+		(*tree)->right = holder;
 }

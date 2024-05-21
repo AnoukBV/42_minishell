@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 11:30:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:21:34 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,38 @@
 
 extern int	g_status;
 
-char	*env_find_key(t_member **member, char *key, int size)
+char	*env_find_key(char *key, t_list	**env)
 {
-	int	i;
+	t_list		*tmp;
+	t_member	*m;
 
-	i = 0;
-	while (i < size && member[i])
+	tmp = *env;
+	if (!tmp)
+		return ("\0");
+	while (tmp)
 	{
-		if (member[i]->key && !ft_strncmp(member[i]->key, key, ft_strlen(key)))
-			return (member[i]->value);
-		i++;
+		m = (t_member *)tmp->content;
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(m->key)))
+			return (m->value);
+		tmp = tmp->next;
 	}
 	return ("\0");
 }
 
-t_member	*env_find_tmemb(t_member **member, char *key, int size)
+t_member	*env_find_tmemb(char *key, t_list **env)
 {
-	int	i;
+	t_list		*tmp;
+	t_member	*m;
 
-	i = 0;
-	(void)size;
-	while (member[i])
+	tmp = *env;
+	if (!tmp)
+		return (NULL);
+	while (tmp)
 	{
-		if (member[i]->key && !ft_strncmp(member[i]->key, key, ft_strlen(key)))
-			return (member[i]);
-		i++;
+		m = (t_member *)tmp->content;
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(m->key)))
+			return (m);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }

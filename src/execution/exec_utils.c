@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 16:02:09 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:11:39 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	free_path_list(char	**path_list)
 	free(save);
 }
 
-char	*get_bin_path(t_hashtable *env, char *name)
+char	*get_bin_path(t_list *env, char *name)
 {
 	char	**path_list;
 	char	*cmd;

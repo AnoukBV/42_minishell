@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:16:19 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/12 19:58:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:35:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	*split_key_value(char **argv)
 	}
 	return (eq);
 }
-
+/*
 t_member	*env_fetch_member(t_member **member, size_t size)
 {
 	size_t		i;
@@ -57,7 +57,7 @@ t_member	*env_fetch_member(t_member **member, size_t size)
 	}
 	return (NULL);
 }
-
+*/
 int	ft_iscap(int a)
 {
 	if (!ft_isalpha(a))

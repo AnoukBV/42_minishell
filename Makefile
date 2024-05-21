@@ -14,8 +14,6 @@ SRC_FILES := main.c \
 			parsing/categorization.c \
 			parsing/divide.c \
 			parsing/binary_tree_utils.c \
-			parsing/check_parenthesis.c \
-			parsing/manage_parenthesis.c \
 			parsing/redirections.c \
 			parsing/expansion.c \
 			parsing/check_expansion.c \
@@ -25,8 +23,8 @@ SRC_FILES := main.c \
 			parsing/create_argv.c \
 			parsing/fill_pipeline.c \
 			parsing/clean_parsing.c \
+			parsing/check_syntax.c \
 			environment/set.c \
-			environment/free_env.c \
 			environment/ft_export.c \
 			environment/ft_unset.c \
 			environment/ft_export_print.c \

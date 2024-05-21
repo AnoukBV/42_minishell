@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 16:34:04 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:11:57 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*select_prompt(void)
 	return (line);
 }
 
-static void	shell_prompt(t_hashtable *env, int ac, char **envp)
+static void	shell_prompt(t_list *env, int ac, char **envp)
 {
 	t_list		*tokens;
 	char		*line;
@@ -71,7 +71,6 @@ static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 	if (!line)
 		return ;
 	pipeline = parsing(line, &tokens, env);
-	// print_pipeline(pipeline);
 	execute_pipeline(pipeline);
 	if (line)
 	{
@@ -83,13 +82,17 @@ static void	shell_prompt(t_hashtable *env, int ac, char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_hashtable		*env;
+	t_list		*env;
 
 	(void)av;
 	env = NULL;
 	set_hashtable(envp, &env);
 	shell_prompt(env, ac, envp);
+<<<<<<< HEAD
 	ft_putstr_fd("exit\n", 1);
 	free_env(env);	
+=======
+	ft_lstclear(&env, &del_member);	
+>>>>>>> 7a2fa88f9525a557b5cf5ed2c7bf120370ecf7c6
 	return (0);
 }

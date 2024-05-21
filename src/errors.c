@@ -6,16 +6,11 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 16:28:39 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:11:46 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	ft_error(void)
-{
-	printf("tkt error\n");
-}
 
 void	redirection_error(t_command *cmd_lst)
 {

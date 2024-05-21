@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 13:09:48 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:42:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	prepare_pipeline(t_pipeline *pipeline)
 	}
 }
 
-t_pipeline	*init_pipeline(t_command *cmd_lst, t_hashtable *env)
+t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env)
 {
 	t_pipeline	*pipeline;
 

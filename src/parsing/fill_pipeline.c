@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 12:58:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:41:50 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,12 @@ void	order_commands(t_command **cmd, t_btree *tree)
 		order_commands(cmd, tree->right);
 }
 
-void	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_hashtable *env)
+void	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 {
 	t_command	*cmd_list;
-	//char		**final_envp;
 
 	cmd_list = NULL;
 	order_commands(&cmd_list, tree);
 	add_flags(&cmd_list);
-	//final_envp = transform_envp(env);
 	*pipeline = init_pipeline(cmd_list, env);
 }
