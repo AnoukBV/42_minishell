@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/21 15:19:19 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:12:46 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	redirection_error(t_pipeline *pipeline)
 {
 	perror(NULL);
 	free(pipeline->cmd_line);
-	//free_env(pipeline->envp);
+	free_env_list(&pipeline->envp);
 	destroy_pipeline(pipeline);
 	exit (1);
 }
@@ -26,7 +26,7 @@ void	pipe_error(t_pipeline *pipeline)
 	(void)pipeline;
 	perror(NULL);
 	free(pipeline->cmd_line);
-	//free_env(pipeline->envp);
+	free_env_list(&pipeline->envp);
 	destroy_pipeline(pipeline);
 	exit(errno);
 }
@@ -50,7 +50,7 @@ void	open_error(char *filename, t_pipeline *pipeline)
 	perror(errstr);
 	free(errstr);
 	free(pipeline->cmd_line);
-	//free_env(pipeline->envp);
+	free_env_list(&pipeline->envp);
 	destroy_pipeline(pipeline);
 	exit(1);
 }
@@ -79,7 +79,7 @@ void	check_execve_error(char *pathname, t_pipeline *pipeline)
 	perror(errstr);
 	free(errstr);
 	free(pipeline->cmd_line);
-	//free_env(pipeline->envp);
+	free_env_list(&pipeline->envp);
 	destroy_pipeline(pipeline);
 }
 
@@ -90,7 +90,7 @@ void	command_not_found_error(char *name, t_pipeline *pipeline)
 	errstr = ft_strjoin(name, ": command not found\n");
 	ft_putstr_fd(errstr, 2);
 	free(errstr);
-	//free_env(pipeline->envp);
+	free_env_list(&pipeline->envp);
 	free(pipeline->cmd_line);
 	destroy_pipeline(pipeline);
 	exit(127);
