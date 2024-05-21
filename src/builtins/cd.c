@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:41:01 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 18:26:40 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:07:16 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	*get_path(char **argv, t_hashtable *env)
 	}
 	else if (argc <= 1)
 	{
-		printf("cd argc = 1");
 		pathname = get_home(env);
 		if (!pathname)
 		{
