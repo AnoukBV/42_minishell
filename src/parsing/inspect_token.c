@@ -6,11 +6,13 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:12:01 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:46:32 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_status;
 
 static size_t	isolate_not_exp(char *str, t_bool exp, t_exp **exp_status, \
 		t_list **splitted_token)
@@ -53,6 +55,17 @@ static size_t	isolate_exp(char *str, t_list **env, \
 	while (str[i] && exp == true)
 	{
 		i++;
+		printf("ici\n");
+		if (str[i] && i == 1 && (!ft_isalpha(str[i]) && str[i] != '_'))
+		{
+			(*exp_status)->is_exp_sim = false;
+			break ;
+		}
+		else if (str[i] && !ft_isalnum(str[i]) && str[i] != '_')
+		{
+			(*exp_status)->is_exp_sim = false;
+			i--;
+			break ;}
 		exp = check_expansion(exp_status, &str[i]);
 	}
 	if (i != 0)
@@ -78,8 +91,14 @@ void	inspect_token(char **str, t_list **env)
 		exp = check_expansion(&exp_status, &str[0][i]);
 		if (exp == false)
 			i += isolate_not_exp(&str[0][i], exp, &exp_status, &splitted_token);
-		else if (str[0][i])
+		else if (str[0][i] && str[0][i] != '?')
 			i += isolate_exp(&str[0][i], env, &exp_status, &splitted_token);
+		else
+		{
+			ft_lstadd_back(&splitted_token, ft_lstnew(ft_itoa(g_status)));
+			//i += 1;
+			exp_status->is_exp_sim = false;
+		}
 		i++;
 	}
 	if (splitted_token)

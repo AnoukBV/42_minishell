@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:23:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:15:59 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	inspect_cmd(t_list **cmd, t_list **env)
 		if (ft_strchr(tok->word, '$'))
 		{
 		  	save = tok->word;
-			if (ft_strlen(tok->word) == 2 && tok->word[1] == '?')
+			if (tok->word[1] == '?')
 				tok->word = ft_itoa(g_status);
 			else
 				inspect_token(&tok->word, env);
+			printf("inspect cmd %s\n", tok->word);
 			free(save);
 		}
 		tmp = tmp->next;

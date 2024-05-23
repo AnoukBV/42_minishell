@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:19:29 by aboulore          #+#    #+#             */
-/*   Updated: 2024/04/26 07:16:26 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:07:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ char	*ft_superjoin(char **strs, char *sep)
 				+ ft_strlen(sep) + 1);
 		i++;
 	}
+	if (size == 0)
+		return (NULL);
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 14:01:58 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:23:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	ft_unset(t_pipeline	*p, t_command *cmd)
 		unset_variable(argv[i + 1], env);
 		i++;
 	}
+}
+
+int	ft_exp_option_mess(char str)
+{
+	ft_putstr_fd("minishell: export: -", 2);
+	ft_putchar_fd(str, 2);
+	ft_putstr_fd(": invalid option\nexport: usage: export", 2);
+	ft_putstr_fd("[name[=value] ...]\n", 2);
+	return (1);
 }

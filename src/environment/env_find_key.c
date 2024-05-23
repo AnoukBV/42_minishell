@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:21:34 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:54:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ char	*env_find_key(char *key, t_list	**env)
 	while (tmp)
 	{
 		m = (t_member *)tmp->content;
-		if (m->key && !ft_strncmp(m->key, key, ft_strlen(m->key)))
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key)))
 			return (m->value);
 		tmp = tmp->next;
 	}
-	return ("\0");
+	return (0);
 }
 
 t_member	*env_find_tmemb(char *key, t_list **env)
@@ -43,7 +43,7 @@ t_member	*env_find_tmemb(char *key, t_list **env)
 	while (tmp)
 	{
 		m = (t_member *)tmp->content;
-		if (m->key && !ft_strncmp(m->key, key, ft_strlen(m->key)))
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key)))
 			return (m);
 		tmp = tmp->next;
 	}

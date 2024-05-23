@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:41:43 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:28:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static int	add_member(char *argv, t_list *env, int eq)
 		search = ft_substr(argv, 0, eq - 1);
 	else
 		search = ft_substr(argv, 0, eq);
+	if (argv[0] == '-' && ft_strlen(argv) > 1)
+		return (ft_exp_option_mess(argv[1]));
 	if (exp_check_err(search) == 1)
 		return (ft_exp_err_mess(argv));
 	room = env_find_tmemb(search, &env);
@@ -97,12 +99,15 @@ int	ft_export(t_list **env, char **argv)
 		exit = print_env(env, EXPORT);
 	else
 	{
+		printf("jesuisla\n");
 		eq = split_key_value(argv);
 		while (i < ft_arrlen(&argv[1]))
 		{
-			exit = add_member(argv[i + 1], *env, eq[i]);
-			ft_putnbr_fd(exit, 1);
+			ft_putstr_fd(argv[i + 1], 1);
 			ft_putchar_fd('\n', 1);
+			exit = add_member(argv[i + 1], *env, eq[i]);
+			//ft_putnbr_fd(exit, 1);
+			//ft_putchar_fd('\n', 1);
 			i++;
 		}
 		free(eq);

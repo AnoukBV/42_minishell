@@ -6,7 +6,7 @@
 /*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 16:50:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:48:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	join_after_expansion(char **tok, t_list **splitted_token)
 		free(save);
 		tmp = tmp->next;
 	}
+	if (*new == '\0')
+		new = NULL;
 	*tok = new;
 }
 

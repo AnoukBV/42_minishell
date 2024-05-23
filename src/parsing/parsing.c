@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 16:20:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:35:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*trim_quotes(char *str)
 	char	*new;
 	char	**array;
 
+	if (ft_strlen(str) == 2 && str[0] == '\n' && str[1] == '\n')
+		return (ft_strdup(""));
 	array = ft_split(str, '\n');
 	new = ft_superjoin(array, NULL);
 	free_array_2d(array);
@@ -35,6 +37,8 @@ static void	*exec_removal(void *item)
 	i = 0;
 	old = (t_wd_desc *)item;
 	token = new_wd_desc(old->flags, ft_strdup(old->word));
+	if (!token->word)
+		return (token);
 	if (ft_strchr("|<>", token->word[0]) || (!ft_strchr(token->word, \
 		'\'') && !ft_strchr(token->word, '"')))
 		return (token);
@@ -106,7 +110,8 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	word_or_operator(inputs);
 	syntax_errors(inputs);
 	divide(inputs, &tree, &env);
-	btree_apply_prefix(tree, &expansion);
+	//btree_apply_prefix(tree, &expansion);
+	expansion(tree->item);
 	btree_apply_prefix(tree, &quotes_removal);
 	btree_apply_prefix(tree, &create_argv);
 	fill_pipeline(&pipeline, tree, env);
