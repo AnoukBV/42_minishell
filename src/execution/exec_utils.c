@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:14:36 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:03:27 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ char	*get_bin_path(t_list *env, char *name)
 	char	*path;
 	int		i;
 
+	if (ft_strlen(name) == 0)
+		return (NULL);
 	path_list = get_path_list(env);
 	i = 0;
 	while (path_list[i] != NULL)
