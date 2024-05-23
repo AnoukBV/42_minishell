@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/23 13:58:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:56:27 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	}
 }
 
-void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
+static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 {
 	int	pid;
 
@@ -85,6 +85,24 @@ void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	add_pid(pid, &pipeline->pid_list);
 }
 
+static void	simple_builtin_exec(t_command *cmd, t_pipeline *pipeline)
+{
+	int	stdout_fd_save;
+	int	stdin_fd_save;
+
+	stdout_fd_save = dup(1);
+	stdin_fd_save = dup(0);
+	if (do_redirections(cmd, pipeline) == 0)
+	{
+		close_fd_list(&pipeline->fd_list);
+		builtin_exec(cmd, pipeline, false);
+	}
+	else
+		g_status = 1;
+	dup2(stdout_fd_save , 1);
+	dup2(stdin_fd_save , 0);
+}
+
 void	execute_pipeline(t_pipeline *pipeline)
 {
 	t_command	*cmd;
@@ -94,7 +112,7 @@ void	execute_pipeline(t_pipeline *pipeline)
 	while (cmd)
 	{
 		if (!cmd->prev && !cmd->next && is_builtin(cmd->command))
-			builtin_exec(cmd, pipeline, false);
+			simple_builtin_exec(cmd, pipeline);
 		else
 			fork_cmd(cmd, pipeline);
 		if (cmd->next == NULL)

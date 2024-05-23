@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 14:05:44 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:33:03 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void		destroy_pipeline(t_pipeline *pipeline);
 /*
 *	Redirections
 */
-void	do_redirections(t_command *cmd, t_pipeline *pipeline);
+int			do_redirections(t_command *cmd, t_pipeline *pipeline);
 
 	/*
 	*	Manage t_fd_list structures
