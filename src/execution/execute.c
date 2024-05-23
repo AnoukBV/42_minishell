@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/23 13:06:24 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:58:42 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,13 @@
 
 extern int	g_status;
 
-static void	child_exec(t_pipeline *pipeline, t_command *cmd)
-{
-	char	**envp;
-	char	*path;
-
-	if (ft_strchr(cmd->command, '/') == NULL)
-	{
-		path = get_bin_path(pipeline->envp, cmd->command);
-		if (path != NULL)
-		{
-			free(cmd->command);
-			cmd->command = path;
-		}
-		else
-			command_not_found_error(cmd->command, pipeline);
-	}
-	do_redirections(cmd, pipeline);
-	close_fd_list(&pipeline->fd_list);
-	check_execve_error(cmd->command, pipeline);
-	envp = transform_envp(pipeline->envp);
-	execve(cmd->command, cmd->argv, envp);
-}
-
 void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 {
 	int	exit_code;
 
 	exit_code = 1;
 	if (!ft_strncmp(cmd->command, "cd", 3))
-		exit_code = builtin_cd(cmd->argv, pipeline->envp);
+		exit_code = builtin_cd(cmd->argv, &pipeline->envp);
 	else if (!ft_strncmp(cmd->command, "pwd", 4))
 		exit_code = builtin_pwd();
 	else if (!ft_strncmp(cmd->command, "echo", 5))
@@ -64,6 +41,34 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 	}
 }
 
+static void	child_exec(t_pipeline *pipeline, t_command *cmd)
+{
+	char	**envp;
+	char	*path;
+
+	if (ft_strchr(cmd->command, '/') == NULL && !is_builtin(cmd->command))
+	{
+		path = get_bin_path(pipeline->envp, cmd->command);
+		if (path != NULL)
+		{
+			free(cmd->command);
+			cmd->command = path;
+		}
+		else
+			command_not_found_error(cmd->command, pipeline);
+	}
+	do_redirections(cmd, pipeline);
+	close_fd_list(&pipeline->fd_list);
+	if (is_builtin(cmd->command))
+			builtin_exec(cmd, pipeline, true);
+	else
+	{
+		check_execve_error(cmd->command, pipeline);
+		envp = transform_envp(pipeline->envp);
+		execve(cmd->command, cmd->argv, envp);
+	}
+}
+
 void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 {
 	int	pid;
@@ -73,8 +78,6 @@ void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 		fork_error(pipeline);
 	else if (pid == 0)
 	{
-		if (is_builtin(cmd->command))
-			builtin_exec(cmd, pipeline, true);
 		child_exec(pipeline, cmd);
 		ft_putstr_fd("child_exec() returned :(\n", 2);
 		exit (1) ;

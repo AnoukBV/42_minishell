@@ -6,29 +6,76 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 12:43:30 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/15 15:29:13 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:59:17 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	builtin_echo(char **argv)
+#define FLAG_N 1
+
+static t_bool	echo_is_flag(char *str)
 {
-	char	flag_n;
-	int		i;
+	if (*str != '-')
+		return (false);
+	str++;
+	while (*str)
+	{
+		if (*str != 'n')
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
+static void	echo_add_flags(int *flags, char *str)
+{
+	str++;
+	while (*str)
+	{
+		if (*str == 'n')
+			*flags |= FLAG_N;
+		str++;
+	}
+}
+
+static int	echo_handle_flags(int *flags, char **argv)
+{
+	int i;
 
 	i = 1;
-	flag_n = (!ft_strncmp(argv[1], "-n", 3));
-	if (flag_n)
-		i++;
 	while (argv[i])
 	{
-		if (i > 2 || (i == 2 && !flag_n))
+		if (echo_is_flag(argv[i]))
+		{
+			echo_add_flags(flags, argv[i]);
+			i++;
+		}
+		else
+			return (i);
+	}
+	return (i);
+}
+
+int	builtin_echo(char **argv)
+{
+	t_bool	first;
+	int		flags;
+	int		i;
+
+	first = true;
+	flags = 0;
+	i = echo_handle_flags(&flags, argv);
+	while (argv[i])
+	{
+		if (!first)
 			ft_putchar_fd(' ', 1);
-		ft_printf("%s", argv[i]);
+		else
+			first = false;
+		ft_putstr_fd(argv[i], 1);
 		i++;
 	}
-	if (!flag_n)
+	if (!(flags & FLAG_N))
 		ft_putchar_fd('\n', 1);
 	return (0);
 }

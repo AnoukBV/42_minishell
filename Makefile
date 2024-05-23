@@ -37,6 +37,7 @@ SRC_FILES := main.c \
 			lists_utils/command_utils.c \
 			lists_utils/fd_list_utils.c \
 			lists_utils/pid_list_utils.c \
+			lists_utils/env_list_utils.c \
 			execution/pipeline.c \
 			execution/exec_utils.c \
 			execution/execute.c \
@@ -46,7 +47,6 @@ SRC_FILES := main.c \
 			builtins/cd.c \
 			builtins/pwd.c \
 			builtins/echo.c \
-			builtins/export.c \
 			builtins/exit.c \
 			builtins/builtin_utils.c
 			# totrash.c
