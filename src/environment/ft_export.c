@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
-void	make_key(t_member **m, char *argv, int eq)
+static int	make_key(t_member **m, char *argv, int eq)
 {
 	t_member	*room;
+	int		i;
 
 	room = *m;
+	i = 0;
 	if (!room->key)
 	{
 		if (argv[eq - 1] == '+')
@@ -29,9 +31,10 @@ void	make_key(t_member **m, char *argv, int eq)
 		free(room->value);
 		room->value = NULL;
 	}
+	return (0);
 }
 
-void	make_value(t_member **m, char *argv, int eq)
+static int	make_value(t_member **m, char *argv, int eq)
 {
 	char		*search;
 	char		*save;
@@ -53,10 +56,11 @@ void	make_value(t_member **m, char *argv, int eq)
 			room->value = ft_substr(&argv[eq + 1], 0, \
 				ft_strlen((&argv[eq]) - 1));
 	}
+	return (0);
 	//export_expansion(room->value, env);
 }
 
-void	add_member(char *argv, t_list *env, int eq)
+static int	add_member(char *argv, t_list *env, int eq)
 {
 	t_member	*room;
 	char		*search;
@@ -65,7 +69,8 @@ void	add_member(char *argv, t_list *env, int eq)
 		search = ft_substr(argv, 0, eq - 1);
 	else
 		search = ft_substr(argv, 0, eq);
-	exp_check_err(search);
+	if (exp_check_err(search) == 1)
+		return (ft_exp_err_mess(argv));
 	room = env_find_tmemb(search, &env);
 	if (!room)
 	{
@@ -73,32 +78,34 @@ void	add_member(char *argv, t_list *env, int eq)
 		ft_lstadd_back(&env, ft_lstnew(room));
 	}
 	free(search);
-	make_key(&room, argv, eq);
-	make_value(&room, argv, eq);
+	if (make_key(&room, argv, eq) == 1 || make_value(&room, argv, eq) == 1)
+		return (1);
+	return (0);
 }
 
-void	ft_export(t_pipeline *p, t_command *cmd)
+int	ft_export(t_list **env, char **argv)
 {
-	t_list	*env;
-	char		**argv;
 	int			*eq;
 	size_t		i;
+	int		exit;
 
 	i = 0;
-	env = p->envp;
-	argv = cmd->argv;
-	if (cmd->argv == NULL)
-		return ;
-	if (cmd->is_argv == true && ft_arrlen(argv) == 1)
+	exit = 1;
+	if (argv == NULL)
+		return (exit);
+	if (ft_arrlen(argv) == 1)
+		exit = print_env(env, EXPORT);
+	else
 	{
-		print_env(&env, EXPORT);
-		return ;
+		eq = split_key_value(argv);
+		while (i < ft_arrlen(&argv[1]))
+		{
+			exit = add_member(argv[i + 1], *env, eq[i]);
+			ft_putnbr_fd(exit, 1);
+			ft_putchar_fd('\n', 1);
+			i++;
+		}
+		free(eq);
 	}
-	eq = split_key_value(argv);
-	while (i < ft_arrlen(&argv[1]))
-	{
-		add_member(argv[i + 1], env, eq[i]);
-		i++;
-	}
-	free(eq);
+	return (exit);
 }

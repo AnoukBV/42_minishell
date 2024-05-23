@@ -17,7 +17,7 @@ int	split_point(char *str)
 	int	eq;
 
 	eq = 0;
-	while (str[eq] != '=')
+	while (str[eq] != '=' && str[eq])
 		eq++;
 	return (eq);
 }
@@ -39,6 +39,14 @@ int	*split_key_value(char **argv)
 		i++;
 	}
 	return (eq);
+}
+
+int	ft_exp_err_mess(char *wrong)
+{
+	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd(wrong, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	return (1);
 }
 /*
 t_member	*env_fetch_member(t_member **member, size_t size)
@@ -67,17 +75,18 @@ int	ft_iscap(int a)
 	return (0);
 }
 
-void	exp_check_err(char *str)
+int	exp_check_err(char *str)
 {
 	size_t	i;
 
 	i = 0;
 	if (ft_isdigit(str[i]))
-		//ERROR
+		return (1);
 	while (str[i])
 	{
 		if (ft_iscap(str[i]) && (str[i] != '_' || !ft_isalnum(str[i])))
-			//ERROR
+			return (1);
 		i++;
 	}
+	return (0);
 }

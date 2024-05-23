@@ -262,12 +262,12 @@ void	destroy_redir_list(t_redir_list **redir_list);
 //
 void		set_hashtable(char **envp, t_list **env);
 void		init_tracker(t_exp **exp_status);
-void		ft_export(t_pipeline *p, t_command *cmd);
+int		ft_export(t_list **env, char **argv);
 int			split_point(char *str);
 int			*split_key_value(char **argv);
 t_member	*env_fetch_member(t_member **member, size_t size);
 void		export_expansion(char *str, t_hashtable *env);
-void		exp_check_err(char *key);
+int		exp_check_err(char *key);
 int			ft_iscap(int a);
 void		ft_unset(t_pipeline	*p, t_command *cmd);
 #endif
