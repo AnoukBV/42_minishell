@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 12:40:24 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:11:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	print_memb_arr(t_member **m, int size)
 	int	i;
 
 	i = 0;
-	while (i < size && m[i - 1])
+	while (i < size && m[i])
 	{
 	  	if (!m[i])
 			break ;
@@ -87,7 +87,7 @@ int	ft_exp_p(t_list **e)
 	t_member	*tmp;
 
 	env = *e;
-	entries = malloc(ft_lstsize(env) + 1);
+	entries = ft_calloc(ft_lstsize(env) + 1, sizeof(t_member *));
 	if (!entries)
 		return (1) ;
 	env = export_prepare_sort(entries, &env);
