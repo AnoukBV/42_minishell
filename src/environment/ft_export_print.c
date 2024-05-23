@@ -57,18 +57,17 @@ static void	print_memb_arr(t_member **m, int size)
 
 static t_list	*export_prepare_sort(t_member **ent, t_list **env)
 {
-	int			i;
+	int	i = 0;
 	t_list		*tmp;
 	t_member	*m;
 	char		c;
 
-	i = 0;
 	tmp = *env;
 	if (!tmp)
 		return (0);
 	m = (t_member *)tmp->content;
 	c = m->key[0];
-	while (tmp && ft_iscap(c) && c != '_')
+	while (tmp && /*ft_iscap(c) &&*/ c != '_')
 	{
 		m = (t_member *)tmp->content;
 		c = m->key[0];
@@ -85,6 +84,7 @@ void	ft_exp_p(t_list **e)
 {
 	t_list		*env;
 	t_member	**entries;
+	t_member	*tmp;
 
 	env = *e;
 	entries = malloc(ft_lstsize(env) + 1);
@@ -93,6 +93,12 @@ void	ft_exp_p(t_list **e)
 	env = export_prepare_sort(entries, &env);
 	if (env == NULL)
 		return ;
+	tmp = env->content;
+	while (tmp->is_og == true)
+	{
+		env = env->next;
+		tmp = env->content;
+	}
 	export_prepare_sort(entries, &env);
 	free(entries);
 }

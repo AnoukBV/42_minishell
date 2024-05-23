@@ -30,7 +30,7 @@ t_member	*get_env_element(t_list *env, char *key);
 char		**get_path_list(t_list	*env);
 
 void	del_member(void *content);
-void	print_env(t_list **env, int key);
+int	print_env(t_list **env, int key);
 char	*env_find_key(char *key, t_list	**env);
 t_member	*env_find_tmemb(char *key, t_list **env);
 t_member	*create_table_member(char *key, char *value, t_bool is_og);
@@ -39,6 +39,7 @@ char		**transform_envp(t_list *env);
 
 // free memory
 void	free_env_member(void *elem);	
+int	ft_exp_err_mess(char *wrong);
 void	free_env_list(t_list **env_list);
 
 #endif

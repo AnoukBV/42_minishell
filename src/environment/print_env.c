@@ -26,10 +26,7 @@ void	env_print_member(void *mb)
 		return ;
 	if (!m->key)
 		return ;
-	ft_putstr_fd(m->key, 1);
-	ft_putstr_fd("=", 1);
-	ft_putstr_fd(m->value, 1);
-	ft_putstr_fd("\n", 1);
+	ft_printf("%s=%s\n", m->key, m->value);
 }
 /*
 static void	ft_env_p(t_hashtable **e)
@@ -46,12 +43,13 @@ static void	ft_env_p(t_hashtable **e)
 	}
 }
 */
-void	print_env(t_list **env, int key)
+int	print_env(t_list **env, int key)
 {
 	if (!(*env))
-		return ;
+		return (1) ;
 	if (key == EXPORT)
 		ft_exp_p(env);
 	else
 		ft_lstiter(*env, &env_print_member);
+	return (0);
 }

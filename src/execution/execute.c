@@ -49,7 +49,9 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 	else if (!ft_strncmp(cmd->command, "echo", 5))
 		exit_code = builtin_echo(cmd->argv);
 	else if (!ft_strncmp(cmd->command, "export",7))
-		exit_code = builtin_export(cmd->argv, pipeline->envp);
+		exit_code = ft_export(&pipeline->envp, cmd->argv);
+	else if (!ft_strncmp(cmd->command, "env",3))
+		exit_code = print_env(&pipeline->envp, ENV);
 	g_status = exit_code;
 	if (will_exit)
 	{
