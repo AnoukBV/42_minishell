@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 14:10:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:40:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static t_list	*export_prepare_sort(t_member **ent, t_list **env)
 	return (tmp);
 }
 
-void	ft_exp_p(t_list **e)
+int	ft_exp_p(t_list **e)
 {
 	t_list		*env;
 	t_member	**entries;
@@ -89,16 +89,20 @@ void	ft_exp_p(t_list **e)
 	env = *e;
 	entries = malloc(ft_lstsize(env) + 1);
 	if (!entries)
-		return ;
+		return (1) ;
 	env = export_prepare_sort(entries, &env);
 	if (env == NULL)
-		return ;
+		return (1);
 	tmp = env->content;
-	while (tmp->is_og == true)
+	while (tmp->is_og == true && env)
 	{
 		env = env->next;
-		tmp = env->content;
+		if (env)
+			tmp = env->content;
 	}
+	if (!env)
+		return (0);
 	export_prepare_sort(entries, &env);
 	free(entries);
+	return (0);
 }

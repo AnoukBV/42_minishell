@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:45:42 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/21 15:55:03 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:39:28 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	print_env(t_list **env, int key);
 char	*env_find_key(char *key, t_list	**env);
 t_member	*env_find_tmemb(char *key, t_list **env);
 t_member	*create_table_member(char *key, char *value, t_bool is_og);
-void		ft_exp_p(t_list **e);
+int		ft_exp_p(t_list **e);
 char		**transform_envp(t_list *env);
 
 // free memory
