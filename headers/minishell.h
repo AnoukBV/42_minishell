@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 14:37:52 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:55:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,15 +126,17 @@ void			assignate_flags_dir(int tok_flags, \
 void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
 void			check_quote_bis(t_esc *esc_status, char *str);
 void			check_quote(t_esc *esc_status, char *str);
-void			expansion(void *item);
+void			expansion(t_list **tokens, t_list *env);
 t_bool			check_expansion(t_exp **expansion, char *str);
-char			*expand(char *str, t_list **env, size_t size, t_esc *stat);
+char			*expand(char *str, t_list **env, int size);
 void			inspect_token(char **str, t_list **env);
 void			join_after_expansion(char **tok, t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env);
 void			syntax_errors(t_list **inputs);
 void			unclosed_quotes(char *str);
+t_bool			is_char_exp(char c, int i);
+
 
 /*
 *	Error functions

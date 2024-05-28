@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 14:49:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:02:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	unclosed_quotes(char *str)
 	while (str[i])
 	{
 		check_quote(&status, &str[i]);
-		if (status.unclosed == false && status.is_simplequote == false)
+		if (status.unclosed == true && status.is_simplequote == false)
 			syntax_err_prompt("\" --unclosed", NULL);
-		else if (status.unclosed == false && status.is_simplequote == true)
+		else if (status.unclosed == true && status.is_simplequote == true)
 			syntax_err_prompt("' --unclosed", NULL);
 		i++;
 	}

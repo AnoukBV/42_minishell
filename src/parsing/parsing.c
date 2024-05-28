@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 14:37:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:51:34 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,12 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	break_into_words(inputs, str);
 	word_or_operator(inputs);
 	syntax_errors(inputs);
+	expansion(inputs, env);
+	
+	
 	divide(inputs, &tree, &env);
-	//btree_apply_prefix(tree, &expansion);
-	//expansion(tree->item);
+	
+	
 	btree_apply_prefix(tree, &quotes_removal);
 	btree_apply_prefix(tree, &create_argv);
 	fill_pipeline(&pipeline, tree, env);
