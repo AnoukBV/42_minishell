@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_expansion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:56:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 13:48:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:01:46 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ static t_bool	activate_exp(char *c, t_exp **expansion, t_bool save_q)
 	t_exp	*exp_status;
 
 	exp_status = *expansion;
-	if (*c == '\"' && exp_status->esc_status->is_quoted == true \
+	if (*c == '\"' && c[1] && c[1] == '$' && exp_status->esc_status->is_quoted == true \
 		&& save_q == false && exp_between_quotes(c) == true)
 	{
 		exp_status->is_exp_quo = true;
 		return (true);
 	}
-	else if (*c == '$' && (exp_status->esc_status == false \
-		|| exp_status->esc_status->is_simplequote == false))
+	else if (*c == '$' && (exp_status->esc_status == false || exp_status->esc_status->is_simplequote == false) && c[1] && (ft_isalpha(c[1]) || c[1] == '_'))
 	{
 		exp_status->is_exp_sim = true;
 		return (true);
@@ -62,8 +61,8 @@ t_bool	check_expansion(t_exp **expansion, char *str)
 		return (activate_exp(str, expansion, save_q));
 	else if (exp_status->is_exp_sim == true)
 	{
-		if (ft_strlen(str) > 2 && ft_strchr("\'\"", str[1]) && str[2] \
-			&& ft_strchr(&str[2], str[1]))
+		if ((ft_strlen(str) > 2 && ft_strchr("\'\"", str[1]) && str[2] \
+			&& ft_strchr(&str[2], str[1])) || (!ft_isalnum(str[0]) && str[0] != '_'))
 			exp_status->is_exp_sim = false;
 		return (exp_status->is_exp_sim);
 	}

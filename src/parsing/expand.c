@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:00:48 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 15:01:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:56:04 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*expand(char *str, t_list **env, size_t size)
 	while (to_exp[i])
 	{
 		exp[i] = ft_strdup(env_find_key(to_exp[i], env));
+		printf("%s\n", exp[i]);
 		i++;
 	}
 	free_array_2d(to_exp);

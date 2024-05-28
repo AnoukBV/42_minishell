@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inspect_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 16:46:32 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:14:22 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static size_t	isolate_not_exp(char *str, t_bool exp, t_exp **exp_status, \
 	t_list	*new;
 
 	i = 0;
+	printf("str[0] dans isoate not exp: %c\n", str[i]);
 	while (str[i] && exp == false && (str[i] != '$' || \
 		((*exp_status)->esc_status->is_quoted == true && \
 		(*exp_status)->esc_status->is_simplequote == true)))
@@ -28,6 +29,7 @@ static size_t	isolate_not_exp(char *str, t_bool exp, t_exp **exp_status, \
 		i++;
 		if (str[i])
 			exp = check_expansion(exp_status, &str[i]);
+		printf("str[i] = %c\n", str[i]);
 	}
 	if (i != 0)
 	{
@@ -52,21 +54,28 @@ static size_t	isolate_exp(char *str, t_list **env, \
 
 	i = 0;
 	exp = true;
+	printf("isolateexp\n");
 	while (str[i] && exp == true)
 	{
 		i++;
-		printf("ici\n");
-		if (str[i] && i == 1 && (!ft_isalpha(str[i]) && str[i] != '_'))
+		printf("str[i] = %c\n", str[i]);
+		if ((str[i] && i == 1 && (!ft_isalpha(str[i]) && (str[i] != '_' && str[i] != '$'))))
+		//	|| (str[i - 1] == '$' && (str[i] == '\'' || str[i] == '"') && (*exp_status)->esc_status->is_quoted == true))
 		{
+			printf("jesors\n");
+			if ((*exp_status)->esc_status->is_quoted == true && str[i - 1] == '$' && (str[i] == '\'' || str[i] == '"'))
+				i = 0;
 			(*exp_status)->is_exp_sim = false;
 			break ;
 		}
-		else if (str[i] && !ft_isalnum(str[i]) && str[i] != '_')
+		else if (str[i] && !ft_isalnum(str[i]) && str[i] != '_' && (*exp_status)->esc_status->is_quoted == false)
 		{
 			(*exp_status)->is_exp_sim = false;
 			i--;
+			printf("jusorsB\n");
 			break ;}
 		exp = check_expansion(exp_status, &str[i]);
+		
 	}
 	if (i != 0)
 	{

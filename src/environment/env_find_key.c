@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_find_key.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 13:54:13 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:42:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*env_find_key(char *key, t_list	**env)
 	while (tmp)
 	{
 		m = (t_member *)tmp->content;
-		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key)))
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key) + 1))
 			return (m->value);
 		tmp = tmp->next;
 	}
@@ -43,7 +43,7 @@ t_member	*env_find_tmemb(char *key, t_list **env)
 	while (tmp)
 	{
 		m = (t_member *)tmp->content;
-		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key)))
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key) + 1))
 			return (m);
 		tmp = tmp->next;
 	}
