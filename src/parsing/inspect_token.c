@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 13:33:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:59:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ static size_t	isolate_exp(char *str, t_list **env, \
 
 	i = 0;
 	exp = true;
-	printf("isolateexp\n");
 	while (str[i] && exp == true)
 	{
 		i++;
-		printf("str[i] = %c\n", str[i]);
 		if ((str[i] && i == 1 && (!ft_isalpha(str[i]) && (str[i] != '_' && str[i] != '$'))))
 		//	|| (str[i - 1] == '$' && (str[i] == '\'' || str[i] == '"') && (*exp_status)->esc_status->is_quoted == true))
 		{
@@ -107,14 +105,12 @@ void	inspect_token(char **str, t_list **env)
 		else
 		{
 			ft_lstadd_back(&splitted_token, ft_lstnew(ft_itoa(g_status)));
-			//i += 1;
 			exp_status->is_exp_sim = false;
 		}
 		i++;
 	}
 	if (splitted_token)
 		join_after_expansion(&str[0], &splitted_token);
-	//printf("%s\n", *str);
 	free(exp_status->esc_status);	
 	free(exp_status);	
 	ft_lstclear(&splitted_token, free);

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 13:17:43 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:37:52 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_esc
 {
 	t_bool	is_quoted;
 	t_bool	is_simplequote;
+	t_bool	unclosed;
 }	t_esc;
 
 typedef struct s_exp
@@ -133,6 +134,7 @@ void			join_after_expansion(char **tok, t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env);
 void			syntax_errors(t_list **inputs);
+void			unclosed_quotes(char *str);
 
 /*
 *	Error functions

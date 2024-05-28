@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   words.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/15 19:06:29 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:45:16 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,27 @@ static void	input_into_words(char *str, t_list **words_list)
 
 void	check_quote(t_esc *esc_status, char *str)
 {
-	size_t	i;
-
-	i = 0;
-	if (!str || !ft_strchr("\'\"", str[i]))
-		return ;
-	if (esc_status->is_quoted == false && ft_strchr("\'\"", str[i]) \
-		&& ft_strlen(str) > 1 && ft_strchr(&str[i + 1], str[i]))
+	if (*str != '\'' && *str != '"')
+		return;
+	if (esc_status->is_quoted == false && ft_strchr("\'\"", str[0]) \
+		&& ft_strlen(str) > 1 && ft_strchr(&str[1], str[0]))
 	{
 		esc_status->is_quoted = true;
-		if (str[i] == '\'')
+		if (str[0] == '\'')
 			esc_status->is_simplequote = true;
 		else
 			esc_status->is_simplequote = false;
-		return ;
+//		return ;
 	}
+	else if (esc_status->is_quoted == false && ft_strchr("\'\"", str[0]) \
+		&& ft_strlen(str) > 1 && !ft_strchr(&str[1], str[0]))
+		esc_status->unclosed = true;
 	else if (esc_status->is_quoted == false)
 		return ;
-	else if ((esc_status->is_simplequote == true && str[i] == '\"') || \
-		(esc_status->is_simplequote == false && str[i] == '\''))
-		return ;
-	esc_status->is_quoted = false ;
+//	else if ((esc_status->is_simplequote == true && str[0] == '\"') || \
+//		(esc_status->is_simplequote == false && str[0] == '\''))
+		//return ;
+	//esc_status->is_quoted = false ;
 }
 
 void	break_into_words(t_list **inputs, char *inputs_array)

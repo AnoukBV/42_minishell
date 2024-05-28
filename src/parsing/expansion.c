@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 15:15:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:55:09 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	inspect_cmd(t_list **cmd, t_list **env)
 				tok->word = ft_itoa(g_status);
 			else
 				inspect_token(&tok->word, env);
-			printf("inspect cmd %s\n", tok->word);
 			free(save);
 		}
 		tmp = tmp->next;
