@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 10:14:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:33:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ static size_t	isolate_exp(char *str, t_list **env, \
 			printf("jusorsB\n");
 			break ;}
 		exp = check_expansion(exp_status, &str[i]);
+		if (exp == false)
+			i--;
 		
 	}
 	if (i != 0)
 	{
-		new = ft_lstnew(expand(str, env, i + 2));
+		new = ft_lstnew(expand(str, env, i + 2, (*exp_status)->esc_status));
 		ft_lstadd_back(splitted_token, new);
 	}
 	return (i);

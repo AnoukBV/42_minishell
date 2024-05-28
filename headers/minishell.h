@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/21 15:38:54 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:17:43 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void			check_quote_bis(t_esc *esc_status, char *str);
 void			check_quote(t_esc *esc_status, char *str);
 void			expansion(void *item);
 t_bool			check_expansion(t_exp **expansion, char *str);
-char			*expand(char *str, t_list **env, size_t size);
+char			*expand(char *str, t_list **env, size_t size, t_esc *stat);
 void			inspect_token(char **str, t_list **env);
 void			join_after_expansion(char **tok, t_list **splitted_token);
 void			create_argv(void *item);
