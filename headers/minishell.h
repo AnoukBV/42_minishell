@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 13:31:37 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:05:06 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,5 +271,5 @@ t_member	*env_fetch_member(t_member **member, size_t size);
 void		export_expansion(char *str, t_hashtable *env);
 int		exp_check_err(char *key);
 int			ft_iscap(int a);
-void		ft_unset(t_pipeline	*p, t_command *cmd);
+int			ft_unset(char **argv, t_list **env);
 #endif

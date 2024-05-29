@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/29 13:25:39 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:05:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static char	*select_prompt(void)
 	return (line);
 }
 
-static void	shell_prompt(t_list *env, int ac, char **envp)
+static void	shell_prompt(t_list *env, int ac)
 {
 	t_list		*tokens;
 	char		*line;
-	t_pipeline	*pipeline;	
+	t_pipeline	*pipeline;
 
 	set_rl_signals();
 	line = select_prompt();
@@ -60,19 +60,21 @@ static void	shell_prompt(t_list *env, int ac, char **envp)
 	{
 		add_history(line);
 		free(line);
-		shell_prompt(env, ac, envp);
+		env = pipeline->envp;
+		//destroy pipeline ici??
+		free(pipeline);
+		shell_prompt(env, ac);
 	}
 }
 
 int	main(int ac, char **av, char **envp)
 {
-	t_list		*env;
+	t_list	*env;
 
 	(void)av;
 	g_status = 0;
 	env = NULL;
 	set_hashtable(envp, &env);
-	shell_prompt(env, ac, envp);
-	ft_lstclear(&env, &del_member);	
+	shell_prompt(env, ac);
 	return (0);
 }

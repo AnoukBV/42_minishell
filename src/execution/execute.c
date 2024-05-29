@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/29 13:22:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:45:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 		exit_code = builtin_echo(cmd->argv);
 	else if (!ft_strncmp(cmd->command, "export",7))
 		exit_code = ft_export(&pipeline->envp, cmd->argv);
-	else if (!ft_strncmp(cmd->command, "env",3))
+	else if (!ft_strncmp(cmd->command, "env",4))
 		exit_code = print_env(&pipeline->envp, ENV);
+	else if (!ft_strncmp(cmd->command, "unset",6))
+		exit_code = ft_unset(cmd->argv, &pipeline->envp);
 	g_status = exit_code;
 	if (will_exit)
 	{
@@ -88,7 +90,7 @@ void	execute_pipeline(t_pipeline *pipeline)
 	prepare_pipeline(pipeline);
 	while (cmd)
 	{
-		if (/*!cmd->prev && */!cmd->next && is_builtin(cmd->command))
+		if (!cmd->prev && !cmd->next && is_builtin(cmd->command))
 			builtin_exec(cmd, pipeline, false);
 		else
 			fork_cmd(cmd, pipeline);

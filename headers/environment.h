@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:45:42 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 14:22:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:04:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void	free_env_member(void *elem);
 int	ft_exp_err_mess(char *wrong);
 void	free_env_list(t_list **env_list);
 int	ft_exp_option_mess(char str);
+//char	**duplicate_envp(char **envp);
 
 #endif

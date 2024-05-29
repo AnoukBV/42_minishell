@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 14:32:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:00:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,29 @@ void	set_hashtable(char **envp, t_list **env)
 		return ;
 	}*/
 	fill_table(envp, env);
+	//free_array_2d(envp);
 	//print_env(*env, ENV);
 }
+/*
+char	**duplicate_envp(char **envp)
+{
+	char	**copy;
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = ft_arrlen(envp);
+	copy = ft_calloc(sizeof(char *), len + 1);
+	if (!copy)
+		return (NULL);
+	while (envp[i])
+	{
+		copy[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	copy[i] = "\0";
+	return (copy);
+}*/
 
 void	del_member(void *content)
 {
