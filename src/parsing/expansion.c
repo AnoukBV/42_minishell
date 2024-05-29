@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 16:31:20 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:27:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	expansion(t_list **tokens, t_list *env)
 		token = (t_wd_desc *)tmp->content;
 		if (token->flags == 0 && ft_strchr(token->word, '$'))
 		{
-			printf("\nIn expansion, token BEFORE expansion_inspection: %s\n", token->word);
+//			printf("\nIn expansion, token BEFORE expansion_inspection: %s\n", token->word);
 			expansion_inspection(&token->word, &env);
-			printf("\nIn expansion, token AFTER expansion: %s\n", token->word);
+//			printf("\nIn expansion, token AFTER expansion: %s\n", token->word);
 		}
 		tmp = tmp->next;
 	}

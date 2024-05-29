@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 14:45:16 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 08:42:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,17 @@ void	check_quote(t_esc *esc_status, char *str)
 			esc_status->is_simplequote = true;
 		else
 			esc_status->is_simplequote = false;
-//		return ;
+		return ;
 	}
 	else if (esc_status->is_quoted == false && ft_strchr("\'\"", str[0]) \
 		&& ft_strlen(str) > 1 && !ft_strchr(&str[1], str[0]))
 		esc_status->unclosed = true;
 	else if (esc_status->is_quoted == false)
 		return ;
-//	else if ((esc_status->is_simplequote == true && str[0] == '\"') || \
-//		(esc_status->is_simplequote == false && str[0] == '\''))
-		//return ;
-	//esc_status->is_quoted = false ;
+	else if ((esc_status->is_simplequote == true && str[0] == '\"') || \
+		(esc_status->is_simplequote == false && str[0] == '\''))
+		return ;
+	esc_status->is_quoted = false ;
 }
 
 void	break_into_words(t_list **inputs, char *inputs_array)

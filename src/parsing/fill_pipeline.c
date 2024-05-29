@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 12:41:50 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:06:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_flags(t_command **cmd)
 	while (tmp)
 	{
 	  	save = tmp;
-		if (tmp->flags != 0)
+		if (tmp->flags != T_WORD && tmp->flags != EMPTY)
 		{
 			tmp->prev->flags = tmp->flags;
 			tmp->prev->next = tmp->next;

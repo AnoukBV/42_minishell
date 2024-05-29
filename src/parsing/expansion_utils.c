@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 16:48:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:27:50 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ void	join_after_expansion(char **tok, t_list **splitted_token)
 	while (tmp)
 	{
 		save = ft_strdup(new);
+	//	printf("\n[join_after_expansion] save(str to be added to the final str): %s\n", save);
 		new = ft_strjoin(save, (char *)tmp->content);
+	//	printf("\n[join_after_expansion] new(final str): %s\n", new);
 		free(save);
+		save = NULL;
 		tmp = tmp->next;
 	}
 	if (*new == '\0')

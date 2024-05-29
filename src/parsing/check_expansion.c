@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:56:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 14:40:05 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 09:28:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_bool	check_expansion(t_exp **expansion, char *str)
 			/*(ft_strchr(&str[2], str[1])) || */(!ft_isalnum(str[0]) && str[0] != '_' && str[0] != '$'))
 		{
 			exp_status->is_exp_quo = false;
-			printf("icizzzzzzz\n");
+	//		printf("icizzzzzzz\n");
 		}
 		return (exp_status->is_exp_quo);
 	}
