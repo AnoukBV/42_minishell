@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 11:35:20 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:23:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	input_into_words(char *str, t_list **words_list)
 	while (str[i])
 	{
 		check_quote(&esc_status, &str[i]);
-		if (ft_strchr("|<> \t", str[i]) \
+		if (ft_strchr("|<>", str[i]) \
 			&& esc_status.is_quoted == false)
 		{
 			new_word(words_list, str, i, j);

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 11:11:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:20:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,30 @@ char	*expansion_inspection(char *token, t_list **env)
 	return (save);
 }
 
-char	*expansion(char *word, t_list *env)
+void	expansion(t_list **inputs, t_list *env)
 {
-	//t_wd_desc	*token;
-	//t_list		*tmp;
-	char	*final;
+	char	*res;
+	t_list		*tmp;
+	t_wd_desc	*token;
+	//char	*final;
 
-	//tmp = *tokens;
+	tmp = *inputs;
 	//while (tmp)
 	//{
-	//	token = (t_wd_desc *)tmp->content;
-	if (ft_strchr(word, '$'))
+	
+	while (tmp)
 	{
+		token = (t_wd_desc *)tmp->content;
+		if (ft_strchr(token->word, '$'))
+		{
 //			printf("\nIn expansion, token BEFORE expansion_inspection: %s\n", token->word);
-		final = expansion_inspection(word, &env);
+			res = token->word;
+			token->word = expansion_inspection(token->word, &env);
+			free(res);
 //		printf("\nIn expansion, token AFTER expansion: %s\n", token->word);
-		return (final);
+			
+		}
+		tmp = tmp->next;
 	}
-	return (ft_strdup(word));
-	//	tmp = tmp->next;
 	
 }
