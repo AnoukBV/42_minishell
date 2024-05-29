@@ -6,13 +6,13 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 09:27:50 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:23:30 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	join_after_expansion(char **tok, t_list **splitted_token)
+char	*join_after_expansion(t_list **splitted_token)
 {
 	t_list	*tmp;
 	char	*save;
@@ -32,7 +32,8 @@ void	join_after_expansion(char **tok, t_list **splitted_token)
 	}
 	if (*new == '\0')
 		new = NULL;
-	*tok = new;
+	ft_lstclear(splitted_token, free);
+	return (new);
 }
 
 void	init_tracker(t_exp **exp_status)

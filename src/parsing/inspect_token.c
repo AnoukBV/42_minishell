@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 09:27:39 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:22:58 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 		check_quote(stat, &str[i]);
 		i++;
 	}
-	if (ft_strlen(str) == 2 && str[1] == '$')
+	if (i == 2 && str[1] == '$')
 		ft_lstadd_back(split, ft_lstnew(ft_strdup("$")));
 	else if (i > 1)
 	{
@@ -53,11 +53,11 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 	return (i);
 }
 
-void	inspect_token(char **str, t_list **env)
+char	*inspect_token(char *str, t_list **env)
 {
 	int	i;
 	int	begin;
-	int end;
+	//int end;
 	t_list	*split;
 	t_esc	stat;
 
@@ -65,19 +65,19 @@ void	inspect_token(char **str, t_list **env)
 	split = NULL;
 	stat.is_quoted = false;
 	begin = i;
-	while ((size_t)i < ft_strlen(str[0]) || str[0][i])
+	while ((size_t)i < ft_strlen(str) || str[i])
 	{
-		check_quote(&stat, &str[0][i]);
+		check_quote(&stat, &str[i]);
 		//printf("\nstr[0][i]=%c\n", str[0][i]);
-		if ((str[0][i] == '$' && stat.is_quoted == false) || (str[0][i] == '$' && \
+		if ((str[i] == '$' && stat.is_quoted == false) || (str[i] == '$' && \
 			stat.is_quoted == true && stat.is_simplequote == false))
 		{
 		//	printf("\n[inspect_token] &str[0][i] before isolate_not_exp: %s\n", &str[0][begin]);
-			isolate_not_exp(begin, i, str[0], &split);
+			isolate_not_exp(begin, i, str, &split);
 		//	printf("\n[inspect_token] &str[0][i] before isolate_exp: %s\n", &str[0][i]);
-			i += isolate_exp(&str[0][i], env, &split, &stat);
+			i += isolate_exp(&str[i], env, &split, &stat);
 			begin = i;
-			end = i;
+	//		end = i;
 		//	printf("\n[inspect_token] str[end(=%i)] after isolate_exp: %c\n", end, str[0][end]);
 		//	printf("\n[inspect_token] &str[0][i (=%i)] after isolate_exp: %s\n", i, &str[0][i]);
 		}
@@ -86,10 +86,13 @@ void	inspect_token(char **str, t_list **env)
 		
 	}
 	//printf("\n[inspect_token] str[end(=%i)] after while loop: %c\n", end, str[0][end]);
-	if (end != (int)ft_strlen(str[0]))
-		isolate_not_exp(end, i, str[0], &split);
+	if (begin != (int)ft_strlen(str))
+		isolate_not_exp(begin, i, str, &split);
 	if (split)
-		join_after_expansion(&str[0], &split);
-	ft_lstclear(&split, free);
+	{
+		
+		return (join_after_expansion(&split));
+	}
+	return (ft_strdup(str));
 
 }

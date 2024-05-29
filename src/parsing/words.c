@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 08:42:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:35:20 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	check_quote(t_esc *esc_status, char *str)
 		return ;
 	}
 	else if (esc_status->is_quoted == false && ft_strchr("\'\"", str[0]) \
-		&& ft_strlen(str) > 1 && !ft_strchr(&str[1], str[0]))
+		/*&& ft_strlen(str) > 1 */&& !ft_strchr(&str[1], str[0]))
 		esc_status->unclosed = true;
 	else if (esc_status->is_quoted == false)
 		return ;

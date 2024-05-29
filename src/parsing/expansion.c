@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 09:27:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:11:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,36 @@ t_bool	is_char_exp(char c, int i)
 	return (true);
 }
 
-void	expansion_inspection(char **token, t_list **env)
+char	*expansion_inspection(char *token, t_list **env)
 {
 	char		*save;
 
-	save = *token;
-	if (token[0][1] == '?')
-		token[0] = ft_itoa(g_status);
+	if (token[1] == '?')
+		return (ft_itoa(g_status));
 	else
-		inspect_token(&token[0], env);
-	free(save);
+		save = inspect_token(token, env);
+	//free(save);
+	return (save);
 }
 
-void	expansion(t_list **tokens, t_list *env)
+char	*expansion(char *word, t_list *env)
 {
-	t_wd_desc	*token;
-	t_list		*tmp;
+	//t_wd_desc	*token;
+	//t_list		*tmp;
+	char	*final;
 
-	tmp = *tokens;
-	while (tmp)
+	//tmp = *tokens;
+	//while (tmp)
+	//{
+	//	token = (t_wd_desc *)tmp->content;
+	if (ft_strchr(word, '$'))
 	{
-		token = (t_wd_desc *)tmp->content;
-		if (token->flags == 0 && ft_strchr(token->word, '$'))
-		{
 //			printf("\nIn expansion, token BEFORE expansion_inspection: %s\n", token->word);
-			expansion_inspection(&token->word, &env);
-//			printf("\nIn expansion, token AFTER expansion: %s\n", token->word);
-		}
-		tmp = tmp->next;
+		final = expansion_inspection(word, &env);
+//		printf("\nIn expansion, token AFTER expansion: %s\n", token->word);
+		return (final);
 	}
+	return (ft_strdup(word));
+	//	tmp = tmp->next;
+	
 }
