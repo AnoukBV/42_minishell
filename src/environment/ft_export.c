@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 16:28:13 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:37:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	ft_export(t_list **env, char **argv)
 		exit = print_env(env, EXPORT);
 	else
 	{
-		printf("jesuisla\n");
 		eq = split_key_value(argv);
 		while (i < ft_arrlen(&argv[1]))
 		{

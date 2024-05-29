@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:12:51 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/21 13:27:54 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:21:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	destroy_cmd_one(t_command *cmd)
 		free_array_2d((char **)cmd->argv);
 	if (cmd->redir_list)
 		destroy_redir_list(&cmd->redir_list);
-	free(cmd);
+	if (cmd)
+		free(cmd);
 }
 
 void	destroy_cmd_list(t_command **cmd)

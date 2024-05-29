@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:55:52 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:22:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	execute_pipeline(t_pipeline *pipeline)
 	prepare_pipeline(pipeline);
 	while (cmd)
 	{
-		if (!cmd->prev && !cmd->next && is_builtin(cmd->command))
+		if (/*!cmd->prev && */!cmd->next && is_builtin(cmd->command))
 			builtin_exec(cmd, pipeline, false);
 		else
 			fork_cmd(cmd, pipeline);

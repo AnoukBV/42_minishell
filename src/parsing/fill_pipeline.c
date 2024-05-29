@@ -6,12 +6,28 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 09:06:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:36:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
+void	delete_operator(t_command **head, t_command *del)
+{
+	if (*head == NULL || del == NULL)
+		return ;
+	if (*head == del)
+		*head = del->next;
+	printf("[delete_operator] del: %p\n", del);
+	printf("[delete_operator] del->next->prev: %p\n", del->next->prev);
+	printf("[delete_operator] del->prev: %p\n", del->prev);
+	printf("[delete_operator] del->next: %p\n", del->next);
+	//if (del->next != NULL)
+	//	del->next->prev = del->prev;
+	//if (del->prev != NULL)
+	//	del->prev->next = del->next;
+}
+*/
 void	add_flags(t_command **cmd)
 {
 	t_command	*tmp;
@@ -20,20 +36,24 @@ void	add_flags(t_command **cmd)
 	tmp = *cmd;
 	if (!tmp)
 		return ;
-	tmp->prev = NULL;
+	//printf("[add_flags] tmp: %p, tmp->flags: %i\n", tmp, tmp->flags);
+	save = tmp;
 	while (tmp)
 	{
-	  	save = tmp;
 		if (tmp->flags != T_WORD && tmp->flags != EMPTY)
 		{
-			tmp->prev->flags = tmp->flags;
-			tmp->prev->next = tmp->next;
-			tmp->next->prev = tmp->prev;
+			save->flags = tmp->flags;
+			save->next = tmp->next;
+			save->next->prev = save;
+			//tmp->next->prev = tmp->prev;
+			//delete_operator(cmd, tmp);
 			destroy_cmd_one(tmp);
+			tmp = save;
 		}
-		tmp = save->next;
-		if (tmp)
-			tmp->prev = save;
+	  	save = tmp;
+		tmp = tmp->next;
+		//if (tmp)
+		//	tmp->prev = save;
 	}
 }
 

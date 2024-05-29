@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   divide.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:06:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:18:04 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 	//t_list			*tmp;
 
 	tok = (t_wd_desc *)(*inputs)->content;
-	new = malloc(sizeof(t_redir_list));
+	new = ft_calloc(sizeof(t_redir_list), 1);
 	if (!new)
 		return ;
 	assignate_flags_dir(tok->flags, &new->open_flags, &new->fd_to_redirect);
