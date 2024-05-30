@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/29 16:01:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:18:01 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	prepare_pipeline(t_pipeline *pipeline)
 	int			pfd[2];
 
 	cmd = (t_command *)pipeline->cmd_list;
-	while (cmd->next)
+	while (cmd && cmd->next)
 	{
 		if (pipe(pfd) == -1)
 			pipe_error(pipeline);

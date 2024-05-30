@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 17:23:14 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:09:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ static void	input_into_words(char *str, t_list **words_list)
 		{
 			new_word(words_list, str, i, j);
 			i += new_metacharacter(words_list, &str[i]);
-			j = i + 1;
+			j = i;
 		}
-		i++;
+		else
+			i++;
 	}
-	if (!ft_isspace(str[i - 1]))
+	if (j != ft_strlen(str))
 		new_word(words_list, str, i, j);
 }
 

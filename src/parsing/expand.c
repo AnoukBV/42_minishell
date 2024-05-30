@@ -6,26 +6,11 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:00:48 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 12:12:01 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:55:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static void	delete_quotes(char **new)
-{
-	char	**tmp;
-	char	*str;
-
-	tmp = ft_split(*new, '\"');
-	free(*new);
-	*new = NULL;
-	str = ft_strdup(tmp[0]);
-	free_array_2d(tmp);
-	tmp = NULL;
-	*new = str;
-}
-*/
 
 int	protect_new_size(char *exp)
 {
@@ -160,6 +145,7 @@ char	*expand(char *str, t_list **env, int size)
 	free(new);
 	//printf("%s\n", final);
 	//free_array_2d(exp);
-	exp = protect_quotes(exp);
+	if (exp)
+		exp = protect_quotes(exp);
 	return (exp);
 }

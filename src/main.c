@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 12:07:16 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:01:22 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ static void	shell_prompt(t_list *env, int ac)
 	t_pipeline	*pipeline;
 
 	set_rl_signals();
-	line = select_prompt();
+   	line = select_prompt();
 	set_exec_signals();
 	if (ft_strlen(line))
 	{
-		pipeline = parsing(line, &tokens, env);
+		pipeline = parsing(ft_strdup(line), &tokens, env);
 		pipeline->cmd_line = line;
 		execute_pipeline(pipeline);
 	}
@@ -61,7 +61,6 @@ static void	shell_prompt(t_list *env, int ac)
 		add_history(line);
 		free(line);
 		env = pipeline->envp;
-		//destroy pipeline ici??
 		free(pipeline);
 		shell_prompt(env, ac);
 	}

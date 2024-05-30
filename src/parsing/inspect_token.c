@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 11:22:58 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:50:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 	int	i;
 
 	i = 1;
+	new = NULL;
 	while (str[i] && is_char_exp(str[i], i) == true)
 	{
 		check_quote(stat, &str[i]);
@@ -47,9 +48,13 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 	{
 		add = expand(str, env, i);
 		//printf("\nIn isolate_exp, char* to be added to **split: %s\n", add);
-		new = ft_lstnew(add);
-		ft_lstadd_back(split, new);
+		if (add)
+		{
+			new = ft_lstnew(add);
+			ft_lstadd_back(split, new);
+		}
 	}
+	printf("\n[isolate_exp] size of new inputs list: %d\n", ft_lstsize(new));
 	return (i);
 }
 

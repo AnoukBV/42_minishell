@@ -6,24 +6,12 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 08:05:43 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 09:10:27 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:01:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_bool is_space_esc(t_esc stat, char c)
-{
-	if (!c)
-		return (false);
-	else if (!ft_strchr(" \t", c))
-		return (true);
-	else if (stat.is_quoted == true)
-		return (true);
-	else if (stat.is_quoted == false)
-		return (false);
-	return (false);
-}
 
 static int	count_arrays(char const *s, char *c)
 {
@@ -99,7 +87,9 @@ char	**ft_esc_split(char const *s, char *c)
 
 	if (!s)
 		return (0);
+	printf("\n[ft_esc_split] s: BEG/%s/END\n", s);
 	len_split = count_arrays(s, c);
+	printf("\n[ft_esc_split] len_split: %d\n", len_split);
 	split = malloc(sizeof(char *) * (len_split + 1));
 	if (split == NULL)
 		return (NULL);
@@ -107,4 +97,17 @@ char	**ft_esc_split(char const *s, char *c)
 	if (!split)
 		split = free_split(split, len_split);
 	return (split);
+}
+
+t_bool is_space_esc(t_esc stat, char c)
+{
+	if (!c)
+		return (false);
+	else if (!ft_strchr(" \t", c))
+		return (true);
+	else if (stat.is_quoted == true)
+		return (true);
+	else if (stat.is_quoted == false)
+		return (false);
+	return (false);
 }
