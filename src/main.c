@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/29 17:05:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 08:14:29 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int	main(int ac, char **av, char **envp)
 	env = NULL;
 	set_hashtable(envp, &env);
 	shell_prompt(env, ac);
+	ft_lstclear(&env, &del_member);
 	return (0);
 }

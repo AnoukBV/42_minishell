@@ -6,36 +6,41 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 17:33:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 08:57:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	new_word_bis(t_list **node)
-
-void	space_break(t_list **node, char *str)
+static t_list	*space_knitting(char **split, t_list **curr)
 {
-	t_esc		esc_status;
-	size_t		i;
-	size_t		j;
+	size_t	i;
+	t_list	*tmp;
+	t_list	*new;
 
-	i = 0;
-	j = 0;
-	esc_status.is_quoted = false;
-	while (str[i])
+	i = 1;
+	tmp = *curr;
+	tmp->content = new_wd_desc(T_WORD, split[0]);
+	while (split[i])
 	{
-		check_quote(&esc_status, &str[i]);
-		if (ft_strchr(" \t", str[i]) \
-			&& esc_status.is_quoted == false)
-		{
-			new_word_bis(node, str, i, j);
-			j = i + 1;
-		}
+		new = ft_lstnew(new_wd_desc(T_WORD, split[i]));
+		new->next = tmp->next;
+		tmp->next = new;
+		tmp = new;
 		i++;
 	}
-	if (!ft_isspace(str[i - 1]))
-		new_word(words_list, str, i, j);
+	return (new);
+}
+
+static t_list	*space_break(t_list **node, char *str)
+{
+	char	**split;
+	t_list	*save;
+
+	split = ft_esc_split(str, " \t");
+	save = space_knitting(split, node);
+	free(split);
+	return (save);
 }
 
 void	second_tokenizing(t_list **inputs)
@@ -46,9 +51,13 @@ void	second_tokenizing(t_list **inputs)
 	tmp = *inputs;
 	while (tmp)
 	{
+		//printf("\n[second_tokenizing] tmp before space_break: %p\n", tmp);
+		//printf("\n[second_tokenizing] tmp->next before space_break: %p\n", tmp->next);
 		tok = (t_wd_desc *)tmp->content;
 		if (tok->flags == T_WORD)
-			space_breaking(&tmp, tok->word);
+			tmp = space_break(&tmp, tok->word);
+		//printf("\n[second_tokenizing] tmp after space_break(might have changed): %p\n", tmp);
+		//printf("\n[second_tokenizing] tmp->next after space_break(shouldn't have changed): %p\n", tmp->next);
 		tmp = tmp->next;
 	}
 }

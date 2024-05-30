@@ -24,6 +24,7 @@ SRC_FILES := main.c \
 			parsing/fill_pipeline.c \
 			parsing/clean_parsing.c \
 			parsing/check_syntax.c \
+			parsing/ft_esc_split.c \
 			environment/set.c \
 			environment/ft_export.c \
 			environment/ft_unset.c \
@@ -47,8 +48,8 @@ SRC_FILES := main.c \
 			builtins/pwd.c \
 			builtins/echo.c \
 			builtins/export.c \
-			builtins/builtin_utils.c
-			# totrash.c
+			builtins/builtin_utils.c \
+			totrash.c
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 
