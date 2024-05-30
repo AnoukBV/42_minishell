@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:12:51 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/21 13:27:54 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:43:44 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	destroy_cmd_one(t_command *cmd)
 void	destroy_cmd_list(t_command **cmd)
 {
 	t_command	*tmp;
-	
+
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
@@ -50,7 +50,7 @@ t_command	*command_last(t_command *command)
 
 void	command_addback(t_command **list, t_command *new)
 {
-	t_command *tmp;
+	t_command	*tmp;
 
 	if (*list == NULL && new)
 		*list = new;
@@ -60,4 +60,3 @@ void	command_addback(t_command **list, t_command *new)
 		tmp->next = new;
 	}
 }
-

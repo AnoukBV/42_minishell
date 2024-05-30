@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 12:43:30 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/23 17:21:02 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:44:13 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	echo_add_flags(int *flags, char *str)
 
 static int	echo_handle_flags(int *flags, char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (argv[i])

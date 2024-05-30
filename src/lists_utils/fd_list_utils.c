@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:46:39 by abernade          #+#    #+#             */
-/*   Updated: 2024/04/29 02:42:14 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:43:18 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	close_fd_list(t_fd_list **fds)
 {
 	t_fd_list	*node;
 	t_fd_list	*next;
-	
+
 	node = *fds;
 	while (node)
 	{
