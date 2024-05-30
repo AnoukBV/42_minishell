@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 17:20:26 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:58:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,16 @@ t_bool	is_char_exp(char c, int i)
 char	*expansion_inspection(char *token, t_list **env)
 {
 	char		*save;
+	char		*save2;
 
 	if (token[1] == '?')
 		return (ft_itoa(g_status));
 	else
 		save = inspect_token(token, env);
 	//free(save);
-	return (save);
+	save2 = ft_strtrim(save, " \t");
+	free(save);
+	return (save2);
 }
 
 void	expansion(t_list **inputs, t_list *env)
