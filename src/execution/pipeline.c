@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 16:06:38 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:14:17 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	prepare_pipeline(t_pipeline *pipeline)
 	while (cmd->next)
 	{
 		if (pipe(pfd) == -1)
-			pipe_error(pipeline);
+			generic_error(pipeline);
 		cmd->pipe_right[0] = pfd[0];
 		cmd->pipe_right[1] = pfd[1];
 		cmd = cmd->next;

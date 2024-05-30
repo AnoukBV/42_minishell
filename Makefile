@@ -42,6 +42,7 @@ SRC_FILES := main.c \
 			execution/exec_utils.c \
 			execution/execute.c \
 			execution/redirections.c \
+			execution/exec_errors.c \
 			signals/set_signal.c \
 			signals/signal_handlers.c \
 			builtins/cd.c \

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 16:50:07 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:14:31 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,7 @@ void			syntax_errors(t_list **inputs);
 *	Error functions
 */
 void	ft_error(void);
-void	pipe_error(t_pipeline *pipeline);
-void	redirection_error(t_pipeline *pipeline);
+void	generic_error(t_pipeline *pipeline);
 void	malloc_error(void);
 void	fork_error(t_pipeline *pipeline);
 void	dup2_error(void);
