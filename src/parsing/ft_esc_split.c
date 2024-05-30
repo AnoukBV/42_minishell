@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 08:05:43 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 14:01:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:45:08 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,11 @@ static char	**fill_split(char **split, char const *s, char *c, int len_split)
 	while (j < len_split)
 	{
 		len_array = 0;
-		check_quote(&stat, (char *)&s[i]);
 		while ((ft_strchr(c, s[i]) && is_space_esc(stat, s[i]) == false) && s[i] != '\0')
+		{
+			check_quote(&stat, (char *)&s[i]);
 			i++;
+		}
 		start = i;
 		while ((!ft_strchr(c, s[i]) || (ft_strchr(c, s[i]) && is_space_esc(stat, s[i]) == true)) && s[i] != '\0')
 		{

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 15:23:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:49:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ size_t	count_isspace(char *str)
 	}
 	return (i);
 }
-
+/*
 size_t	add_and_skip(char *str, char *new, t_esc *stat, size_t prev)
 {
 	size_t	i;
@@ -148,7 +148,7 @@ char	*trim_isspace(char *str, int ditch)
 	while (str[i])
 	{
 		check_quote(&stat, &str[i]);
-		if (!ft_isspace(str[i]))
+		if (!ft_isspace(str[i]) || (ft_isspace(str[i]) && is_space_esc(stat, str[i]) == true))
 			new[ft_strlen(new)] = str[i];
 		else if (is_space_esc(stat, str[i]) == false)
 			i += add_and_skip(&str[i], &new[ft_strlen(new)], &stat, i);
@@ -187,17 +187,17 @@ char	*skip_isspace(char *str)
 	new = trim_isspace(str, ditch);
 	return (new);
 }
-
+*/
 t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 {
 	t_pipeline	*pipeline;
 	t_btree		*tree;
-
+	
+	unclosed_quotes(str);
 	printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
-	str = skip_isspace(str);
+	str = ft_strtrim(str, " \t");
 	printf("\n[parsing] str after trimming isspaces: BEG/%s/END\n", str);
 	tree = NULL;
-	unclosed_quotes(str);
 	break_into_words(inputs, str);
 	free(str);
 	print_unidentified_tokens(*inputs);
@@ -216,7 +216,7 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	//	quotes_removal(tree->item);
 	btree_apply_prefix(tree, &quotes_removal);
 	printf("\n[parsing] here after quotes removal\n");
-	//print_divided_cmds(tree, 0);
+	print_divided_cmds(tree, 0);
 	printf("\n[parsing] here before argv creation\n");
 	btree_apply_prefix(tree, &create_argv);
 	printf("\n[parsing] here after argv creation\n");
