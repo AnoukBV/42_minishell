@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 13:09:42 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:29:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,19 @@ static size_t	new_metacharacter(t_list **list, char *str)
 	t_wd_desc	*tok;
 
 	i = 0;
-	if (!ft_isspace(str[i]))
+	if (!ft_isspace(*str))
 	{
-		if (str[i + 1] && ft_strchr("<>", str[i]) && str[i + 1] == str[i])
-			tok = new_wd_desc(0, ft_substr(&str[i], 0, 2));
+		if (str[1] && ft_strchr("<>", *str) && str[1] == *str)
+		{
+			tok = new_wd_desc(0, ft_substr(str, 0, 2));
+			i = 2;
+		}
 		else
-			tok = new_wd_desc(0, ft_substr(&str[i], 0, 1));
-		if (ft_strchr("<>", tok->word[0]) && !ft_isspace(str[i - 1]))
+		{
+			tok = new_wd_desc(0, ft_substr(str, 0, 1));
+			i = 1;
+		}
+		if (ft_strchr("<>", tok->word[0]) && !ft_isspace(str[-1]))
 			tok->flags += 3000;
 		ft_lstadd_back(list, ft_lstnew(tok));
 		if (tok->flags == 3000)
