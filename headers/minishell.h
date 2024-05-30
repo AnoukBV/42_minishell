@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 16:33:03 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:17:10 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int		builtin_cd(char **av, t_list **env);
 int		builtin_pwd(void);
 int		builtin_echo(char **argv);
 int		builtin_export(char **argv, t_list **envp);
-void	builtin_exit(t_pipeline *pipeline, char **argv);
+void	builtin_exit(t_pipeline *pipeline, t_command *cmd);
 
 // Utils
 int		argv_size(char **av);

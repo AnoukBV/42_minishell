@@ -6,16 +6,13 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/23 16:34:59 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:11:44 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/*
-*	Returns -1 on open() error, 0 otherwise
-*/
-static int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
+int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 {
 	int				fd;
 	t_redir_list	*node;
@@ -44,18 +41,15 @@ static int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 	return (0);
 }
 
-/*
-*	Returns -1 on open() error, 0 otherwise
-*/
 int	do_redirections(t_command *cmd, t_pipeline *pipeline)
 {
-	if (cmd->prev) // left pipe
+	if (cmd->prev)
 	{
 		if (dup2(cmd->pipe_left[0], 0) == -1)
 			dup2_error();
 		remove_fd(cmd->pipe_left[0], &pipeline->fd_list);
 	}
-	if (cmd->next) // right pipe
+	if (cmd->next)
 	{
 		if (dup2(cmd->pipe_right[1], 1) == -1)
 			dup2_error();

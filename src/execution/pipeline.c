@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:14:38 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:06:38 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ifree_array_2d(char **array)
 	size = ft_atoi(array[0]);
 	while (i < size)
 	{
-	  	if (array[i])
+		if (array[i])
 			free(array[i]);
 		i++;
 	}
@@ -81,7 +81,6 @@ t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env)
 	if (!pipeline)
 		malloc_error();
 	pipeline->cmd_list = cmd_lst;
-	//set_hashtable(env, &pipeline->envp);
 	pipeline->envp = env;
 	pipeline->fd_list = NULL;
 	pipeline->pid_list = NULL;

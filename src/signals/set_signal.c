@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:31:05 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 14:15:07 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:12:42 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	set_rl_signals(void)
 		exit(errno);
 	}
 	sa.sa_handler = &rl_signals_handler;
-	if(sigaction(SIGQUIT, &sa, NULL) == -1 \
+	if (sigaction(SIGQUIT, &sa, NULL) == -1 \
 		|| sigaction(SIGINT, &sa, NULL) == -1)
 	{
 		perror(NULL);
