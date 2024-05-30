@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:15:15 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:51:26 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	main(int ac, char **av, char **envp)
 	env = NULL;
 	set_hashtable(envp, &env);
 	shell_prompt(env, ac, envp);
-	ft_lstclear(&env, &del_member);	
+	ft_lstclear(&env, &del_member);
+	ft_putstr_fd("exit\n", 1);
 	return (0);
 }

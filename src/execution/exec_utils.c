@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/23 18:03:27 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:48:12 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,6 @@ int	get_status(int status)
 	else if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (-1);
-}
-
-t_bool	is_builtin(char *cmd_name)
-{
-	return (!ft_strncmp(cmd_name, "echo", 5) \
-		|| !ft_strncmp(cmd_name, "cd", 3) \
-		|| !ft_strncmp(cmd_name, "pwd", 4) \
-		|| !ft_strncmp(cmd_name, "export", 7) \
-		|| !ft_strncmp(cmd_name, "unset", 6) \
-		|| !ft_strncmp(cmd_name, "env", 4) \
-		|| !ft_strncmp(cmd_name, "exit", 5));
 }
 
 static void	free_path_list(char	**path_list)

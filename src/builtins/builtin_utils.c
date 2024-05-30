@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:19:16 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:43:39 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:48:23 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,15 @@ int	argv_size(char **av)
 	while (av[i])
 		i++;
 	return (i);
+}
+
+t_bool	is_builtin(char *cmd_name)
+{
+	return (!ft_strncmp(cmd_name, "echo", 5) \
+		|| !ft_strncmp(cmd_name, "cd", 3) \
+		|| !ft_strncmp(cmd_name, "pwd", 4) \
+		|| !ft_strncmp(cmd_name, "export", 7) \
+		|| !ft_strncmp(cmd_name, "unset", 6) \
+		|| !ft_strncmp(cmd_name, "env", 4) \
+		|| !ft_strncmp(cmd_name, "exit", 5));
 }

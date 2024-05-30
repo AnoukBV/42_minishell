@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 16:17:10 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/30 16:50:07 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <linux/limits.h>
 # include "libft.h"
 # include "keys.h"
-
 
 typedef enum e_bool { false, true }	t_bool;
 # include "environment.h"
@@ -102,6 +101,8 @@ typedef struct	s_pipeline
 	t_list		*envp;
 	char		*cmd_line;
 }	t_pipeline;
+
+# include <builtins.h>
 
 // parsing
 
@@ -187,15 +188,6 @@ void	del_wddesc(void *word);
 */
 void	execute_pipeline(t_pipeline *pipeline);
 
-/*
-*	Builtins
-*/
-int		builtin_cd(char **av, t_list **env);
-int		builtin_pwd(void);
-int		builtin_echo(char **argv);
-int		builtin_export(char **argv, t_list **envp);
-void	builtin_exit(t_pipeline *pipeline, t_command *cmd);
-
 // Utils
 int		argv_size(char **av);
 void	print_envp(t_list *envp);
@@ -245,7 +237,6 @@ void	wait_all_pid(t_pid_list **pid_list);
 /*
 *	Execution utils
 */
-t_bool	is_builtin(char *cmd_name);
 int		get_status(int status);
 char	*get_bin_path(t_list *env, char *name);
 
