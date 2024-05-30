@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 12:40:11 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:37:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,14 @@ static t_list	*space_knitting(char **split, t_list **curr)
 
 	i = 1;
 	tmp = *curr;
-	del_wddesc(tmp->content);
+	if (!split[0])
+	{
+		*curr = tmp->next;
+		ft_lstdelone(tmp, &del_wddesc);
+		
+		return (*curr);
+	}
+	
 	tmp->content = NULL;
 	tmp->content = new_wd_desc(T_WORD, split[0]);
 	while (split[i])
@@ -61,7 +68,9 @@ void	second_tokenizing(t_list **inputs)
 		//printf("\n[second_tokenizing] tmp after space_break(might have changed): %p\n", tmp);
 		//printf("\n[second_tokenizing] tmp->next after space_break(shouldn't have changed): %p\n", tmp->next);
 		if (tmp)
+		{
 			tmp = tmp->next;
+		}
 	}
 }
 

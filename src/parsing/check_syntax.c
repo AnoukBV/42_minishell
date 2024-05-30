@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 16:37:06 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:03:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	syntax_errors(t_list **inputs)
 	if (!check)
 		return ;
 	curr = check->content;
-	if (ft_lstsize(*inputs) == 1 && curr->flags != T_WORD)
+	if ((ft_lstsize(*inputs) == 1 && curr->flags != T_WORD) || \
+		(ft_lstsize(*inputs) == 2 && (curr->flags == T_RED_IN && \
+		(int)((t_wd_desc *)check->next->content)->flags == T_RED_OUT)))
 		syntax_err_prompt("newline", inputs);
 	if (curr->flags == T_PIPE)
 		syntax_err_prompt(curr->word, inputs);
