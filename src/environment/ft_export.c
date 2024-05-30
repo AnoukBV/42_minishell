@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 13:37:11 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:03:52 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	ft_export(t_list **env, char **argv)
 		eq = split_key_value(argv);
 		while (i < ft_arrlen(&argv[1]))
 		{
-			ft_putstr_fd(argv[i + 1], 1);
-			ft_putchar_fd('\n', 1);
+			//ft_putstr_fd(argv[i + 1], 1);
+			//ft_putchar_fd('\n', 1);
 			exit = add_member(argv[i + 1], *env, eq[i]);
 			//ft_putnbr_fd(exit, 1);
 			//ft_putchar_fd('\n', 1);

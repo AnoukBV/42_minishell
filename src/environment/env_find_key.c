@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/28 10:42:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:05:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,3 @@ t_member	*env_find_tmemb(char *key, t_list **env)
 	}
 	return (NULL);
 }
-
-/*
-void	export_expansion(char *str, t_hashtable *env)
-{
-	char	*save;
-
-	if (ft_strchr(str, '$'))
-	{
-	  	save = str;
-		if (ft_strlen(str) == 2 && str[1] == '?')
-			str = ft_itoa(g_status);
-		else
-			inspect_token(&save, &env);
-		free(save);
-	}
-}*/

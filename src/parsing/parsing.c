@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 09:17:32 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:10:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,18 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	unclosed_quotes(str);
 	break_into_words(inputs, str);
 	expansion(inputs, env);
-//	print_unidentified_tokens(*inputs);
+	//print_unidentified_tokens(*inputs);
 //	printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	word_or_operator(inputs);
 	second_tokenizing(inputs);
 	
 	syntax_errors(inputs);
+	//print_unidentified_tokens(*inputs);
+	
 	divide(inputs, &tree, &env);
 	btree_apply_prefix(tree, &quotes_removal);
+	//print_divided_cmds(tree, 0);
 	btree_apply_prefix(tree, &create_argv);
 	fill_pipeline(&pipeline, tree, env);
 	btree_clear_infix(tree, NULL);

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 08:57:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/30 09:30:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_list	*space_knitting(char **split, t_list **curr)
 		tmp = new;
 		i++;
 	}
-	return (new);
+	return (tmp);
 }
 
 static t_list	*space_break(t_list **node, char *str)
@@ -58,7 +58,8 @@ void	second_tokenizing(t_list **inputs)
 			tmp = space_break(&tmp, tok->word);
 		//printf("\n[second_tokenizing] tmp after space_break(might have changed): %p\n", tmp);
 		//printf("\n[second_tokenizing] tmp->next after space_break(shouldn't have changed): %p\n", tmp->next);
-		tmp = tmp->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
 }
 
