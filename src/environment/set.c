@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 14:32:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:55:04 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ t_member	*create_table_member(char *key, char *value, t_bool is_og)
 
 void	set_hashtable(char **envp, t_list **env)
 {
-	size_t	size;
+	// size_t	size;
 
-	size = ft_arrlen(envp);
+	// size = ft_arrlen(envp);
 	/*if (size == 0)
 	{
 		create_table(env, 1024);	//securiser

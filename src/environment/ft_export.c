@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 15:59:38 by abernade         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:55:47 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static int	make_key(t_member **m, char *argv, int eq)
 {
 	t_member	*room;
-	int		i;
+	// int		i;
 
 	room = *m;
-	i = 0;
+	// i = 0;
 	if (!room->key)
 	{
 		if (argv[eq - 1] == '+')
