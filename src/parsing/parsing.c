@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 16:43:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 09:46:39 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,14 +192,16 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 {
 	t_pipeline	*pipeline;
 	t_btree		*tree;
+	char		*res;
 	
 	unclosed_quotes(str);
 	printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
-	str = ft_strtrim(str, " \t");
+	res = ft_strtrim(str, " \t");
+	free(str);
 	printf("\n[parsing] str after trimming isspaces: BEG/%s/END\n", str);
 	tree = NULL;
-	break_into_words(inputs, str);
-	free(str);
+	break_into_words(inputs, res);
+	free(res);
 	word_or_operator(inputs);
 	print_unidentified_tokens(*inputs);
 	expansion(inputs, env);

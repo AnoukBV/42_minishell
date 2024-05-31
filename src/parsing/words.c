@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 13:17:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 16:29:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 08:46:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	new_word(t_list **list, char *str, size_t end, size_t start)
 	}
 }
 
-static size_t	new_metacharacter(t_list **list, char *str)
+static size_t	new_metacharacter(t_list **list, char *str, char prev)
 {
 	size_t		i;
 	t_wd_desc	*tok;
@@ -41,7 +41,7 @@ static size_t	new_metacharacter(t_list **list, char *str)
 			tok = new_wd_desc(0, ft_substr(str, 0, 1));
 			i = 1;
 		}
-		if (ft_strchr("<>", tok->word[0]) && !ft_isspace(str[-1]))
+		if (ft_strchr("<>", tok->word[0]) && prev && !ft_isspace(prev))
 			tok->flags += 3000;
 		ft_lstadd_back(list, ft_lstnew(tok));
 		if (tok->flags == 3000)
@@ -55,18 +55,21 @@ static void	input_into_words(char *str, t_list **words_list)
 	t_esc		esc_status;
 	size_t		i;
 	size_t		j;
+	char		prev;
 
 	i = 0;
 	j = 0;
+	prev = '\0';
 	esc_status.is_quoted = false;
 	while (str[i])
 	{
+		prev = str[i];
 		check_quote(&esc_status, &str[i]);
 		if (ft_strchr("|<>", str[i]) \
 			&& esc_status.is_quoted == false)
 		{
 			new_word(words_list, str, i, j);
-			i += new_metacharacter(words_list, &str[i]);
+			i += new_metacharacter(words_list, &str[i], prev);
 			j = i;
 		}
 		else
