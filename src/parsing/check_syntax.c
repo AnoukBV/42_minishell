@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 17:03:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:14:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	syntax_err_prompt(char *token, t_list **inputs)
 {
+	printf("\n[syntax_err_prompt] inputs before stx exit: \n");
+	print_unidentified_tokens(*inputs);
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 1);
 	ft_putstr_fd(token, 1);
 	ft_putstr_fd("'\n", 1);

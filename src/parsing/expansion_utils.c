@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 10:04:21 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:20:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,15 @@ static t_list	*space_knitting(char **split, t_list **curr, t_list **prev)
 		return (*prev);
 	}
 	
+	res = tmp->content;
 	tmp->content = NULL;
 	tmp->content = new_wd_desc(T_WORD, split[0]);
+	free(res);
 	while (split[i])
 	{
+		res = tmp->content;
 		new = ft_lstnew(new_wd_desc(T_WORD, split[i]));
+		free(res);
 		new->next = tmp->next;
 		tmp->next = new;
 		tmp = new;
