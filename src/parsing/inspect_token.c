@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 12:34:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:17:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 
 	i = 1;
 	new = NULL;
-	if (!str[i] || (ft_isspace(str[i]) || is_char_exp(str[i], 0) == false))
+	if (!str[i] || (ft_isspace(str[i]) || (is_char_exp(str[i], 1) == false && str[i] != '?')))
 	{
 		ft_lstadd_back(split, ft_lstnew(ft_strdup("$")));
 		return (i);
