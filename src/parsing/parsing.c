@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 10:03:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:37:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ static void	quotes_removal(void *content)
 	t_list		*save;
 	t_list		*map = NULL;
 
-	printf("\n[quotes_removal] here at very beginning\n");
+	//printf("\n[quotes_removal] here at very beginning\n");
 	cmd = (t_command *)content;
-	printf("\n[quotes_removal] in beginning of function\n");
+	//printf("\n[quotes_removal] in beginning of function\n");
 	if (cmd->is_argv == true && cmd->argv)
 	{
-		printf("\n[quotes_removal] in if statement\n");
+	//	printf("\n[quotes_removal] in if statement\n");
 		argv = (t_list *)cmd->argv;
 		if (!argv)
 			return ;
-		printf("\n[quotes_removal] argv not considered empty\n");
+	//	printf("\n[quotes_removal] argv not considered empty\n");
 		save = argv;
 		map = ft_lstmap(argv, &exec_removal, &del_wddesc);
 		ft_lstclear(&save, &del_wddesc);
@@ -193,40 +193,41 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	t_pipeline	*pipeline;
 	t_btree		*tree;
 	char		*res;
+
 	
 	unclosed_quotes(str);
-	printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
+	//printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
 	res = ft_strtrim(str, " \t");
 	free(str);
-	printf("\n[parsing] str after trimming isspaces: BEG/%s/END\n", res);
+	//printf("\n[parsing] str after trimming isspaces: BEG/%s/END\n", res);
 	tree = NULL;
 	break_into_words(inputs, res);
 	free(res);
 	word_or_operator(inputs);
-	print_unidentified_tokens(*inputs);
+	//print_unidentified_tokens(*inputs);
 	expansion(inputs, env);
-	print_unidentified_tokens(*inputs);
+	//print_unidentified_tokens(*inputs);
 //	printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	second_tokenizing(inputs);	
-	print_unidentified_tokens(*inputs);
+	//print_unidentified_tokens(*inputs);
 
 	syntax_errors(inputs);
 	divide(inputs, &tree, &env);
-	printf("\n[parsing] here before quotes removal\n");
+	//printf("\n[parsing] here before quotes removal\n");
 	//if (tree)
 	//	quotes_removal(tree->item);
 	btree_apply_prefix(tree, &quotes_removal);
-	printf("\n[parsing] here after quotes removal\n");
-	print_divided_cmds(tree, 0);
-	printf("\n[parsing] here before argv creation\n");
+	//printf("\n[parsing] here after quotes removal\n");
+	//print_divided_cmds(tree, 0);
+	//printf("\n[parsing] here before argv creation\n");
 	btree_apply_prefix(tree, &create_argv);
-	printf("\n[parsing] here after argv creation\n");
-	printf("\n[parsing] here before fill_pipeline\n");
+	//printf("\n[parsing] here after argv creation\n");
+	//printf("\n[parsing] here before fill_pipeline\n");
 	fill_pipeline(&pipeline, tree, env);
-	printf("\n[parsing] here after fill_pipeline\n");
-	printf("\n[parsing] here before clear tree\n");
+	//printf("\n[parsing] here after fill_pipeline\n");
+	//printf("\n[parsing] here before clear tree\n");
 	btree_clear_infix(tree, NULL);
-	printf("\n[parsing] here after clear tree\n");
+	//printf("\n[parsing] here after clear tree\n");
 	return (pipeline);
 }

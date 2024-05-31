@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 15:01:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:28:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int ac, char **av, char **envp)
 	t_list	*env;
 
 	(void)av;
+	//print_2d_array(envp);
 	g_status = 0;
 	env = NULL;
 	set_hashtable(envp, &env);

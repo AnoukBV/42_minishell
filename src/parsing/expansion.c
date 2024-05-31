@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 16:52:44 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:33:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ char	*expansion_inspection(char *token, t_list **env)
 	char		*save;
 	char		*save2;
 
-	if (token[1] == '?')
-		return (ft_itoa(g_status));
-	else
-		save = inspect_token(token, env);
+	save = inspect_token(token, env);
 	//free(save);
 	save2 = ft_strtrim(save, " \t");
 	free(save);
@@ -72,11 +69,12 @@ void	expansion(t_list **inputs, t_list *env)
 		token = (t_wd_desc *)tmp->content;
 		if (ft_strchr(token->word, '$'))
 		{
-//			printf("\nIn expansion, token BEFORE expansion_inspection: %s\n", token->word);
+			//printf("\n[expansion] token BEFORE expansion_inspection: %s\n", token->word);
 			res = token->word;
 			token->word = expansion_inspection(token->word, &env);
+			//printf("\n[expansion] token AFTER expansion: %s\n", token->word);
+
 			free(res);
-//		printf("\nIn expansion, token AFTER expansion: %s\n", token->word);
 			
 		}
 		tmp = tmp->next;

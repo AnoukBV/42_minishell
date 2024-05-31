@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 12:50:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:34:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,25 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 
 	i = 1;
 	new = NULL;
-	while (str[i] && is_char_exp(str[i], i) == true)
+	if (!str[i] || (ft_isspace(str[i]) || is_char_exp(str[i], 0) == false))
+	{
+		ft_lstadd_back(split, ft_lstnew(ft_strdup("$")));
+		return (i);
+	}
+	while (str[i] && (is_char_exp(str[i], i) == true || str[i] == '?'))
 	{
 		check_quote(stat, &str[i]);
 		i++;
 	}
-	if (i == 2 && str[1] == '$')
-		ft_lstadd_back(split, ft_lstnew(ft_strdup("$")));
-	else if (i > 1)
-	{
-		add = expand(str, env, i);
+	
+	add = expand(str, env, i);
 		//printf("\nIn isolate_exp, char* to be added to **split: %s\n", add);
-		if (add)
-		{
-			new = ft_lstnew(add);
-			ft_lstadd_back(split, new);
-		}
+	if (add)
+	{
+		new = ft_lstnew(add);
+		ft_lstadd_back(split, new);
 	}
-	printf("\n[isolate_exp] size of new inputs list: %d\n", ft_lstsize(new));
+	//printf("\n[isolate_exp] size of new inputs list: %d\n", ft_lstsize(new));
 	return (i);
 }
 

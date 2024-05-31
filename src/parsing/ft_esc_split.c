@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 08:05:43 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 09:44:32 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:35:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ char	**ft_esc_split(char *s, char *c)
 	char	*to_split;
 	int		len_split;
 	
-	printf("\n[ft_esc_split] char *s at beginning: BEG/%s/END\n", s);
+	//printf("\n[ft_esc_split] char *s at beginning: BEG/%s/END\n", s);
 	to_split = ft_strtrim(s, " \t");
 	//if (*to_split == 0)
 	//	return (0);
-	printf("\n[ft_esc_split] char *to_split after trim: BEG/%s/END\n", to_split);
+	//printf("\n[ft_esc_split] char *to_split after trim: BEG/%s/END\n", to_split);
 	free(s);
 	len_split = count_arrays(to_split, c);
-	printf("\n[ft_esc_split] len_split: %d\n", len_split);
+	//printf("\n[ft_esc_split] len_split: %d\n", len_split);
 	split = malloc(sizeof(char *) * (len_split + 1));
 	if (split == NULL)
 		return (NULL);
