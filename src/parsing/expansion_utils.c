@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 09:48:43 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/05/31 10:04:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ static t_list	*space_knitting(char **split, t_list **curr, t_list **prev)
 {
 	size_t	i;
 	t_list	*tmp;
+	t_wd_desc	*res;
 	t_list	*new;
 
 	i = 1;
 	tmp = *curr;
 	if (!split[0])
 	{
+		res = tmp->content;
 		*curr = tmp->next;
 		(*prev)->next = *curr;
-		ft_lstdelone(tmp, &del_wddesc);
+		free(res);
+		free(tmp);
 		printf("\n[space_knitting] size of split when node to be deleted: %zu\n", ft_arrlen(split));
 		return (*prev);
 	}
