@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 12:33:05 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 22:41:44 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static int	make_key(t_member **m, char *argv, int eq)
 {
 	t_member	*room;
-	int		i;
 
 	room = *m;
-	i = 0;
 	if (!room->key)
 	{
 		if (argv[eq - 1] == '+')

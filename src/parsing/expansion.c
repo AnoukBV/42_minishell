@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 12:36:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 22:37:19 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	expansion(t_list **inputs, t_list *env)
 {
 	char	*res;
 	t_list		*tmp;
-	t_wd_desc	*prev;
+	//t_wd_desc	*prev;
 	t_wd_desc	*token;
 	//char	*final;
 
 	tmp = *inputs;
-	prev = tmp->content;
+	//prev = tmp->content;
 	//while (tmp)
 	//{
 	
@@ -85,7 +85,7 @@ void	expansion(t_list **inputs, t_list *env)
 			free(res);
 			
 		}
-		prev = tmp->content;
+		//prev = tmp->content;
 		tmp = tmp->next;
 	}
 	

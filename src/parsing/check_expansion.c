@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 13:56:27 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 09:28:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 22:40:30 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,28 @@ static t_bool	exp_between_quotes(char *str)
 	return (false);
 }
 */
+/*
 static t_bool	activate_exp(char *c, t_exp **expansion, t_bool save_q)
 {
-	t_exp	*exp_status;
+	//t_exp	*exp_status;
 
-	exp_status = *expansion;
+	//exp_status = *expansion;
 	//if (save_q)
 	(void)c;
 	(void)save_q;
 	return (true);
-}
+}*/
 
 t_bool	check_expansion(t_exp **expansion, char *str)
 {
-	static t_bool	save_q;
+	//static t_bool	save_q;
 	t_exp			*exp_status;
 
 	exp_status = *expansion;
-	save_q = exp_status->esc_status->is_quoted;
+	//save_q = exp_status->esc_status->is_quoted;
 	check_quote(exp_status->esc_status, str);
 	if (*str == '$' && exp_status->is_exp_sim == false)
-		return (activate_exp(str, expansion, save_q));
+		return (true);
 	else if (exp_status->is_exp_sim == true)
 	{
 		if ((ft_strlen(str) > 2 && ft_strchr("\'\"", str[1]) && str[2] \

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 17:00:13 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 22:40:59 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ t_member	*create_table_member(char *key, char *value, t_bool is_og)
 
 void	set_hashtable(char **envp, t_list **env)
 {
-	size_t	size;
+	//size_t	size;
 
-	size = ft_arrlen(envp);
+	//size = ft_arrlen(envp);
 	/*if (size == 0)
 	{
 		create_table(env, 1024);	//securiser
