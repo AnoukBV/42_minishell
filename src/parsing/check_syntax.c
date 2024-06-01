@@ -6,20 +6,24 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 13:58:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:31:51 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	syntax_err_prompt(char *token, t_list **inputs)
+extern int	g_status;
+
+int	syntax_err_prompt(char *token, t_list **inputs)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
 	if (inputs)
 		ft_lstclear(inputs, &del_wddesc);
-	exit(2);
+	g_status = 2;
+//	rl_signals_handler(SIGINT);
+	return (1);
 }
 /*
 void	red_experr_prompt(char *token, t_list **inputs)
@@ -33,7 +37,7 @@ void	red_experr_prompt(char *token, t_list **inputs)
 	exit(2);
 }
 */
-void	syntax_errors(t_list **inputs)
+int	syntax_errors(t_list **inputs)
 {
 	t_list		*check;
 	t_wd_desc	*prev;
@@ -41,14 +45,14 @@ void	syntax_errors(t_list **inputs)
 
 	check = *inputs;
 	if (!check)
-		return ;
+		return (1);
 	curr = check->content;
 	if (curr->flags == T_PIPE)
-		syntax_err_prompt(curr->word, inputs);
+		return (syntax_err_prompt(curr->word, inputs));
 	else if ((ft_lstsize(*inputs) == 1 && curr->flags != T_WORD) || \
 		(ft_lstsize(*inputs) == 2 && (curr->flags == T_RED_IN && \
 		(int)((t_wd_desc *)check->next->content)->flags == T_RED_OUT)))
-		syntax_err_prompt("newline", inputs);
+		return (syntax_err_prompt("newline", inputs));
 	
 	prev = curr;
 	check = check->next;
@@ -57,12 +61,13 @@ void	syntax_errors(t_list **inputs)
 		curr = check->content;
 		if ((curr->flags == T_PIPE && prev->flags == T_PIPE) || \
 			((prev->flags == T_RED_OUT || prev->flags == T_RED_IN || prev->flags == T_APP_OUT) && curr->flags != T_WORD))
-			syntax_err_prompt(curr->word, inputs);
+			return (syntax_err_prompt(curr->word, inputs));
 		else if (curr->flags != T_WORD && check->next == NULL)
-			syntax_err_prompt("newline", inputs);
+			return (syntax_err_prompt("newline", inputs));
 		prev = curr;
 		check = check->next;
 	}
+	return (0);
 }
 
 void	unclosed_quotes(char *str)

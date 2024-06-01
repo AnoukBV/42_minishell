@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/31 13:20:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:31:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,23 @@ static void	shell_prompt(t_list *env, int ac)
 	set_exec_signals();
 	if (ft_strlen(line))
 	{
-		pipeline = parsing(ft_strdup(line), &tokens, env);
-		pipeline->cmd_line = line;
-		execute_pipeline(pipeline);
+		if (parsing(ft_strdup(line), &tokens, env, &pipeline) == 0)
+		{
+			pipeline->cmd_line = line;
+			execute_pipeline(pipeline);
+		}
+		else
+			pipeline = NULL;
 	}
 	if (ft_strlen(line))
 	{
 		add_history(line);
 		free(line);
-		env = pipeline->envp;
-		free(pipeline);
+		if (pipeline)
+		{
+			env = pipeline->envp;
+			free(pipeline);
+		}
 		shell_prompt(env, ac);
 	}
 	else if (line)

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 12:40:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:32:34 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,9 @@ char	*skip_isspace(char *str)
 	return (new);
 }
 */
-t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
+int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 {
-	t_pipeline	*pipeline;
+	//t_pipeline	*pipeline;
 	t_btree		*tree;
 	char		*res;
 
@@ -217,7 +217,8 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	second_tokenizing(inputs);	
 	//print_unidentified_tokens(*inputs);
 
-	syntax_errors(inputs);
+	if (syntax_errors(inputs) == 1)
+		return (1);
 	divide(inputs, &tree, &env);
 	//printf("\n[parsing] here before quotes removal\n");
 	//if (tree)
@@ -229,12 +230,12 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	btree_apply_prefix(tree, &create_argv);
 	//printf("\n[parsing] here after argv creation\n");
 	//printf("\n[parsing] here before fill_pipeline\n");
-	fill_pipeline(&pipeline, tree, env);
+	fill_pipeline(pipeline, tree, env);
 	//printf("\n[parsing] here after fill_pipeline\n");
 	//printf("\n[parsing] here before clear tree\n");
 	btree_clear_infix(tree, NULL);
 	//printf("\n[parsing] here after clear tree\n");
 //	printf("\n[parsing] final\n");
 	//print_pipeline(pipeline);
-	return (pipeline);
+	return (0);
 }

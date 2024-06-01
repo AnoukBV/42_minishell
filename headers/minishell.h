@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 12:12:49 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 14:25:59 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct	s_pipeline
 
 // parsing
 
-t_pipeline		*parsing(char *str, t_list **inputs, t_list *env);
+int				parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline);
 char			**newlines(char *str, size_t *input_nb);
 void			break_into_words(t_list **inputs, char *inputs_array);
 void			word_or_operator(t_list **inputs);
@@ -133,7 +133,7 @@ char			*inspect_token(char *str, t_list **env);
 char			*join_after_expansion(t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env);
-void			syntax_errors(t_list **inputs);
+int			syntax_errors(t_list **inputs);
 void			unclosed_quotes(char *str);
 t_bool			is_char_exp(char c, int i);
 char			**ft_esc_split(char *s, char *c);
