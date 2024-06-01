@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 17:22:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:12:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char			**ft_esc_split(char *s, char *c);
 void			second_tokenizing(t_list **inputs);
 t_bool 			is_space_esc(t_esc stat, char c);
 size_t			count_isspace(char *str);
+void			red_experr_prompt(char *token, t_list **inputs);
 
 
 

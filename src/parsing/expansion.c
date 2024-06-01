@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 12:33:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:36:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*expansion_inspection(char *token, t_list **env)
 	char		*save2;
 
 	save = inspect_token(token, env);
+	if (!save)
+		return (NULL);
 	//free(save);
 	save2 = ft_strtrim(save, " \t");
 	free(save);
@@ -57,10 +59,12 @@ void	expansion(t_list **inputs, t_list *env)
 {
 	char	*res;
 	t_list		*tmp;
+	t_wd_desc	*prev;
 	t_wd_desc	*token;
 	//char	*final;
 
 	tmp = *inputs;
+	prev = tmp->content;
 	//while (tmp)
 	//{
 	
@@ -72,11 +76,16 @@ void	expansion(t_list **inputs, t_list *env)
 			//printf("\n[expansion] token BEFORE expansion_inspection: %s\n", token->word);
 			res = token->word;
 			token->word = expansion_inspection(token->word, &env);
-			//printf("\n[expansion] token AFTER expansion: %s\n", token->word);
-
+			if (!token->word)
+			{
+				ft_lstclear(inputs, &del_wddesc);
+				free(res);
+				break ;
+			}
 			free(res);
 			
 		}
+		prev = tmp->content;
 		tmp = tmp->next;
 	}
 	

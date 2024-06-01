@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 12:37:14 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:40:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static char	*trim_quotes(char *str)
 	char	**array;
 
 	if (ft_strlen(str) == 2 && str[0] == '\n' && str[1] == '\n')
+	{
+		free(str);
 		return (ft_strdup(""));
+	}
 	array = ft_split(str, '\n');
 	new = ft_superjoin(array, NULL);
 	free_array_2d(array);
@@ -207,7 +210,9 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	//print_unidentified_tokens(*inputs);
 	expansion(inputs, env);
 	//print_unidentified_tokens(*inputs);
-//	printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
+	//printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
+	//print_unidentified_tokens(*inputs);
+
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	second_tokenizing(inputs);	
 	//print_unidentified_tokens(*inputs);
@@ -229,5 +234,7 @@ t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
 	//printf("\n[parsing] here before clear tree\n");
 	btree_clear_infix(tree, NULL);
 	//printf("\n[parsing] here after clear tree\n");
+//	printf("\n[parsing] final\n");
+	//print_pipeline(pipeline);
 	return (pipeline);
 }

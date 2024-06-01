@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 10:29:34 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:34:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,18 @@ void	syntax_err_prompt(char *token, t_list **inputs)
 		ft_lstclear(inputs, &del_wddesc);
 	exit(2);
 }
-
+/*
+void	red_experr_prompt(char *token, t_list **inputs)
+{
+	ft_putstr_fd("minishell: ", 1);
+	ft_putstr_fd(token, 1);
+	ft_putstr_fd(": ambiguous redirect:\n", 1);
+	free(token);
+	if (inputs)
+		ft_lstclear(inputs, &del_wddesc);
+	exit(2);
+}
+*/
 void	syntax_errors(t_list **inputs)
 {
 	t_list		*check;
@@ -43,7 +54,7 @@ void	syntax_errors(t_list **inputs)
 	while (check)
 	{
 		curr = check->content;
-		if (prev->flags != 0 && curr->flags != 0)
+		if ((prev->flags != 0 && curr->flags != 0) || (curr->flags != 0 && check->next == NULL))
 			syntax_err_prompt(curr->word, inputs);
 		prev = curr;
 		check = check->next;
