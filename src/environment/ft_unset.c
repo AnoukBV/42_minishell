@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 15:59:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:54:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_unset(char **argv, t_list **env)
 		unset_variable(argv[i + 1], env);
 		i++;
 	}
-	printf("\n[ft_unset] (*env) after unset_variable: %p\n", *env);
+	//printf("\n[ft_unset] (*env) after unset_variable: %p\n", *env);
 	return (0);
 }
 

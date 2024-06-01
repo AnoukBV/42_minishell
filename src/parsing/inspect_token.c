@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:05:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 12:35:51 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:17:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 {
 	t_list	*new;
 	char	*add;
+	//char	*res;
 	int	i;
 
 	i = 1;
@@ -48,14 +49,24 @@ static int	isolate_exp(char *str, t_list **env, t_list **split, t_esc *stat)
 		check_quote(stat, &str[i]);
 		i++;
 	}
-	
-	add = expand(str, env, i);
+	//printf("\n%c\n", str[1]);
+	//if (str[1] == '?')
+	//{
+	//	add = expand("?", env, 2);
+	//	printf("\n%s\n", add);
+	//	add = ft_strjoin(res, expand(&str[1], env, i - 1));
+	//	i = 2;
+	//}
+	//else
+		add = expand(str, env, i);
 		//printf("\nIn isolate_exp, char* to be added to **split: %s\n", add);
 	if (add)
 	{
 		new = ft_lstnew(add);
 		ft_lstadd_back(split, new);
 	}
+	if (str[1] == '?')
+		i = 2;
 	//printf("\n[isolate_exp] size of new inputs list: %d\n", ft_lstsize(new));
 	return (i);
 }
