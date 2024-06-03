@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 12:54:17 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:48:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	unset_variable(char *argv, t_list **env)
 		tmp = tmp->next;
 	}
 	if (prev == *env && tmp)
+	{
+		tmp = *env;
 		*env = (*env)->next;
+	}
 	else if (tmp)
 		prev->next = tmp->next;
 	else
@@ -46,7 +49,10 @@ int	ft_unset(char **argv, t_list **env)
 		return (1);
 	while (i < ft_arrlen(&argv[1]))
 	{
-		unset_variable(argv[i + 1], env);
+		if (exp_check_err(argv[i + 1]) == 1)
+			ft_exp_err_mess(argv[i + 1], NULL);
+		else
+			unset_variable(argv[i + 1], env);
 		i++;
 	}
 	//printf("\n[ft_unset] (*env) after unset_variable: %p\n", *env);

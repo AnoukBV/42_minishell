@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 16:00:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:26:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static int	add_member(char *argv, t_list *env, int eq)
 		search = ft_substr(argv, 0, eq - 1);
 	else
 		search = ft_substr(argv, 0, eq);
-	if (argv[0] == '-' && ft_strlen(argv) > 1)
-		return (ft_exp_option_mess(argv[1]));
+//	if (argv[0] == '-' && ft_strlen(argv) > 1)
+//		return (ft_exp_option_mess(argv[1]));
 	if (exp_check_err(search) == 1)
 		return (ft_exp_err_mess(argv, search));
 	room = env_find_tmemb(search, &env);

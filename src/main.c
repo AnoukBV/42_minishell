@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/01 14:31:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:53:20 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*select_prompt(void)
 	return (line);
 }
 
-static void	shell_prompt(t_list *env, int ac)
+static void	shell_prompt(t_list **env, int ac)
 {
 	t_list		*tokens;
 	char		*line;
@@ -52,7 +52,7 @@ static void	shell_prompt(t_list *env, int ac)
 	set_exec_signals();
 	if (ft_strlen(line))
 	{
-		if (parsing(ft_strdup(line), &tokens, env, &pipeline) == 0)
+		if (parsing(ft_strdup(line), &tokens, *env, &pipeline) == 0)
 		{
 			pipeline->cmd_line = line;
 			execute_pipeline(pipeline);
@@ -66,7 +66,7 @@ static void	shell_prompt(t_list *env, int ac)
 		free(line);
 		if (pipeline)
 		{
-			env = pipeline->envp;
+			*env = pipeline->envp;
 			free(pipeline);
 		}
 		shell_prompt(env, ac);
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **envp)
 	g_status = 0;
 	env = NULL;
 	set_hashtable(envp, &env);
-	shell_prompt(env, ac);
+	shell_prompt(&env, ac);
 	ft_lstclear(&env, &del_member);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/23 13:11:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:54:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ int	ft_exp_p(t_list **e)
 			tmp = env->content;
 	}
 	if (!env)
+	{
+		free(entries);
 		return (0);
+	}
 	export_prepare_sort(entries, &env);
 	free(entries);
 	return (0);
