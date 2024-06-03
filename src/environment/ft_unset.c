@@ -6,12 +6,21 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 16:48:33 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:03:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_unset_err_mess(char *wrong, char *to_free)
+{
+	ft_putstr_fd("minishell: unset: `", 2);
+	ft_putstr_fd(wrong, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	if (to_free)
+		free(to_free);
+	return (1);
+}
 void	unset_variable(char *argv, t_list **env)
 {
 	t_member	*del;
@@ -50,7 +59,7 @@ int	ft_unset(char **argv, t_list **env)
 	while (i < ft_arrlen(&argv[1]))
 	{
 		if (exp_check_err(argv[i + 1]) == 1)
-			ft_exp_err_mess(argv[i + 1], NULL);
+			ft_unset_err_mess(argv[i + 1], NULL);
 		else
 			unset_variable(argv[i + 1], env);
 		i++;
