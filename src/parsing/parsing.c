@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 14:32:34 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:16:01 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,8 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	char		*res;
 
 	
-	unclosed_quotes(str);
+	if (unclosed_quotes(str) == 1)
+		return (1);
 	//printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
 	res = ft_strtrim(str, " \t");
 	free(str);

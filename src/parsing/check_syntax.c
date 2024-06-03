@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 14:31:51 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:16:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	syntax_err_prompt(char *token, t_list **inputs)
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
-	if (inputs)
+	if (inputs != NULL)
 		ft_lstclear(inputs, &del_wddesc);
 	g_status = 2;
 //	rl_signals_handler(SIGINT);
@@ -70,7 +70,17 @@ int	syntax_errors(t_list **inputs)
 	return (0);
 }
 
-void	unclosed_quotes(char *str)
+int	quotes_err_prompt(char *token)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+	ft_putstr_fd(token, 2);
+	ft_putstr_fd("'\n", 2);
+	g_status = 2;
+//	rl_signals_handler(SIGINT);
+	return (1);
+}
+
+int	unclosed_quotes(char *str)
 {
 	int	i;
 	t_esc	status;
@@ -85,13 +95,14 @@ void	unclosed_quotes(char *str)
 		if (status.unclosed == true && status.is_simplequote == false)
 		{
 			free(str);
-			syntax_err_prompt("\" --unclosed", NULL);
+			return (quotes_err_prompt("\" --unclosed"));
 		}
 		else if (status.unclosed == true && status.is_simplequote == true)
 		{
 			free(str);
-			syntax_err_prompt("' --unclosed", NULL);
+			return (quotes_err_prompt("' --unclosed"));
 		}
 		i++;
 	}
+	return (0);
 }

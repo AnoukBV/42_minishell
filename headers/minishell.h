@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 14:25:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:15:51 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char			*join_after_expansion(t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env);
 int			syntax_errors(t_list **inputs);
-void			unclosed_quotes(char *str);
+int			unclosed_quotes(char *str);
 t_bool			is_char_exp(char c, int i);
 char			**ft_esc_split(char *s, char *c);
 void			second_tokenizing(t_list **inputs);
