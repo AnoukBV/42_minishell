@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 22:40:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:35:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,23 @@ void	set_hashtable(char **envp, t_list **env)
 		create_table(env, 1024);	//securiser
 		return ;
 	}*/
-	fill_table(envp, env);
+	char	**envi;
+	char	buf[PATH_MAX];
+
+	if (!envp[0])
+	{
+		envi = ft_calloc(sizeof(char *), 3);
+		if (!envi)
+			return ;
+		getcwd(buf, PATH_MAX);
+		envi[0] = ft_strjoin("PWD=", (const char *)buf);
+		envi[1] = ft_strdup("SHLVL=1");
+		envi[2] = NULL;
+		fill_table(envi, env);
+		free_array_2d(envi);
+	}
+	else
+		fill_table(envp, env);
 	//free_array_2d(envp);
 	//print_env(*env, ENV);
 }

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/03 16:53:20 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:32:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,16 @@ static void	shell_prompt(t_list **env, int ac)
 int	main(int ac, char **av, char **envp)
 {
 	t_list	*env;
+	//char	 **envi;
+	//char	buf[PATH_MAX];
 
 	(void)av;
-	//print_2d_array(envp);
 	g_status = 0;
 	env = NULL;
+	
+	//	set_hashtable(envi, &env);
+	//}
+	//else
 	set_hashtable(envp, &env);
 	shell_prompt(&env, ac);
 	ft_lstclear(&env, &del_member);
