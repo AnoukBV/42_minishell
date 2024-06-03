@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/31 12:35:01 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:52:01 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ static t_list	*space_knitting(char **split, t_list **curr, t_list **prev)
 	free(res);
 	while (split[i])
 	{
-		new = ft_lstnew(new_wd_desc(T_WORD, split[i]));
-		new->next = tmp->next;
-		tmp->next = new;
-		tmp = new;
+		if (count_isspace(split[i]) != ft_strlen(split[i]) || !split[i])
+		{
+			new = ft_lstnew(new_wd_desc(T_WORD, split[i]));
+			new->next = tmp->next;
+			tmp->next = new;
+			tmp = new;
+		}
 		i++;
 	}
 	return (tmp);

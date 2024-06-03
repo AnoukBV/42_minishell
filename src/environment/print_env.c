@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 10:29:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 15:31:53 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:36:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	env_print_member(void *mb)
 	m = (t_member *)mb;
   	if (!m)
 		return ;
-	if (!m->key)
+	if (!m->key || !m->value)
 		return ;
 	ft_printf("%s=%s\n", m->key, m->value);
 }

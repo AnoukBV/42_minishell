@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/29 13:31:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:22:39 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 	t_redir_list	*next;
 
 	node = *r_list;
+
 	while (node != NULL)
 	{
 		next = node->next;

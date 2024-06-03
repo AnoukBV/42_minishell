@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 13:16:01 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:45:05 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static char	*trim_quotes(char *str)
 	new = ft_superjoin(array, NULL);
 	free_array_2d(array);
 	free(str);
+	//printf("\n[trim_quotes] new: %s\n", new);
 	return (new);
 }
 
@@ -56,6 +57,38 @@ static void	*exec_removal(void *item)
 	return (token);
 }
 
+static void	redir_exec_removal(char **token)
+{
+	t_esc		esc_status;
+	size_t		i;
+	char 		*str;
+	char		*item;
+
+	i = 0;
+	item = *token;
+	if (ft_strchr("|<>", item[0]) || (!ft_strchr(item, \
+		'\'') && !ft_strchr(item, '"')))
+		return ;
+	esc_status.is_quoted = false;
+	while (item[i])
+	{
+		check_quote_bis(&esc_status, &item[i]);
+		i++;
+	}
+	str = ft_strdup(item);
+	item = trim_quotes(str);
+	*token = item;
+}
+
+static void	ft_redirlstiter(t_redir_list *lst, void (f)(char **))
+{
+	while (lst && (*f))
+	{
+		f(&lst->target_filename);
+		lst = lst->next;
+	}
+}
+
 static void	quotes_removal(void *content)
 {
 	t_command	*cmd;
@@ -78,6 +111,8 @@ static void	quotes_removal(void *content)
 		ft_lstclear(&save, &del_wddesc);
 		cmd->argv = map;
 	}
+	if (cmd->redir_list)
+		ft_redirlstiter(cmd->redir_list, &redir_exec_removal);
 }
 
 void	check_quote_bis(t_esc *esc_status, char *str)
@@ -236,7 +271,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//printf("\n[parsing] here before clear tree\n");
 	btree_clear_infix(tree, NULL);
 	//printf("\n[parsing] here after clear tree\n");
-//	printf("\n[parsing] final\n");
-	//print_pipeline(pipeline);
+	printf("\n[parsing] final\n");
+	print_pipeline(*pipeline);
 	return (0);
 }
