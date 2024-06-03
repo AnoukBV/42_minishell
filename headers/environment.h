@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:45:42 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 17:04:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:59:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char		**transform_envp(t_list *env);
 
 // free memory
 void	free_env_member(void *elem);	
-int	ft_exp_err_mess(char *wrong);
+int		ft_exp_err_mess(char *wrong, char *search);
 void	free_env_list(t_list **env_list);
 int	ft_exp_option_mess(char str);
 //char	**duplicate_envp(char **envp);

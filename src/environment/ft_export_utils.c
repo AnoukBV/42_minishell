@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:16:19 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 17:09:08 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:59:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ int	*split_key_value(char **argv)
 	return (eq);
 }
 
-int	ft_exp_err_mess(char *wrong)
+int	ft_exp_err_mess(char *wrong, char *to_free)
 {
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(wrong, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+	if (to_free)
+		free(to_free);
 	return (1);
 }
 

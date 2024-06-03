@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 08:05:43 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 14:47:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:53:28 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ char	**ft_esc_split(char *s, char *c)
 	if (split == NULL)
 		return (NULL);
 	split = fill_split(split, to_split, c, len_split);
-	print_2d_array(split);
 	free(to_split);
 	if (!split)
 		split = free_split(split, len_split);
