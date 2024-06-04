@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 12:37:17 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:46:21 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	g_status = 0;
 	env = NULL;
-	
+
 	set_hashtable(envp, &env);
 	shell_prompt(&env, ac);
 	ft_lstclear(&env, &del_member);

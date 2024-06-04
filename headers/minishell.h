@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 12:22:15 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:44:26 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,6 @@ void	print_envp(t_list *envp);
 *	No redirection is done at this time
 */
 t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env);
-void		prepare_pipeline(t_pipeline *pipeline);
-
 void		destroy_pipeline(t_pipeline *pipeline);
 
 
@@ -221,6 +219,7 @@ void		destroy_pipeline(t_pipeline *pipeline);
 *	Redirections
 */
 int			do_redirections(t_command *cmd, t_pipeline *pipeline);
+void		set_pipes(t_pipeline *pipeline, t_command *cmd);
 
 	/*
 	*	Manage t_fd_list structures

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 12:24:25 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:04:10 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	char	**envp;
 	char	*path;
 
-	if (ft_strchr(cmd->command, '/') == NULL && !is_builtin(cmd->command))
+	if (cmd->flags != EMPTY && ft_strchr(cmd->command, '/') == NULL && \
+		!is_builtin(cmd->command))
 	{
 		path = get_bin_path(pipeline->envp, cmd->command);
 		if (path != NULL)
@@ -73,6 +74,7 @@ static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 {
 	int	pid;
 
+	set_pipes(pipeline, cmd);
 	pid = fork();
 	if (pid == -1)
 		fork_error(pipeline);
@@ -80,8 +82,12 @@ static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	{
 		child_exec(pipeline, cmd);
 		ft_putstr_fd("child_exec() returned :(\n", 2);
-		exit (1) ;
+		exit(1) ;
 	}
+	if (cmd->prev)
+		close(cmd->pipe_left[0]);
+	if (cmd->next)
+		close(cmd->pipe_right[1]);
 	add_pid(pid, &pipeline->pid_list);
 }
 
@@ -108,7 +114,6 @@ void	execute_pipeline(t_pipeline *pipeline)
 	t_command	*cmd;
 
 	cmd = pipeline->cmd_list;
-	prepare_pipeline(pipeline);
 	while (cmd)
 	{
 		if (!cmd->prev && !cmd->next && is_builtin(cmd->command))
