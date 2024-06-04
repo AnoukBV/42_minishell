@@ -6,11 +6,16 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:23:49 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 15:46:54 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:23:05 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	update_env_exit_code(t_list **env_lst, int exit_code)
+{
+	update_env_element(env_lst, ENV_KEY_EXIT_CODE, ft_itoa(exit_code));
+}
 
 void	update_env_element(t_list **env_lst, char *key, char *value)
 {

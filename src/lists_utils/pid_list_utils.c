@@ -6,13 +6,11 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 00:46:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 14:10:04 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:21:09 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-extern int	g_status;
 
 void	destroy_pid_list(t_pid_list **pid)
 {
@@ -29,7 +27,7 @@ void	destroy_pid_list(t_pid_list **pid)
 	*pid = NULL;
 }
 
-void	wait_all_pid(t_pid_list **pid_list)
+void	wait_all_pid(t_pid_list **pid_list, t_list **envp)
 {
 	t_pid_list	*node;
 	t_pid_list	*next;
@@ -43,7 +41,7 @@ void	wait_all_pid(t_pid_list **pid_list)
 	while (node)
 	{
 		waitpid(node->pid, &status, 0);
-		g_status = get_status(status);
+		update_env_exit_code(envp, get_status(status));
 		if (prev == NULL)
 			*pid_list = node->next;
 		else

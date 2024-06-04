@@ -6,12 +6,14 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:45:42 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 09:09:03 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:18:02 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
+
+# define ENV_KEY_EXIT_CODE "EXITCODE"
 
 typedef struct	s_member
 {
@@ -36,7 +38,10 @@ t_member	*env_find_tmemb(char *key, t_list **env);
 t_member	*create_table_member(char *key, char *value, t_bool is_og);
 int			ft_exp_p(t_list **e);
 char		**transform_envp(t_list *env);
+
+// update env variables without calling ft_export
 void	update_env_element(t_list **env_lst, char *key, char *value);
+void	update_env_exit_code(t_list **env_lst, int exit_code);
 
 // free memory
 void	free_env_member(void *elem);	

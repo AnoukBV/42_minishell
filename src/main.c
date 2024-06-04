@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 09:07:17 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:37:17 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ static void	shell_prompt(t_list **env, int ac)
 	set_rl_signals();
    	line = select_prompt();
 	set_exec_signals();
+	if (g_status)
+	{
+		update_env_exit_code(env, g_status + 128);
+		g_status = 0;
+	}
 	if (ft_strlen(line))
 	{
 		if (parsing(ft_strdup(line), &tokens, *env, &pipeline) == 0)

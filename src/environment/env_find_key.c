@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_find_key.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 14:40:17 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:04:14 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int	g_status;
 
 char	*env_find_key(char *key, t_list	**env)
 {

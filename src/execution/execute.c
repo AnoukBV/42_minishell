@@ -6,13 +6,11 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 09:59:37 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:24:25 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-extern int	g_status;
 
 void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 {
@@ -33,7 +31,7 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 		exit_code = print_env(&pipeline->envp, ENV);
 	else if (!ft_strncmp(cmd->command, "unset" ,6))
 		exit_code = ft_unset(cmd->argv, &pipeline->envp);
-	g_status = exit_code;
+	update_env_exit_code(&pipeline->envp, exit_code);
 	if (will_exit)
 	{
 		free(pipeline->cmd_line);
@@ -100,7 +98,7 @@ static void	simple_builtin_exec(t_command *cmd, t_pipeline *pipeline)
 		builtin_exec(cmd, pipeline, false);
 	}
 	else
-		g_status = 1;
+		update_env_exit_code(&pipeline->envp, 1);
 	dup2(stdout_fd_save , 1);
 	dup2(stdin_fd_save , 0);
 }
@@ -120,7 +118,7 @@ void	execute_pipeline(t_pipeline *pipeline)
 		if (cmd->next == NULL)
 		{
 			close_fd_list(&pipeline->fd_list);
-			wait_all_pid(&pipeline->pid_list);
+			wait_all_pid(&pipeline->pid_list, &pipeline->envp);
 		}
 		cmd = cmd->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 09:01:09 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:22:15 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct	s_pipeline
 	t_pid_list	*pid_list;
 	t_list		*envp;
 	char		*cmd_line;
+	int			exit_code;
 }	t_pipeline;
 
 # include <builtins.h>
@@ -241,7 +242,7 @@ void	add_pid(int pid, t_pid_list **pid_list);
 void	remove_pid(int pid, t_pid_list **pid_list);
 void	destroy_pid_list(t_pid_list **pid);
 
-void	wait_all_pid(t_pid_list **pid_list);
+void	wait_all_pid(t_pid_list **pid_list, t_list **envp);
 
 /*
 *	Execution utils
