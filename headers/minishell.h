@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 13:36:57 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:07:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,18 +134,18 @@ void			check_quote(t_esc *esc_status, char *str);
 int			expansion(t_list **, t_list *env);
 t_bool			check_expansion(t_exp **expansion, char *str);
 char			*expand(char *str, t_list **env, int size);
-char	*inspect_token(char *str, t_list **env, int flag, t_list **inputs);
-char	*join_after_expansion(t_list **splitted_token, int flag, char *str, t_list **inputs);
+char	*inspect_token(char *str, t_list **env);
+char	*join_after_expansion(t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env);
-int			syntax_errors(t_list **inputs);
-int			unclosed_quotes(char *str);
+int			syntax_errors(t_list **inputs, t_list **env);
+int			unclosed_quotes(char *str, t_list **env);
 t_bool			is_char_exp(char c, int i);
 char			**ft_esc_split(char *s, char *c);
 void			second_tokenizing(t_list **inputs);
 t_bool 			is_space_esc(t_esc stat, char c);
 size_t			count_isspace(char *str);
-int			red_experr_prompt(char *token, t_list **inputs);
+int			red_experr_prompt(char *token, t_list **inputs, t_list **env);
 
 
 

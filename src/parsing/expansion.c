@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 13:32:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:02:39 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ char	*expansion_inspection(char *token, t_list **env, int flag, t_list **inputs)
 		new_flag = 0;
 	else
 		new_flag = 1;
-	save = inspect_token(token, env, new_flag, inputs);
+	save = inspect_token(token, env);
+	
+	if (save == NULL && new_flag == 1)
+		red_experr_prompt(token, inputs, env);
 	if (!save)
 		return (NULL);
 	//free(save);

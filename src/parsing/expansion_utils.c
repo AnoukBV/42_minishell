@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 13:34:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:51:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*ambiguous_redirection(char *str, t_list **env)
 	return (new);
 }
 */
-char	*join_after_expansion(t_list **splitted_token, int flag, char *str, t_list **inputs)
+char	*join_after_expansion(t_list **splitted_token)
 {
 	t_list	*tmp;
 	char	*save;
@@ -135,8 +135,6 @@ char	*join_after_expansion(t_list **splitted_token, int flag, char *str, t_list 
 		free(new);
 		new = NULL;
 	}
-	if (new == NULL && flag == 1)
-		red_experr_prompt(str, inputs);
 	return (new);
 }
 

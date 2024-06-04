@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 13:37:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:06:53 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	t_btree		*tree;
 	char		*res;
 
-	if (unclosed_quotes(str) == 1)
+	if (unclosed_quotes(str, &env) == 1)
 		return (1);
 	//printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
 	res = ft_strtrim(str, " \t");
@@ -77,7 +77,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	second_tokenizing(inputs);
 	//print_unidentified_tokens(*inputs);
-	if (syntax_errors(inputs) == 1)
+	if (syntax_errors(inputs, &env) == 1)
 		return (1);
 	divide(inputs, &tree, &env);
 	//printf("\n[parsing] here before quotes removal\n");

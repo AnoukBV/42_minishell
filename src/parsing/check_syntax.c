@@ -6,26 +6,24 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 13:25:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:06:47 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int	g_status;
-
-static int	syntax_err_prompt(char *token, t_list **inputs)
+static int	syntax_err_prompt(char *token, t_list **inputs, t_list **env)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
 	if (inputs != NULL)
 		ft_lstclear(inputs, &del_wddesc);
-	g_status = 2;
+	update_env_exit_code(env, 2);
 	return (2);
 }
 
-static int	rest_of_syntax(t_list **ch, t_list **inputs)
+static int	rest_of_syntax(t_list **ch, t_list **inputs, t_list **env)
 {
 	t_list		*check;
 	t_wd_desc	*prev;
@@ -41,16 +39,16 @@ static int	rest_of_syntax(t_list **ch, t_list **inputs)
 		if ((curr->flags == T_PIPE && prev->flags == T_PIPE) || \
 			((prev->flags == T_RED_OUT || prev->flags == T_RED_IN \
 			|| prev->flags == T_APP_OUT) && curr->flags != T_WORD))
-			return (syntax_err_prompt(curr->word, inputs));
+			return (syntax_err_prompt(curr->word, inputs, env));
 		else if (curr->flags != T_WORD && check->next == NULL)
-			return (syntax_err_prompt("newline", inputs));
+			return (syntax_err_prompt("newline", inputs, env));
 		prev = curr;
 		check = check->next;
 	}
 	return (0);
 }
 
-int	red_experr_prompt(char *token, t_list **inputs)
+int	red_experr_prompt(char *token, t_list **inputs, t_list **env)
 {
 	ft_putstr_fd("minishell: ", 1);
 	ft_putstr_fd(token, 1);
@@ -58,12 +56,12 @@ int	red_experr_prompt(char *token, t_list **inputs)
 //	free(token);
 	if (inputs)
 		ft_lstclear(inputs, &del_wddesc);
-	g_status = 2;
+	update_env_exit_code(env, 2);
 	return (2);
 }
 
 
-int	syntax_errors(t_list **inputs)
+int	syntax_errors(t_list **inputs, t_list **env)
 {
 	t_list		*check;
 	t_wd_desc	*curr;
@@ -74,25 +72,25 @@ int	syntax_errors(t_list **inputs)
 		return (1);
 	curr = check->content;
 	if (curr->flags == T_PIPE)
-		return (syntax_err_prompt(curr->word, inputs));
+		return (syntax_err_prompt(curr->word, inputs, env));
 	else if ((ft_lstsize(*inputs) == 1 && curr->flags != T_WORD) || \
 		(ft_lstsize(*inputs) == 2 && (curr->flags == T_RED_IN && \
 		(int)((t_wd_desc *)check->next->content)->flags == T_RED_OUT)))
-		return (syntax_err_prompt("newline", inputs));
-	exit = rest_of_syntax(&check, inputs);
+		return (syntax_err_prompt("newline", inputs, env));
+	exit = rest_of_syntax(&check, inputs, env);
 	return (exit);
 }
 
-int	quotes_err_prompt(char *token)
+int	quotes_err_prompt(char *token, t_list **env)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
-	g_status = 2;
+	update_env_exit_code(env, 1);
 	return (1);
 }
 
-int	unclosed_quotes(char *str)
+int	unclosed_quotes(char *str, t_list **env)
 {
 	int		i;
 	t_esc	status;
@@ -107,12 +105,12 @@ int	unclosed_quotes(char *str)
 		if (status.unclosed == true && status.is_simplequote == false)
 		{
 			free(str);
-			return (quotes_err_prompt("\" --unclosed"));
+			return (quotes_err_prompt("\" --unclosed", env));
 		}
 		else if (status.unclosed == true && status.is_simplequote == true)
 		{
 			free(str);
-			return (quotes_err_prompt("' --unclosed"));
+			return (quotes_err_prompt("' --unclosed", env));
 		}
 		i++;
 	}
