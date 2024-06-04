@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 10:29:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 14:36:26 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:25:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ int	print_env(t_list **env, int key)
 	if (key == EXPORT)
 		exit = ft_exp_p(env);
 	else
-	{
-	//	env_print_member((*env)->content);
-		//printf("\n[print_env] (*env): %p\n", *env);
 		ft_lstiter(*env, &env_print_member);
-	}
 	return (exit);
 }

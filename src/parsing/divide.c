@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 11:21:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:38:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	type_hub(t_list **tmp, t_command **cmd, size_t *size)
 	if (is_redir(*tmp) == true)
 	{
 		isolate_redir(cmd, tmp);
-		*size += 1;
+		*size -= 1;
 	}
 	else
 		isolate_cmd(cmd, tmp, *size);
