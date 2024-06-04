@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 12:18:04 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:19:04 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static size_t	until_next_op(t_list **inputs)
 	tok = (t_wd_desc *)tmp->content;
 	if (tok->flags == T_PIPE || tok->flags == T_OR || tok->flags == T_AND)
 		return (1);
-	while (tmp && (tok->flags != T_PIPE && tok->flags != T_OR && tok->flags != T_AND))
+	while (tmp && (tok->flags != T_PIPE && tok->flags != T_OR \
+		&& tok->flags != T_AND))
 	{
 		size++;
 		tmp = tmp->next;
@@ -52,22 +53,30 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 {
 	t_redir_list	*new;
 	t_wd_desc		*tok;
-	//t_list			*tmp;
 
 	tok = (t_wd_desc *)(*inputs)->content;
 	new = ft_calloc(sizeof(t_redir_list), 1);
 	if (!new)
 		return ;
 	assignate_flags_dir(tok->flags, &new->open_flags, &new->fd_to_redirect);
-	//new->type = tok->flags;
 	tok = (t_wd_desc *)(*inputs)->next->content;
-	//tmp = *inputs;
 	new->target_filename = ft_strdup(tok->word);
 	new->next = NULL;
 	addback_redir(&(*cmd)->redir_list, new);
 	if ((*inputs)->next)
 		(*inputs) = (*inputs)->next;
 	(*cmd)->next = NULL;
+}
+
+static void	type_hub(t_list **tmp, t_command **cmd, size_t *size)
+{
+		if (is_redir(*tmp) == true)
+		{
+			isolate_redir(cmd, tmp);
+			*size += 1;
+		}
+		else
+			isolate_cmd(cmd, tmp, *size);
 }
 
 static void	create_tree(t_list **inputs, \
@@ -88,13 +97,7 @@ static void	create_tree(t_list **inputs, \
 		cmd->flags = T_WORD;
 	while (size > 0 && cmd->flags == T_WORD && tmp)
 	{
-		if (is_redir(tmp) == true)
-		{
-			isolate_redir(&cmd, &tmp);
-			size--;
-		}
-		else
-			isolate_cmd(&cmd, &tmp, size);
+		type_hub(&tmp, &cmd, &size);
 		size--;
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 13:27:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:54:51 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char			**newlines(char *str, size_t *input_nb);
 void			break_into_words(t_list **inputs, char *inputs_array);
 void			word_or_operator(t_list **inputs);
 void			check_quote(t_esc *esc_status, char *str);
+void			quotes_removal(void *content);
 t_wd_desc		*new_wd_desc(int flags, char *word);
 void			divide(t_list **inputs, t_btree **tree, t_list **env);
 void			addback_redir(t_redir_list **redir, t_redir_list *new);

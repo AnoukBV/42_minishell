@@ -10,6 +10,7 @@ SRC_FILES := main.c \
 			errors.c \
 			parsing/newlines.c \
 			parsing/parsing.c \
+			parsing/quotes.c \
 			parsing/words.c \
 			parsing/categorization.c \
 			parsing/divide.c \

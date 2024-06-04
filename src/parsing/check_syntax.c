@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 13:16:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:11:30 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_status;
 
-int	syntax_err_prompt(char *token, t_list **inputs)
+static int	syntax_err_prompt(char *token, t_list **inputs)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(token, 2);
@@ -22,9 +22,34 @@ int	syntax_err_prompt(char *token, t_list **inputs)
 	if (inputs != NULL)
 		ft_lstclear(inputs, &del_wddesc);
 	g_status = 2;
-//	rl_signals_handler(SIGINT);
 	return (1);
 }
+
+static int	rest_of_syntax(t_list **ch, t_list **inputs)
+{
+	t_list		*check;
+	t_wd_desc	*prev;
+	t_wd_desc	*curr;
+
+	check = *ch;
+	curr = check->content;
+	prev = curr;
+	check = check->next;
+	while (check)
+	{
+		curr = check->content;
+		if ((curr->flags == T_PIPE && prev->flags == T_PIPE) || \
+			((prev->flags == T_RED_OUT || prev->flags == T_RED_IN \
+			|| prev->flags == T_APP_OUT) && curr->flags != T_WORD))
+			return (syntax_err_prompt(curr->word, inputs));
+		else if (curr->flags != T_WORD && check->next == NULL)
+			return (syntax_err_prompt("newline", inputs));
+		prev = curr;
+		check = check->next;
+	}
+	return (0);
+}
+
 /*
 void	red_experr_prompt(char *token, t_list **inputs)
 {
@@ -37,11 +62,12 @@ void	red_experr_prompt(char *token, t_list **inputs)
 	exit(2);
 }
 */
+
 int	syntax_errors(t_list **inputs)
 {
 	t_list		*check;
-	t_wd_desc	*prev;
 	t_wd_desc	*curr;
+	int			exit;
 
 	check = *inputs;
 	if (!check)
@@ -53,21 +79,8 @@ int	syntax_errors(t_list **inputs)
 		(ft_lstsize(*inputs) == 2 && (curr->flags == T_RED_IN && \
 		(int)((t_wd_desc *)check->next->content)->flags == T_RED_OUT)))
 		return (syntax_err_prompt("newline", inputs));
-	
-	prev = curr;
-	check = check->next;
-	while (check)
-	{
-		curr = check->content;
-		if ((curr->flags == T_PIPE && prev->flags == T_PIPE) || \
-			((prev->flags == T_RED_OUT || prev->flags == T_RED_IN || prev->flags == T_APP_OUT) && curr->flags != T_WORD))
-			return (syntax_err_prompt(curr->word, inputs));
-		else if (curr->flags != T_WORD && check->next == NULL)
-			return (syntax_err_prompt("newline", inputs));
-		prev = curr;
-		check = check->next;
-	}
-	return (0);
+	exit = rest_of_syntax(&check, inputs);
+	return (exit);
 }
 
 int	quotes_err_prompt(char *token)
@@ -76,13 +89,12 @@ int	quotes_err_prompt(char *token)
 	ft_putstr_fd(token, 2);
 	ft_putstr_fd("'\n", 2);
 	g_status = 2;
-//	rl_signals_handler(SIGINT);
 	return (1);
 }
 
 int	unclosed_quotes(char *str)
 {
-	int	i;
+	int		i;
 	t_esc	status;
 
 	status.is_quoted = false;

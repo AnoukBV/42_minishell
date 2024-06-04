@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_argv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 19:37:56 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:26:44 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:12:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	**from_list_to_array(t_list *list, size_t size)
 	if (!list || !final)
 		return (NULL);
 	while (i < size)
-	{	
+	{
 		tok = (t_wd_desc *)tmp->content;
 		final[i] = ft_strdup(tok->word);
 		tmp = tmp->next;
@@ -33,6 +33,7 @@ static char	**from_list_to_array(t_list *list, size_t size)
 	}
 	return (final);
 }
+
 /*
 char	*find_path(char *cmd_name, t_list **env)
 {
@@ -67,6 +68,7 @@ char	*find_path(char *cmd_name, t_list **env)
 	return (ft_strdup(cmd_name));
 }
 */
+
 void	create_argv(void *item)
 {
 	t_command	*cmd;
