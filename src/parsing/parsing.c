@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 10:55:45 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:20:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ size_t	count_isspace(char *str)
 		i++;
 	}
 	return (i);
+}
+
+static void	divide(t_list **inputs, t_btree **tree, t_list **env)
+{
+	t_btree		*holder;
+	t_list		*save;
+	size_t		size;
+
+	holder = NULL;
+	size = 0;
+	save = *inputs;
+	while (*inputs)
+	{
+		if (!(*inputs))
+			break ;
+		size = until_next_op(inputs);
+		create_tree(inputs, &holder, size, env);
+		new_branch((t_wd_desc *)(*inputs)->content, holder, tree);
+		while (size > 0)
+		{
+			(*inputs) = (*inputs)->next;
+			size--;
+		}
+		holder = NULL;
+	}
+	ft_lstclear(&save, &del_wddesc);
 }
 
 int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)

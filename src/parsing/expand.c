@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:00:48 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/01 13:13:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:30:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ extern int	g_status;
 
 int	protect_new_size(char *exp)
 {
-	int	size;
+	int		size;
 	size_t	i;
 	t_esc	stat;
 	t_esc	save;
@@ -31,9 +31,11 @@ int	protect_new_size(char *exp)
 			size += 2;
 		else if (exp[i] == '"' && stat.is_quoted == true)
 			size += 2;
-		else if (exp[i] == '"' && stat.is_quoted == false && save.is_quoted == true)
+		else if (exp[i] == '"' && stat.is_quoted == false \
+			&& save.is_quoted == true)
 			size += 2;
-		else if (exp[i] == '\'' && stat.is_quoted == false && save.is_quoted == true)
+		else if (exp[i] == '\'' && stat.is_quoted == false \
+			&& save.is_quoted == true)
 			size += 2;
 		save = stat;
 		i++;
@@ -103,36 +105,6 @@ char	*protect_quotes(char *exp)
 	new = strcpy_quotes(new, exp, size);
 	free(exp);
 	return (new);
-}
-
-char	*ft_superjoin(char **strs, char *sep)
-{
-	size_t	size;
-	size_t	i;
-	char	*str;
-
-	size = ft_arrlen(strs);
-	i = 0;
-	if (sep)
-		str = ft_calloc(sizeof(char), (ft_megalen(strs) + \
-			ft_strlen(sep) * size + 1));
-	else
-		str = ft_calloc(sizeof(char), ft_megalen(strs) + 1);
-	if (!str)
-		return (NULL);
-	while (i < size)
-	{
-		ft_strlcat(str, (const char *)strs[i], ft_strlen(str) \
-			+ ft_strlen(strs[i]) + 1);
-		if (sep)
-			ft_strlcat(str, (const char *)strs[i], ft_strlen(str) \
-				+ ft_strlen(sep) + 1);
-		i++;
-	}
-	if (size == 0)
-		return (NULL);
-	//printf("%s\n", str);
-	return (str);
 }
 
 char	*expand(char *str, t_list **env, int size)

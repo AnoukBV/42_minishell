@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:02:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 12:05:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:28:48 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ void		btree_clear_infix(t_btree *root, void (*del)(void *));
 double		ft_atod(char *str);
 void	    free_array_3d(char ***array);
 void	    free_array_2d(char **array);
+char		*ft_superjoin(char **strs, char *sep);
 
 #endif

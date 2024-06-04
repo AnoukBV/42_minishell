@@ -6,35 +6,11 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 11:19:04 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:21:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static size_t	until_next_op(t_list **inputs)
-{
-	size_t		size;
-	t_wd_desc	*tok;
-	t_list		*tmp;
-
-	tmp = *inputs;
-	size = 0;
-	tok = (t_wd_desc *)tmp->content;
-	if (tok->flags == T_PIPE || tok->flags == T_OR || tok->flags == T_AND)
-		return (1);
-	while (tmp && (tok->flags != T_PIPE && tok->flags != T_OR \
-		&& tok->flags != T_AND))
-	{
-		size++;
-		tmp = tmp->next;
-		if (tmp)
-			tok = (t_wd_desc *)tmp->content;
-	}
-	if (size == 0 && tmp == NULL)
-		size = ft_lstsize(*inputs);
-	return (size);
-}
 
 static void	isolate_cmd(t_command **cmd, t_list **inputs, size_t size)
 {
@@ -70,16 +46,40 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 
 static void	type_hub(t_list **tmp, t_command **cmd, size_t *size)
 {
-		if (is_redir(*tmp) == true)
-		{
-			isolate_redir(cmd, tmp);
-			*size += 1;
-		}
-		else
-			isolate_cmd(cmd, tmp, *size);
+	if (is_redir(*tmp) == true)
+	{
+		isolate_redir(cmd, tmp);
+		*size += 1;
+	}
+	else
+		isolate_cmd(cmd, tmp, *size);
 }
 
-static void	create_tree(t_list **inputs, \
+size_t	until_next_op(t_list **inputs)
+{
+	size_t		size;
+	t_wd_desc	*tok;
+	t_list		*tmp;
+
+	tmp = *inputs;
+	size = 0;
+	tok = (t_wd_desc *)tmp->content;
+	if (tok->flags == T_PIPE || tok->flags == T_OR || tok->flags == T_AND)
+		return (1);
+	while (tmp && (tok->flags != T_PIPE && tok->flags != T_OR \
+		&& tok->flags != T_AND))
+	{
+		size++;
+		tmp = tmp->next;
+		if (tmp)
+			tok = (t_wd_desc *)tmp->content;
+	}
+	if (size == 0 && tmp == NULL)
+		size = ft_lstsize(*inputs);
+	return (size);
+}
+
+void	create_tree(t_list **inputs, \
 	t_btree **holder, size_t size, t_list **env)
 {
 	t_btree			*node;
@@ -104,30 +104,4 @@ static void	create_tree(t_list **inputs, \
 	if (cmd->flags == T_WORD && !cmd->argv)
 		cmd->flags = EMPTY;
 	*holder = node;
-}
-
-void	divide(t_list **inputs, t_btree **tree, t_list **env)
-{
-	t_btree		*holder;
-	t_list		*save;
-	size_t		size;
-
-	holder = NULL;
-	size = 0;
-	save = *inputs;
-	while (*inputs)
-	{
-		if (!(*inputs))
-			break ;
-		size = until_next_op(inputs);
-		create_tree(inputs, &holder, size, env);
-		new_branch((t_wd_desc *)(*inputs)->content, holder, tree);
-		while (size > 0)
-		{
-			(*inputs) = (*inputs)->next;
-			size--;
-		}
-		holder = NULL;
-	}
-	ft_lstclear(&save, &del_wddesc);
 }
