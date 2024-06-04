@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 15:14:54 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:28:49 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	char	**envp;
 	char	*path;
 
-	if (cmd->flags != EMPTY && ft_strchr(cmd->command, '/') == NULL && \
+	if (cmd->command && ft_strchr(cmd->command, '/') == NULL && \
 		!is_builtin(cmd->command))
 	{
 		path = get_bin_path(pipeline->envp, cmd->command);
@@ -62,7 +62,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	close_fd_list(&pipeline->fd_list);
 	if (is_builtin(cmd->command))
 			builtin_exec(cmd, pipeline, true);
-	else if (cmd->flags != EMPTY)
+	else if (cmd->command != NULL)
 	{
 		check_execve_error(cmd->command, pipeline);
 		envp = transform_envp(pipeline->envp);
