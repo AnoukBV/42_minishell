@@ -26,6 +26,7 @@ SRC_FILES := main.c \
 			parsing/clean_parsing.c \
 			parsing/check_syntax.c \
 			parsing/ft_esc_split.c \
+			parsing/errors_unclosed_ambiguous.c \
 			environment/set.c \
 			environment/ft_export.c \
 			environment/ft_unset.c \

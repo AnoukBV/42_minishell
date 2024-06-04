@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 14:34:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:15:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*expansion_inspection(char *token, t_list **env, \
 static int	new_token_word(char **word, \
 	t_wd_desc *prev, t_list **inputs, t_list **env)
 {
-	int	save;
+	int		save;
 	char	*res;
 
 	save = prev->flags;
@@ -70,8 +70,13 @@ int	expansion(t_list **inputs, t_list *env)
 			if (new_token_word(&token->word, prev, inputs, &env) == 1)
 				return (1);
 		}
-		prev = tmp->content;
-		tmp = tmp->next;
+		if (!(*inputs))
+			tmp = *inputs;
+		if (tmp)
+		{
+			prev = tmp->content;
+			tmp = tmp->next;
+		}
 	}
 	return (0);
 }

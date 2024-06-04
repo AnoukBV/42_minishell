@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 14:07:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:22:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void			new_branch(t_wd_desc *tok, t_btree \
 void			is_between_p(t_list **inputs, t_btree **tree, t_list **env);
 void			assignate_flags_dir(int tok_flags, \
 				int *open_flags, int *fd);
-void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
 void			check_quote_bis(t_esc *esc_status, char *str);
 void			check_quote(t_esc *esc_status, char *str);
 int			expansion(t_list **, t_list *env);
