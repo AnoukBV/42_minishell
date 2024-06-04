@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 15:04:10 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:14:54 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	close_fd_list(&pipeline->fd_list);
 	if (is_builtin(cmd->command))
 			builtin_exec(cmd, pipeline, true);
-	else
+	else if (cmd->flags != EMPTY)
 	{
 		check_execve_error(cmd->command, pipeline);
 		envp = transform_envp(pipeline->envp);
@@ -81,8 +81,7 @@ static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	else if (pid == 0)
 	{
 		child_exec(pipeline, cmd);
-		ft_putstr_fd("child_exec() returned :(\n", 2);
-		exit(1) ;
+		exit(0) ;
 	}
 	if (cmd->prev)
 		close(cmd->pipe_left[0]);
