@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:31:30 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:57:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	break_into_words(inputs, res);
 	free(res);
 	word_or_operator(inputs);
-	print_unidentified_tokens(*inputs);
+	//print_unidentified_tokens(*inputs);
 	if (expansion(inputs, env) == 1)
 		return (1);
 	//print_unidentified_tokens(*inputs);
@@ -76,7 +76,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//print_unidentified_tokens(*inputs);
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	second_tokenizing(inputs);
-	print_unidentified_tokens(*inputs);
+	//print_unidentified_tokens(*inputs);
 	if (syntax_errors(inputs, &env) == 1)
 		return (1);
 	divide(inputs, &tree, &env);
@@ -84,8 +84,8 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//if (tree)
 	//	quotes_removal(tree->item);
 	btree_apply_prefix(tree, &quotes_removal);
-	printf("\n[parsing] here after quotes removal\n");
-	print_divided_cmds(tree, 0);
+	//printf("\n[parsing] here after quotes removal\n");
+	//print_divided_cmds(tree, 0);
 	//printf("\n[parsing] here before argv creation\n");
 	btree_apply_prefix(tree, &create_argv);
 	//printf("\n[parsing] here after argv creation\n");
