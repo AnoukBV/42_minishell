@@ -3,144 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 10:37:02 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:37:41 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*trim_quotes(char *str)
-{
-	char	*new;
-	char	**array;
-
-	if (ft_strlen(str) == 2 && str[0] == '\n' && str[1] == '\n')
-	{
-		free(str);
-		return (ft_strdup(""));
-	}
-	array = ft_split(str, '\n');
-	new = ft_superjoin(array, NULL);
-	free_array_2d(array);
-	free(str);
-	//printf("\n[trim_quotes] new: %s\n", new);
-	return (new);
-}
-
-static void	*exec_removal(void *item)
-{
-	t_wd_desc	*token;
-	t_wd_desc	*old;
-	t_esc		esc_status;
-	char		*str;
-	size_t		i;
-
-	i = 0;
-	old = (t_wd_desc *)item;
-	token = new_wd_desc(old->flags, ft_strdup(old->word));
-	if (!token->word)
-		return (token);
-	if (ft_strchr("|<>", token->word[0]) || (!ft_strchr(token->word, \
-		'\'') && !ft_strchr(token->word, '"')))
-		return (token);
-	str = token->word;
-	esc_status.is_quoted = false;
-	while (str[i])
-	{
-		check_quote_bis(&esc_status, &str[i]);
-		i++;
-	}
-	token->word = trim_quotes(str);
-	return (token);
-}
-
-static void	redir_exec_removal(char **token)
-{
-	t_esc		esc_status;
-	size_t		i;
-	char 		*str;
-	char		*item;
-
-	i = 0;
-	item = *token;
-	if (ft_strchr("|<>", item[0]) || (!ft_strchr(item, \
-		'\'') && !ft_strchr(item, '"')))
-		return ;
-	esc_status.is_quoted = false;
-	while (item[i])
-	{
-		check_quote_bis(&esc_status, &item[i]);
-		i++;
-	}
-	str = ft_strdup(item);
-	item = trim_quotes(str);
-	*token = item;
-}
-
-static void	ft_redirlstiter(t_redir_list *lst, void (f)(char **))
-{
-	while (lst && (*f))
-	{
-		f(&lst->target_filename);
-		lst = lst->next;
-	}
-}
-
-static void	quotes_removal(void *content)
-{
-	t_command	*cmd;
-	t_list		*argv;
-	t_list		*save;
-	t_list		*map = NULL;
-
-	//printf("\n[quotes_removal] here at very beginning\n");
-	cmd = (t_command *)content;
-	//printf("\n[quotes_removal] in beginning of function\n");
-	if (cmd->is_argv == true && cmd->argv)
-	{
-	//	printf("\n[quotes_removal] in if statement\n");
-		argv = (t_list *)cmd->argv;
-		if (!argv)
-			return ;
-	//	printf("\n[quotes_removal] argv not considered empty\n");
-		save = argv;
-		map = ft_lstmap(argv, &exec_removal, &del_wddesc);
-		ft_lstclear(&save, &del_wddesc);
-		cmd->argv = map;
-	}
-	if (cmd->redir_list)
-		ft_redirlstiter(cmd->redir_list, &redir_exec_removal);
-}
-
-void	check_quote_bis(t_esc *esc_status, char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!ft_strchr("\'\"", str[i]))
-		return ;
-	if (esc_status->is_quoted == false && ft_strchr("\'\"", str[i]) \
-		&& ft_strchr(&str[i + 1], str[i]) && str[i + 1] != 0)
-	{
-		esc_status->is_quoted = true;
-		if (str[i] == '\'')
-			esc_status->is_simplequote = true;
-		else
-			esc_status->is_simplequote = false;
-		str[i] = '\n';
-		return ;
-	}
-	else if (esc_status->is_quoted == false)
-		return ;
-	else if ((esc_status->is_simplequote == true && str[i] == '\"') || \
-		(esc_status->is_simplequote == false && str[i] == '\''))
-		return ;
-	esc_status->is_quoted = false;
-	str[i] = '\n';
-}
 
 size_t	count_isspace(char *str)
 {
@@ -148,91 +18,46 @@ size_t	count_isspace(char *str)
 	t_esc	stat;
 
 	i = 0;
-	while (str[i] && (ft_isspace(str[i]) && is_space_esc(stat, str[i]) == false))
+	while (str[i] && (ft_isspace(str[i]) \
+		&& is_space_esc(stat, str[i]) == false))
 	{
 		check_quote(&stat, &str[i]);
 		i++;
 	}
 	return (i);
 }
-/*
-size_t	add_and_skip(char *str, char *new, t_esc *stat, size_t prev)
+
+static void	divide(t_list **inputs, t_btree **tree, t_list **env)
 {
-	size_t	i;
+	t_btree		*holder;
+	t_list		*save;
+	size_t		size;
 
-	i = 0;
-	if (new && prev != 0 && new[i + 1])
-		*new = ' ';
-	while (str[i] && (ft_isspace(str[i]) && is_space_esc(*stat, str[i]) == false))
+	holder = NULL;
+	size = 0;
+	save = *inputs;
+	while (*inputs)
 	{
-		check_quote(stat, &str[i]);
-		i++;
-	}
-	i -= 1;
-	return (i);
-}
-
-char	*trim_isspace(char *str, int ditch)
-{
-	char *new;
-	size_t	i;
-	t_esc	stat;
-
-	i = 0;
-	stat.is_quoted = false;
-	new = ft_calloc(sizeof(char), (ft_strlen(str) - ditch + 1));
-	if (!new)
-		return (NULL);
-	while (str[i])
-	{
-		check_quote(&stat, &str[i]);
-		if (!ft_isspace(str[i]) || (ft_isspace(str[i]) && is_space_esc(stat, str[i]) == true))
-			new[ft_strlen(new)] = str[i];
-		else if (is_space_esc(stat, str[i]) == false)
-			i += add_and_skip(&str[i], &new[ft_strlen(new)], &stat, i);
-		i++;
-	}
-	new[ft_strlen(new)] = '\0';
-	free(str);
-	return (new);
-}
-
-char	*skip_isspace(char *str)
-{
-	int	i;
-	int	ditch;
-	t_esc	stat;
-	char	*new;
-
-	i = 0;
-	stat.is_quoted = false;
-	ditch = 0;
-	while (str[i])
-	{
-		check_quote(&stat, &str[i]);
-		if (ft_isspace(str[i]) && is_space_esc(stat, str[i]) == false)
+		if (!(*inputs))
+			break ;
+		size = until_next_op(inputs);
+		create_tree(inputs, &holder, size, env);
+		new_branch((t_wd_desc *)(*inputs)->content, holder, tree);
+		while (size > 0)
 		{
-			i++;
-			while (str[i] && ft_isspace(str[i]) && is_space_esc(stat, str[i]) == false)
-			{
-				ditch++;
-				i++;
-			}
+			(*inputs) = (*inputs)->next;
+			size--;
 		}
-		else
-			i++;
+		holder = NULL;
 	}
-	new = trim_isspace(str, ditch);
-	return (new);
+	ft_lstclear(&save, &del_wddesc);
 }
-*/
+
 int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 {
-	//t_pipeline	*pipeline;
 	t_btree		*tree;
 	char		*res;
 
-	
 	if (unclosed_quotes(str) == 1)
 		return (1);
 	//printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
@@ -244,15 +69,14 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	free(res);
 	word_or_operator(inputs);
 	//print_unidentified_tokens(*inputs);
-	expansion(inputs, env);
+	if (expansion(inputs, env) == 1)
+		return (1);
 	//print_unidentified_tokens(*inputs);
 	//printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
 	//print_unidentified_tokens(*inputs);
-
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
-	second_tokenizing(inputs);	
+	second_tokenizing(inputs);
 	//print_unidentified_tokens(*inputs);
-
 	if (syntax_errors(inputs) == 1)
 		return (1);
 	divide(inputs, &tree, &env);

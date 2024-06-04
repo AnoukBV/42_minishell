@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   btree_delone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 12:37:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/09 15:48:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:30:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	btree_delone(t_btree *tree, void (*del)(void *))
 	if (!tree)
 		return ;
 	if (del)
-	  	del(tree->item);
+		del(tree->item);
 	free(tree);
 }

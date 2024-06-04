@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 14:52:01 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:34:22 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,28 @@ void	second_tokenizing(t_list **inputs)
 		}
 	}
 }
+/*
+char	*ambiguous_redirection(char *str, t_list **env)
+{
+	char	*new;
+	int		i;
+	t_esc	stat;
+	t_list	*split;
 
-char	*join_after_expansion(t_list **splitted_token)
+	i = 0;
+	stat.is_quoted = false;
+	split = NULL;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			i += isolate_exp(&str[i], env, &split, &stat);
+		ft_lstadd_back(&split, ft_lstnew(ft_strdup("$")));
+	}
+	new = join_after_expansion(&split, 0, str);
+	return (new);
+}
+*/
+char	*join_after_expansion(t_list **splitted_token, int flag, char *str, t_list **inputs)
 {
 	t_list	*tmp;
 	char	*save;
@@ -106,9 +126,17 @@ char	*join_after_expansion(t_list **splitted_token)
 		save = NULL;
 		tmp = tmp->next;
 	}
-	if (*new == '\0')
-		new = NULL;
 	ft_lstclear(splitted_token, free);
+	save = ft_strtrim(new, " \t");
+	free(new);
+	new = save;
+	if (*new == '\0')
+	{
+		free(new);
+		new = NULL;
+	}
+	if (new == NULL && flag == 1)
+		red_experr_prompt(str, inputs);
 	return (new);
 }
 
