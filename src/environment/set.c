@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 09:03:23 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:55:30 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	fill_table(char **envp, t_list **env)
 {
-  	size_t	i;
+	size_t		i;
 	t_member	*new;
 
 	while (*envp)
@@ -69,7 +69,7 @@ void	set_hashtable(char **envp, t_list **env)
 void	del_member(void *content)
 {
 	t_member	*del;
-	
+
 	del = (t_member *)content;
 	if (!del)
 		return ;

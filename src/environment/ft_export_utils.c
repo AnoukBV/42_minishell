@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:16:19 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 15:59:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:54:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	*split_key_value(char **argv)
 		return (NULL);
 	while (argv[i])
 	{
-		//if (argv[i][0] == '=')
-			//-bash: export: `=blabla': not a valid identifier, mais pas quitter, si des args sont valides on s'n occupe
 		eq[i - 1] = split_point(argv[i]);
 		i++;
 	}
@@ -69,7 +67,7 @@ int	exp_check_err(char *str)
 		return (1);
 	while (str[i])
 	{
-		if (/*ft_iscap(str[i]) && */(str[i] != '_' && !ft_isalnum(str[i])))
+		if (str[i] != '_' && !ft_isalnum(str[i]))
 			return (1);
 		i++;
 	}

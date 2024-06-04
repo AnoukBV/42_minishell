@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/03 16:54:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:52:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	export_sort_entries(t_member **entries, int size)
 {
 	t_member	*curr;
-	int	i;
-	int		j;
+	int			i;
+	int			j;
 
 	i = 1;
 	while (i < size && entries[i - 1])
@@ -41,7 +41,7 @@ static void	print_memb_arr(t_member **m, int size)
 	i = 0;
 	while (i < size && m[i])
 	{
-	  	if (!m[i])
+		if (!m[i])
 			break ;
 		if (ft_strncmp(m[i]->key, "_", ft_strlen(m[i]->key)))
 		{
@@ -57,17 +57,18 @@ static void	print_memb_arr(t_member **m, int size)
 
 static t_list	*export_prepare_sort(t_member **ent, t_list **env)
 {
-	int	i = 0;
+	int			i;
 	t_list		*tmp;
 	t_member	*m;
 	char		c;
 
+	i = 0;
 	tmp = *env;
 	if (!tmp)
 		return (0);
 	m = (t_member *)tmp->content;
 	c = m->key[0];
-	while (tmp && /*ft_iscap(c) &&*/ c != '_')
+	while (tmp && c != '_')
 	{
 		m = (t_member *)tmp->content;
 		c = m->key[0];
@@ -80,6 +81,21 @@ static t_list	*export_prepare_sort(t_member **ent, t_list **env)
 	return (tmp);
 }
 
+static void	end_of_ogs(t_member **t, t_list **e)
+{
+	t_member	*tmp;
+	t_list		*env;
+
+	tmp = *t;
+	env = *e;
+	while (tmp->is_og == true && env)
+	{
+		env = env->next;
+		if (env)
+			tmp = env->content;
+	}
+}
+
 int	ft_exp_p(t_list **e)
 {
 	t_list		*env;
@@ -89,17 +105,12 @@ int	ft_exp_p(t_list **e)
 	env = *e;
 	entries = ft_calloc(ft_lstsize(env) + 1, sizeof(t_member *));
 	if (!entries)
-		return (1) ;
+		return (1);
 	env = export_prepare_sort(entries, &env);
 	if (env == NULL)
 		return (1);
 	tmp = env->content;
-	while (tmp->is_og == true && env)
-	{
-		env = env->next;
-		if (env)
-			tmp = env->content;
-	}
+	end_of_ogs(&tmp, &env);
 	if (!env)
 	{
 		free(entries);

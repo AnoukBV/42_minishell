@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 10:29:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:25:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:42:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	env_print_member(void *mb)
 	t_member	*m;
 
 	m = (t_member *)mb;
-  	if (!m)
+	if (!m)
 		return ;
 	if (!m->key || !m->value)
 		return ;
@@ -30,7 +30,7 @@ int	print_env(t_list **env, int key)
 
 	exit = 0;
 	if (!(*env))
-		return (1) ;
+		return (1);
 	if (key == EXPORT)
 		exit = ft_exp_p(env);
 	else

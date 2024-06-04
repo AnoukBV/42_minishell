@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 11:12:06 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:56:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	ft_unset_err_mess(char *wrong, char *to_free)
 		free(to_free);
 	return (1);
 }
+
 void	unset_variable(char *argv, t_list **env)
 {
 	t_member	*del;
 	t_list		*tmp;
 	t_list		*prev;
-	
+
 	tmp = *env;
 	prev = tmp;
 	del = env_find_tmemb(argv, env);
@@ -64,7 +65,6 @@ int	ft_unset(char **argv, t_list **env)
 			unset_variable(argv[i + 1], env);
 		i++;
 	}
-	//printf("\n[ft_unset] (*env) after unset_variable: %p\n", *env);
 	return (0);
 }
 

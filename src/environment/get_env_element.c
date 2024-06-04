@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env_element.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:10:13 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 10:09:26 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:54:34 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**get_path_list(t_list	*env)
 {
 	char		**p_list;
 	t_member	*env_path;
-	
+
 	env_path = env_find_tmemb("PATH", &env);
 	if (!env_path)
 		return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 09:03:01 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:46:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static int	make_value(t_member **m, char *argv, int eq)
 	room = *m;
 	if (eq + 1 < (int)ft_strlen(argv))
 	{
-	  	if (argv[eq - 1] == '+')
+		if (argv[eq - 1] == '+')
 		{
-		  	save = room->value;
-		  	search = ft_substr(&argv[eq + 1], 0, \
+			save = room->value;
+			search = ft_substr(&argv[eq + 1], 0, \
 				ft_strlen((&argv[eq]) - 1));
 			room->value = ft_strjoin(save, search);
 			free(search);
@@ -55,7 +55,6 @@ static int	make_value(t_member **m, char *argv, int eq)
 				ft_strlen((&argv[eq]) - 1));
 	}
 	return (0);
-	//export_expansion(room->value, env);
 }
 
 static int	add_member(char *argv, t_list *env, int eq)
@@ -67,8 +66,6 @@ static int	add_member(char *argv, t_list *env, int eq)
 		search = ft_substr(argv, 0, eq - 1);
 	else
 		search = ft_substr(argv, 0, eq);
-//	if (argv[0] == '-' && ft_strlen(argv) > 1)
-//		return (ft_exp_option_mess(argv[1]));
 	if (exp_check_err(search) == 1)
 		return (ft_exp_err_mess(argv, search));
 	room = env_find_tmemb(search, &env);
@@ -87,7 +84,7 @@ int	ft_export(t_list **env, char **argv)
 {
 	int			*eq;
 	size_t		i;
-	int		exit;
+	int			exit;
 
 	i = 0;
 	exit = 1;
@@ -95,21 +92,15 @@ int	ft_export(t_list **env, char **argv)
 		return (exit);
 	if (ft_arrlen(argv) == 1)
 		exit = print_env(env, EXPORT);
-	//else if (argv[1][0] == '\0')
-	//	exit = ft_exp_err_mess("\0");
 	else
 	{
 		eq = split_key_value(argv);
 		while (i < ft_arrlen(&argv[1]))
 		{
-			//ft_putstr_fd(argv[i + 1], 1);
-			//ft_putchar_fd('\n', 1);
 			if (argv[i + 1][0] == '\0')
 				exit = ft_exp_err_mess("\0", NULL);
 			else
 				exit = add_member(argv[i + 1], *env, eq[i]);
-			//ft_putnbr_fd(exit, 1);
-			//ft_putchar_fd('\n', 1);
 			i++;
 		}
 		free(eq);
