@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 11:11:30 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:25:47 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	syntax_err_prompt(char *token, t_list **inputs)
 	if (inputs != NULL)
 		ft_lstclear(inputs, &del_wddesc);
 	g_status = 2;
-	return (1);
+	return (2);
 }
 
 static int	rest_of_syntax(t_list **ch, t_list **inputs)
@@ -50,18 +50,18 @@ static int	rest_of_syntax(t_list **ch, t_list **inputs)
 	return (0);
 }
 
-/*
-void	red_experr_prompt(char *token, t_list **inputs)
+int	red_experr_prompt(char *token, t_list **inputs)
 {
 	ft_putstr_fd("minishell: ", 1);
 	ft_putstr_fd(token, 1);
-	ft_putstr_fd(": ambiguous redirect:\n", 1);
-	free(token);
+	ft_putstr_fd(": ambiguous redirect\n", 1);
+//	free(token);
 	if (inputs)
 		ft_lstclear(inputs, &del_wddesc);
-	exit(2);
+	g_status = 2;
+	return (2);
 }
-*/
+
 
 int	syntax_errors(t_list **inputs)
 {

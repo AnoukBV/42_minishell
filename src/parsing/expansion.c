@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 12:00:26 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:32:23 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,18 @@ t_bool	is_char_exp(char c, int i)
 	return (true);
 }
 
-char	*expansion_inspection(char *token, t_list **env)
+char	*expansion_inspection(char *token, t_list **env, int flag, t_list **inputs)
 {
 	char		*save;
+	int			new_flag;
 	char		*save2;
 
-	save = inspect_token(token, env);
+	if (flag != T_RED_IN && flag != T_RED_OUT \
+		&& flag != T_APP_IN && flag != T_APP_OUT)
+		new_flag = 0;
+	else
+		new_flag = 1;
+	save = inspect_token(token, env, new_flag, inputs);
 	if (!save)
 		return (NULL);
 	//free(save);
@@ -55,38 +61,39 @@ char	*expansion_inspection(char *token, t_list **env)
 	return (save2);
 }
 
-void	expansion(t_list **inputs, t_list *env)
+int	expansion(t_list **inputs, t_list *env)
 {
 	char	*res;
+	int		save;
 	t_list		*tmp;
-	//t_wd_desc	*prev;
+	t_wd_desc	*prev;
 	t_wd_desc	*token;
-	//char	*final;
 
 	tmp = *inputs;
-	//prev = tmp->content;
-	//while (tmp)
-	//{
-	
+	prev = tmp->content;
 	while (tmp)
 	{
 		token = (t_wd_desc *)tmp->content;
 		if (ft_strchr(token->word, '$'))
 		{
 			//printf("\n[expansion] token BEFORE expansion_inspection: %s\n", token->word);
-			res = token->word;
-			token->word = expansion_inspection(token->word, &env);
-			if (!token->word)
+		//	res = token->word;
+			save = prev->flags;
+			res = expansion_inspection(token->word, &env, prev->flags, inputs);
+			if (!res && (save <= T_RED_OUT || save >= T_APP_IN))
 			{
 				ft_lstclear(inputs, &del_wddesc);
-				free(res);
-				break ;
+				//free(res);
+				return (0);
 			}
-			free(res);
+			else if (!res)
+				return (1);
+			free(token->word);
+			token->word = res;
 			
 		}
-		//prev = tmp->content;
+		prev = tmp->content;
 		tmp = tmp->next;
 	}
-	
+	return (0);
 }

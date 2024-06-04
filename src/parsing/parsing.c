@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 11:20:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 12:52:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	free(res);
 	word_or_operator(inputs);
 	//print_unidentified_tokens(*inputs);
-	expansion(inputs, env);
+	if (expansion(inputs, env) == 1)
+		return (1);
 	//print_unidentified_tokens(*inputs);
 	//printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
 	//print_unidentified_tokens(*inputs);
