@@ -6,13 +6,88 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:04:08 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:30:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_flags(t_command **cmd)
+char	*get_next_heredoc(char *name)
+{
+	char	*for_exp;
+	char	*tmp;
+	char	*save;
+	int		fd;
+
+	fd = open(name, O_RDONLY);
+//	tmp = get_next_line(fd);
+	for_exp = NULL;
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (!tmp)
+			break ;
+		save = for_exp;
+		for_exp = ft_strjoin(save, tmp);
+		free(save);
+		free(tmp);
+		
+	}
+	//free(save);
+	free(tmp);
+	close(fd);
+	return (for_exp);
+}
+
+char	*fill_heredoc(int flag, t_list **env)
+{
+	char	*name;
+	char	*save;
+	char	*for_exp;
+	int		fd;
+
+	//name = filling();
+	name = ft_strdup("heredoc"); //juste pour tester
+	if (flag == T_APP_IN)
+	{
+		for_exp = get_next_heredoc(name);
+		if (ft_strchr(for_exp, '$'))
+		{
+			save = for_exp;
+			for_exp = inspect_token(save, env);
+			free(save);
+			fd = open(name, O_RDWR, O_TRUNC);
+			ft_putstr_fd(for_exp, fd);
+			free(for_exp);
+			close(fd);
+		}
+		else
+			free(for_exp);
+	}
+	return (name);
+}
+
+int	heredoc_inspection(t_redir_list **redirs, t_list **env)
+{
+	t_redir_list	*tmp;
+	char			*name;
+
+	tmp = *redirs;
+	while (tmp)
+	{
+		if (tmp->open_flags == T_APP_IN || tmp->open_flags == T_APP_IN + 100)
+		{
+			name = fill_heredoc(tmp->open_flags, env);
+			free(tmp->target_filename);
+			tmp->target_filename = name;
+			tmp->open_flags = O_RDONLY;
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+void	add_flags(t_command **cmd, t_list **env)
 {
 	t_command	*tmp;
 	t_command	*save;
@@ -31,6 +106,8 @@ void	add_flags(t_command **cmd)
 			destroy_cmd_one(tmp);
 			tmp = save;
 		}
+		if (tmp->redir_list)
+			heredoc_inspection(&tmp->redir_list, env);
 		save = tmp;
 		tmp = tmp->next;
 	}
@@ -55,6 +132,6 @@ void	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 	if (tree)
 		order_commands(&cmd_list, tree);
 	if (cmd_list)
-		add_flags(&cmd_list);
+		add_flags(&cmd_list, &env);
 	*pipeline = init_pipeline(cmd_list, env);
 }

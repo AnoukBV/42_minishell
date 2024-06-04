@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 14:23:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:15:17 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:17:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	expansion(t_list **inputs, t_list *env)
 	while (tmp)
 	{
 		token = (t_wd_desc *)tmp->content;
-		if (ft_strchr(token->word, '$'))
+		if (ft_strchr(token->word, '$') && prev->flags != T_APP_IN)
 		{
 			if (new_token_word(&token->word, prev, inputs, &env) == 1)
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:57:33 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:26:48 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,27 @@ static void	divide(t_list **inputs, t_btree **tree, t_list **env)
 	ft_lstclear(&save, &del_wddesc);
 }
 
+void	heredoc_flag(t_list **inputs)
+{
+	t_wd_desc	*tok;
+	t_wd_desc	*next;
+	t_list		*tmp;
+
+	tmp = *inputs;
+	while (tmp)
+	{
+		tok = tmp->content;
+		if (tok->flags == T_APP_IN)
+		{
+			next = tmp->next->content;
+			if (next->word[0] == '"' || next->word[0] == '\'')
+				tok->flags += 100;
+				//printf("wowow");
+		}
+		tmp = tmp->next;
+	}
+}
+
 int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 {
 	t_btree		*tree;
@@ -79,6 +100,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//print_unidentified_tokens(*inputs);
 	if (syntax_errors(inputs, &env) == 1)
 		return (1);
+	heredoc_flag(inputs);
 	divide(inputs, &tree, &env);
 	//printf("\n[parsing] here before quotes removal\n");
 	//if (tree)
@@ -95,7 +117,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//printf("\n[parsing] here before clear tree\n");
 	btree_clear_infix(tree, NULL);
 	//printf("\n[parsing] here after clear tree\n");
-	//printf("\n[parsing] final\n");
-	//print_pipeline(*pipeline);
+	printf("\n[parsing] final\n");
+	print_pipeline(*pipeline);
 	return (0);
 }
