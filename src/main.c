@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 16:51:26 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:07:17 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,53 @@ static char	*select_prompt(void)
 	return (line);
 }
 
-static void	shell_prompt(t_list *env, int ac, char **envp)
+static void	shell_prompt(t_list **env, int ac)
 {
 	t_list		*tokens;
 	char		*line;
-	t_pipeline	*pipeline;	
+	t_pipeline	*pipeline;
 
 	set_rl_signals();
-	line = select_prompt();
+   	line = select_prompt();
 	set_exec_signals();
 	if (ft_strlen(line))
 	{
-		pipeline = parsing(line, &tokens, env);
-		pipeline->cmd_line = line;
-		execute_pipeline(pipeline);
+		if (parsing(ft_strdup(line), &tokens, *env, &pipeline) == 0)
+		{
+			pipeline->cmd_line = line;
+			execute_pipeline(pipeline);
+		}
+		else
+			pipeline = NULL;
 	}
-	if (line)
+	if (ft_strlen(line))
 	{
 		add_history(line);
 		free(line);
-		shell_prompt(env, ac, envp);
+		if (pipeline)
+		{
+			*env = pipeline->envp;
+			free(pipeline);
+		}
+		shell_prompt(env, ac);
+	}
+	else if (line)
+	{
+		free(line);
+		shell_prompt(env, ac);
 	}
 }
 
 int	main(int ac, char **av, char **envp)
 {
-	t_list		*env;
+	t_list	*env;
 
 	(void)av;
 	g_status = 0;
 	env = NULL;
+	
 	set_hashtable(envp, &env);
-	shell_prompt(env, ac, envp);
+	shell_prompt(&env, ac);
 	ft_lstclear(&env, &del_member);
 	ft_putstr_fd("exit\n", 1);
 	return (0);

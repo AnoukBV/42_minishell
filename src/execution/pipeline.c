@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 17:14:17 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:06:21 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	destroy_pipeline(t_pipeline *pipeline)
 	close_fd_list(&pipeline->fd_list);
 	destroy_pid_list(&pipeline->pid_list);
 	destroy_cmd_list(&pipeline->cmd_list);
-	free(pipeline);
+	//free(pipeline);
 }
 
 void	prepare_pipeline(t_pipeline *pipeline)
@@ -59,7 +59,7 @@ void	prepare_pipeline(t_pipeline *pipeline)
 	int			pfd[2];
 
 	cmd = (t_command *)pipeline->cmd_list;
-	while (cmd->next)
+	while (cmd && cmd->next)
 	{
 		if (pipe(pfd) == -1)
 			generic_error(pipeline);

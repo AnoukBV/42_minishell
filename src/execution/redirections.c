@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 16:11:44 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:06:25 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 	t_redir_list	*next;
 
 	node = *r_list;
+
 	while (node != NULL)
 	{
 		next = node->next;

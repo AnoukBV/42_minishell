@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/27 15:55:04 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:03:23 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,23 @@ t_member	*create_table_member(char *key, char *value, t_bool is_og)
 
 void	set_hashtable(char **envp, t_list **env)
 {
-	// size_t	size;
+	char	**envi;
+	char	buf[PATH_MAX];
 
-	// size = ft_arrlen(envp);
-	/*if (size == 0)
+	if (!envp[0])
 	{
-		create_table(env, 1024);	//securiser
-		return ;
-	}*/
-	fill_table(envp, env);
-	//print_env(*env, ENV);
+		envi = ft_calloc(sizeof(char *), 3);
+		if (!envi)
+			return ;
+		getcwd(buf, PATH_MAX);
+		envi[0] = ft_strjoin("PWD=", (const char *)buf);
+		envi[1] = ft_strdup("SHLVL=1");
+		envi[2] = NULL;
+		fill_table(envi, env);
+		free_array_2d(envi);
+	}
+	else
+		fill_table(envp, env);
 }
 
 void	del_member(void *content)

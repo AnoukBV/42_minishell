@@ -3,24 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 14:01:58 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:03:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	unset_variable(char *argv, t_list *env)
+int	ft_unset_err_mess(char *wrong, char *to_free)
+{
+	ft_putstr_fd("minishell: unset: `", 2);
+	ft_putstr_fd(wrong, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	if (to_free)
+		free(to_free);
+	return (1);
+}
+void	unset_variable(char *argv, t_list **env)
 {
 	t_member	*del;
 	t_list		*tmp;
 	t_list		*prev;
 	
-	tmp = env;
+	tmp = *env;
 	prev = tmp;
-	del = env_find_tmemb(argv, &env);
+	del = env_find_tmemb(argv, env);
 	if (!del || !tmp)
 		return ;
 	while (tmp && tmp->content != del)
@@ -28,27 +37,42 @@ void	unset_variable(char *argv, t_list *env)
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	if (tmp)
+	if (prev == *env && tmp)
+	{
+		tmp = *env;
+		*env = (*env)->next;
+	}
+	else if (tmp)
 		prev->next = tmp->next;
 	else
 		prev->next = NULL;
 	ft_lstdelone(tmp, &del_member);
 }
 
-void	ft_unset(t_pipeline	*p, t_command *cmd)
+int	ft_unset(char **argv, t_list **env)
 {
-	t_list	*env;
-	char		**argv;
 	size_t		i;
 
-	env = p->envp;
-	argv = cmd->argv;
 	i = 0;
-	if (cmd->argv == NULL)
-		return ;
+	if (argv == NULL)
+		return (1);
 	while (i < ft_arrlen(&argv[1]))
 	{
-		unset_variable(argv[i + 1], env);
+		if (exp_check_err(argv[i + 1]) == 1)
+			ft_unset_err_mess(argv[i + 1], NULL);
+		else
+			unset_variable(argv[i + 1], env);
 		i++;
 	}
+	//printf("\n[ft_unset] (*env) after unset_variable: %p\n", *env);
+	return (0);
+}
+
+int	ft_exp_option_mess(char str)
+{
+	ft_putstr_fd("minishell: export: -", 2);
+	ft_putchar_fd(str, 2);
+	ft_putstr_fd(": invalid option\nexport: usage: export", 2);
+	ft_putstr_fd("[name[=value] ...]\n", 2);
+	return (1);
 }

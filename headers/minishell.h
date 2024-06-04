@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 17:14:31 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:01:09 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_esc
 {
 	t_bool	is_quoted;
 	t_bool	is_simplequote;
+	t_bool	unclosed;
 }	t_esc;
 
 typedef struct s_exp
@@ -106,7 +107,7 @@ typedef struct	s_pipeline
 
 // parsing
 
-t_pipeline		*parsing(char *str, t_list **inputs, t_list *env);
+int				parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline);
 char			**newlines(char *str, size_t *input_nb);
 void			break_into_words(t_list **inputs, char *inputs_array);
 void			word_or_operator(t_list **inputs);
@@ -126,14 +127,23 @@ void			assignate_flags_dir(int tok_flags, \
 void			undefault_fd_tok(t_list **list, t_wd_desc **redir);
 void			check_quote_bis(t_esc *esc_status, char *str);
 void			check_quote(t_esc *esc_status, char *str);
-void			expansion(void *item);
+void			expansion(t_list **, t_list *env);
 t_bool			check_expansion(t_exp **expansion, char *str);
-char			*expand(char *str, t_list **env, size_t size);
-void			inspect_token(char **str, t_list **env);
-void			join_after_expansion(char **tok, t_list **splitted_token);
+char			*expand(char *str, t_list **env, int size);
+char			*inspect_token(char *str, t_list **env);
+char			*join_after_expansion(t_list **splitted_token);
 void			create_argv(void *item);
 void			fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env);
-void			syntax_errors(t_list **inputs);
+int			syntax_errors(t_list **inputs);
+int			unclosed_quotes(char *str);
+t_bool			is_char_exp(char c, int i);
+char			**ft_esc_split(char *s, char *c);
+void			second_tokenizing(t_list **inputs);
+t_bool 			is_space_esc(t_esc stat, char c);
+size_t			count_isspace(char *str);
+void			red_experr_prompt(char *token, t_list **inputs);
+
+
 
 /*
 *	Error functions
@@ -259,5 +269,5 @@ t_member	*env_fetch_member(t_member **member, size_t size);
 void		export_expansion(char *str, t_hashtable *env);
 int		exp_check_err(char *key);
 int			ft_iscap(int a);
-void		ft_unset(t_pipeline	*p, t_command *cmd);
+int			ft_unset(char **argv, t_list **env);
 #endif

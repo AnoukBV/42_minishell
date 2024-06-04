@@ -16,8 +16,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*sfinal;
 
-	if (!s1 || !s2)
-		return (0);
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
 	sfinal = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (sfinal == NULL)
 		return (NULL);

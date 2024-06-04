@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:12:51 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/30 16:43:44 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:06:29 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	destroy_cmd_one(t_command *cmd)
 		free_array_2d((char **)cmd->argv);
 	if (cmd->redir_list)
 		destroy_redir_list(&cmd->redir_list);
-	free(cmd);
+	if (cmd)
+		free(cmd);
 }
 
 void	destroy_cmd_list(t_command **cmd)

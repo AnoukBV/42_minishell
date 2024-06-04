@@ -3,71 +3,155 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:00:48 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:21:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:13:54 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-static char	*seek_env(char *key, t_hashtable **env)
-{
-	t_member	**table;
-	size_t		i;
 
+extern int	g_status;
+
+int	protect_new_size(char *exp)
+{
+	int	size;
+	size_t	i;
+	t_esc	stat;
+	t_esc	save;
+
+	size = 0;
 	i = 0;
-	table = (t_member **)(*env)->member;
-	while (i < (*env)->size - 1)
+	stat.is_quoted = false;
+	while (exp[i])
 	{
-		if (table[i] && table[i]->key && \
-			!ft_strncmp(table[i]->key, key, ft_strlen(key)))
-			return (table[i]->value);
+		check_quote(&stat, &exp[i]);
+		if (exp[i] == '\'' && stat.is_quoted == true)
+			size += 2;
+		else if (exp[i] == '"' && stat.is_quoted == true)
+			size += 2;
+		else if (exp[i] == '"' && stat.is_quoted == false && save.is_quoted == true)
+			size += 2;
+		else if (exp[i] == '\'' && stat.is_quoted == false && save.is_quoted == true)
+			size += 2;
+		save = stat;
 		i++;
 	}
-	return ("\0");
-}*/
-
-static void	delete_quotes(char **new)
-{
-	char	**tmp;
-	char	*str;
-
-	tmp = ft_split(*new, '\"');
-	free(*new);
-	*new = NULL;
-	str = ft_strdup(tmp[0]);
-	free_array_2d(tmp);
-	tmp = NULL;
-	*new = str;
+	return (size);
 }
 
-char	*expand(char *str, t_list **env, size_t size)
+int	is_quote_protected(char *c)
 {
-	char	**exp;
-	char	**to_exp;
-	char	*final;
-	char	*new;
+	static t_esc	stat = {false, false, false};
+	static t_esc	save;
+	int				is;
+
+	check_quote(&stat, c);
+	if (*c == '\'' && stat.is_quoted == true)
+		is = 1;
+	else if (*c == '"' && stat.is_quoted == true)
+		is = 2;
+	else if (*c == '"' && stat.is_quoted == false && save.is_quoted == true)
+		is = 2;
+	else if (*c == '\'' && stat.is_quoted == false && save.is_quoted == true)
+		is = 1;
+	else
+		is = 0;
+	save = stat;
+	return (is);
+}
+
+char	*strcpy_quotes(char *dest, char *src, int size)
+{
 	size_t	i;
+	int		is;
 
 	i = 0;
-	final = NULL;
-	new = ft_substr(str, 0, size - 1);
-	if (str[0] == '\"')
-		delete_quotes(&new);
-	to_exp = ft_split(new, '$');
-	free(new);
-	exp = ft_calloc(sizeof(char *), ft_arrlen(to_exp) + 1);
-	if (!exp)
-		return (NULL);
-	while (to_exp[i])
+	while (src[i])
 	{
-		exp[i] = ft_strdup(env_find_key(to_exp[i], env));
+		is = is_quote_protected(&src[i]);
+		if (is == 1)
+		{
+			dest[ft_strlen(dest)] = '"';
+			dest[ft_strlen(dest)] = '\'';
+			dest[ft_strlen(dest)] = '"';
+		}
+		else if (is == 2)
+		{
+			dest[ft_strlen(dest)] = '\'';
+			dest[ft_strlen(dest)] = '"';
+			dest[ft_strlen(dest)] = '\'';
+		}
+		else if (is == 0)
+			dest[ft_strlen(dest)] = src[i];
 		i++;
 	}
-	free_array_2d(to_exp);
-	final = ft_superjoin(exp, NULL);
-	free_array_2d(exp);
-	return (final);
+	dest[size] = '\0';
+	return (dest);
+}
+
+char	*protect_quotes(char *exp)
+{
+	int		size;
+	char	*new;
+
+	size = protect_new_size(exp) + ft_strlen(exp);
+	new = ft_calloc(sizeof(char), size + 1);
+	if (!new)
+		return (NULL);
+	new = strcpy_quotes(new, exp, size);
+	free(exp);
+	return (new);
+}
+
+char	*ft_superjoin(char **strs, char *sep)
+{
+	size_t	size;
+	size_t	i;
+	char	*str;
+
+	size = ft_arrlen(strs);
+	i = 0;
+	if (sep)
+		str = ft_calloc(sizeof(char), (ft_megalen(strs) + \
+			ft_strlen(sep) * size + 1));
+	else
+		str = ft_calloc(sizeof(char), ft_megalen(strs) + 1);
+	if (!str)
+		return (NULL);
+	while (i < size)
+	{
+		ft_strlcat(str, (const char *)strs[i], ft_strlen(str) \
+			+ ft_strlen(strs[i]) + 1);
+		if (sep)
+			ft_strlcat(str, (const char *)strs[i], ft_strlen(str) \
+				+ ft_strlen(sep) + 1);
+		i++;
+	}
+	if (size == 0)
+		return (NULL);
+	//printf("%s\n", str);
+	return (str);
+}
+
+char	*expand(char *str, t_list **env, int size)
+{
+	char	*exp;
+	char	*new;
+
+	//printf("\n%s\n", str);
+	new = ft_substr(str, 1, size - 1);
+	//printf("\n[expand] char* used to browse env: %s\n", new);
+	if (!ft_strncmp(new, "?", 1))
+		exp = ft_itoa(g_status);
+	else
+		exp = ft_strdup(env_find_key(new, env));
+	//	printf("%s\n", exp[i]);
+	free(new);
+	//printf("%s\n", final);
+	//free_array_2d(exp);
+	if (exp)
+		exp = protect_quotes(exp);
+	return (exp);
 }

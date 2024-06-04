@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_find_key.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42angouleme.fr  +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 16:59:25 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 13:21:34 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:40:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ char	*env_find_key(char *key, t_list	**env)
 	while (tmp)
 	{
 		m = (t_member *)tmp->content;
-		if (m->key && !ft_strncmp(m->key, key, ft_strlen(m->key)))
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key) + 1))
 			return (m->value);
 		tmp = tmp->next;
 	}
-	return ("\0");
+	return (0);
 }
 
 t_member	*env_find_tmemb(char *key, t_list **env)
@@ -43,25 +43,9 @@ t_member	*env_find_tmemb(char *key, t_list **env)
 	while (tmp)
 	{
 		m = (t_member *)tmp->content;
-		if (m->key && !ft_strncmp(m->key, key, ft_strlen(m->key)))
+		if (m->key && !ft_strncmp(m->key, key, ft_strlen(key) + 1))
 			return (m);
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
-
-/*
-void	export_expansion(char *str, t_hashtable *env)
-{
-	char	*save;
-
-	if (ft_strchr(str, '$'))
-	{
-	  	save = str;
-		if (ft_strlen(str) == 2 && str[1] == '?')
-			str = ft_itoa(g_status);
-		else
-			inspect_token(&save, &env);
-		free(save);
-	}
-}*/

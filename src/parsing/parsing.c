@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/16 16:20:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:04:05 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@ static char	*trim_quotes(char *str)
 	char	*new;
 	char	**array;
 
+	if (ft_strlen(str) == 2 && str[0] == '\n' && str[1] == '\n')
+	{
+		free(str);
+		return (ft_strdup(""));
+	}
 	array = ft_split(str, '\n');
 	new = ft_superjoin(array, NULL);
 	free_array_2d(array);
 	free(str);
+	//printf("\n[trim_quotes] new: %s\n", new);
 	return (new);
 }
 
@@ -35,6 +41,8 @@ static void	*exec_removal(void *item)
 	i = 0;
 	old = (t_wd_desc *)item;
 	token = new_wd_desc(old->flags, ft_strdup(old->word));
+	if (!token->word)
+		return (token);
 	if (ft_strchr("|<>", token->word[0]) || (!ft_strchr(token->word, \
 		'\'') && !ft_strchr(token->word, '"')))
 		return (token);
@@ -49,6 +57,38 @@ static void	*exec_removal(void *item)
 	return (token);
 }
 
+static void	redir_exec_removal(char **token)
+{
+	t_esc		esc_status;
+	size_t		i;
+	char 		*str;
+	char		*item;
+
+	i = 0;
+	item = *token;
+	if (ft_strchr("|<>", item[0]) || (!ft_strchr(item, \
+		'\'') && !ft_strchr(item, '"')))
+		return ;
+	esc_status.is_quoted = false;
+	while (item[i])
+	{
+		check_quote_bis(&esc_status, &item[i]);
+		i++;
+	}
+	str = ft_strdup(item);
+	item = trim_quotes(str);
+	*token = item;
+}
+
+static void	ft_redirlstiter(t_redir_list *lst, void (f)(char **))
+{
+	while (lst && (*f))
+	{
+		f(&lst->target_filename);
+		lst = lst->next;
+	}
+}
+
 static void	quotes_removal(void *content)
 {
 	t_command	*cmd;
@@ -56,15 +96,23 @@ static void	quotes_removal(void *content)
 	t_list		*save;
 	t_list		*map = NULL;
 
+	//printf("\n[quotes_removal] here at very beginning\n");
 	cmd = (t_command *)content;
-	if (cmd->is_argv == true)
+	//printf("\n[quotes_removal] in beginning of function\n");
+	if (cmd->is_argv == true && cmd->argv)
 	{
+	//	printf("\n[quotes_removal] in if statement\n");
 		argv = (t_list *)cmd->argv;
+		if (!argv)
+			return ;
+	//	printf("\n[quotes_removal] argv not considered empty\n");
 		save = argv;
 		map = ft_lstmap(argv, &exec_removal, &del_wddesc);
 		ft_lstclear(&save, &del_wddesc);
 		cmd->argv = map;
 	}
+	if (cmd->redir_list)
+		ft_redirlstiter(cmd->redir_list, &redir_exec_removal);
 }
 
 void	check_quote_bis(t_esc *esc_status, char *str)
@@ -94,22 +142,136 @@ void	check_quote_bis(t_esc *esc_status, char *str)
 	str[i] = '\n';
 }
 
-t_pipeline	*parsing(char *str, t_list **inputs, t_list *env)
+size_t	count_isspace(char *str)
 {
-	t_pipeline	*pipeline;
-	t_btree		*tree;
+	size_t	i;
+	t_esc	stat;
 
-	if (!str)
+	i = 0;
+	while (str[i] && (ft_isspace(str[i]) && is_space_esc(stat, str[i]) == false))
+	{
+		check_quote(&stat, &str[i]);
+		i++;
+	}
+	return (i);
+}
+/*
+size_t	add_and_skip(char *str, char *new, t_esc *stat, size_t prev)
+{
+	size_t	i;
+
+	i = 0;
+	if (new && prev != 0 && new[i + 1])
+		*new = ' ';
+	while (str[i] && (ft_isspace(str[i]) && is_space_esc(*stat, str[i]) == false))
+	{
+		check_quote(stat, &str[i]);
+		i++;
+	}
+	i -= 1;
+	return (i);
+}
+
+char	*trim_isspace(char *str, int ditch)
+{
+	char *new;
+	size_t	i;
+	t_esc	stat;
+
+	i = 0;
+	stat.is_quoted = false;
+	new = ft_calloc(sizeof(char), (ft_strlen(str) - ditch + 1));
+	if (!new)
 		return (NULL);
+	while (str[i])
+	{
+		check_quote(&stat, &str[i]);
+		if (!ft_isspace(str[i]) || (ft_isspace(str[i]) && is_space_esc(stat, str[i]) == true))
+			new[ft_strlen(new)] = str[i];
+		else if (is_space_esc(stat, str[i]) == false)
+			i += add_and_skip(&str[i], &new[ft_strlen(new)], &stat, i);
+		i++;
+	}
+	new[ft_strlen(new)] = '\0';
+	free(str);
+	return (new);
+}
+
+char	*skip_isspace(char *str)
+{
+	int	i;
+	int	ditch;
+	t_esc	stat;
+	char	*new;
+
+	i = 0;
+	stat.is_quoted = false;
+	ditch = 0;
+	while (str[i])
+	{
+		check_quote(&stat, &str[i]);
+		if (ft_isspace(str[i]) && is_space_esc(stat, str[i]) == false)
+		{
+			i++;
+			while (str[i] && ft_isspace(str[i]) && is_space_esc(stat, str[i]) == false)
+			{
+				ditch++;
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+	new = trim_isspace(str, ditch);
+	return (new);
+}
+*/
+int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
+{
+	//t_pipeline	*pipeline;
+	t_btree		*tree;
+	char		*res;
+
+	
+	if (unclosed_quotes(str) == 1)
+		return (1);
+	//printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
+	res = ft_strtrim(str, " \t");
+	free(str);
+	//printf("\n[parsing] str after trimming isspaces: BEG/%s/END\n", res);
 	tree = NULL;
-	break_into_words(inputs, str);
+	break_into_words(inputs, res);
+	free(res);
 	word_or_operator(inputs);
-	syntax_errors(inputs);
+	//print_unidentified_tokens(*inputs);
+	expansion(inputs, env);
+	//print_unidentified_tokens(*inputs);
+	//printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
+	//print_unidentified_tokens(*inputs);
+
+//	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
+	second_tokenizing(inputs);	
+	//print_unidentified_tokens(*inputs);
+
+	if (syntax_errors(inputs) == 1)
+		return (1);
 	divide(inputs, &tree, &env);
-	btree_apply_prefix(tree, &expansion);
+	//printf("\n[parsing] here before quotes removal\n");
+	//if (tree)
+	//	quotes_removal(tree->item);
 	btree_apply_prefix(tree, &quotes_removal);
+	//printf("\n[parsing] here after quotes removal\n");
+	//print_divided_cmds(tree, 0);
+	//printf("\n[parsing] here before argv creation\n");
 	btree_apply_prefix(tree, &create_argv);
-	fill_pipeline(&pipeline, tree, env);
+	//printf("\n[parsing] here after argv creation\n");
+	//printf("\n[parsing] here before fill_pipeline\n");
+	fill_pipeline(pipeline, tree, env);
+	//printf("\n[parsing] here after fill_pipeline\n");
+	//printf("\n[parsing] here before clear tree\n");
 	btree_clear_infix(tree, NULL);
-	return (pipeline);
+	//printf("\n[parsing] here after clear tree\n");
+	//printf("\n[parsing] final\n");
+	//print_pipeline(*pipeline);
+	return (0);
 }

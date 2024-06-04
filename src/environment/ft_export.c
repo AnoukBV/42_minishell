@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/27 15:55:47 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 09:03:01 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static int	make_key(t_member **m, char *argv, int eq)
 {
 	t_member	*room;
-	// int		i;
 
 	room = *m;
-	// i = 0;
 	if (!room->key)
 	{
 		if (argv[eq - 1] == '+')
@@ -65,12 +63,14 @@ static int	add_member(char *argv, t_list *env, int eq)
 	t_member	*room;
 	char		*search;
 
-	if (argv[eq - 1] == '+')
+	if (argv[eq - 1] == '+' && argv[eq] == '=')
 		search = ft_substr(argv, 0, eq - 1);
 	else
 		search = ft_substr(argv, 0, eq);
+//	if (argv[0] == '-' && ft_strlen(argv) > 1)
+//		return (ft_exp_option_mess(argv[1]));
 	if (exp_check_err(search) == 1)
-		return (ft_exp_err_mess(argv));
+		return (ft_exp_err_mess(argv, search));
 	room = env_find_tmemb(search, &env);
 	if (!room)
 	{
@@ -95,14 +95,21 @@ int	ft_export(t_list **env, char **argv)
 		return (exit);
 	if (ft_arrlen(argv) == 1)
 		exit = print_env(env, EXPORT);
+	//else if (argv[1][0] == '\0')
+	//	exit = ft_exp_err_mess("\0");
 	else
 	{
 		eq = split_key_value(argv);
 		while (i < ft_arrlen(&argv[1]))
 		{
-			exit = add_member(argv[i + 1], *env, eq[i]);
-			ft_putnbr_fd(exit, 1);
-			ft_putchar_fd('\n', 1);
+			//ft_putstr_fd(argv[i + 1], 1);
+			//ft_putchar_fd('\n', 1);
+			if (argv[i + 1][0] == '\0')
+				exit = ft_exp_err_mess("\0", NULL);
+			else
+				exit = add_member(argv[i + 1], *env, eq[i]);
+			//ft_putnbr_fd(exit, 1);
+			//ft_putchar_fd('\n', 1);
 			i++;
 		}
 		free(eq);
