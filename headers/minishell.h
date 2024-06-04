@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 14:44:26 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:20:15 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void	set_exec_signals(void);
 //	Signal handlers
 void	rl_signals_handler(int sig);
 void	exec_sig_handler(int sig);
+void	heredoc_sig_handler(int sig);
 
 /*
 *	Test functions /!\ TO BE DELETED /!\
