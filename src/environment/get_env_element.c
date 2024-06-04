@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:10:13 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 15:35:46 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:09:26 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	**get_path_list(t_list	*env)
 	t_member	*env_path;
 	
 	env_path = env_find_tmemb("PATH", &env);
+	if (!env_path)
+		return (NULL);
 	p_list = ft_split(env_path->value, ':');
 	return (p_list);
 }

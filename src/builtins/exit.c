@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:48:45 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 16:35:02 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:24:45 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static t_bool	is_number(char *str)
 {
 	if (!str)
 		return (true);
+	if (*str == '-' || *str == '+')
+		str++;
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -31,6 +33,8 @@ void	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 	char	**argv;
 
 	argv = cmd->argv;
+	if (!cmd->next && !cmd->prev)
+		ft_putstr_fd("exit\n", 1);
 	if (!argv[1])
 		exit_code = 0;
 	else if (!is_number(argv[1]))
@@ -42,8 +46,6 @@ void	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 	}
 	else
 		exit_code = ft_atoi(argv[1]);
-	if (!cmd->next && !cmd->prev)
-		ft_putstr_fd("exit\n", 1);
 	free(pipeline->cmd_line);
 	free_env_list(&pipeline->envp);
 	destroy_pipeline(pipeline);
