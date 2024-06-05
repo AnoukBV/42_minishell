@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 14:41:20 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:15:56 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	else if (pid == 0)
 	{
 		child_exec(pipeline, cmd);
+		if (cmd->command == NULL)
+		{
+			free(pipeline->cmd_line);
+			free_env_list(&pipeline->envp);
+			destroy_pipeline(pipeline, EXIT);
+		}
 		exit(0);
 	}
 	if (cmd->prev)

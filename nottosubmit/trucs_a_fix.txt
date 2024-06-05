@@ -1,31 +1,31 @@
-cat <Makefile | grep src
+cat <Makefile | grep src OK
 
 (Uniquement la si c'est la premiere commande qui utilise des pipes
 plus de probleme la deuxieme fois)
 
 ==================================================================================
 
-export "" test=a
+export "" test=a OK
 
 ==================================================================================
 
 .
 
-(juste un point)
+(juste un point) OK
 
 ==================================================================================
 
->out | echo qweqwe
+>out | echo qweqwe OK
 
 (Segfault)
 
 ==================================================================================
 
-echo test >>test
+echo test >>test OK
 
 ==================================================================================
 
-echo $USER$var\$USER
+echo $USER$var\$USER OK
 
 (N'affiche pas le '\', mais je suis pas sur que ce soit demande par le sujet)
 
