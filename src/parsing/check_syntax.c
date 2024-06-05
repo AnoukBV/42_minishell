@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 14:20:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:10:19 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	rest_of_syntax(t_list **ch, t_list **inputs, t_list **env)
 		curr = check->content;
 		if ((curr->flags == T_PIPE && prev->flags == T_PIPE) || \
 			((prev->flags == T_RED_OUT || prev->flags == T_RED_IN \
-			|| prev->flags == T_APP_OUT) && curr->flags != T_WORD))
+			|| prev->flags == T_APP_OUT || prev->flags == T_APP_IN ) \
+			&& curr->flags != T_WORD))
 			return (syntax_err_prompt(curr->word, inputs, env));
 		else if (curr->flags != T_WORD && check->next == NULL)
 			return (syntax_err_prompt("newline", inputs, env));
