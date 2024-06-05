@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 16:48:34 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:02:42 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_bin_path(t_list *env, char *name, t_pipeline *pipeline)
 		cmd = ft_strjoin("/", name);
 		path = ft_strjoin(path_list[i], cmd);
 		free(cmd);
-		if (!access(path, F_OK))
+		if (!access(path, F_OK) && !is_directory(path))
 		{
 			free_path_list(path_list);
 			return (path);
