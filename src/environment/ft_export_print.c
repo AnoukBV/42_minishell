@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 10:06:53 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:30:09 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ static void	print_memb_arr(t_member **m, int size)
 		{
 			ft_putstr_fd("declare -x ", 1);
 			ft_putstr_fd(m[i]->key, 1);
+			if (!m[i]->value)
+			{
+				ft_putstr_fd("\n", 1);
+				return ;
+			}
 			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(m[i]->value, 1);
 			ft_putstr_fd("\"\n", 1);

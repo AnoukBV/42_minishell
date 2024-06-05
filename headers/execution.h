@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:25:50 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 13:49:16 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:41:08 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	wait_all_pid(t_pid_list **pid_list, t_list **envp);
 
 // Execution utils
 int		get_status(int status);
-char	*get_bin_path(t_list *env, char *name);
+char	*get_bin_path(t_list *env, char *name, t_pipeline *pipeline);
 
 // Memory
 void	destroy_cmd_list(t_command **cmd, t_list *env);

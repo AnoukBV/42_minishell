@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 13:47:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:41:20 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	if (cmd->command && ft_strchr(cmd->command, '/') == NULL && \
 		!is_builtin(cmd->command))
 	{
-		path = get_bin_path(pipeline->envp, cmd->command);
+		path = get_bin_path(pipeline->envp, cmd->command, pipeline);
 		if (path != NULL)
 		{
 			free(cmd->command);

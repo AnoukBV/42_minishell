@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 10:10:19 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:47:29 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,27 @@ static void	free_path_list(char	**path_list)
 	}
 	free(save);
 }
+static char	**path_check(t_list *env, char *name, t_pipeline *pipeline)
+{
+	char	**path_list;
+	
+	if (ft_strlen(name) == 0)
+		return (NULL);
+	path_list = get_path_list(env);
+	if (!path_list)
+		check_execve_error(name, pipeline);
+	return (path_list);
+}
 
-char	*get_bin_path(t_list *env, char *name)
+char	*get_bin_path(t_list *env, char *name, t_pipeline *pipeline)
 {
 	char	**path_list;
 	char	*cmd;
 	char	*path;
 	int		i;
 
-	if (ft_strlen(name) == 0)
-		return (NULL);
-	path_list = get_path_list(env);
 	i = 0;
+	path_list = path_check(env, name, pipeline);
 	while (path_list && path_list[i] != NULL)
 	{
 		cmd = ft_strjoin("/", name);
