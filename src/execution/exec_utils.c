@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 14:47:29 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:48:34 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ static char	**path_check(t_list *env, char *name, t_pipeline *pipeline)
 	if (!path_list)
 		check_execve_error(name, pipeline);
 	return (path_list);
+}
+
+t_bool	is_directory(const char *pathname)
+{
+	struct stat	file_info;
+
+	stat(pathname, &file_info);
+	return (!S_ISREG(file_info.st_mode));
 }
 
 char	*get_bin_path(t_list *env, char *name, t_pipeline *pipeline)

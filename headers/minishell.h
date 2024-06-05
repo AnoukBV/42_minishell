@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 14:26:04 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:08:25 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <sys/wait.h>
 # include <linux/limits.h>
 # include <limits.h>
+# include <sys/stat.h>
 # include "libft.h"
 # include "data.h"
 # include "builtins.h"

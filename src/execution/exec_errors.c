@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:11:19 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 13:41:29 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:59:05 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	directory_error(char *pathname, t_pipeline *pipeline)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(pathname, 2);
+	ft_putstr_fd(": Is a directory\n", 2);
+	free(pipeline->cmd_line);
+	free_env_list(&pipeline->envp);
+	destroy_pipeline(pipeline, EXIT);
+	exit(126);
+}
 
 void	check_execve_error(char *pathname, t_pipeline *pipeline)
 {
@@ -20,6 +31,8 @@ void	check_execve_error(char *pathname, t_pipeline *pipeline)
 	exit_code = 0;
 	if (access(pathname, F_OK))
 		exit_code = 127;
+	else if (is_directory(pathname))
+		directory_error(pathname, pipeline);
 	else if (access(pathname, X_OK))
 		exit_code = 126;
 	if (!exit_code)
@@ -71,11 +84,5 @@ void	generic_error(t_pipeline *pipeline)
 	perror(NULL);
 	free_env_list(&pipeline->envp);
 	destroy_pipeline(pipeline, EXIT);
-	exit(1);
-}
-
-void	simple_generic_error(void)
-{
-	perror(NULL);
 	exit(1);
 }

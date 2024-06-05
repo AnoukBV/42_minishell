@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:52:22 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:55:45 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	fork_error(t_pipeline *pipeline)
 	*/
 }
 
+void	simple_generic_error(void)
+{
+	perror(NULL);
+	exit(1);
+}
 
 void	heredoc_eof_warning(const char *delimiter)
 {
