@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys.h                                             :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 11:50:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 09:37:04 by aboulore         ###   ########.fr       */
+/*   Created: 2024/06/05 09:24:02 by aboulore          #+#    #+#             */
+/*   Updated: 2024/06/05 09:25:08 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#ifndef ERRORS_H
+# define ERRORS_H
 
-# define MALLOC_ERR	9
-# define EXPORT 1
-# define ENV	0
+# include "minishell.h"
 
-typedef enum e_type
-{
-	T_WORD = 0,
-	T_OPEN,
-	T_CLOSE,
-	T_PIPE,
-	T_OR,
-	T_AND,
-	T_RED_OUT,
-	T_APP_OUT,
-	T_RED_IN,
-	T_APP_IN,
-	REDIRS,
-	EMPTY
-}	t_type;
+void	generic_error(t_pipeline *pipeline);
+void	malloc_error(void);
+void	fork_error(t_pipeline *pipeline);
+void	dup2_error(void);
+void	open_error(char *filename, t_pipeline *pipeline);
+void	check_execve_error(char *pathname, t_pipeline *pipeline);
+void	command_not_found_error(char *name, t_pipeline *pipeline);
 
 #endif
