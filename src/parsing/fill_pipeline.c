@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 08:30:38 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:34:08 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*fill_heredoc(int flag, t_list **env)
 	int		fd;
 
 	//name = filling();
-	name = ft_strdup("heredoc"); //juste pour tester
+	name = ft_strdup("heredoc");
 	if (flag == T_APP_IN)
 	{
 		for_exp = get_next_heredoc(name);
