@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:18:08 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:50:06 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	heredoc_inspection(t_redir_list **redirs, t_list **env)
 			free(tmp->target_filename);
 			tmp->target_filename = name;
 			tmp->open_flags = O_RDONLY;
+			tmp->heredoc = true;
 		}
 		tmp = tmp->next;
 	}
