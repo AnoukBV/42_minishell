@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:34:31 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:26:04 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void		print_divided_cmds(t_btree *cmds, size_t levels);
 int			Size(t_btree *root);
 void		print_divided_cmds_array(t_btree *cmds, size_t levels);
 void		print_pipeline(t_pipeline *pipeline);
-t_pipeline	*dummydata(char **envp);
 char		*new_heredoc(const char *delimiter, t_list **envp);
-void		delete_heredoc(t_redir_list *redir, t_list *env);
+void		delete_heredoc(char *filename, t_list *env);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:52:03 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:26:41 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	destroy_redir_list(t_redir_list **redir_list, t_list *env)
 	while (node)
 	{
 		if (node->heredoc)
-			delete_heredoc(node, env);
+			delete_heredoc(node->target_filename, env);
 		next = node->next;
 		free(node->target_filename);
 		free(node);
