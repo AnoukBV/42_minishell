@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:25:50 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:08:01 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:39:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ char	*get_bin_path(t_list *env, char *name);
 void	destroy_cmd_list(t_command **cmd);
 void	destroy_cmd_one(t_command *cmd);
 void	destroy_redir_list(t_redir_list **redir_list);
-void	destroy_pipeline(t_pipeline *pipeline);
+void	destroy_pipeline(t_pipeline *pipeline, int x);
 
 #endif

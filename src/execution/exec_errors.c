@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:11:19 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:17:05 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:41:29 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_execve_error(char *pathname, t_pipeline *pipeline)
 	free(errstr);
 	free(pipeline->cmd_line);
 	free_env_list(&pipeline->envp);
-	destroy_pipeline(pipeline);
+	destroy_pipeline(pipeline, EXIT);
 	exit(exit_code);
 }
 
@@ -42,7 +42,7 @@ void	command_not_found_error(char *name, t_pipeline *pipeline)
 	free(errstr);
 	free_env_list(&pipeline->envp);
 	free(pipeline->cmd_line);
-	destroy_pipeline(pipeline);
+	destroy_pipeline(pipeline, EXIT);
 	exit(127);
 }
 
@@ -61,7 +61,7 @@ void	open_error(char *filename, t_pipeline *pipeline)
 	{
 		free(pipeline->cmd_line);
 		free_env_list(&pipeline->envp);
-		destroy_pipeline(pipeline);
+		destroy_pipeline(pipeline, EXIT);
 		exit(1);
 	}
 }
@@ -70,7 +70,7 @@ void	generic_error(t_pipeline *pipeline)
 {
 	perror(NULL);
 	free_env_list(&pipeline->envp);
-	destroy_pipeline(pipeline);
+	destroy_pipeline(pipeline, EXIT);
 	exit(1);
 }
 

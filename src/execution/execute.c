@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:16:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:39:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 	{
 		free(pipeline->cmd_line);
 		free_env_list(&pipeline->envp);
-		destroy_pipeline(pipeline);
+		destroy_pipeline(pipeline, EXIT);
 		exit(exit_code);
 	}
 }
@@ -126,5 +126,5 @@ void	execute_pipeline(t_pipeline *pipeline)
 		}
 		cmd = cmd->next;
 	}
-	destroy_pipeline(pipeline);
+	destroy_pipeline(pipeline, STAY);
 }
