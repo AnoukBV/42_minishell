@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:50:46 by aboulore          #+#    #+#             */
-/*   Updated: 2024/05/29 16:21:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:08:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**transform_envp(t_list *env)
 	curr = env;
 	final = ft_calloc(sizeof(char *), ft_lstsize(env) + 1);
 	if (!final)
-		return (NULL);
+		malloc_error();
 	while (curr)
 	{
 		final[i] = join_key_value(curr->content);

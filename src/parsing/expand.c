@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:00:48 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 13:44:07 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:09:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*protect_quotes(char *exp)
 	size = protect_new_size(exp) + ft_strlen(exp);
 	new = ft_calloc(sizeof(char), size + 1);
 	if (!new)
-		return (NULL);
+		malloc_error();
 	new = strcpy_quotes(new, exp, size);
 	free(exp);
 	return (new);

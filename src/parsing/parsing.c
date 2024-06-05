@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 08:41:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:35:25 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//print_unidentified_tokens(*inputs);
 	if (expansion(inputs, env) == 1)
 		return (1);
-	//print_unidentified_tokens(*inputs);
+	print_unidentified_tokens(*inputs);
 	//printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
 	//print_unidentified_tokens(*inputs);
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	second_tokenizing(inputs);
-	//print_unidentified_tokens(*inputs);
+	print_unidentified_tokens(*inputs);
 	if (syntax_errors(inputs, &env) == 1)
 		return (1);
 	heredoc_flag(inputs);

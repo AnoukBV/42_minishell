@@ -6,32 +6,34 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 14:46:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:19:47 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+t_list	*nothing_to_keep(t_wd_desc **res, t_list **curr, t_list **tmp, t_list **prev)
+{
+	*res = (*tmp)->content;
+	*curr = (*tmp)->next;
+	(*prev)->next = *curr;
+	free(*res);
+	free(*tmp);
+	//printf("\n[space_knitting] size of split when node to be deleted: %zu\n", ft_arrlen(split));
+	return (*prev);
+}
+
 static t_list	*space_knitting(char **split, t_list **curr, t_list **prev)
 {
-	size_t	i;
-	t_list	*tmp;
+	size_t		i;
+	t_list		*tmp;
 	t_wd_desc	*res;
-	t_list	*new;
+	t_list		*new;
 
 	i = 1;
 	tmp = *curr;
 	if (!split[0])
-	{
-		res = tmp->content;
-		*curr = tmp->next;
-		(*prev)->next = *curr;
-		free(res);
-		free(tmp);
-		//printf("\n[space_knitting] size of split when node to be deleted: %zu\n", ft_arrlen(split));
-		return (*prev);
-	}
-	
+		return (nothing_to_keep(&res, curr, &tmp, prev));
 	res = tmp->content;
 	tmp->content = NULL;
 	tmp->content = new_wd_desc(T_WORD, split[0]);
@@ -85,27 +87,7 @@ void	second_tokenizing(t_list **inputs)
 		}
 	}
 }
-/*
-char	*ambiguous_redirection(char *str, t_list **env)
-{
-	char	*new;
-	int		i;
-	t_esc	stat;
-	t_list	*split;
 
-	i = 0;
-	stat.is_quoted = false;
-	split = NULL;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			i += isolate_exp(&str[i], env, &split, &stat);
-		ft_lstadd_back(&split, ft_lstnew(ft_strdup("$")));
-	}
-	new = join_after_expansion(&split, 0, str);
-	return (new);
-}
-*/
 char	*join_after_expansion(t_list **splitted_token)
 {
 	t_list	*tmp;
@@ -118,12 +100,10 @@ char	*join_after_expansion(t_list **splitted_token)
 	{
 		save = ft_strdup(new);
 		free(new);
-		new = NULL;
 	//	printf("\n[join_after_expansion] save(str to be added to the final str): %s\n", save);
 		new = ft_strjoin(save, (char *)tmp->content);
 	//	printf("\n[join_after_expansion] new(final str): %s\n", new);
 		free(save);
-		save = NULL;
 		tmp = tmp->next;
 	}
 	ft_lstclear(splitted_token, free);
@@ -142,10 +122,10 @@ void	init_tracker(t_exp **exp_status)
 {
 	*exp_status = malloc(sizeof(t_exp));
 	if (!(*exp_status))
-		return ;
+		malloc_error();
 	(*exp_status)->esc_status = malloc(sizeof(t_esc));
 	if (!(*exp_status)->esc_status)
-		return ;
+		malloc_error();
 	(*exp_status)->esc_status->is_quoted = false;
 	(*exp_status)->is_exp_sim = false;
 	(*exp_status)->is_exp_quo = false;
