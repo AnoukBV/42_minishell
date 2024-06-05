@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 15:28:49 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:16:09 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 		exit_code = builtin_echo(cmd->argv);
 	else if (!ft_strncmp(cmd->command, "exit", 5))
 		builtin_exit(pipeline, cmd);
-	else if (!ft_strncmp(cmd->command, "export" ,7))
+	else if (!ft_strncmp(cmd->command, "export", 7))
 		exit_code = ft_export(&pipeline->envp, cmd->argv);
-	else if (!ft_strncmp(cmd->command, "env" , 4))
+	else if (!ft_strncmp(cmd->command, "env", 4))
 		exit_code = print_env(&pipeline->envp, ENV);
-	else if (!ft_strncmp(cmd->command, "unset" ,6))
+	else if (!ft_strncmp(cmd->command, "unset", 6))
 		exit_code = ft_unset(cmd->argv, &pipeline->envp);
 	update_env_exit_code(&pipeline->envp, exit_code);
 	if (will_exit)
@@ -61,7 +61,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	do_redirections(cmd, pipeline);
 	close_fd_list(&pipeline->fd_list);
 	if (is_builtin(cmd->command))
-			builtin_exec(cmd, pipeline, true);
+		builtin_exec(cmd, pipeline, true);
 	else if (cmd->command != NULL)
 	{
 		check_execve_error(cmd->command, pipeline);
@@ -81,7 +81,7 @@ static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	else if (pid == 0)
 	{
 		child_exec(pipeline, cmd);
-		exit(0) ;
+		exit(0);
 	}
 	if (cmd->prev)
 		close(cmd->pipe_left[0]);
@@ -104,8 +104,8 @@ static void	simple_builtin_exec(t_command *cmd, t_pipeline *pipeline)
 	}
 	else
 		update_env_exit_code(&pipeline->envp, 1);
-	dup2(stdout_fd_save , 1);
-	dup2(stdin_fd_save , 0);
+	dup2(stdout_fd_save, 1);
+	dup2(stdin_fd_save, 0);
 }
 
 void	execute_pipeline(t_pipeline *pipeline)

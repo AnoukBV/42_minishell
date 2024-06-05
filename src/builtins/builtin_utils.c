@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:19:16 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 14:58:03 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:13:20 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	argv_size(char **av)
 t_bool	is_builtin(char *cmd_name)
 {
 	if (!cmd_name)
-	return (false);
+		return (false);
 	return (!ft_strncmp(cmd_name, "echo", 5) \
 		|| !ft_strncmp(cmd_name, "cd", 3) \
 		|| !ft_strncmp(cmd_name, "pwd", 4) \

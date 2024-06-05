@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 14:48:44 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:16:33 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	do_redirections(t_command *cmd, t_pipeline *pipeline)
 void	set_pipes(t_pipeline *pipeline, t_command *cmd)
 {
 	int	pfd[2];
-	
+
 	if (cmd->prev)
 	{
 		cmd->pipe_left[0] = cmd->prev->pipe_right[0];

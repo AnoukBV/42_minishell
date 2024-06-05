@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:11:19 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 08:38:37 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:17:05 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	check_execve_error(char *pathname, t_pipeline *pipeline)
 
 void	command_not_found_error(char *name, t_pipeline *pipeline)
 {
-	char *errstr;
+	char	*errstr;
 
 	errstr = ft_strjoin(name, ": command not found\n");
 	ft_putstr_fd(errstr, 2);

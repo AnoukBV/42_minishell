@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:02:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 09:50:07 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:27:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
-typedef struct	s_btree
+typedef struct s_btree
 {
 	struct s_btree	*left;
 	struct s_btree	*right;
@@ -98,8 +98,8 @@ void		btree_apply_prefix(t_btree *root, void (*applyf)(void *));
 void		btree_apply_infix(t_btree *root, void (*applyf)(void *));
 void		btree_clear_infix(t_btree *root, void (*del)(void *));
 double		ft_atod(char *str);
-void	    free_array_3d(char ***array);
-void	    free_array_2d(char **array);
+void		free_array_3d(char ***array);
+void		free_array_2d(char **array);
 char		*ft_superjoin(char **strs, char *sep);
 
 #endif

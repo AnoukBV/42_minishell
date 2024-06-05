@@ -6,13 +6,14 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 10:19:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:21:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*nothing_to_keep(t_wd_desc **res, t_list **curr, t_list **tmp, t_list **prev)
+t_list	*nothing_to_keep(t_wd_desc **res, \
+	t_list **curr, t_list **tmp, t_list **prev)
 {
 	*res = (*tmp)->content;
 	*curr = (*tmp)->next;
@@ -66,23 +67,19 @@ static t_list	*space_break(t_list **node, t_list **prev, char *str)
 
 void	second_tokenizing(t_list **inputs)
 {
-	t_list	*tmp;
-	t_list	*prev;
+	t_list		*tmp;
+	t_list		*prev;
 	t_wd_desc	*tok;
 
 	tmp = *inputs;
 	while (tmp)
 	{
-		//printf("\n[second_tokenizing] tmp before space_break: %p\n", tmp);
-		//printf("\n[second_tokenizing] tmp->next before space_break: %p\n", tmp->next);
 		tok = (t_wd_desc *)tmp->content;
 		if (tok->flags == T_WORD)
 			tmp = space_break(&tmp, &prev, tok->word);
-		//printf("\n[second_tokenizing] tmp after space_break(might have changed): %p\n", tmp);
-		//printf("\n[second_tokenizing] tmp->next after space_break(shouldn't have changed): %p\n", tmp->next);
 		if (tmp)
 		{
-			prev =tmp;
+			prev = tmp;
 			tmp = tmp->next;
 		}
 	}
@@ -100,9 +97,7 @@ char	*join_after_expansion(t_list **splitted_token)
 	{
 		save = ft_strdup(new);
 		free(new);
-	//	printf("\n[join_after_expansion] save(str to be added to the final str): %s\n", save);
 		new = ft_strjoin(save, (char *)tmp->content);
-	//	printf("\n[join_after_expansion] new(final str): %s\n", new);
 		free(save);
 		tmp = tmp->next;
 	}
@@ -116,17 +111,4 @@ char	*join_after_expansion(t_list **splitted_token)
 		new = NULL;
 	}
 	return (new);
-}
-
-void	init_tracker(t_exp **exp_status)
-{
-	*exp_status = malloc(sizeof(t_exp));
-	if (!(*exp_status))
-		malloc_error();
-	(*exp_status)->esc_status = malloc(sizeof(t_esc));
-	if (!(*exp_status)->esc_status)
-		malloc_error();
-	(*exp_status)->esc_status->is_quoted = false;
-	(*exp_status)->is_exp_sim = false;
-	(*exp_status)->is_exp_quo = false;
 }

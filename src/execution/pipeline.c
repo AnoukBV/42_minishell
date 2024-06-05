@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 14:44:16 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:16:47 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	destroy_pipeline(t_pipeline *pipeline)
 	close_fd_list(&pipeline->fd_list);
 	destroy_pid_list(&pipeline->pid_list);
 	destroy_cmd_list(&pipeline->cmd_list);
-	//free(pipeline);
 }
 
 t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env)

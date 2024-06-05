@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:25:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 10:47:37 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:26:05 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-extern int g_status;
+extern int	g_status;
 
 void	rl_signals_handler(int sig)
 {
