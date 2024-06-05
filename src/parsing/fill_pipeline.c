@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 18:30:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:30:38 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_next_heredoc(char *name)
 
 	fd = open(name, O_RDONLY);
 //	tmp = get_next_line(fd);
-	for_exp = NULL;
+	for_exp = ft_strdup("");
 	while (1)
 	{
 		tmp = get_next_line(fd);
