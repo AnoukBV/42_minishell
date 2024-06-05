@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 23:16:19 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:54:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:07:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	*split_key_value(char **argv)
 	i = 1;
 	eq = malloc(sizeof(int) * ft_arrlen(&argv[i]));
 	if (!eq)
-		return (NULL);
+		malloc_error();
 	while (argv[i])
 	{
 		eq[i - 1] = split_point(argv[i]);

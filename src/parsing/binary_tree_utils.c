@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 19:23:11 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 16:30:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:08:25 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_command	*init_cmd(t_list **env)
 
 	cmd = ft_calloc(sizeof(t_command), 1);
 	if (!cmd)
-		return (NULL);
+		malloc_error();
 	cmd->env = env;
 	cmd->next = NULL;
 	cmd->prev = NULL;

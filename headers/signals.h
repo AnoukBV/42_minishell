@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:20:49 by abernade         ###   ########.fr       */
+/*   Created: 2024/06/05 09:26:57 by aboulore          #+#    #+#             */
+/*   Updated: 2024/06/05 11:08:59 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef SIGNALS_H
+# define SIGNALS_H
 
-void	malloc_error(void)
-{
-	perror(NULL);
-	exit(errno);
-}
+# include "minishell.h"
 
-void	dup2_error(void)
-{
-	perror(NULL);
-	exit(errno);
-}
+void	set_rl_signals(void);
+void	set_heredoc_signals(void);
+void	signals_default(void);
+void	set_exec_signals(void);
+void	rl_signals_handler(int sig);
+void	exec_sig_handler(int sig);
+void	heredoc_sig_handler(int sig);
+void	empty_handler(int sig);
 
-void	fork_error(t_pipeline *pipeline)
-{
-	(void)pipeline;
-	/*
-	*	todo
-	*/
-}
-
-
-void	heredoc_eof_warning(const char *delimiter)
-{
-	ft_putstr_fd("minishell: here-document delimited by end-of-file,\
-		 (wanted ", 2);
-	ft_putstr_fd(delimiter, 2);
-	ft_putstr_fd(")\n", 2);
-}
+#endif

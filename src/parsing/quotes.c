@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:52:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 10:54:22 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:47:13 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static void	redir_exec_removal(char **token)
 	}
 	str = ft_strdup(item);
 	item = trim_quotes(str);
+	free(*token);
 	*token = item;
 }
 

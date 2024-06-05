@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 10:41:22 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:38:17 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:08:50 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	isolate_redir(t_command **cmd, t_list **inputs)
 	tok = (t_wd_desc *)(*inputs)->content;
 	new = ft_calloc(sizeof(t_redir_list), 1);
 	if (!new)
-		return ;
+		malloc_error();
 	assignate_flags_dir(tok->flags, &new->open_flags, &new->fd_to_redirect);
 	tok = (t_wd_desc *)(*inputs)->next->content;
 	new->target_filename = ft_strdup(tok->word);

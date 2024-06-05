@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:52:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:06:53 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	ft_exp_p(t_list **e)
 	env = *e;
 	entries = ft_calloc(ft_lstsize(env) + 1, sizeof(t_member *));
 	if (!entries)
-		return (1);
+		malloc_error();
 	env = export_prepare_sort(entries, &env);
 	if (env == NULL)
 		return (1);

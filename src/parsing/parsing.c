@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 16:26:48 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:17:02 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//print_unidentified_tokens(*inputs);
 	if (expansion(inputs, env) == 1)
 		return (1);
-	//print_unidentified_tokens(*inputs);
+	print_unidentified_tokens(*inputs);
 	//printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
 	//print_unidentified_tokens(*inputs);
 //	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	second_tokenizing(inputs);
-	//print_unidentified_tokens(*inputs);
+	print_unidentified_tokens(*inputs);
 	if (syntax_errors(inputs, &env) == 1)
 		return (1);
 	heredoc_flag(inputs);
@@ -112,7 +112,11 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	btree_apply_prefix(tree, &create_argv);
 	//printf("\n[parsing] here after argv creation\n");
 	//printf("\n[parsing] here before fill_pipeline\n");
-	fill_pipeline(pipeline, tree, env);
+	if (fill_pipeline(pipeline, tree, env) == -1)
+	{
+		btree_clear_infix(tree, NULL);
+		return (1);
+	}
 	//printf("\n[parsing] here after fill_pipeline\n");
 	//printf("\n[parsing] here before clear tree\n");
 	btree_clear_infix(tree, NULL);

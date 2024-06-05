@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 10:53:12 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:20:04 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	write_heredoc(int fd, const char *delimiter, t_list **envp)
 	rl_event_hook = event;
 	while (!eof)
 	{
-		line = readline(">");
+		line = readline("> ");
 		if (g_status)
 		{
 			update_env_exit_code(envp, g_status + 128);

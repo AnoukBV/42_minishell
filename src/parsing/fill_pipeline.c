@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 09:50:31 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:18:49 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_next_heredoc(char *name)
 
 	fd = open(name, O_RDONLY);
 //	tmp = get_next_line(fd);
-	for_exp = NULL;
+	for_exp = ft_strdup("");
 	while (1)
 	{
 		tmp = get_next_line(fd);
@@ -47,8 +47,7 @@ char	*fill_heredoc(int flag, t_list **env, char *delimiter)
 	int		fd;
 
 	name = new_heredoc(delimiter, env);
-	name = ft_strdup("heredoc"); //juste pour tester
-	if (flag == T_APP_IN)
+	if (name && flag == T_APP_IN)
 	{
 		for_exp = get_next_heredoc(name);
 		if (ft_strchr(for_exp, '$'))
@@ -78,6 +77,8 @@ int	heredoc_inspection(t_redir_list **redirs, t_list **env)
 		if (tmp->open_flags == T_APP_IN || tmp->open_flags == T_APP_IN + 100)
 		{
 			name = fill_heredoc(tmp->open_flags, env, tmp->target_filename);
+			if (!name)
+				return (-1);
 			free(tmp->target_filename);
 			tmp->target_filename = name;
 			tmp->open_flags = O_RDONLY;
@@ -87,14 +88,14 @@ int	heredoc_inspection(t_redir_list **redirs, t_list **env)
 	return (0);
 }
 
-void	add_flags(t_command **cmd, t_list **env)
+int	add_flags(t_command **cmd, t_list **env)
 {
 	t_command	*tmp;
 	t_command	*save;
 
 	tmp = *cmd;
 	if (!tmp)
-		return ;
+		return (0);
 	save = tmp;
 	while (tmp)
 	{
@@ -107,10 +108,12 @@ void	add_flags(t_command **cmd, t_list **env)
 			tmp = save;
 		}
 		if (tmp->redir_list)
-			heredoc_inspection(&tmp->redir_list, env);
+			if (heredoc_inspection(&tmp->redir_list, env) == -1)
+				return (-1);
 		save = tmp;
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 void	order_commands(t_command **cmd, t_btree *tree)
@@ -124,7 +127,7 @@ void	order_commands(t_command **cmd, t_btree *tree)
 		order_commands(cmd, tree->right);
 }
 
-void	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
+int	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 {
 	t_command	*cmd_list;
 
@@ -132,6 +135,8 @@ void	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 	if (tree)
 		order_commands(&cmd_list, tree);
 	if (cmd_list)
-		add_flags(&cmd_list, &env);
+		if (add_flags(&cmd_list, &env) == -1)
+			return (-1);
 	*pipeline = init_pipeline(cmd_list, env);
+	return (0);
 }
