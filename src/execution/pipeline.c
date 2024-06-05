@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 14:26:41 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:14:01 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ void	ifree_array_2d(char **array)
 	array = NULL;
 }
 
-void	destroy_pipeline(t_pipeline *pipeline)
+void	destroy_pipeline(t_pipeline *pipeline, int x)
 {
 	close_fd_list(&pipeline->fd_list);
 	destroy_pid_list(&pipeline->pid_list);
 	destroy_cmd_list(&pipeline->cmd_list, pipeline->envp);
-	//free(pipeline);
+	if (x == EXIT)
+		free(pipeline);
 }
 
 t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env)

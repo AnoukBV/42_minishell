@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:12:36 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:06:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ void	set_hashtable(char **envp, t_list **env)
 
 	if (!envp[0])
 	{
-		envi = ft_calloc(sizeof(char *), 3);
+		envi = ft_calloc(sizeof(char *), 4);
 		if (!envi)
 			malloc_error();
 		getcwd(buf, PATH_MAX);
 		envi[0] = ft_strjoin("PWD=", (const char *)buf);
 		envi[1] = ft_strdup("SHLVL=1");
-		envi[2] = NULL;
+		envi[2] = ft_strdup("PATH=/usr/bin");
+		envi[3] = NULL;
 		fill_table(envi, env);
 		free_array_2d(envi);
 	}

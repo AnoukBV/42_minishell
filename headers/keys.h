@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:50:36 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:04:00 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:39:26 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define MALLOC_ERR	9
 # define EXPORT 1
 # define ENV	0
+# define EXIT	1
+# define STAY	0
 
 typedef enum e_type
 {

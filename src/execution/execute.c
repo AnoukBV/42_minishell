@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:51:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:41:20 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 	{
 		free(pipeline->cmd_line);
 		free_env_list(&pipeline->envp);
-		destroy_pipeline(pipeline);
+		destroy_pipeline(pipeline, EXIT);
 		exit(exit_code);
 	}
 }
@@ -49,7 +49,7 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 	if (cmd->command && ft_strchr(cmd->command, '/') == NULL && \
 		!is_builtin(cmd->command))
 	{
-		path = get_bin_path(pipeline->envp, cmd->command);
+		path = get_bin_path(pipeline->envp, cmd->command, pipeline);
 		if (path != NULL)
 		{
 			free(cmd->command);
@@ -126,5 +126,5 @@ void	execute_pipeline(t_pipeline *pipeline)
 		}
 		cmd = cmd->next;
 	}
-	destroy_pipeline(pipeline);
+	destroy_pipeline(pipeline, STAY);
 }

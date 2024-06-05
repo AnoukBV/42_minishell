@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:48:45 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 10:24:45 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:39:08 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 		exit_code = ft_atoi(argv[1]);
 	free(pipeline->cmd_line);
 	free_env_list(&pipeline->envp);
-	destroy_pipeline(pipeline);
+	destroy_pipeline(pipeline, EXIT);
 	exit(exit_code);
 }
