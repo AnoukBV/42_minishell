@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:18:49 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:18:08 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	add_flags(t_command **cmd, t_list **env)
 			save->flags = tmp->flags;
 			save->next = tmp->next;
 			save->next->prev = save;
-			destroy_cmd_one(tmp);
+			destroy_cmd_one(tmp, NULL);
 			tmp = save;
 		}
 		if (tmp->redir_list)

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:25:50 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:08:01 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:35:27 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		get_status(int status);
 char	*get_bin_path(t_list *env, char *name);
 
 // Memory
-void	destroy_cmd_list(t_command **cmd);
-void	destroy_cmd_one(t_command *cmd);
-void	destroy_redir_list(t_redir_list **redir_list);
+void	destroy_cmd_list(t_command **cmd, t_list *env);
+void	destroy_cmd_one(t_command *cmd, t_list *env);
+void	destroy_redir_list(t_redir_list **redir_list, t_list *env);
 void	destroy_pipeline(t_pipeline *pipeline);
 
 #endif

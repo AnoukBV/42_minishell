@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 15:28:49 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:30:08 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	set_pipes(pipeline, cmd);
 	pid = fork();
 	if (pid == -1)
-		fork_error(pipeline);
+		generic_error(pipeline);
 	else if (pid == 0)
 	{
 		child_exec(pipeline, cmd);

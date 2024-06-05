@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:20:49 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:13:45 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	malloc_error(void)
 {
 	perror(NULL);
-	exit(errno);
+	exit(1);
 }
 
 void	dup2_error(void)
 {
 	perror(NULL);
-	exit(errno);
+	exit(1);
 }
 
 void	fork_error(t_pipeline *pipeline)
