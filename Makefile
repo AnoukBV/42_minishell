@@ -9,6 +9,7 @@ SRC_DIR := src
 SRC_FILES := main.c \
 			errors.c \
 			heredoc.c \
+			delete_heredoc.c \
 			parsing/newlines.c \
 			parsing/parsing.c \
 			parsing/quotes.c \

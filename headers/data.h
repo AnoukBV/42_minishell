@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:46:30 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 09:52:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:44:03 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_redir_list
 	int						fd_to_redirect;
 	char					*target_filename;
 	int						open_flags;
+	t_bool					heredoc;
 	struct s_redir_list		*next;
 }	t_redir_list;
 

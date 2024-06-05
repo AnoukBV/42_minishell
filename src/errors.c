@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:25:04 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:52:22 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	malloc_error(void)
 {
 	perror(NULL);
-	exit(errno);
+	exit(1);
 }
 
 void	dup2_error(void)
 {
 	perror(NULL);
-	exit(errno);
+	exit(1);
 }
 
 void	fork_error(t_pipeline *pipeline)

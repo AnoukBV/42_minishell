@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:09:10 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:53:06 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	heredoc_inspection(t_redir_list **redirs, t_list **env)
 			free(tmp->target_filename);
 			tmp->target_filename = name;
 			tmp->open_flags = O_RDONLY;
+			tmp->heredoc = true;
 		}
 		tmp = tmp->next;
 	}
@@ -104,7 +105,7 @@ int	add_flags(t_command **cmd, t_list **env)
 			save->flags = tmp->flags;
 			save->next = tmp->next;
 			save->next->prev = save;
-			destroy_cmd_one(tmp);
+			destroy_cmd_one(tmp, NULL);
 			tmp = save;
 		}
 		if (tmp->redir_list)
@@ -138,7 +139,7 @@ int	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 	{
 		if (add_flags(&cmd_list, &env) == -1)
 		{
-			destroy_cmd_list(&cmd_list);
+			destroy_cmd_list(&cmd_list, env);
 			return (-1);
 		}
 	}
