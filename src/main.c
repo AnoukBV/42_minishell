@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:45:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:58:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,12 @@ static char	*get_prompt(void)
 
 char	*select_prompt(void)
 {
-	static size_t	count = 0;
-	static char		**inputs = NULL;
-	size_t			size;
-	char			*prompt;
-	char			*line;
-
-	line = NULL;
-	if (inputs == NULL)
-	{
-		prompt = get_prompt();
-		line = readline(prompt);
-		free(prompt);
-		if (ft_strlen(line) == 0)
-			return (NULL);
-		inputs = newlines(line, &size);
-	}
-	line = inputs[count];
-	count += 1;
-	if (!inputs[count])
-	{
-		free(inputs);
-		count = 0;
-		inputs = NULL;
-	}
+	char	*prompt;
+	char	*line;
+	
+	prompt = get_prompt();
+	line = readline(prompt);
+	free(prompt);
 	return (line);
 }
 
