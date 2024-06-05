@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:18:49 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:09:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,13 @@ int	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 	if (tree)
 		order_commands(&cmd_list, tree);
 	if (cmd_list)
+	{
 		if (add_flags(&cmd_list, &env) == -1)
+		{
+			destroy_cmd_list(&cmd_list);
 			return (-1);
+		}
+	}
 	*pipeline = init_pipeline(cmd_list, env);
 	return (0);
 }
