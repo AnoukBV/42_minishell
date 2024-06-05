@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 07:59:55 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 09:48:45 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@
 # include <errno.h>
 # include <sys/wait.h>
 # include <linux/limits.h>
+# include <limits.h>
 # include "libft.h"
 # include "keys.h"
+
+# define MAX_HEREDOC 10000
 
 typedef enum e_bool { false, true }	t_bool;
 # include "environment.h"
@@ -146,19 +149,19 @@ t_bool 			is_space_esc(t_esc stat, char c);
 size_t			count_isspace(char *str);
 int			red_experr_prompt(char *token, t_list **inputs, t_list **env);
 
-
-
 /*
 *	Error functions
 */
 void	ft_error(void);
 void	generic_error(t_pipeline *pipeline);
+void	simple_generic_error(void);
 void	malloc_error(void);
 void	fork_error(t_pipeline *pipeline);
 void	dup2_error(void);
 void	open_error(char *filename, t_pipeline *pipeline);
 void	check_execve_error(char *pathname, t_pipeline *pipeline);
 void	command_not_found_error(char *name, t_pipeline *pipeline);
+void	heredoc_eof_warning(const char *delimiter);
 
 //side
 void	print_2d_array(char **str);
@@ -178,11 +181,13 @@ void	set_rl_signals(void);
 void	signals_default(void);
 //	Disable SIGINT and SIGQUIT during execution
 void	set_exec_signals(void);
+void	set_heredoc_signals(void);
 
 //	Signal handlers
 void	rl_signals_handler(int sig);
 void	exec_sig_handler(int sig);
 void	heredoc_sig_handler(int sig);
+void	empty_handler(int sig);
 
 /*
 *	Test functions /!\ TO BE DELETED /!\
@@ -273,4 +278,10 @@ void		export_expansion(char *str, t_hashtable *env);
 int		exp_check_err(char *key);
 int			ft_iscap(int a);
 int			ft_unset(char **argv, t_list **env);
+
+/*
+* 	heredoc.c
+*/
+char	*new_heredoc(const char *delimiter, t_list **envp);
+
 #endif

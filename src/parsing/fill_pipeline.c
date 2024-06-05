@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 18:30:55 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 09:50:31 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char	*get_next_heredoc(char *name)
 	return (for_exp);
 }
 
-char	*fill_heredoc(int flag, t_list **env)
+char	*fill_heredoc(int flag, t_list **env, char *delimiter)
 {
 	char	*name;
 	char	*save;
 	char	*for_exp;
 	int		fd;
 
-	//name = filling();
+	name = new_heredoc(delimiter, env);
 	name = ft_strdup("heredoc"); //juste pour tester
 	if (flag == T_APP_IN)
 	{
@@ -77,7 +77,7 @@ int	heredoc_inspection(t_redir_list **redirs, t_list **env)
 	{
 		if (tmp->open_flags == T_APP_IN || tmp->open_flags == T_APP_IN + 100)
 		{
-			name = fill_heredoc(tmp->open_flags, env);
+			name = fill_heredoc(tmp->open_flags, env, tmp->target_filename);
 			free(tmp->target_filename);
 			tmp->target_filename = name;
 			tmp->open_flags = O_RDONLY;

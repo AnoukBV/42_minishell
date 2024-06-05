@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:11:19 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 17:02:08 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:38:37 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,11 @@ void	generic_error(t_pipeline *pipeline)
 	perror(NULL);
 	free_env_list(&pipeline->envp);
 	destroy_pipeline(pipeline);
+	exit(1);
+}
+
+void	simple_generic_error(void)
+{
+	perror(NULL);
 	exit(1);
 }

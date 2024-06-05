@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:25:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 16:24:45 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:47:37 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,21 @@ void	exec_sig_handler(int sig)
 
 void	heredoc_sig_handler(int sig)
 {
-	g_status = sig;
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("  \b\b", 1);
+		return ;
+	}
+	if (sig == SIGINT)
+	{
+		rl_done = 1;
+		g_status = sig;
+	}
+}
+
+void	empty_handler(int sig)
+{
+	(void)sig;
 }

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 09:06:33 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 09:48:36 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,13 @@ void	fork_error(t_pipeline *pipeline)
 	/*
 	*	todo
 	*/
+}
+
+
+void	heredoc_eof_warning(const char *delimiter)
+{
+	ft_putstr_fd("minishell: here-document delimited by end-of-file,\
+		 (wanted ", 2);
+	ft_putstr_fd(delimiter, 2);
+	ft_putstr_fd(")\n", 2);
 }
