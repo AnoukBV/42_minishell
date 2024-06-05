@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 11:41:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:38:30 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:29:06 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,18 @@ static char	**rm_argv(char *filename)
 	return (argv);
 }
 
-void	delete_heredoc(t_redir_list *redir, t_list *env)
+void	delete_heredoc(char *filename, t_list *env)
 {
 	char	**envp;
 	char	**argv;
 	int		pid;
 
-	fprintf(stderr, "delete heredoc: %s\n", redir->target_filename);
 	pid = fork();
 	if (pid == -1)
 		simple_generic_error();
 	if (pid == 0)
 	{
-		argv = rm_argv(redir->target_filename);
+		argv = rm_argv(filename);
 		envp = transform_envp(env);
 		execve("/usr/bin/rm", argv, envp);
 		ft_putstr_fd("failed to remove heredoc\n", 2);
