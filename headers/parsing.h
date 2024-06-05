@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:56:43 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:17:41 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:23:52 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char		**ft_esc_split(char *s, char *c);
 void		second_tokenizing(t_list **inputs);
 t_bool		is_space_esc(t_esc stat, char c);
 size_t		count_isspace(char *str);
+char		**free_split(char **split, int len_split);
 
 // expansion
 int			expansion(t_list **inputs, t_list *env);
