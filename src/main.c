@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:58:43 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 08:00:00 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:45:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	g_status;
 
-static char *get_prompt(void)
+void	shell_prompt(t_list **env);
+
+static char	*get_prompt(void)
 {
 	char	*cwd;
 	char	*prompt;
@@ -30,26 +32,66 @@ static char *get_prompt(void)
 	return (prompt);
 }
 
-static char	*select_prompt(void)
+char	*select_prompt(void)
 {
+	static size_t	count = 0;
+	static char		**inputs = NULL;
+	size_t			size;
 	char			*prompt;
 	char			*line;
 
-	prompt = get_prompt();
-	line = readline(prompt);
-	free(prompt);
+	line = NULL;
+	if (inputs == NULL)
+	{
+		prompt = get_prompt();
+		line = readline(prompt);
+		free(prompt);
+		if (ft_strlen(line) == 0)
+			return (NULL);
+		inputs = newlines(line, &size);
+	}
+	line = inputs[count];
+	count += 1;
+	if (!inputs[count])
+	{
+		free(inputs);
+		count = 0;
+		inputs = NULL;
+	}
 	return (line);
 }
 
-static void	shell_prompt(t_list **env, int ac)
+static int	prepare_next_input(char *line, t_pipeline *pipeline, t_list **env)
+{
+	if (ft_strlen(line))
+	{
+		add_history(line);
+		free(line);
+		if (pipeline)
+		{
+			*env = pipeline->envp;
+			free(pipeline);
+		}
+		shell_prompt(env);
+	}
+	else if (line)
+	{
+		free(line);
+		shell_prompt(env);
+	}
+	return (0);
+}
+
+void	shell_prompt(t_list **env)
 {
 	t_list		*tokens;
 	char		*line;
 	t_pipeline	*pipeline;
 
 	set_rl_signals();
-   	line = select_prompt();
+	line = select_prompt();
 	set_exec_signals();
+	pipeline = NULL;
 	if (g_status)
 	{
 		update_env_exit_code(env, g_status + 128);
@@ -65,22 +107,7 @@ static void	shell_prompt(t_list **env, int ac)
 		else
 			pipeline = NULL;
 	}
-	if (ft_strlen(line))
-	{
-		add_history(line);
-		free(line);
-		if (pipeline)
-		{
-			*env = pipeline->envp;
-			free(pipeline);
-		}
-		shell_prompt(env, ac);
-	}
-	else if (line)
-	{
-		free(line);
-		shell_prompt(env, ac);
-	}
+	prepare_next_input(line, pipeline, env);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -88,11 +115,11 @@ int	main(int ac, char **av, char **envp)
 	t_list	*env;
 
 	(void)av;
+	(void)ac;
 	g_status = 0;
 	env = NULL;
-
 	set_hashtable(envp, &env);
-	shell_prompt(&env, ac);
+	shell_prompt(&env);
 	ft_lstclear(&env, &del_member);
 	ft_putstr_fd("exit\n", 1);
 	return (0);
