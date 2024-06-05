@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:31:05 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 16:12:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:25:31 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	set_rl_signals(void)
 		|| sigaddset(&sa.sa_mask, SIGINT) == -1)
 	{
 		perror(NULL);
-		exit(errno);
+		exit(1);
 	}
 	sa.sa_handler = &rl_signals_handler;
 	if (sigaction(SIGQUIT, &sa, NULL) == -1 \
 		|| sigaction(SIGINT, &sa, NULL) == -1)
 	{
 		perror(NULL);
-		exit(errno);
+		exit(1);
 	}
 }
 
@@ -44,7 +44,21 @@ void	set_exec_signals(void)
 		|| sigaction(SIGINT, &sa, NULL) == -1)
 	{
 		perror(NULL);
-		exit(errno);
+		exit(1);
+	}
+}
+
+void	set_heredoc_signals(void)
+{
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(sa));
+	sa.sa_handler = &heredoc_sig_handler;
+	if (sigaction(SIGQUIT, &sa, NULL) == -1 \
+		|| sigaction(SIGINT, &sa, NULL) == -1)
+	{
+		perror(NULL);
+		exit(1);
 	}
 }
 
@@ -61,6 +75,6 @@ void	signals_default(void)
 		|| sigaction(SIGINT, &sa, NULL) == -1)
 	{
 		perror(NULL);
-		exit(errno);
+		exit(1);
 	}
 }

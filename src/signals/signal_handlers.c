@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:25:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 12:37:35 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:24:45 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,9 @@ void	exec_sig_handler(int sig)
 	if (sig == SIGQUIT)
 		ft_putstr_fd("Quit (core dumped)", 2);
 	ft_putchar_fd('\n', 1);
+}
+
+void	heredoc_sig_handler(int sig)
+{
+	g_status = sig;
 }

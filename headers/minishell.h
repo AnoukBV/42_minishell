@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:22:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/05 07:59:55 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ void	set_exec_signals(void);
 //	Signal handlers
 void	rl_signals_handler(int sig);
 void	exec_sig_handler(int sig);
+void	heredoc_sig_handler(int sig);
 
 /*
 *	Test functions /!\ TO BE DELETED /!\
@@ -214,8 +215,6 @@ void	print_envp(t_list *envp);
 *	No redirection is done at this time
 */
 t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env);
-void		prepare_pipeline(t_pipeline *pipeline);
-
 void		destroy_pipeline(t_pipeline *pipeline);
 
 
@@ -223,6 +222,7 @@ void		destroy_pipeline(t_pipeline *pipeline);
 *	Redirections
 */
 int			do_redirections(t_command *cmd, t_pipeline *pipeline);
+void		set_pipes(t_pipeline *pipeline, t_command *cmd);
 
 	/*
 	*	Manage t_fd_list structures
