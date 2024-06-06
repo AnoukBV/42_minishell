@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:07:52 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:21:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:39:01 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_list	*nothing_to_keep(t_wd_desc **res, \
 	(*prev)->next = *curr;
 	free(*res);
 	free(*tmp);
-	//printf("\n[space_knitting] size of split when node to be deleted: %zu\n", ft_arrlen(split));
 	return (*prev);
 }
 
@@ -58,7 +57,6 @@ static t_list	*space_break(t_list **node, t_list **prev, char *str)
 	char	**split;
 	t_list	*save;
 
-	//printf("\n[space_break] char *str before esc_split: %s\n", str);
 	split = ft_esc_split(str, " \t");
 	save = space_knitting(split, node, prev);
 	free(split);
