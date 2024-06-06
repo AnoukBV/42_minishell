@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:15:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 10:15:59 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:10:58 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ static char	*new_limiter(size_t old, char *token, int ret)
 	return (new);
 }
 
-int	heredoc_expansion(char **token)
+static char    *retrieve_dollar(char *str)
 {
-	int		i;
-	int		size;
-	char	*str;
+    int     i;
+    int     size;
+    char    *new;
 
-	i = 0;
-	size = 0;
-	str = *token;
+    i = 0;
+    size = 0;
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && (str[i + 1] == '\'' \
@@ -51,7 +50,18 @@ int	heredoc_expansion(char **token)
 	}
 	if (size == 0)
 		return (0);
-	*token = new_limiter(ft_strlen(*token), *token, size);
-	free(str);
+	new = new_limiter(ft_strlen(str), str, size);
+    free(str);
+    return (new);
+}
+
+int	heredoc_expansion(char **token)
+{
+	char	*str;
+
+	str = *token;
+    printf("LIMITER: BEG/%s/END\n", *token);
+    *token = retrieve_dollar(*token);
+    printf("LIMITER: BEG/%s/END\n", *token);
 	return (0);
 }
