@@ -6,13 +6,13 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:55:09 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 14:56:31 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:08:10 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-extern int g_status;
+extern int	g_status;
 
 char	*get_prompt(t_bool clear)
 {
@@ -27,12 +27,10 @@ char	*get_prompt(t_bool clear)
 		return (NULL);
 	}
 	cwd = getcwd(NULL, 0);
+	if (!cwd && !last_cwd)
+		exit(errno);
 	if (!cwd)
-	{
-		if (!last_cwd)
-			exit(errno);	
 		cwd = ft_strdup(last_cwd);
-	}
 	else
 	{
 		if (last_cwd)
@@ -44,11 +42,11 @@ char	*get_prompt(t_bool clear)
 	return (prompt);
 }
 
-char	*select_prompt()
+char	*select_prompt(void)
 {
 	char	*prompt;
 	char	*line;
-	
+
 	prompt = get_prompt(false);
 	line = readline(prompt);
 	free(prompt);

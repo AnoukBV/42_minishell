@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:02 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 08:58:19 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:09:28 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 void	generic_error(t_pipeline *pipeline);
 void	simple_generic_error(void);
 void	malloc_error(void);
-void	fork_error(t_pipeline *pipeline);
-void	dup2_error(void);
 void	open_error(char *filename, t_pipeline *pipeline);
 void	check_execve_error(char *pathname, t_pipeline *pipeline);
 void	command_not_found_error(char *name, t_pipeline *pipeline);

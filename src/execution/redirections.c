@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 16:47:29 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:09:15 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 		}
 		else if (dup2(fd, node->fd_to_redirect) == -1)
 		{
-			dup2_error();
+			simple_generic_error();
 			close(fd);
 		}
 		node = next;
@@ -44,14 +44,14 @@ int	do_redirections(t_command *cmd, t_pipeline *pipeline)
 	if (cmd->prev)
 	{
 		if (dup2(cmd->pipe_left[0], 0) == -1)
-			dup2_error();
+			simple_generic_error();
 		close(cmd->pipe_left[0]);
 		remove_fd(cmd->pipe_left[0], &pipeline->fd_list);
 	}
 	if (cmd->next)
 	{
 		if (dup2(cmd->pipe_right[1], 1) == -1)
-			dup2_error();
+			simple_generic_error();
 		close(cmd->pipe_right[1]);
 		remove_fd(cmd->pipe_right[1], &pipeline->fd_list);
 	}
