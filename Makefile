@@ -24,6 +24,7 @@ SRC_FILES := main.c \
 			parsing/expansion_utils.c \
 			parsing/inspect_token.c \
 			parsing/create_argv.c \
+			parsing/heredoc_expansion.c \
 			parsing/fill_pipeline.c \
 			parsing/clean_parsing.c \
 			parsing/check_syntax.c \
