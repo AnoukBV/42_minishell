@@ -8,8 +8,8 @@ HEAD := headers lib/libft/headers
 SRC_DIR := src
 SRC_FILES := main.c \
 			errors.c \
+			shell_prompt.c \
 			heredoc/heredoc.c \
-			heredoc/delete_heredoc.c \
 			heredoc/heredoc_utils.c \
 			parsing/newlines.c \
 			parsing/parsing.c \

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 12:43:30 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 16:44:13 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:18:02 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static t_bool	echo_is_flag(char *str)
 	if (*str != '-')
 		return (false);
 	str++;
+	if (*str == '\0')
+		return (false);
 	while (*str)
 	{
 		if (*str != 'n')

@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 09:35:05 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:03:56 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,9 @@ void		print_divided_cmds(t_btree *cmds, size_t levels);
 int			Size(t_btree *root);
 void		print_divided_cmds_array(t_btree *cmds, size_t levels);
 void		print_pipeline(t_pipeline *pipeline);
+char		*get_prompt(t_bool clear);
+void		shell_prompt(t_list **env);
+char		*get_prompt(t_bool clear);
+void		clear_statics(void);
 
 #endif

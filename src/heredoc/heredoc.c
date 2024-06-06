@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 11:35:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:04:29 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ extern int	g_status;
 static void	exit_heredoc(int exit_code, t_command **cmd, \
 	t_list **envp, char *path)
 {
-	destroy_cmd_list(cmd, *envp, false);
+	destroy_cmd_list(cmd, false);
 	free_env_list(envp);
 	free(path);
+	clear_statics();
 	exit(exit_code);
 }
 
@@ -68,7 +69,7 @@ static void	handle_child_exit(int status, char **filename, t_list **envp)
 	{
 		if (WEXITSTATUS(status))
 		{
-			delete_heredoc(*filename, *envp);
+			unlink(*filename);
 			free(*filename);
 			*filename = NULL;
 			update_env_exit_code(envp, WEXITSTATUS(status));
@@ -78,7 +79,7 @@ static void	handle_child_exit(int status, char **filename, t_list **envp)
 	}
 	else if (WIFSIGNALED(status))
 	{
-		delete_heredoc(*filename, *envp);
+		unlink(*filename);
 		free(*filename);
 		*filename = NULL;		
 		update_env_exit_code(envp, WTERMSIG(status) + 128);

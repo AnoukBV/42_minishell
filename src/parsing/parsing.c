@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 09:29:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:42:17 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	//printf("\n[parsing] here before clear tree\n");
 	//btree_clear_infix(tree, NULL);
 	//printf("\n[parsing] here after clear tree\n");
-	printf("\n[parsing] final\n");
-	print_pipeline(*pipeline);
+	// printf("\n[parsing] final\n");
+	//print_pipeline(*pipeline);
 	return (0);
 }
