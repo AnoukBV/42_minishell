@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 12:19:46 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:29:01 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	btree_apply_prefix(tree, &create_argv);
 	if (fill_pipeline(pipeline, tree, env) == -1)
 		return (1);
-	printf("\n[parsing] final\n");
 	print_pipeline(*pipeline);
 	return (0);
 }

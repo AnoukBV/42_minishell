@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:14:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 09:03:35 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:34:51 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ char	*get_heredoc_name(void)
 
 	i = 0;
 	nb = ft_itoa(i);
-	filename = ft_strjoin("heredoc", nb);
+	filename = ft_strjoin("/tmp/heredoc", nb);
 	free(nb);
 	while (!access(filename, F_OK) && i < MAX_HEREDOC)
 	{
 		i++;
 		free(filename);
 		nb = ft_itoa(i);
-		filename = ft_strjoin("heredoc", nb);
+		filename = ft_strjoin("/tmp/heredoc", nb);
 		free(nb);
 	}
 	if (i == MAX_HEREDOC)
