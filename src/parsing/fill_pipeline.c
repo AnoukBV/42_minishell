@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 13:52:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:31:45 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,10 @@ int	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 
 	cmd_list = NULL;
 	if (tree)
+	{
 		order_commands(&cmd_list, tree);
+		btree_clear_infix(tree, NULL);
+	}
 	if (cmd_list)
 	{
 		if (add_flags(&cmd_list, &env) == -1)
