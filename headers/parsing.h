@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:56:43 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 11:23:52 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:16:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char		*inspect_token(char *str, t_list **env);
 char		*join_after_expansion(t_list **splitted_token);
 t_bool		is_char_exp(char c, int i);
 void		init_tracker(t_exp **exp_status);
+int			heredoc_expansion(char **token);
 
 // from tokens to commands
 void		create_tree(t_list **inputs, \
