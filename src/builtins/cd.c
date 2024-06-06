@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:41:01 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/23 14:09:29 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:04:47 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,14 @@ static int	access_error(char *pathname)
 {
 	char	*errstr;
 
-	if (access(pathname, F_OK) || access(pathname, X_OK))
+	if (access(pathname, F_OK))
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(pathname, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return (1);
+	}
+	if (access(pathname, X_OK))
 	{
 		errstr = ft_strjoin("minishell: cd: ", pathname);
 		perror(errstr);
@@ -71,8 +78,6 @@ int	builtin_cd(char **av, t_list **env)
 	char		*path;
 	char		cwd[PATH_MAX];
 
-	if (getcwd(cwd, PATH_MAX) == NULL)
-		return (1);
 	path = get_path(av, *env);
 	if (path == NULL || access_error(path) == 1)
 		return (1);
