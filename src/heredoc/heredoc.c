@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 09:58:19 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:45:26 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ char	*new_heredoc(const char *delimiter, t_list **envp, t_command **cmd)
 		create_heredoc(filename, delimiter);
 		exit_heredoc(0, cmd, envp, filename);
 	}
-	set_exec_signals();
 	waitpid(pid, &status, 0);
+	set_exec_signals();
 	handle_child_exit(status, &filename, envp);
 	return (filename);
 }
