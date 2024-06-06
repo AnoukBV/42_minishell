@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 16:55:45 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:02:02 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	simple_generic_error(void)
 
 void	heredoc_eof_warning(const char *delimiter)
 {
-	ft_putstr_fd("minishell: here-document delimited by end-of-file,\
-		 (wanted ", 2);
+	ft_putstr_fd("minishell: here-document delimited by end-of-file", 2);
+	ft_putstr_fd(", (wanted '", 2);
 	ft_putstr_fd(delimiter, 2);
-	ft_putstr_fd(")\n", 2);
+	ft_putstr_fd("')\n", 2);
+
 }

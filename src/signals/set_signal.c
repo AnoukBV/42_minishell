@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 11:31:05 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 09:34:57 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:17:39 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,12 @@ void	set_heredoc_signals(void)
 	}
 }
 
-/*
-*	Currently unused
-*/
-void	signals_default(void)
+void	disable_signals(void)
 {
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sa));
-	sa.sa_handler = &empty_handler;
+	sa.sa_handler = SIG_IGN;
 	if (sigaction(SIGQUIT, &sa, NULL) == -1 \
 		|| sigaction(SIGINT, &sa, NULL) == -1)
 	{

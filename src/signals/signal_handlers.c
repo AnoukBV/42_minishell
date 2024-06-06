@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:25:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 14:32:57 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:18:02 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	heredoc_sig_handler(int sig)
 	}
 	if (sig == SIGINT)
 	{
+		rl_on_new_line();
 		exit(128 + sig);
 	}
 }

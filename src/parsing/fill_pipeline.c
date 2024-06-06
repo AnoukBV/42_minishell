@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_pipeline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 13:52:23 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:32:00 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char	*get_next_heredoc(char *name)
 	return (for_exp);
 }
 
-char	*fill_heredoc(int flag, t_list **env, char *delimiter)
+char	*fill_heredoc(int flag, t_list **env, char *delimiter, t_command **cmd)
 {
 	char	*name;
 	char	*save;
 	char	*for_exp;
 	int		fd;
 
-	name = new_heredoc(delimiter, env);
+	name = new_heredoc(delimiter, env, cmd);
 	if (name && flag == T_APP_IN)
 	{
 		for_exp = get_next_heredoc(name);
@@ -66,7 +66,7 @@ char	*fill_heredoc(int flag, t_list **env, char *delimiter)
 	return (name);
 }
 
-int	heredoc_inspection(t_redir_list **redirs, t_list **env)
+int	heredoc_inspection(t_redir_list **redirs, t_list **env, t_command **cmd)
 {
 	t_redir_list	*tmp;
 	char			*name;
@@ -76,7 +76,7 @@ int	heredoc_inspection(t_redir_list **redirs, t_list **env)
 	{
 		if (tmp->open_flags == T_APP_IN || tmp->open_flags == T_APP_IN + 100)
 		{
-			name = fill_heredoc(tmp->open_flags, env, tmp->target_filename);
+			name = fill_heredoc(tmp->open_flags, env, tmp->target_filename, cmd);
 			if (!name)
 				return (-1);
 			free(tmp->target_filename);
@@ -109,7 +109,7 @@ int	add_flags(t_command **cmd, t_list **env)
 			tmp = save;
 		}
 		if (tmp->redir_list)
-			if (heredoc_inspection(&tmp->redir_list, env) == -1)
+			if (heredoc_inspection(&tmp->redir_list, env, cmd) == -1)
 				return (-1);
 		save = tmp;
 		tmp = tmp->next;

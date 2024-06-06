@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 16:08:25 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 09:35:05 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <limits.h>
 # include <sys/stat.h>
 # include "libft.h"
-# include "data.h"
+# include <data.h>
 # include "builtins.h"
 # include "parsing.h"
 # include "environment.h"
@@ -39,6 +39,7 @@
 # include "execution.h"
 # include "signals.h"
 # include "keys.h"
+# include <heredoc.h>
 
 #define MAX_HEREDOC 10000
 
@@ -49,7 +50,5 @@ void		print_divided_cmds(t_btree *cmds, size_t levels);
 int			Size(t_btree *root);
 void		print_divided_cmds_array(t_btree *cmds, size_t levels);
 void		print_pipeline(t_pipeline *pipeline);
-char		*new_heredoc(const char *delimiter, t_list **envp);
-void		delete_heredoc(char *filename, t_list *env);
 
 #endif
