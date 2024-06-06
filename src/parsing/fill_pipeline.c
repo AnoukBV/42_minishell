@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 09:32:00 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 10:02:21 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,10 @@ int	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 
 	cmd_list = NULL;
 	if (tree)
+	{
 		order_commands(&cmd_list, tree);
+		btree_clear_infix(tree, NULL);
+	}
 	if (cmd_list)
 	{
 		if (add_flags(&cmd_list, &env) == -1)
