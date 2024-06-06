@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 10:02:21 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:26:56 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	add_flags(t_command **cmd, t_list **env)
 			save->flags = tmp->flags;
 			save->next = tmp->next;
 			save->next->prev = save;
-			destroy_cmd_one(tmp, NULL);
+			destroy_cmd_one(tmp, NULL, true);
 			tmp = save;
 		}
 		if (tmp->redir_list)
@@ -142,7 +142,7 @@ int	fill_pipeline(t_pipeline **pipeline, t_btree *tree, t_list *env)
 	{
 		if (add_flags(&cmd_list, &env) == -1)
 		{
-			destroy_cmd_list(&cmd_list, env);
+			destroy_cmd_list(&cmd_list, env, true);
 			return (-1);
 		}
 	}

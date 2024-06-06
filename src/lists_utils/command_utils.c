@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:12:51 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:18:29 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:27:21 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 //ts les trucs dans ipeline qui concernnt t_command
 //+cmd addback etc dans fill pipeline.c
-void	destroy_cmd_one(t_command *cmd, t_list *env)
+void	destroy_cmd_one(t_command *cmd, t_list *env, t_bool rm_heredoc)
 {
 	if (cmd->command)
 		free(cmd->command);
 	if (cmd->argv && cmd->is_argv == true)
 		free_array_2d((char **)cmd->argv);
 	if (cmd->redir_list)
-		destroy_redir_list(&cmd->redir_list, env);
+		destroy_redir_list(&cmd->redir_list, env, rm_heredoc);
 	if (cmd)
 		free(cmd);
 }
 
-void	destroy_cmd_list(t_command **cmd, t_list *env)
+void	destroy_cmd_list(t_command **cmd, t_list *env, t_bool rm_heredoc)
 {
 	t_command	*tmp;
 
 	while (*cmd)
 	{
 		tmp = (*cmd)->next;
-		destroy_cmd_one(*cmd, env);
+		destroy_cmd_one(*cmd, env, rm_heredoc);
 		*cmd = tmp;
 	}
 }

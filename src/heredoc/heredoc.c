@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 10:45:26 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:35:42 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ extern int	g_status;
 static void	exit_heredoc(int exit_code, t_command **cmd, \
 	t_list **envp, char *path)
 {
-	destroy_cmd_list(cmd, *envp);
+	destroy_cmd_list(cmd, *envp, false);
 	free_env_list(envp);
 	free(path);
 	exit(exit_code);
@@ -39,7 +39,7 @@ static void	write_heredoc(int fd, const char *delimiter)
 			eof = true;
 		}
 		else
-			eof = (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0);
+			eof = (ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) == 0);
 		if (!eof)
 		{
 			if (line)
