@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 15:04:29 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:44:03 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	handle_child_exit(int status, char **filename, t_list **envp)
 	{
 		unlink(*filename);
 		free(*filename);
-		*filename = NULL;		
+		*filename = NULL;
 		update_env_exit_code(envp, WTERMSIG(status) + 128);
 	}
 }

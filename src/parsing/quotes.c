@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:52:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:23:28 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:40:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static char	*trim_quotes(char *str)
 	new = ft_superjoin(array, NULL);
 	free_array_2d(array);
 	free(str);
-	//printf("\n[trim_quotes] new: %s\n", new);
 	return (new);
 }
 
@@ -97,16 +96,12 @@ void	quotes_removal(void *content)
 	t_list		*save;
 	t_list		*map;
 
-	//printf("\n[quotes_removal] here at very beginning\n");
 	cmd = (t_command *)content;
-	//printf("\n[quotes_removal] in beginning of function\n");
 	if (cmd->is_argv == true && cmd->argv)
 	{
-	//	printf("\n[quotes_removal] in if statement\n");
 		argv = (t_list *)cmd->argv;
 		if (!argv)
 			return ;
-	//	printf("\n[quotes_removal] argv not considered empty\n");
 		save = argv;
 		map = ft_lstmap(argv, &exec_removal, &del_wddesc);
 		ft_lstclear(&save, &del_wddesc);

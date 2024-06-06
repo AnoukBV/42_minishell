@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:14:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 14:34:51 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:44:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ char	*get_heredoc_name(void)
 		ft_putstr_fd("heredoc error\n", 2);
 		exit(1);
 	}
-	return(filename);
+	return (filename);
 }

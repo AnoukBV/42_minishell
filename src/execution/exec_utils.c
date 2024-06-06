@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:56:50 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 17:02:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:43:17 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ static void	free_path_list(char	**path_list)
 	}
 	free(save);
 }
+
 static char	**path_check(t_list *env, char *name, t_pipeline *pipeline)
 {
 	char	**path_list;
-	
+
 	if (ft_strlen(name) == 0)
 		return (NULL);
 	path_list = get_path_list(env);
