@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 17:15:56 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:49:07 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void static	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 	else if (!ft_strncmp(cmd->command, "export", 7))
 		exit_code = ft_export(&pipeline->envp, cmd->argv);
 	else if (!ft_strncmp(cmd->command, "env", 4))
-		exit_code = print_env(&pipeline->envp, ENV);
+		exit_code = print_env(&pipeline->envp, cmd->argv, ENV);
 	else if (!ft_strncmp(cmd->command, "unset", 6))
 		exit_code = ft_unset(cmd->argv, &pipeline->envp);
 	update_env_exit_code(&pipeline->envp, exit_code);

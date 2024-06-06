@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 11:56:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:55:51 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	increment_shlvl(t_member **shlvl)
 
 void	set_hashtable(char **envp, t_list **env)
 {
-	char	**envi;
-	char	buf[PATH_MAX];
+	char		**envi;
+	char		buf[PATH_MAX];
 	t_member	*shlvl;
 
 	if (!envp[0])

@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:45:42 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 09:52:25 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:53:32 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		del_member(void *content);
 
 // display
 int			ft_exp_p(t_list **e);
-int			print_env(t_list **env, int key);
+int			print_env(t_list **env, char **args, int key);
 int			argv_size(char **av);
 void		print_envp(t_list *envp);
 

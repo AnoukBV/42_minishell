@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:46:13 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:54:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_export(t_list **env, char **argv)
 	if (argv == NULL)
 		return (exit);
 	if (ft_arrlen(argv) == 1)
-		exit = print_env(env, EXPORT);
+		exit = print_env(env, argv, EXPORT);
 	else
 	{
 		eq = split_key_value(argv);
