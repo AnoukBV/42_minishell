@@ -9,3 +9,5 @@ outfile
 infile
 test
 test**
+heredoc*
+!heredoc/
