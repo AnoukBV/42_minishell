@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 14:06:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:56:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,23 @@ t_member	*create_table_member(char *key, char *value, t_bool is_og)
 	return (new);
 }
 
+void	increment_shlvl(t_member **shlvl)
+{
+	int	lvl;
+
+	if (!shlvl || !(*shlvl))
+		return ;
+	lvl = ft_atoi((*shlvl)->value);
+	lvl = lvl + 1;
+	free((*shlvl)->value);
+	(*shlvl)->value = ft_itoa(lvl);
+}
+
 void	set_hashtable(char **envp, t_list **env)
 {
 	char	**envi;
 	char	buf[PATH_MAX];
+	t_member	*shlvl;
 
 	if (!envp[0])
 	{
@@ -65,6 +78,8 @@ void	set_hashtable(char **envp, t_list **env)
 	}
 	else
 		fill_table(envp, env);
+	shlvl = env_find_tmemb("SHLVL", env);
+	increment_shlvl(&shlvl);
 }
 
 void	del_member(void *content)
