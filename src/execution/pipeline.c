@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 14:39:26 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:39:11 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	destroy_pipeline(t_pipeline *pipeline, int x)
 	destroy_pid_list(&pipeline->pid_list);
 	destroy_cmd_list(&pipeline->cmd_list, true);
 	if (x == EXIT)
+	{
+		clear_statics();
 		free(pipeline);
+	}
 }
 
 t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env)

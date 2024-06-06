@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:52:09 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:47:29 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 			dup2_error();
 			close(fd);
 		}
-		free(node->target_filename);
-		free(node);
 		node = next;
 	}
-	*r_list = NULL;
+	destroy_redir_list(r_list, false);
 	return (0);
 }
 

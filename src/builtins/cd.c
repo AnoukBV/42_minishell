@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:41:01 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 16:04:47 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:14:26 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,14 @@ int	builtin_cd(char **av, t_list **env)
 	path = get_path(av, *env);
 	if (path == NULL || access_error(path) == 1)
 		return (1);
+	if (getcwd(cwd, PATH_MAX) != NULL)
+		update_env_element(env, "OLDPWD", ft_strdup(cwd));
 	if (chdir(path) == -1)
 	{
 		perror("minishell: cd: ");
 		return (1);
 	}
-	else
-	{
-		update_env_element(env, "OLDPWD", ft_strdup(cwd));
-		if (getcwd(cwd, PATH_MAX) == NULL)
-			return (1);
+	else if (getcwd(cwd, PATH_MAX) != NULL)
 		update_env_element(env, "PWD", ft_strdup(cwd));
-	}
 	return (0);
 }
