@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 11:41:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 11:11:35 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 11:41:48 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	delete_heredoc(char *filename, t_list *env)
 	char	**argv;
 	int		pid;
 
-	fprintf(stderr, "delete %s\n", filename);
 	pid = fork();
 	if (pid == -1)
 		simple_generic_error();
