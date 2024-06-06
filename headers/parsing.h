@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:56:43 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 10:16:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:26:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		command_addback(t_command **list, t_command *new);
 void		assignate_flags_dir(int tok_flags, \
 			int *open_flags, int *fd);
 t_bool		is_redir(t_list *inputs);
+char		*get_next_heredoc(char *name);
 
 // creating the pipeline
 t_pipeline	*init_pipeline(t_command *cmd_lst, t_list *env);

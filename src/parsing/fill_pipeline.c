@@ -6,38 +6,11 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:54:49 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 11:26:56 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:27:30 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_next_heredoc(char *name)
-{
-	char	*for_exp;
-	char	*tmp;
-	char	*save;
-	int		fd;
-
-	fd = open(name, O_RDONLY);
-//	tmp = get_next_line(fd);
-	for_exp = ft_strdup("");
-	while (1)
-	{
-		tmp = get_next_line(fd);
-		if (!tmp)
-			break ;
-		save = for_exp;
-		for_exp = ft_strjoin(save, tmp);
-		free(save);
-		free(tmp);
-		
-	}
-	//free(save);
-	free(tmp);
-	close(fd);
-	return (for_exp);
-}
 
 char	*fill_heredoc(int flag, t_list **env, char *delimiter, t_command **cmd)
 {
@@ -76,7 +49,8 @@ int	heredoc_inspection(t_redir_list **redirs, t_list **env, t_command **cmd)
 	{
 		if (tmp->open_flags == T_APP_IN || tmp->open_flags == T_APP_IN + 100)
 		{
-			name = fill_heredoc(tmp->open_flags, env, tmp->target_filename, cmd);
+			name = fill_heredoc(tmp->open_flags, env, \
+				tmp->target_filename, cmd);
 			if (!name)
 				return (-1);
 			free(tmp->target_filename);

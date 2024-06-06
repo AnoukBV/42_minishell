@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:15:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 11:10:58 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:28:12 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static char	*new_limiter(size_t old, char *token, int ret)
 	return (new);
 }
 
-static char    *retrieve_dollar(char *str)
+static char	*retrieve_dollar(char *str)
 {
-    int     i;
-    int     size;
-    char    *new;
+	int		i;
+	int		size;
+	char	*new;
 
-    i = 0;
-    size = 0;
+	i = 0;
+	size = 0;
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && (str[i + 1] == '\'' \
@@ -51,8 +51,8 @@ static char    *retrieve_dollar(char *str)
 	if (size == 0)
 		return (0);
 	new = new_limiter(ft_strlen(str), str, size);
-    free(str);
-    return (new);
+	free(str);
+	return (new);
 }
 
 int	heredoc_expansion(char **token)
@@ -60,8 +60,30 @@ int	heredoc_expansion(char **token)
 	char	*str;
 
 	str = *token;
-    printf("LIMITER: BEG/%s/END\n", *token);
-    *token = retrieve_dollar(*token);
-    printf("LIMITER: BEG/%s/END\n", *token);
+	*token = retrieve_dollar(*token);
 	return (0);
+}
+
+char	*get_next_heredoc(char *name)
+{
+	char	*for_exp;
+	char	*tmp;
+	char	*save;
+	int		fd;
+
+	fd = open(name, O_RDONLY);
+	for_exp = ft_strdup("");
+	while (1)
+	{
+		tmp = get_next_line(fd);
+		if (!tmp)
+			break ;
+		save = for_exp;
+		for_exp = ft_strjoin(save, tmp);
+		free(save);
+		free(tmp);
+	}
+	free(tmp);
+	close(fd);
+	return (for_exp);
 }

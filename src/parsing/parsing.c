@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 09:29:41 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:19:46 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	heredoc_flag(t_list **inputs)
 			next = tmp->next->content;
 			if (next->word[0] == '"' || next->word[0] == '\'')
 				tok->flags += 100;
-				//printf("wowow");
 		}
 		tmp = tmp->next;
 	}
@@ -81,46 +80,23 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 
 	if (unclosed_quotes(str, &env) == 1)
 		return (1);
-	//printf("\n[parsing] str before trimming isspaces: BEG/%s/END\n", str);
 	res = ft_strtrim(str, " \t");
 	free(str);
-	//printf("\n[parsing] str after trimming isspaces: BEG/%s/END\n", res);
 	tree = NULL;
 	break_into_words(inputs, res);
 	free(res);
 	word_or_operator(inputs);
-	//print_unidentified_tokens(*inputs);
 	if (expansion(inputs, env) == 1)
 		return (1);
-	//print_unidentified_tokens(*inputs);
-	//printf("\n[parsing] (*inputs) before sec_tokenizing: %p\n", (*inputs));
-	//print_unidentified_tokens(*inputs);
-//	printf("\n[parsing] (*inputs)->next before sec_tokenizing: %p\n", (*inputs)->next);
 	second_tokenizing(inputs);
-	//print_unidentified_tokens(*inputs);
 	if (syntax_errors(inputs, &env) == 1)
 		return (1);
 	heredoc_flag(inputs);
 	divide(inputs, &tree, &env);
-	//printf("\n[parsing] here before quotes removal\n");
-	//if (tree)
-	//	quotes_removal(tree->item);
 	btree_apply_prefix(tree, &quotes_removal);
-	//printf("\n[parsing] here after quotes removal\n");
-	//print_divided_cmds(tree, 0);
-	//printf("\n[parsing] here before argv creation\n");
 	btree_apply_prefix(tree, &create_argv);
-	//printf("\n[parsing] here after argv creation\n");
-	//printf("\n[parsing] here before fill_pipeline\n");
 	if (fill_pipeline(pipeline, tree, env) == -1)
-	{
-		//btree_clear_infix(tree, NULL);
 		return (1);
-	}
-	//printf("\n[parsing] here after fill_pipeline\n");
-	//printf("\n[parsing] here before clear tree\n");
-	//btree_clear_infix(tree, NULL);
-	//printf("\n[parsing] here after clear tree\n");
 	printf("\n[parsing] final\n");
 	print_pipeline(*pipeline);
 	return (0);
