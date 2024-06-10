@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:25:47 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 13:12:28 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:48:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	heredoc_sig_handler(int sig)
 	if (sig == SIGINT)
 	{
 		ft_putstr_fd("\n", 1);
-		exit(128 + sig);
+		g_status = sig;
+		close(STDIN_FILENO);
+		//exit(128 + sig);
 	}
 }
 

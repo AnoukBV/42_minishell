@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 15:44:03 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:04:49 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	write_heredoc(int fd, const char *delimiter)
 	{
 		set_heredoc_signals();
 		line = readline("> ");
-		if (!line)
+		if (!line && g_status != SIGINT)
 		{
 			heredoc_eof_warning(delimiter);
 			eof = true;
@@ -47,6 +47,8 @@ static void	write_heredoc(int fd, const char *delimiter)
 				ft_putstr_fd(line, fd);
 			ft_putstr_fd("\n", fd);
 		}
+		if (g_status == SIGINT)
+			eof = true;
 		free(line);
 	}
 }
@@ -67,14 +69,14 @@ static void	handle_child_exit(int status, char **filename, t_list **envp)
 {
 	if (WIFEXITED(status))
 	{
-		if (WEXITSTATUS(status))
+		if (WEXITSTATUS(status) != 0)
 		{
 			unlink(*filename);
 			free(*filename);
 			*filename = NULL;
-			update_env_exit_code(envp, WEXITSTATUS(status));
+			update_env_exit_code(envp, WEXITSTATUS(status) + 128);
 		}
-		if (WEXITSTATUS(status) == 2 || WEXITSTATUS(status) == 0)
+		else if (WEXITSTATUS(status) == 2 || WEXITSTATUS(status) == 0)
 			update_env_exit_code(envp, 0);
 	}
 	else if (WIFSIGNALED(status))
@@ -100,7 +102,10 @@ char	*new_heredoc(const char *delimiter, t_list **envp, t_command **cmd)
 	if (pid == 0)
 	{
 		create_heredoc(filename, delimiter);
-		exit_heredoc(0, cmd, envp, filename);
+		if (g_status == SIGINT)
+			exit_heredoc(2, cmd, envp, filename);
+		else
+			exit_heredoc(0, cmd, envp, filename);
 	}
 	waitpid(pid, &status, 0);
 	set_exec_signals();
