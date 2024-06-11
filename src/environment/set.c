@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:35:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 12:55:51 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:44:02 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	set_hashtable(char **envp, t_list **env)
 		fill_table(envp, env);
 	shlvl = env_find_tmemb("SHLVL", env);
 	increment_shlvl(&shlvl);
+	update_env_exit_code(env, 0);
 }
 
 void	del_member(void *content)
