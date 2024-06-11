@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/10 13:04:49 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:34:30 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	handle_child_exit(int status, char **filename, t_list **envp)
 			*filename = NULL;
 			update_env_exit_code(envp, WEXITSTATUS(status) + 128);
 		}
-		else if (WEXITSTATUS(status) == 2 || WEXITSTATUS(status) == 0)
+		else
 			update_env_exit_code(envp, 0);
 	}
 	else if (WIFSIGNALED(status))

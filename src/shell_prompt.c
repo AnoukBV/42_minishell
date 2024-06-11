@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:55:09 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 17:08:10 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:10:04 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ char	*select_prompt(void)
 	char	*prompt;
 	char	*line;
 
+	set_rl_signals();
 	prompt = get_prompt(false);
 	line = readline(prompt);
+	set_exec_signals();
 	free(prompt);
 	return (line);
 }
@@ -80,9 +82,7 @@ void	shell_prompt(t_list **env)
 	char		*line;
 	t_pipeline	*pipeline;
 
-	set_rl_signals();
 	line = select_prompt();
-	set_exec_signals();
 	pipeline = NULL;
 	if (g_status)
 	{
@@ -96,8 +96,6 @@ void	shell_prompt(t_list **env)
 			pipeline->cmd_line = line;
 			execute_pipeline(pipeline);
 		}
-		else
-			pipeline = NULL;
 	}
 	prepare_next_input(line, pipeline, env);
 }
