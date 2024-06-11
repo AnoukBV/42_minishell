@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 16:07:30 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:42:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	t_btree		*tree;
 	char		*res;
 
-	if (unclosed_quotes(str, &env) == 1)
+	if (unclosed_quotes(str, &env) == 1 || count_isspace(str) == ft_strlen(str))
 		return (1);
 	res = ft_strtrim(str, " \t");
 	free(str);
