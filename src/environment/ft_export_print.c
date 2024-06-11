@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/11 14:52:08 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:42:39 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static void	print_memb_arr(t_member **m, int size)
 	i = 0;
 	while (i < size && m[i])
 	{
-		if (!m[i] || !ft_strncmp(m[i]->key, ENV_EXIT_CODE, \
-			ft_strlen(ENV_EXIT_CODE)))
+		if (!m[i])
 			break ;
-		if (ft_strncmp(m[i]->key, "_", ft_strlen(m[i]->key)))
+		if (ft_strncmp(m[i]->key, "_", ft_strlen(m[i]->key)) && \
+			ft_strncmp(m[i]->key, ENV_EXIT_CODE, ft_strlen(ENV_EXIT_CODE)))
 		{
 			ft_putstr_fd("declare -x ", 1);
 			ft_putstr_fd(m[i]->key, 1);
