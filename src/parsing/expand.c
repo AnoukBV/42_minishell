@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 14:00:48 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/11 14:46:46 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:51:52 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*expand(char *str, t_list **env, int size)
 
 	new = ft_substr(str, 1, size - 1);
 	if (!ft_strncmp(new, "?", 1))
-		exp = ft_strdup(env_find_key(ENV_KEY_EXIT_CODE, env));
+		exp = ft_strdup(env_find_key(ENV_EXIT_CODE, env));
 	else
 		exp = ft_strdup(env_find_key(new, env));
 	free(new);

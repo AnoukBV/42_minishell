@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 14:30:09 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:52:08 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static void	print_memb_arr(t_member **m, int size)
 	i = 0;
 	while (i < size && m[i])
 	{
-		if (!m[i])
+		if (!m[i] || !ft_strncmp(m[i]->key, ENV_EXIT_CODE, \
+			ft_strlen(ENV_EXIT_CODE)))
 			break ;
 		if (ft_strncmp(m[i]->key, "_", ft_strlen(m[i]->key)))
 		{

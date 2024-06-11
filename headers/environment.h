@@ -6,14 +6,14 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:45:42 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/11 14:28:49 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:51:52 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 
-# define ENV_KEY_EXIT_CODE "INTERNAL_EXITCODE"
+# define ENV_EXIT_CODE "INTERNAL_EXITCODE"
 
 // parsing the environment
 void		set_hashtable(char **envp, t_list **env);
