@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 15:03:56 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:15:42 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # include "keys.h"
 # include <heredoc.h>
 
-#define MAX_HEREDOC 10000
+# define MAX_HEREDOC 100000
 
 //side TO BE DELETED
 void		print_2d_array(char **str);
