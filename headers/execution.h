@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:25:50 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 14:39:20 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:55:09 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,9 @@ void	destroy_cmd_list(t_command **cmd, t_bool rm_heredoc);
 void	destroy_cmd_one(t_command *cmd, t_bool rm_heredoc);
 void	destroy_redir_list(t_redir_list **redir_list, t_bool rm_heredoc);
 void	destroy_pipeline(t_pipeline *pipeline, int x);
+
+// builtin execution
+void	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit);
+void	simple_builtin_exec(t_command *cmd, t_pipeline *pipeline);
 
 #endif

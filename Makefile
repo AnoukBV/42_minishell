@@ -50,6 +50,7 @@ SRC_FILES := main.c \
 			execution/execute.c \
 			execution/redirections.c \
 			execution/exec_errors.c \
+			execution/builtin_exec.c \
 			signals/set_signal.c \
 			signals/signal_handlers.c \
 			builtins/cd.c \
