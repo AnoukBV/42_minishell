@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:21:00 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 12:24:00 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:57:42 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	syntax_err_prompt(char *token, t_list **inputs, t_list **env)
 	if (inputs != NULL)
 		ft_lstclear(inputs, &del_wddesc);
 	update_env_exit_code(env, 2);
-	return (2);
+	return (1);
 }
 
 static int	rest_of_syntax(t_list **ch, t_list **inputs, t_list **env)
@@ -57,7 +57,10 @@ int	syntax_errors(t_list **inputs, t_list **env)
 
 	check = *inputs;
 	if (!check)
-		return (1);
+	{
+		update_env_exit_code(env, 0);
+		return (0);
+	}
 	curr = check->content;
 	if (curr->flags == T_PIPE)
 		return (syntax_err_prompt(curr->word, inputs, env));
