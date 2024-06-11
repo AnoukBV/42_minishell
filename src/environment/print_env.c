@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 10:29:34 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 12:54:58 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:30:55 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	env_print_member(void *mb)
 	t_member	*m;
 
 	m = (t_member *)mb;
+	if (!ft_strncmp(ENV_KEY_EXIT_CODE, m->key, ft_strlen(ENV_KEY_EXIT_CODE)))
+		return ;
 	if (!m)
 		return ;
 	if (!m->key || !m->value)
