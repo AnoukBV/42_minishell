@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/11 18:12:36 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:53:06 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	fork_cmd(t_command *cmd, t_pipeline *pipeline)
 	if (cmd->prev)
 		close(cmd->pipe_left[0]);
 	if (cmd->next)
-		close(cmd->pipe_right[1]);		
+		close(cmd->pipe_right[1]);
 	add_pid(pid, &pipeline->pid_list);
 }
 

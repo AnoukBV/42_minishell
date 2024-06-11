@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:41:01 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 16:14:26 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:52:32 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ static int	access_error(char *pathname)
 	return (0);
 }
 
-/*
-*	Returned value is meant to be used as the exit code
-*/
 int	builtin_cd(char **av, t_list **env)
 {
 	char		*path;
