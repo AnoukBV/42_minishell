@@ -57,8 +57,7 @@ SRC_FILES := main.c \
 			builtins/pwd.c \
 			builtins/echo.c \
 			builtins/exit.c \
-			builtins/builtin_utils.c \
-			totrash.c
+			builtins/builtin_utils.c 
 
 SRC := $(SRC_FILES:%.c=$(SRC_DIR)/%.c)
 
@@ -71,7 +70,7 @@ INCLUDES = -I$(INCLUDES_DIR) \
 			-Ilibft
 
 CC := clang
-CFLAGS := -Wall -Wextra -Werror -g -gdwarf-4 -O -O0
+CFLAGS := -Wall -Wextra -Werror -gdwarf-4 -O -O0
 PREPFLAGS := $(addprefix -I, $(HEAD)) -MMD -MP
 LDFLAGS := -Llib/libft -Lheaders -lreadline -lhistory
 LDLIBS := -lft

@@ -11,3 +11,4 @@ test
 test**
 heredoc*
 !heredoc/
+src/totrash.c
