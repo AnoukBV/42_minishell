@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 10:15:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 12:28:12 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:08:30 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,6 @@ static char	*retrieve_dollar(char *str)
 
 int	heredoc_expansion(char **token)
 {
-	char	*str;
-
-	str = *token;
 	*token = retrieve_dollar(*token);
 	return (0);
 }
