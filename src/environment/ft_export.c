@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 12:54:31 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:44:02 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,18 @@ static int	make_value(t_member **m, char *argv, int eq)
 	t_member	*room;
 
 	room = *m;
-	if (eq + 1 < (int)ft_strlen(argv))
+	if (argv[eq - 1] == '+')
 	{
-		if (argv[eq - 1] == '+')
-		{
-			save = room->value;
-			search = ft_substr(&argv[eq + 1], 0, \
-				ft_strlen((&argv[eq]) - 1));
-			room->value = ft_strjoin(save, search);
-			free(search);
-			free(save);
-		}
-		else
-			room->value = ft_substr(&argv[eq + 1], 0, \
-				ft_strlen((&argv[eq]) - 1));
+		save = room->value;
+		search = ft_substr(&argv[eq + 1], 0, \
+			ft_strlen((&argv[eq]) - 1));
+		room->value = ft_strjoin(save, search);
+		free(search);
+		free(save);
 	}
+	else if (argv[eq] == '=')
+		room->value = ft_substr(&argv[eq + 1], 0, \
+			ft_strlen((&argv[eq]) - 1));
 	return (0);
 }
 
