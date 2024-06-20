@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/11 19:42:39 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:28:18 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ int	ft_exp_p(t_list **e)
 		malloc_error();
 	env = export_prepare_sort(entries, &env);
 	if (env == NULL)
+	{
+		free(entries);
 		return (1);
+	}
 	tmp = env->content;
 	end_of_ogs(&tmp, &env);
 	if (!env)
