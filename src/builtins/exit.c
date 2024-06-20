@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:48:45 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/18 17:49:45 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:51:12 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ static void	clean_exit(t_pipeline *pipeline, int exit_code)
 	exit(exit_code);
 }
 
+static void	numeric_arg_error(char *arg)
+{
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+}
+
 int	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 {
 	int		exit_code;
@@ -48,9 +55,7 @@ int	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 		clean_exit(pipeline, 0);
 	else if (!is_number(argv[1]))
 	{
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(argv[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		numeric_arg_error(argv[1]);
 		exit_code = 2;
 	}
 	else

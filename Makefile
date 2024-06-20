@@ -69,7 +69,7 @@ INCLUDES_DIR = headers
 INCLUDES = -I$(INCLUDES_DIR) \
 			-Ilibft
 
-CC := clang
+CC := cc
 CFLAGS := -Wall -Wextra -Werror -gdwarf-4 -O -O0
 PREPFLAGS := $(addprefix -I, $(HEAD)) -MMD -MP
 LDFLAGS := -Llib/libft -Lheaders -lreadline -lhistory
