@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:33:37 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/11 12:59:25 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/21 07:59:15 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,19 @@ size_t	count_isspace(char *str)
 	t_esc	stat;
 
 	i = 0;
+	stat.is_quoted = false;
 	while (str[i] && (ft_isspace(str[i]) \
 		&& is_space_esc(stat, str[i]) == false))
 	{
 		check_quote(&stat, &str[i]);
 		i++;
 	}
-	return (i);
+	if (i == ft_strlen(str))
+	{
+	  	free(str);
+		return (1);
+	}
+	return (0);
 }
 
 static void	divide(t_list **inputs, t_btree **tree, t_list **env)
@@ -78,7 +84,7 @@ int	parsing(char *str, t_list **inputs, t_list *env, t_pipeline **pipeline)
 	t_btree		*tree;
 	char		*res;
 
-	if (unclosed_quotes(str, &env) == 1 || count_isspace(str) == ft_strlen(str))
+	if (unclosed_quotes(str, &env) == 1 || count_isspace(str) == 1)
 		return (1);
 	res = ft_strtrim(str, " \t");
 	free(str);
