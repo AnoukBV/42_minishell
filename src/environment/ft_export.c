@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:19:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/19 10:44:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/21 08:04:29 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ static int	add_member(char *argv, t_list *env, int eq)
 	if (exp_check_err(search) == 1)
 		return (ft_exp_err_mess(argv, search));
 	room = env_find_tmemb(search, &env);
+	free(search);
+	if (room && argv[eq] != '=')
+		return (0);
 	if (!room)
 	{
 		room = create_table_member(NULL, NULL, false);
 		ft_lstadd_back(&env, ft_lstnew(room));
 	}
-	free(search);
 	if (make_key(&room, argv, eq) == 1 || make_value(&room, argv, eq) == 1)
 		return (1);
 	return (0);

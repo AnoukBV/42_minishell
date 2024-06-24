@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:52:07 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 15:40:24 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/21 07:54:39 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ static char	*trim_quotes(char *str)
 {
 	char	*new;
 	char	**array;
+	size_t		i;
 
-	if (ft_strlen(str) == 2 && str[0] == '\n' && str[1] == '\n')
+	i = 0;
+	while (str[i] == '\n' && str[i])
+		i++;
+	if (ft_strlen(str) == i)
 	{
 		free(str);
 		return (ft_strdup(""));
