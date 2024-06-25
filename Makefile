@@ -67,8 +67,7 @@ DEPS := $(OBJ:.o=.d)
 
 INCLUDES_DIR = headers
 INCLUDES = -I$(INCLUDES_DIR) \
-			-Ilibft \
-			-lreadline
+			-Ilibft
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -gdwarf-4 -O -O0 -g

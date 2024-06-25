@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:45:14 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/04 15:56:33 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:04:01 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	unset_variable(char *argv, t_list **env)
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	if (prev == *env && tmp)
-	{
-		tmp = *env;
+	if (tmp == *env && tmp)
 		*env = (*env)->next;
-	}
 	else if (tmp)
 		prev->next = tmp->next;
 	else

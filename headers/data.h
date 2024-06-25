@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:46:30 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/05 12:44:03 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:07:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 
 # include "minishell.h"
 
-typedef enum e_bool { false, true }	t_bool;
+typedef enum e_bool
+{
+	false,
+	true
+}	t_bool;
 
 typedef struct s_member
 {
