@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 13:19:01 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:25:12 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	destroy_redir_list(t_redir_list **redir_list, t_bool rm_heredoc)
 	node = *redir_list;
 	while (node)
 	{
-		if (node->heredoc && rm_heredoc && !access(node->target_filename, F_OK))
+		if (node->heredoc && rm_heredoc \
+			&& !access(node->target_filename, F_OK))
 		{
 			if (unlink(node->target_filename))
-				simple_generic_error("minishell: failed to unlink here-document");
+				simple_generic_error("minishell: failed to unlink heredoc");
 		}
 		next = node->next;
 		free(node->target_filename);
