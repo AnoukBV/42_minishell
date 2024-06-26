@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 17:09:15 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 08:38:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 {
@@ -22,6 +22,7 @@ int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 	while (node != NULL)
 	{
 		next = node->next;
+		printf("[do_redir_list] node->target filename: %s\n", node->target_filename);
 		fd = open(node->target_filename, node->open_flags, 0644);
 		if (fd == -1)
 		{

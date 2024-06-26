@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:23:49 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/11 14:51:52 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:47:14 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	update_env_exit_code(t_list **env_lst, int exit_code)
 {

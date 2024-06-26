@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/11 13:15:42 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:43:35 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@
 # include <linux/limits.h>
 # include <limits.h>
 # include <sys/stat.h>
+
 # include "libft.h"
-# include <data.h>
+# include "data.h"
 # include "builtins.h"
 # include "parsing.h"
 # include "environment.h"
@@ -39,17 +40,10 @@
 # include "execution.h"
 # include "signals.h"
 # include "keys.h"
-# include <heredoc.h>
+# include "heredoc.h"
 
 # define MAX_HEREDOC 100000
 
-//side TO BE DELETED
-void		print_2d_array(char **str);
-void		print_unidentified_tokens(t_list *inputs);
-void		print_divided_cmds(t_btree *cmds, size_t levels);
-int			Size(t_btree *root);
-void		print_divided_cmds_array(t_btree *cmds, size_t levels);
-void		print_pipeline(t_pipeline *pipeline);
 char		*get_prompt(t_bool clear);
 void		shell_prompt(t_list **env);
 char		*get_prompt(t_bool clear);

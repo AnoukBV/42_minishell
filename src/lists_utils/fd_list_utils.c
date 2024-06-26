@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fd_list_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:46:39 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/30 16:43:18 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:47:22 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 /*
 *	Close all file descriptors in the list

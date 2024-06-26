@@ -6,11 +6,11 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 08:14:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 15:44:15 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:46:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 char	*get_heredoc_name(void)
 {

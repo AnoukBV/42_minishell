@@ -6,11 +6,11 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:10:13 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 14:43:02 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:45:27 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 t_member	*get_env_element(t_list *env, char *key)
 {

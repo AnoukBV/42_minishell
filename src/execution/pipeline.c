@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 16:39:11 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 08:19:53 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	destroy_redir_list(t_redir_list **redir_list, t_bool rm_heredoc)
 {
@@ -20,8 +20,10 @@ void	destroy_redir_list(t_redir_list **redir_list, t_bool rm_heredoc)
 	node = *redir_list;
 	while (node)
 	{
+		printf("node->target_filename : %s rm_hd : %d\n", node->target_filename, rm_heredoc);
 		if (node->heredoc && rm_heredoc)
 		{
+			printf("before unlink\n");
 			if (unlink(node->target_filename))
 				simple_generic_error();
 		}

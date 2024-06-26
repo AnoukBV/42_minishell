@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:12:51 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 14:38:56 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:47:04 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//ts les trucs dans ipeline qui concernnt t_command
-//+cmd addback etc dans fill pipeline.c
 void	destroy_cmd_one(t_command *cmd, t_bool rm_heredoc)
 {
 	if (cmd->command)

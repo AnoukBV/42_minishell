@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_env_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:47:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/05/21 16:19:04 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:45:10 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	free_env_member(void *elem)
 {

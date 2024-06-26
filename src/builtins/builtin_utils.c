@@ -6,11 +6,11 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 18:19:16 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/05 12:13:20 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:43:52 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	print_envp(t_list *envp)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:53:39 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/18 16:29:34 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:45:40 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 {

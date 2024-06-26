@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 17:11:19 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/06 11:00:11 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:45:48 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 static void	directory_error(char *pathname, t_pipeline *pipeline)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pid_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 00:46:48 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/04 12:21:09 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:47:31 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void	destroy_pid_list(t_pid_list **pid)
 {

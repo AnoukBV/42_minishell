@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell_prompt.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:55:09 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/11 13:10:04 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 07:44:11 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 extern int	g_status;
 
