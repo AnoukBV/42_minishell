@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 08:19:53 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:19:01 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	destroy_redir_list(t_redir_list **redir_list, t_bool rm_heredoc)
 	node = *redir_list;
 	while (node)
 	{
-		printf("node->target_filename : %s rm_hd : %d\n", node->target_filename, rm_heredoc);
-		if (node->heredoc && rm_heredoc)
+		if (node->heredoc && rm_heredoc && !access(node->target_filename, F_OK))
 		{
-			printf("before unlink\n");
 			if (unlink(node->target_filename))
-				simple_generic_error();
+				simple_generic_error("minishell: failed to unlink here-document");
 		}
 		next = node->next;
 		free(node->target_filename);

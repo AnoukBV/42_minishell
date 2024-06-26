@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:02 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/06 17:09:28 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:04:15 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 void	generic_error(t_pipeline *pipeline);
-void	simple_generic_error(void);
+void	simple_generic_error(char *str);
 void	malloc_error(void);
 void	open_error(char *filename, t_pipeline *pipeline);
 void	check_execve_error(char *pathname, t_pipeline *pipeline);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 11:48:23 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/26 07:47:47 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:04:02 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ void	malloc_error(void)
 	exit(1);
 }
 
-void	simple_generic_error(void)
+void	simple_generic_error(char *str)
 {
-	perror(NULL);
-	exit(1);
+	perror(str);
 }
 
 void	heredoc_eof_warning(const char *delimiter)

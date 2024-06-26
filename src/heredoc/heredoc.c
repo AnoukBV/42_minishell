@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:02:27 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 07:46:34 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:08:59 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static void	create_heredoc(char *filename, const char *delimiter)
 
 	fd = open(filename, O_CREAT | O_APPEND | O_RDWR, 00770);
 	if (fd == -1)
-		simple_generic_error();
+		simple_generic_error("minishell: open");
 	write_heredoc(fd, delimiter);
 	if (close(fd))
-		simple_generic_error();
+		simple_generic_error("minishell: close");
 }
 
 static void	handle_child_exit(int status, char **filename, t_list **envp)
@@ -98,7 +98,7 @@ char	*new_heredoc(const char *delimiter, t_list **envp, t_command **cmd)
 	disable_signals();
 	pid = fork();
 	if (pid == -1)
-		simple_generic_error();
+		simple_generic_error("minishell: fork");
 	if (pid == 0)
 	{
 		create_heredoc(filename, delimiter);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 14:08:41 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 08:38:24 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:19:05 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 	while (node != NULL)
 	{
 		next = node->next;
-		printf("[do_redir_list] node->target filename: %s\n", node->target_filename);
 		fd = open(node->target_filename, node->open_flags, 0644);
 		if (fd == -1)
 		{
@@ -31,7 +30,7 @@ int	do_redir_list(t_redir_list **r_list, t_pipeline *pipeline)
 		}
 		else if (dup2(fd, node->fd_to_redirect) == -1)
 		{
-			simple_generic_error();
+			simple_generic_error("minishell: dup2");
 			close(fd);
 		}
 		node = next;
@@ -45,14 +44,14 @@ int	do_redirections(t_command *cmd, t_pipeline *pipeline)
 	if (cmd->prev)
 	{
 		if (dup2(cmd->pipe_left[0], 0) == -1)
-			simple_generic_error();
+			simple_generic_error("minishell: dup2");
 		close(cmd->pipe_left[0]);
 		remove_fd(cmd->pipe_left[0], &pipeline->fd_list);
 	}
 	if (cmd->next)
 	{
 		if (dup2(cmd->pipe_right[1], 1) == -1)
-			simple_generic_error();
+			simple_generic_error("minishell: dup2");
 		close(cmd->pipe_right[1]);
 		remove_fd(cmd->pipe_right[1], &pipeline->fd_list);
 	}
