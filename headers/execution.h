@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:25:50 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/11 13:55:09 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:49:49 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_bool	is_directory(const char *pathname);
 void	destroy_cmd_list(t_command **cmd, t_bool rm_heredoc);
 void	destroy_cmd_one(t_command *cmd, t_bool rm_heredoc);
 void	destroy_redir_list(t_redir_list **redir_list, t_bool rm_heredoc);
-void	destroy_pipeline(t_pipeline *pipeline, int x);
+void	destroy_pipeline(t_pipeline *pipeline, int x, t_bool rm_heredoc);
 
 // builtin execution
 void	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit);

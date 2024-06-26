@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 08:42:19 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:50:12 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	handle_child(t_command *cmd, t_pipeline *pipeline)
 	{
 		free(pipeline->cmd_line);
 		free_env_list(&pipeline->envp);
-		destroy_pipeline(pipeline, EXIT);
+		destroy_pipeline(pipeline, EXIT, false);
 	}
 	exit(0);
 }
@@ -92,5 +92,5 @@ void	execute_pipeline(t_pipeline *pipeline)
 		}
 		cmd = cmd->next;
 	}
-	destroy_pipeline(pipeline, STAY);
+	destroy_pipeline(pipeline, STAY, true);
 }

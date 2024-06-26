@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 15:40:57 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 13:25:12 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:50:33 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	destroy_redir_list(t_redir_list **redir_list, t_bool rm_heredoc)
 	node = *redir_list;
 	while (node)
 	{
-		if (node->heredoc && rm_heredoc \
+		if (node->heredoc && rm_heredoc == true \
 			&& !access(node->target_filename, F_OK))
 		{
 			if (unlink(node->target_filename))
@@ -51,11 +51,11 @@ void	ifree_array_2d(char **array)
 	array = NULL;
 }
 
-void	destroy_pipeline(t_pipeline *pipeline, int x)
+void	destroy_pipeline(t_pipeline *pipeline, int x, t_bool rm_heredoc)
 {
 	close_fd_list(&pipeline->fd_list);
 	destroy_pid_list(&pipeline->pid_list);
-	destroy_cmd_list(&pipeline->cmd_list, true);
+	destroy_cmd_list(&pipeline->cmd_list, rm_heredoc);
 	if (x == EXIT)
 	{
 		clear_statics();

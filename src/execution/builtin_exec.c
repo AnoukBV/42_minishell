@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:53:39 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 07:45:40 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:47:55 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	builtin_exec(t_command *cmd, t_pipeline *pipeline, t_bool will_exit)
 	{
 		free(pipeline->cmd_line);
 		free_env_list(&pipeline->envp);
-		destroy_pipeline(pipeline, EXIT);
+		destroy_pipeline(pipeline, EXIT, false);
 		exit(exit_code);
 	}
 }

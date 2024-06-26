@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:48:45 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 07:44:52 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:52:57 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static t_bool	is_number(char *str)
 	return (true);
 }
 
-static void	clean_exit(t_pipeline *pipeline, int exit_code)
+static void	clean_exit(t_pipeline *pipeline, int exit_code, t_bool rm_heredoc)
 {
 	free(pipeline->cmd_line);
 	free_env_list(&pipeline->envp);
-	destroy_pipeline(pipeline, EXIT);
+	destroy_pipeline(pipeline, EXIT, rm_heredoc);
 	exit(exit_code);
 }
 
@@ -52,7 +52,7 @@ int	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 	if (!cmd->next && !cmd->prev)
 		ft_putstr_fd("exit\n", 1);
 	if (!argv[1])
-		clean_exit(pipeline, 0);
+		clean_exit(pipeline, 0, (!cmd->prev && !cmd->next));
 	else if (!is_number(argv[1]))
 	{
 		numeric_arg_error(argv[1]);
@@ -67,6 +67,6 @@ int	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 			return (1);
 		}
 	}
-	clean_exit(pipeline, exit_code);
+	clean_exit(pipeline, exit_code, (!cmd->next && !cmd->prev));
 	return (1);
 }
