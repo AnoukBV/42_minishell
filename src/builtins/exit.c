@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:48:45 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 13:52:57 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:06:24 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	builtin_exit(t_pipeline *pipeline, t_command *cmd)
 	int		exit_code;
 	char	**argv;
 
-	exit_code = 0;
+	exit_code = ft_atoi(env_find_key(ENV_EXIT_CODE, &pipeline->envp));
 	argv = cmd->argv;
 	if (!cmd->next && !cmd->prev)
 		ft_putstr_fd("exit\n", 1);
 	if (!argv[1])
-		clean_exit(pipeline, 0, (!cmd->prev && !cmd->next));
+		clean_exit(pipeline, exit_code, (!cmd->prev && !cmd->next));
 	else if (!is_number(argv[1]))
 	{
 		numeric_arg_error(argv[1]);
