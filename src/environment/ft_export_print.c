@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/20 11:28:18 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:40:43 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_list	*export_prepare_sort(t_member **ent, t_list **env)
 		return (0);
 	m = (t_member *)tmp->content;
 	c = m->key[0];
-	while (tmp && c != '_')
+	while (tmp)
 	{
 		m = (t_member *)tmp->content;
 		c = m->key[0];
@@ -87,45 +87,16 @@ static t_list	*export_prepare_sort(t_member **ent, t_list **env)
 	return (tmp);
 }
 
-static void	end_of_ogs(t_member **t, t_list **e)
-{
-	t_member	*tmp;
-	t_list		*env;
-
-	tmp = *t;
-	env = *e;
-	while (tmp->is_og == true && env)
-	{
-		env = env->next;
-		if (env)
-			tmp = env->content;
-	}
-}
-
 int	ft_exp_p(t_list **e)
 {
 	t_list		*env;
 	t_member	**entries;
-	t_member	*tmp;
 
 	env = *e;
 	entries = ft_calloc(ft_lstsize(env) + 1, sizeof(t_member *));
 	if (!entries)
 		malloc_error();
 	env = export_prepare_sort(entries, &env);
-	if (env == NULL)
-	{
-		free(entries);
-		return (1);
-	}
-	tmp = env->content;
-	end_of_ogs(&tmp, &env);
-	if (!env)
-	{
-		free(entries);
-		return (0);
-	}
-	export_prepare_sort(entries, &env);
 	free(entries);
 	return (0);
 }
