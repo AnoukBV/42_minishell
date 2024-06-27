@@ -6,7 +6,7 @@
 /*   By: abernade <abernade@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 13:30:31 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 13:50:12 by abernade         ###   ########.fr       */
+/*   Updated: 2024/06/27 14:25:11 by abernade         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static void	child_exec(t_pipeline *pipeline, t_command *cmd)
 
 static void	handle_child(t_command *cmd, t_pipeline *pipeline)
 {
-	if (cmd->prev)
-		close(cmd->pipe_left[1]);
 	if (cmd->next)
 		close(cmd->pipe_right[0]);
 	child_exec(pipeline, cmd);
