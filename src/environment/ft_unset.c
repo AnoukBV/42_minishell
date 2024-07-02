@@ -50,19 +50,24 @@ void	unset_variable(char *argv, t_list **env)
 int	ft_unset(char **argv, t_list **env)
 {
 	size_t		i;
+	int			exit;
 
 	i = 0;
+	exit = 0;
 	if (argv == NULL)
 		return (1);
 	while (i < ft_arrlen(&argv[1]))
 	{
 		if (exp_check_err(argv[i + 1]) == 1)
-			ft_unset_err_mess(argv[i + 1], NULL);
+			exit = ft_unset_err_mess(argv[i + 1], NULL);
 		else
+		{
 			unset_variable(argv[i + 1], env);
+			exit = 0;
+		}
 		i++;
 	}
-	return (0);
+	return (exit);
 }
 
 int	ft_exp_option_mess(char str)
