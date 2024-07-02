@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:24:12 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/27 15:59:54 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:46:55 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,13 @@ static t_list	*export_prepare_sort(t_member **ent, t_list **env)
 {
 	int			i;
 	t_list		*tmp;
-	t_member	*m;
-	char		c;
 
 	i = 0;
 	tmp = *env;
 	if (!tmp)
 		return (0);
-	m = (t_member *)tmp->content;
-	c = m->key[0];
 	while (tmp)
 	{
-		m = (t_member *)tmp->content;
-		c = m->key[0];
 		ent[i] = (t_member *)tmp->content;
 		tmp = tmp->next;
 		i++;
