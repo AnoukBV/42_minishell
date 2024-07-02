@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:55:09 by abernade          #+#    #+#             */
-/*   Updated: 2024/06/26 07:44:11 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:04:21 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ char	*select_prompt(void)
 
 static int	prepare_next_input(char *line, t_pipeline *pipeline, t_list **env)
 {
+	int	exit;
+
+	exit = ft_atoi(env_find_key(ENV_EXIT_CODE, env));
 	if (ft_strlen(line))
 	{
 		add_history(line);
@@ -73,14 +76,15 @@ static int	prepare_next_input(char *line, t_pipeline *pipeline, t_list **env)
 		free(line);
 		shell_prompt(env);
 	}
-	return (0);
+	return (exit);
 }
 
-void	shell_prompt(t_list **env)
+int	shell_prompt(t_list **env)
 {
 	t_list		*tokens;
 	char		*line;
 	t_pipeline	*pipeline;
+	int			exit;
 
 	line = select_prompt();
 	pipeline = NULL;
@@ -97,5 +101,6 @@ void	shell_prompt(t_list **env)
 			execute_pipeline(pipeline);
 		}
 	}
-	prepare_next_input(line, pipeline, env);
+	exit = prepare_next_input(line, pipeline, env);
+	return (exit);
 }

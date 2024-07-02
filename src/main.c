@@ -22,15 +22,17 @@ void	clear_statics(void)
 int	main(int ac, char **av, char **envp)
 {
 	t_list	*env;
+	int		exit;
 
 	(void)av;
 	(void)ac;
 	g_status = 0;
 	env = NULL;
+	exit = 0;
 	set_hashtable(envp, &env);
-	shell_prompt(&env);
+	exit = shell_prompt(&env);
 	ft_lstclear(&env, &del_member);
 	ft_putstr_fd("exit\n", 1);
 	clear_statics();
-	return (0);
+	return (exit);
 }

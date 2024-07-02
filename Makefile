@@ -70,7 +70,7 @@ INCLUDES = -I$(INCLUDES_DIR) \
 			-Ilibft
 
 CC := cc
-CFLAGS := -Wall -Wextra -Werror -gdwarf-4 -O -O0 -g
+CFLAGS := -Wall -Wextra -Werror -g
 PREPFLAGS := $(addprefix -I, $(HEAD)) -MMD -MP
 LDFLAGS := -Llib/libft -Lheaders -lreadline -lhistory
 LDLIBS := -lft

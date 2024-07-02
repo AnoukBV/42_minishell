@@ -6,7 +6,7 @@
 /*   By: aboulore <aboulore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:11:16 by aboulore          #+#    #+#             */
-/*   Updated: 2024/06/26 07:43:35 by aboulore         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:37:36 by aboulore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define MAX_HEREDOC 100000
 
 char		*get_prompt(t_bool clear);
-void		shell_prompt(t_list **env);
+int			shell_prompt(t_list **env);
 char		*get_prompt(t_bool clear);
 void		clear_statics(void);
 
