@@ -57,9 +57,8 @@ char	*select_prompt(void)
 
 static int	prepare_next_input(char *line, t_pipeline *pipeline, t_list **env)
 {
-	int	exit;
+	int	exit = 0;
 
-	exit = ft_atoi(env_find_key(ENV_EXIT_CODE, env));
 	if (ft_strlen(line))
 	{
 		add_history(line);
@@ -76,6 +75,7 @@ static int	prepare_next_input(char *line, t_pipeline *pipeline, t_list **env)
 		free(line);
 		shell_prompt(env);
 	}
+	exit = ft_atoi(env_find_key(ENV_EXIT_CODE, env));
 	return (exit);
 }
 
