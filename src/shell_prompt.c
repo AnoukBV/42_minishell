@@ -57,8 +57,9 @@ char	*select_prompt(void)
 
 static int	prepare_next_input(char *line, t_pipeline *pipeline, t_list **env)
 {
-	int	exit = 0;
+	int	exit;
 
+	exit = 0;
 	if (ft_strlen(line))
 	{
 		add_history(line);
