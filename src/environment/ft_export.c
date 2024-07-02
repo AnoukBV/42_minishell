@@ -42,6 +42,8 @@ static int	make_value(t_member **m, char *argv, int eq)
 	if (argv[eq - 1] == '+')
 	{
 		save = room->value;
+		if (!save)
+			save = ft_strdup("");
 		search = ft_substr(&argv[eq + 1], 0, \
 			ft_strlen((&argv[eq]) - 1));
 		room->value = ft_strjoin(save, search);
